@@ -4,4 +4,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  require 'shop_domain'
+
+  constraints(ShopDomain) do
+    resources :shop
+    get '/subscription', to: 'shop#subscription'
+    root to: 'pages#home'
+  end
 end
