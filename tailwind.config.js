@@ -23,10 +23,5 @@ module.exports = {
         content: colors.gray[400]
       }
     },
-  },
-  plugins: [
-    require('@tailwindcss/aspect-ratio'),
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/container-queries'),
-  ]
+  }
 }
