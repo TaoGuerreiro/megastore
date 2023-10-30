@@ -1,7 +1,9 @@
-.w-full.hidden.md:block.bg-light
-  = link_to root_path, class: "w-full flex items-center justify-center" do
+.w-full.hidden.md:flex.bg-white.relative.cursor-default.items-center.flex-col
+  .top-6.right-6.absolute
+    = render SocialLinks::Component.new
+  = link_to root_path, class: "inline-block mx-auto" do
     = image_tag("#{Current.store.slug}/logo_v2.png", class: "h-48")
-  .flex.justify-around.items-center.pb-12
+  .flex.justify-around.items-center.pb-12.w-full
     = link_to "Portfolio", root_path, class: "btn-link"
     = link_to "À propos", about_path, class: "btn-link"
     = link_to "Contact", contact_path, class: "btn-link"

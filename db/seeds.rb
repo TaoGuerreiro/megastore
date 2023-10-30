@@ -17,6 +17,8 @@ clemence.stores.create({
   slug: "lecheveublanc",
   meta_title: "Le Cheveu Blanc Illustration",
   meta_description: "Illustrations militantes from Nantes",
-  meta_image: "lecheveublanc/clemence.jpg"
+  meta_image: "lecheveublanc/clemence.jpg",
+  instagram_url: "https://www.instagram.com/le_cheveu_blanc/",
+  facebook_url: "https://www.facebook.com/lecheveublanc/"
 })
 admin_localhost.stores.create(domain: "ngrok.io", name: "Gros Rock", slug: "grosrock")
