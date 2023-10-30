@@ -5,3 +5,11 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+Store.destroy_all
+User.destroy_all
+
+admin_localhost = User.create(first_name: "Ted", last_name: "Lasso", email: "admin@example.fr", password: "123456", role: "admin")
+
+
+admin_localhost.stores.create(domain: "localhost", name: "Le Cheveu Blanc", slug: "lecheveublanc")
+admin_localhost.stores.create(domain: "ngrok.io", name: "Gros Rock", slug: "grosrock")

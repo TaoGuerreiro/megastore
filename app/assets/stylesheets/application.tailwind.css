@@ -1,3 +1,52 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  /* Btn CSS */
+  .btn {
+    @apply px-3 py-2
+  }
+
+  .btn-primary {
+    @apply bg-primary rounded-md text-white font-bold hover:scale-95 transition-all cursor-pointer
+  }
+
+  .btn-link {
+    @apply tracking-wider hover:text-primary transition-all text-xl
+  }
+
+  /* Floating Label CSS */
+  .form-group {
+    @apply relative mb-5 w-full;
+  }
+
+  .form-input {
+    @apply appearance-none block w-full py-2 px-3 border border-gray-300 rounded-md placeholder-transparent focus:outline-none focus:ring-secondary focus:border-secondary;
+    @apply transition-all duration-200;
+    @apply z-40; /* Ajoutez cette ligne pour définir le z-index du champ de saisie */
+  }
+
+  .floating-label {
+    @apply absolute top-2.5 left-0 py-0 px-3 pointer-events-none transform-gpu transition-all duration-200 ease-in-out text-content;
+    @apply transform ;
+    @apply z-0; /* Modifiez cette ligne pour ajouter un z-index au label */
+  }
+
+  .form-input:focus ~ .floating-label,
+  .form-input:not(:placeholder-shown) ~ .floating-label {
+    @apply transform-gpu -translate-y-6 scale-75 text-secondary bg-white rounded-full border border-secondary;
+  }
+
+  .has-error .form-input {
+    @apply border-red-500 focus:ring-red-500 focus:border-red-500;
+  }
+
+  .error {
+    @apply mt-1 text-sm text-red-600;
+  }
+
+  .hint {
+    @apply mt-1 text-sm text-content;
+  }
+}

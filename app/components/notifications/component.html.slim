@@ -1,0 +1,22 @@
+.max-w-sm.w-full.text-secondary.bg-white.shadow-lg.rounded-lg.pointer-events-auto.mt-0.sm:mt-4.hidden data-notification-action-url="#{ @data.dig(:action, :url) }" data-notification-action-method="#{ @data.dig(:action, :method) }" data-notification-timeout="#{ @data[:timeout] }" data-controller="notification"
+  .rounded-lg.shadow-xs.overflow-hidden
+    .p-4
+      .flex.items-start
+        .flex-shrink-0
+          . class="h-6 w-6 #{@icon_color_class}"
+            i class="fa #{@icon_class}"
+        .ml-3.w-0.flex-1 class="pt-0.5"
+          p.text-sm.leading-5.font-medium.text-gray-900
+            = @data[:title]
+          - if @data[:body].present?
+            p.mt-1.text-sm.leading-5.text-content
+              = @data[:body]
+          - if @data[:action].present?
+            .mt-2 data-notification-target="buttons"
+              button data-action="notification#close" class="ml-6 text-sm leading-5 font-medium text-gray-700 hover:text-content focus:outline-none focus:underline transition ease-in-out duration-150"
+                = t('.dismiss')
+        .ml-4.flex-shrink-0.flex
+          button class="inline-flex text-content focus:outline-none focus:text-content transition ease-in-out duration-150" data-action="notification#close"
+            i.fa.solid.fa-xmark.text-xl
+    - if @data[:countdown]
+      . class="bg-tertiary rounded-lg h-1 w-0" data-notification-target="countdown"

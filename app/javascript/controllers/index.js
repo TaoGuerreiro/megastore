@@ -4,5 +4,12 @@
 
 import { application } from "./application"
 
+import CardController from "../../components/cards/card_controller"
+application.register("card", CardController)
+
+import NotificationController from "../../components/notifications/notification_controller"
+application.register("notification", NotificationController)
+
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)

@@ -1,0 +1,24 @@
+doctype html
+html
+  head
+    title MegaStore
+    meta name="viewport" content="width=device-width,initial-scale=1"
+    = csrf_meta_tags
+    = csp_meta_tag
+
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
+
+    script src="https://kit.fontawesome.com/910f22a437.js" crossorigin="anonymous"
+
+    #modal.z-50.fixed.hidden
+  body
+    = render "#{Current.store.slug}/common/navbar"
+    . class="min-h-[calc(100vh-500px)]"
+      = yield
+    = render "#{Current.store.slug}/common/footer"
+
+    . id="notifications" class="z-50 fixed right-10 top-10 cursor-pointer w-96"
+      - flash.each do |type, data|
+        = render Notifications::Component.new(type: type, data: data)
+      - flash.clear

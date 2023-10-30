@@ -1,14 +1,20 @@
 Rails.application.routes.draw do
+  require 'domain'
   devise_for :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
-  # root "articles#index"
-  require 'shop_domain'
-
-  constraints(ShopDomain) do
-    resources :shop
-    get '/subscription', to: 'shop#subscription'
+  constraints(Domain) do
     root to: 'pages#home'
+    get "/contact", to: "pages#contact"
+    get "/about", to: "pages#about"
+    post '/send_message', to: "pages#send_message"
+
+  end
+
+  namespace :admin do
+    authenticate :user, -> (user) { user.admin? } do
+      resource :store, only: [] do
+        get :my_store, on: :member
+      end
+    end
   end
 end

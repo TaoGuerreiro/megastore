@@ -1,5 +1,6 @@
 class Domain
   def self.matches? request
-    request.domain == 'localhost'
+    puts request.domain
+    request.domain == 'localhost' || request.domain == 'ngrok.io'
   end
 end
