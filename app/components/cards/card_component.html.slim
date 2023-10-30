@@ -10,10 +10,7 @@
           i.fa-solid.hover:scale-110.pl-2.fa-chevron-left.text-3xl.text-white.cursor-pointer data-action="click->card#previous"
         #images.w-full.h-full.relative.grow data-card-target="images"
           - images.each do |image|
-            - if link.present?
-              = link_to link, target: "_blank" do
-                = image_tag image, class: "px-2 opacity-0 max-h-[calc(100vh-96px)] cursor-pointer rounded-lg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-            - else
-              = image_tag image, class: "px-2 max-h-[calc(100vh-96px)] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+            = link_to link, target: "_blank" do
+              = image_tag image, class: "px-2 opacity-0 max-h-[calc(100vh-96px)] cursor-pointer rounded-lg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
         - if images.count > 1
           i.fa-solid.hover:scale-110.pr-2.fa-chevron-right.text-3xl.text-white.cursor-pointer data-action="click->card#next"

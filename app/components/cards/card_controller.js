@@ -11,7 +11,7 @@ export default class extends Controller {
 
   show() {
     const template = this.templateTarget.content.cloneNode(true);
-    console.log(template);
+    // console.log(template);
     document.querySelector("#modal").classList.remove("hidden")
     document.querySelector("#modal").appendChild(template)
   }
@@ -22,6 +22,7 @@ export default class extends Controller {
   }
 
   next() {
+    console.log("next");
     const imagesContainer = this.imagesTarget;
     const firstImage = imagesContainer.firstChild;
     const secondImage = imagesContainer.firstChild.nextSibling;
@@ -36,6 +37,7 @@ export default class extends Controller {
   }
 
   previous() {
+    console.log("previous");
     const imagesContainer = this.imagesTarget;
     const lastImage = imagesContainer.lastChild;
     const firstImage = imagesContainer.firstChild;

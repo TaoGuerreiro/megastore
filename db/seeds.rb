@@ -9,7 +9,14 @@ Store.destroy_all
 User.destroy_all
 
 admin_localhost = User.create(first_name: "Ted", last_name: "Lasso", email: "admin@example.fr", password: "123456", role: "admin")
+clemence = User.create(first_name: "Clémence", last_name: "Porcheret", email: "hello@lecheveublanc.fr", password: "123456", role: "admin")
 
-
-admin_localhost.stores.create(domain: "localhost", name: "Le Cheveu Blanc", slug: "lecheveublanc")
+clemence.stores.create({
+  domain: "localhost",
+  name: "Le Cheveu Blanc",
+  slug: "lecheveublanc",
+  meta_title: "Le Cheveu Blanc Illustration",
+  meta_description: "Illustrations militantes from Nantes",
+  meta_image: "lecheveublanc/clemence.jpg"
+})
 admin_localhost.stores.create(domain: "ngrok.io", name: "Gros Rock", slug: "grosrock")
