@@ -1,0 +1,11 @@
+{
+  "apps": [
+    {
+      "app_id": "app_f46053dd-334d-472b-b2c3-ed45414d2cfa",
+      "org_id": "user_d0f57996-e7b2-40a9-afee-a87c7e355d16",
+      "deploy_url": "https://push-n3-par-clevercloud-customers.services.clever-cloud.com/app_f46053dd-334d-472b-b2c3-ed45414d2cfa.git",
+      "name": "megastore",
+      "alias": "megastore"
+    }
+  ]
+}
