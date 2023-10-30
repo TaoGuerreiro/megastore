@@ -16,7 +16,6 @@ class PagesController < ApplicationController
         ContactMailer.with(contact: @contact).new_message_from_store.deliver_now
         redirect_to root_path, notice: "Message bien envoyé", status: :see_other
       rescue => e
-        # Ajouter une logique pour gérer l'erreur d'envoi de l'e-mail, par exemple :
         flash[:error] = "Une erreur est survenue lors de l'envoi du message. Veuillez réessayer."
         render "#{Current.store.slug}/contact", status: :unprocessable_entity
       end
