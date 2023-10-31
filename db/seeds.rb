@@ -1,18 +1,15 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+
+require "open-uri"
+Category.destroy_all
+Item.destroy_all
 Store.destroy_all
 User.destroy_all
 
 admin_localhost = User.create(first_name: "Ted", last_name: "Lasso", email: "admin@example.fr", password: "123456", role: "admin")
 clemence = User.create(first_name: "Clémence", last_name: "Porcheret", email: "hello@lecheveublanc.fr", password: "123456", role: "admin")
-puts Rails.env
+
 if Rails.env == "development"
-  clemence.stores.create({
+  store = clemence.stores.create({
     domain: "localhost",
     name: "Le Cheveu Blanc",
     slug: "lecheveublanc",
@@ -33,4 +30,32 @@ else
     instagram_url: "https://www.instagram.com/le_cheveu_blanc/",
     facebook_url: "https://www.facebook.com/lecheveublanc/"
   })
+end
+categories = []
+[:stickers, :print, :illustration].each do |category|
+  category = Category.create({
+    store: store,
+    name: category
+  })
+
+  categories << category
+end
+
+10.times do
+  file = URI.open("https://source.unsplash.com/random/300x300/?illustration")
+  item = Item.new({
+    name: Faker::Commerce.product_name,
+    description:  Faker::Commerce.material + " " + Faker::Commerce.product_name,
+    price_cents: Faker::Number.number(digits: 5),
+    price_currency: "EUR",
+    store: store,
+    category: categories.sample,
+    stock: Faker::Number.between(from: 0, to: 100),
+    weight: Faker::Number.decimal(l_digits: 2, r_digits: 2),
+    length: Faker::Number.between(from: 1, to: 100),
+    width: Faker::Number.between(from: 1, to: 100),
+    height: Faker::Number.between(from: 1, to: 100)
+  })
+  item.photos.attach(io: file, filename: "nes.png", content_type: "image/png")
+  item.save
 end

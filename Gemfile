@@ -5,6 +5,7 @@ ruby "3.1.2"
 gem "rails", "~> 7.0.8"
 
 gem "bootsnap", require: false
+gem "cloudinary"
 gem "cssbundling-rails"
 gem "devise_invitable"
 gem "devise-i18n"
@@ -30,6 +31,7 @@ gem "view_component", "~> 3.4.0"
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem "pry-byebug"
+  gem "faker"
 end
 
 group :development do

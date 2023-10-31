@@ -23,5 +23,9 @@ module.exports = {
         content: colors.gray[400]
       }
     },
-  }
+  },
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/aspect-ratio'),
+  ]
 }

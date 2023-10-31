@@ -1,0 +1,14 @@
+.bg-white
+  div
+    .relative.z-40.lg:hidden[role="dialog" aria-modal="true"]
+      .fixed.inset-0.bg-black.bg-opacity-25
+      = render "mobile_filters"
+    main.mx-auto.max-w-2xl.px-4.lg:max-w-7xl.lg:px-8
+      .pb-24.pt-12.lg:grid.lg:grid-cols-3.lg:gap-x-8.xl:grid-cols-4
+        = render "filters"
+        section.mt-6.lg:col-span-2.lg:mt-0.xl:col-span-3[aria-labelledby="product-heading"]
+          h2#product-heading.sr-only
+            | Products
+          .grid.grid-cols-1.gap-y-4.sm:grid-cols-2.sm:gap-x-6.sm:gap-y-10.lg:gap-x-8.xl:grid-cols-3
+            - @items.each do |item|
+              = render "card", item:

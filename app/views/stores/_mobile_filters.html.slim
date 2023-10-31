@@ -1,0 +1,113 @@
+.fixed.inset-0.z-40.flex
+        .relative.ml-auto.flex.h-full.w-full.max-w-xs.flex-col.overflow-y-auto.bg-white.py-4.pb-6.shadow-xl
+          .flex.items-center.justify-between.px-4
+            h2.text-lg.font-medium.text-gray-900
+              | Filters
+            button.relative.-mr-2.flex.h-10.w-10.items-center.justify-center.p-2.text-gray-400.hover:text-gray-500[type="button"]
+              span.absolute.-inset-0.5
+              span.sr-only
+                | Close menu
+              svg.h-6.w-6[fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"]
+                path[stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"]
+          form.mt-4
+            .border-t.border-gray-200.pb-4.pt-4
+              fieldset
+                legend.w-full.px-2
+                  button.flex.w-full.items-center.justify-between.p-2.text-gray-400.hover:text-gray-500[type="button" aria-controls="filter-section-0" aria-expanded="false"]
+                    span.text-sm.font-medium.text-gray-900
+                      | Color
+                    span.ml-6.flex.h-7.items-center
+                      svg.rotate-0.h-5.w-5.transform[viewbox="0 0 20 20" fill="currentColor" aria-hidden="true"]
+                        path[fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"]
+                #filter-section-0.px-4.pb-2.pt-4
+                  .space-y-6
+                    .flex.items-center
+                      input#color-0-mobile.h-4.w-4.rounded.border-gray-300.text-indigo-600.focus:ring-indigo-500[name="color[]" value="white" type="checkbox"]
+                      label.ml-3.text-sm.text-gray-500[for="color-0-mobile"]
+                        | White
+                    .flex.items-center
+                      input#color-1-mobile.h-4.w-4.rounded.border-gray-300.text-indigo-600.focus:ring-indigo-500[name="color[]" value="beige" type="checkbox"]
+                      label.ml-3.text-sm.text-gray-500[for="color-1-mobile"]
+                        | Beige
+                    .flex.items-center
+                      input#color-2-mobile.h-4.w-4.rounded.border-gray-300.text-indigo-600.focus:ring-indigo-500[name="color[]" value="blue" type="checkbox"]
+                      label.ml-3.text-sm.text-gray-500[for="color-2-mobile"]
+                        | Blue
+                    .flex.items-center
+                      input#color-3-mobile.h-4.w-4.rounded.border-gray-300.text-indigo-600.focus:ring-indigo-500[name="color[]" value="brown" type="checkbox"]
+                      label.ml-3.text-sm.text-gray-500[for="color-3-mobile"]
+                        | Brown
+                    .flex.items-center
+                      input#color-4-mobile.h-4.w-4.rounded.border-gray-300.text-indigo-600.focus:ring-indigo-500[name="color[]" value="green" type="checkbox"]
+                      label.ml-3.text-sm.text-gray-500[for="color-4-mobile"]
+                        | Green
+                    .flex.items-center
+                      input#color-5-mobile.h-4.w-4.rounded.border-gray-300.text-indigo-600.focus:ring-indigo-500[name="color[]" value="purple" type="checkbox"]
+                      label.ml-3.text-sm.text-gray-500[for="color-5-mobile"]
+                        | Purple
+            .border-t.border-gray-200.pb-4.pt-4
+              fieldset
+                legend.w-full.px-2
+                  button.flex.w-full.items-center.justify-between.p-2.text-gray-400.hover:text-gray-500[type="button" aria-controls="filter-section-1" aria-expanded="false"]
+                    span.text-sm.font-medium.text-gray-900
+                      | Category
+                    span.ml-6.flex.h-7.items-center
+                      svg.rotate-0.h-5.w-5.transform[viewbox="0 0 20 20" fill="currentColor" aria-hidden="true"]
+                        path[fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"]
+                #filter-section-1.px-4.pb-2.pt-4
+                  .space-y-6
+                    .flex.items-center
+                      input#category-0-mobile.h-4.w-4.rounded.border-gray-300.text-indigo-600.focus:ring-indigo-500[name="category[]" value="new-arrivals" type="checkbox"]
+                      label.ml-3.text-sm.text-gray-500[for="category-0-mobile"]
+                        | All New Arrivals
+                    .flex.items-center
+                      input#category-1-mobile.h-4.w-4.rounded.border-gray-300.text-indigo-600.focus:ring-indigo-500[name="category[]" value="tees" type="checkbox"]
+                      label.ml-3.text-sm.text-gray-500[for="category-1-mobile"]
+                        | Tees
+                    .flex.items-center
+                      input#category-2-mobile.h-4.w-4.rounded.border-gray-300.text-indigo-600.focus:ring-indigo-500[name="category[]" value="crewnecks" type="checkbox"]
+                      label.ml-3.text-sm.text-gray-500[for="category-2-mobile"]
+                        | Crewnecks
+                    .flex.items-center
+                      input#category-3-mobile.h-4.w-4.rounded.border-gray-300.text-indigo-600.focus:ring-indigo-500[name="category[]" value="sweatshirts" type="checkbox"]
+                      label.ml-3.text-sm.text-gray-500[for="category-3-mobile"]
+                        | Sweatshirts
+                    .flex.items-center
+                      input#category-4-mobile.h-4.w-4.rounded.border-gray-300.text-indigo-600.focus:ring-indigo-500[name="category[]" value="pants-shorts" type="checkbox"]
+                      label.ml-3.text-sm.text-gray-500[for="category-4-mobile"]
+                        | Pants & Shorts
+            .border-t.border-gray-200.pb-4.pt-4
+              fieldset
+                legend.w-full.px-2
+                  button.flex.w-full.items-center.justify-between.p-2.text-gray-400.hover:text-gray-500[type="button" aria-controls="filter-section-2" aria-expanded="false"]
+                    span.text-sm.font-medium.text-gray-900
+                      | Sizes
+                    span.ml-6.flex.h-7.items-center
+                      svg.rotate-0.h-5.w-5.transform[viewbox="0 0 20 20" fill="currentColor" aria-hidden="true"]
+                        path[fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"]
+                #filter-section-2.px-4.pb-2.pt-4
+                  .space-y-6
+                    .flex.items-center
+                      input#sizes-0-mobile.h-4.w-4.rounded.border-gray-300.text-indigo-600.focus:ring-indigo-500[name="sizes[]" value="xs" type="checkbox"]
+                      label.ml-3.text-sm.text-gray-500[for="sizes-0-mobile"]
+                        | XS
+                    .flex.items-center
+                      input#sizes-1-mobile.h-4.w-4.rounded.border-gray-300.text-indigo-600.focus:ring-indigo-500[name="sizes[]" value="s" type="checkbox"]
+                      label.ml-3.text-sm.text-gray-500[for="sizes-1-mobile"]
+                        | S
+                    .flex.items-center
+                      input#sizes-2-mobile.h-4.w-4.rounded.border-gray-300.text-indigo-600.focus:ring-indigo-500[name="sizes[]" value="m" type="checkbox"]
+                      label.ml-3.text-sm.text-gray-500[for="sizes-2-mobile"]
+                        | M
+                    .flex.items-center
+                      input#sizes-3-mobile.h-4.w-4.rounded.border-gray-300.text-indigo-600.focus:ring-indigo-500[name="sizes[]" value="l" type="checkbox"]
+                      label.ml-3.text-sm.text-gray-500[for="sizes-3-mobile"]
+                        | L
+                    .flex.items-center
+                      input#sizes-4-mobile.h-4.w-4.rounded.border-gray-300.text-indigo-600.focus:ring-indigo-500[name="sizes[]" value="xl" type="checkbox"]
+                      label.ml-3.text-sm.text-gray-500[for="sizes-4-mobile"]
+                        | XL
+                    .flex.items-center
+                      input#sizes-5-mobile.h-4.w-4.rounded.border-gray-300.text-indigo-600.focus:ring-indigo-500[name="sizes[]" value="2xl" type="checkbox"]
+                      label.ml-3.text-sm.text-gray-500[for="sizes-5-mobile"]
+                        | 2XL

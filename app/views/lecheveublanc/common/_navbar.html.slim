@@ -1,13 +1,15 @@
-.w-full.hidden.md:flex.bg-white.relative.cursor-default.items-center.flex-col
-  .top-6.right-6.absolute
+.w-full.hidden.md:flex.bg-white.relative.cursor-default.items-center.flex-col.border-b.boder-light
+  .top-6.right-6.absolute.flex.items-center
     = render SocialLinks::Component.new
+    / = render Cart::Component.new
+
   = link_to root_path, class: "inline-block mx-auto" do
     = image_tag("#{Current.store.slug}/logo_v2.png", class: "h-48")
   .flex.justify-around.items-center.pb-12.w-full
     = link_to "Portfolio", root_path, class: "btn-link"
     = link_to "À propos", about_path, class: "btn-link"
     = link_to "Contact", contact_path, class: "btn-link"
-    / = link_to "Boutique", nested_taxons_path("categories"), class: "tracking-widest"
+    = link_to "Boutique", store_path, class: "btn-link"
 
 .h-36.md:hidden
   = link_to root_path, class: "w-full flex items-center justify-center" do

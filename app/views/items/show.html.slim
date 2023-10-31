@@ -1,0 +1,103 @@
+.bg-white
+  .mx-auto.max-w-2xl.px-4.py-16.sm:px-6.sm:py-24.lg:max-w-7xl.lg:px-8
+    .lg:grid.lg:grid-cols-2.lg:items-start.lg:gap-x-8
+      .flex.flex-col-reverse
+        .mx-auto.mt-6.hidden.w-full.max-w-2xl.sm:block.lg:max-w-none
+          .grid.grid-cols-4.gap-6[aria-orientation="horizontal" role="tablist"]
+
+            - if @item.photos.count < 1
+              - @item.photos.each do |photo|
+                button#tabs-1-tab-1.relative.flex.h-24.cursor-pointer.items-center.justify-center.rounded-md.bg-white.text-sm.font-medium.uppercase.text-gray-900.hover:bg-gray-50.focus:outline-none.focus:ring.focus:ring-opacity-50.focus:ring-offset-4[aria-controls="tabs-1-panel-1" role="tab" type="button"]
+                  span.absolute.inset-0.overflow-hidden.rounded-md
+                    = cl_image_tag @item.photos.first.blob.key, cloud_name: "bici-couriers", class: "h-full w-full object-cover object-center"
+                  span.ring-transparent.pointer-events-none.absolute.inset-0.rounded-md.ring-2.ring-offset-2[aria-hidden="true"]
+
+        .aspect-h-1.aspect-w-1.w-full
+          #tabs-1-panel-1[aria-labelledby="tabs-1-tab-1" role="tabpanel" tabindex="0"]
+            = cl_image_tag @item.photos.first.blob.key, cloud_name: "bici-couriers", class: "h-full w-full object-cover object-center sm:rounded-lg"
+      .mt-10.px-4.sm:mt-16.sm:px-0.lg:mt-0
+        h1.text-3xl.font-bold.tracking-tight.text-gray-900
+          = @item.name
+        .mt-3
+          h2.sr-only
+            | Product information
+          p.text-3xl.tracking-tight.text-gray-900
+            = "#{@item.price} €"
+        / .mt-3
+        /   h3.sr-only
+        /     | Reviews
+        /   .flex.items-center
+        /     .flex.items-center
+        /       svg.h-5.w-5.flex-shrink-0.text-indigo-500[viewbox="0 0 20 20" fill="currentColor" aria-hidden="true"]
+        /         path[fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd"]
+        /       svg.h-5.w-5.flex-shrink-0.text-indigo-500[viewbox="0 0 20 20" fill="currentColor" aria-hidden="true"]
+        /         path[fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd"]
+        /       svg.h-5.w-5.flex-shrink-0.text-indigo-500[viewbox="0 0 20 20" fill="currentColor" aria-hidden="true"]
+        /         path[fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd"]
+        /       svg.h-5.w-5.flex-shrink-0.text-indigo-500[viewbox="0 0 20 20" fill="currentColor" aria-hidden="true"]
+        /         path[fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd"]
+        /       svg.h-5.w-5.flex-shrink-0.text-gray-300[viewbox="0 0 20 20" fill="currentColor" aria-hidden="true"]
+        /         path[fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd"]
+        /     p.sr-only
+        /       | 4 out of 5 stars
+        .mt-6
+          h3.sr-only
+            | Description
+          .space-y-6.text-base.text-gray-700
+            p
+              = @item.description
+        .mt-6
+          / div
+          /   h3.text-sm.text-gray-600
+          /     | Color
+          /   fieldset.mt-2
+          /     legend.sr-only
+          /       | Choose a color
+          /     span.flex.items-center.space-x-3
+          /       label.relative.-m-0.5.flex.cursor-pointer.items-center.justify-center.rounded-full.p-0.5.focus:outline-none.ring-gray-700
+          /         input.sr-only[type="radio" name="color-choice" value="Washed Black" aria-labelledby="color-choice-0-label"]
+          /         span#color-choice-0-label.sr-only
+          /           | Washed Black
+          /         span.h-8.w-8.bg-gray-700.rounded-full.border.border-black.border-opacity-10[aria-hidden="true"]
+          /       label.relative.-m-0.5.flex.cursor-pointer.items-center.justify-center.rounded-full.p-0.5.focus:outline-none.ring-gray-400
+          /         input.sr-only[type="radio" name="color-choice" value="White" aria-labelledby="color-choice-1-label"]
+          /         span#color-choice-1-label.sr-only
+          /           | White
+          /         span.h-8.w-8.bg-white.rounded-full.border.border-black.border-opacity-10[aria-hidden="true"]
+          /       label.relative.-m-0.5.flex.cursor-pointer.items-center.justify-center.rounded-full.p-0.5.focus:outline-none.ring-gray-500
+          /         input.sr-only[type="radio" name="color-choice" value="Washed Gray" aria-labelledby="color-choice-2-label"]
+          /         span#color-choice-2-label.sr-only
+          /           | Washed Gray
+          /         span.h-8.w-8.bg-gray-500.rounded-full.border.border-black.border-opacity-10[aria-hidden="true"]
+          .mt-10.flex
+            = button_to "Ajouter au panier", add_item_checkout_path(@item), method: :post, class: "flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent bg-primary px-8 py-3 text-base font-medium text-white hover:bg-primary/80 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full"
+            / button.ml-4.flex.items-center.justify-center.rounded-md.px-3.py-3.text-gray-400.hover:bg-gray-100.hover:text-gray-500[type="button"]
+            /   svg.h-6.w-6.flex-shrink-0[fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"]
+            /     path[stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"]
+            /   span.sr-only
+            /     | Add to favorites
+        section.mt-12[aria-labelledby="details-heading"]
+          h2#details-heading.sr-only
+            | Additional details
+          .divide-y.divide-gray-200.border-t
+            div
+              h3
+                button.group.relative.flex.w-full.items-center.justify-between.py-6.text-left[type="button" aria-controls="disclosure-1" aria-expanded="false"]
+                  span.text-gray-900.text-sm.font-medium
+                    | Informations
+              #disclosure-1.prose.prose-sm.pb-6.text-gray-500.font-thin
+                ul.list-disc.leading-8.pl-3
+                  li
+                    | Multiple strap configurations
+                  li
+                    | Spacious interior with top zip
+                  li
+                    | Leather handle and tabs
+                  li
+                    | Interior dividers
+                  li
+                    | Stainless strap loops
+                  li
+                    | Double stitched construction
+                  li
+                    | Water-resistant
