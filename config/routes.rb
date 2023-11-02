@@ -3,6 +3,17 @@ Rails.application.routes.draw do
   devise_for :users
   mount StripeEvent::Engine, at: '/stripe-webhooks'
 
+  devise_scope :user do
+    resource :profile, only: %i[edit update]
+
+    namespace :admin do
+      authenticate :user, -> (user) { user.admin? } do
+        resource :store, only: [] do
+          get :my_store, on: :member
+        end
+      end
+    end
+  end
   constraints(Domain) do
     root to: 'pages#home'
     get "/contact", to: "pages#contact"
@@ -20,13 +31,5 @@ Rails.application.routes.draw do
       end
     end
     resources :orders, only: [:create, :show]
-  end
-
-  namespace :admin do
-    authenticate :user, -> (user) { user.admin? } do
-      resource :store, only: [] do
-        get :my_store, on: :member
-      end
-    end
   end
 end

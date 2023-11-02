@@ -9,9 +9,9 @@ class Order < ApplicationRecord
 
   monetize :amount_cents
 
-  STATUS = ['pending', 'paid', 'cancelled', 'refunded'].freeze
+  STATUS = ["pending", "confirmed", "paid", "cancelled", "refunded"].freeze
 
-  enumerize :status, in: STATUS, default: 'pending', predicates: true
+  enumerize :status, in: STATUS, default: "pending", predicates: true
 
   def total_price
     if payment_method.present?

@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  include Enumerize
+  extend Enumerize
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

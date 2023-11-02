@@ -12,3 +12,9 @@ application.register("hello", HelloController)
 
 import PhotoSwitchController from "./photo_switch_controller"
 application.register("photo-switch", PhotoSwitchController)
+
+import CardController from "../../components/cards/card_controller"
+application.register("card", CardController)
+
+import NotificationController from "../../components/notifications/notification_controller"
+application.register("notification", NotificationController)
