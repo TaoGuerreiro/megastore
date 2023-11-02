@@ -1,0 +1,14 @@
+.relative data-controller="autosave"
+  = field.radio_button :payment_method, method.id, id: "payment_method_#{method.id}", class: "hidden peer", data: { action: "change->autosave#save" }
+  = field.label :payment_method, for: "payment_method_#{method.id}", class: "block py-3 px-3 first:mx-0 mx-2 my-2 border rounded-md cursor-pointer text-content bg-white peer-checked:bg-tertiary peer-checked:text-white transition-colors duration-300" do
+    span.flex.flex-1
+      span.flex.flex-col
+        span#delivery-method-0-label.block.text-sm.font-medium.text-gray-900
+          = method.name
+        span#delivery-method-0-description-0.mt-1.flex.items-center.text-sm.text-gray-500
+          = method.description
+        span#delivery-method-0-description-1.mt-6.text-sm.font-medium.text-gray-900
+          = "#{method.price} €"
+  .hidden.peer-checked:block.absolute.right-10.top-1/2.-translate-y-1/2
+    i.fa-solid.fa-badge-check.text-3xl.text-primary
+  .hidden = field.submit "Select volume", formmethod: "post", formaction: payment_method_checkout_path(id: field.object), data: { "autosave-target": "button" }

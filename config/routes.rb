@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  get 'items/show'
   require 'domain'
   devise_for :users
+  mount StripeEvent::Engine, at: '/stripe-webhooks'
 
   constraints(Domain) do
     root to: 'pages#home'
@@ -9,11 +9,17 @@ Rails.application.routes.draw do
     get "/about", to: "pages#about"
     post '/send_message', to: "pages#send_message"
     get '/store', to: "stores#show"
+    resource :checkout, only: [:show] do
+      post :payment_method, on: :member
+      post :comfirm_payment, on: :member
+    end
     resources :items, only: [:show] do
       resource :checkout, only: [] do
         post :add, on: :member
+        post :remove, on: :member
       end
     end
+    resources :orders, only: [:create, :show]
   end
 
   namespace :admin do

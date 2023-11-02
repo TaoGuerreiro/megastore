@@ -1,0 +1,14 @@
+li.flex.px-4.py-6.sm:px-6
+  .flex-shrink-0
+    = cl_image_tag item[:item].photos.first.key, cloud_name: "bici-couriers", class: "w-20 rounded-md"
+  .ml-6.flex.flex-1.flex-col
+    .flex
+      .min-w-0.flex-1
+        h4.text-sm
+          .font-medium.text-gray-700.hover:text-gray-800[href="#"]
+            = item[:item].name
+    .flex.flex-1.items-end.justify-between.pt-2
+      p.mt-1.text-sm.font-medium.text-gray-900
+        = "#{item[:item].price} €"
+      .ml-4
+        = "x #{item[:number]}"

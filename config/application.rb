@@ -14,6 +14,7 @@ module Megastore
       generate.helper false
       generate.template_engine :slim
     end
+    config.autoload_paths << Rails.root.join('app/services/*.rb')
 
     config.time_zone = "Europe/Paris"
     config.i18n.default_locale = :fr

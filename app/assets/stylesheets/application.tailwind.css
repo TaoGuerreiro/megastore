@@ -12,6 +12,10 @@
     @apply bg-primary rounded-md text-white font-bold hover:scale-95 transition-all cursor-pointer
   }
 
+  .btn-secondary {
+    @apply bg-secondary rounded-md text-white font-bold hover:scale-95 transition-all cursor-pointer
+  }
+
   .btn-link {
     @apply tracking-wider hover:text-primary transition-all text-xl
   }
@@ -48,5 +52,21 @@
 
   .hint {
     @apply mt-1 text-sm text-content;
+  }
+
+  .spinner {
+    @apply relative w-full inline-block align-middle cursor-pointer border-none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  .spinner:after {
+    @apply absolute block transition-transform duration-200 text-white w-12 animate-spin;
+    content: "\f110";
+    font-family: "Font Awesome 6 Pro";
+    display: inline-block;
+    vertical-align: middle;
+    font-weight:900;
   }
 }

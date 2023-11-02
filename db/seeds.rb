@@ -1,7 +1,8 @@
 
 require "open-uri"
-Category.destroy_all
+PaymentMethod.destroy_all
 Item.destroy_all
+Category.destroy_all
 Store.destroy_all
 User.destroy_all
 
@@ -13,14 +14,14 @@ unless Rails.env == "development"
     domain: "lecheveublanc.fr",
     name: "Le Cheveu Blanc",
     slug: "lecheveublanc",
-    meta_title: "Le Cheveu Blanc Illustration",
+    meta_title: "Le Cheveu Blanc",
     meta_description: "Illustrations militantes from Nantes",
     meta_image: "lecheveublanc/clemence.jpg",
     instagram_url: "https://www.instagram.com/le_cheveu_blanc/",
     facebook_url: "https://www.facebook.com/lecheveublanc/"
   })
 else
-  clemence.stores.create({
+  store = clemence.stores.create({
     domain: "localhost",
     name: "Le Cheveu Blanc",
     slug: "lecheveublanc",
@@ -39,8 +40,8 @@ else
 
     categories << category
   end
-
     10.times do
+
       file = URI.open("https://source.unsplash.com/random/300x300/?illustration")
       item = Item.new({
         name: Faker::Commerce.product_name,
@@ -58,4 +59,8 @@ else
       item.photos.attach(io: file, filename: "nes.png", content_type: "image/png")
       item.save
     end
+
+    PaymentMethod.create(store: store, name: "UPS", description: "Dans les 48h", price: 8)
+    PaymentMethod.create(store: store, name: "Mondial relay", description: "entre 2 à 5 jours", price: 4)
+    PaymentMethod.create(store: store, name: "Remise en main propre", description: "Très propre", price: 0)
 end

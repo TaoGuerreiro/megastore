@@ -1,0 +1,19 @@
+= turbo_frame_tag :form do
+  = simple_form_for @order_intent, url: orders_path, method: :post, id: "order_intent" do |field|
+    .mb-8 = field.input :email, label: "Email", placeholder: "Email"
+    .flex.gap-4.mb-8
+      = field.input :first_name, label: "Prénom", placeholder: "Prénom"
+      = field.input :last_name, label: "Nom", placeholder: "Nom"
+    .mb-8 = field.input :address, label: "Addresse", placeholder: "Addresse"
+    .mb-8 = field.input :phone, label: "Téléphone", placeholder: "Téléphone"
+
+    .mt-10.border-t.border-gray-200.pt-10
+      fieldset
+        legend.text-lg.font-medium.text-gray-900
+          | Methodes de livraison
+        - if field.object.errors[:payment_method].any?
+          p.text-red-500
+            = field.object.errors[:payment_method].join(", ")
+        .mt-4.grid.grid-cols-1.gap-y-6.sm:grid-cols-2.sm:gap-x-4
+          - Current.store.payment_methods.each do |method|
+            = render "payment_method", method: method, field: field

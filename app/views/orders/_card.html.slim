@@ -1,0 +1,15 @@
+  .flex.space-x-6.border-b.border-gray-200.py-10
+    = cl_image_tag item[:item].photos.first.key, cloud_name: "bici-couriers", class: "h-20 w-20 flex-none rounded-lg bg-gray-100 object-cover object-center sm:h-40 sm:w-40"
+    .flex.flex-auto.flex-col
+      div
+        h4.font-medium.text-gray-900
+          = item[:item].name
+        p.mt-2.text-sm.text-gray-600 = item[:item].description
+      .mt-6.flex.flex-1.items-end
+        dl.flex.space-x-4.divide-x.divide-gray-200.text-sm.sm:space-x-6
+          .flex
+            dt.font-medium.text-gray-900 X
+            dd.ml-2.text-gray-700 = "#{item[:number]}"
+          .flex.pl-4.sm:pl-6
+            dt.font-medium.text-gray-900
+            dd.ml-2.text-gray-700 = "#{item[:item].price} €"

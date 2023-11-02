@@ -11,12 +11,19 @@ class Checkout
         number: @ids.count(id)
       }
     end
-      cart
+    cart
   end
 
-  private
+  def sum
+    unique_ids = @ids.uniq
+    sum = 0
+    unique_ids.map do |id|
+      sum += Item.find(id).price_cents * @ids.count(id)
+    end
+    sum / 100.00
+  end
 
-  def set_cart
-
+  def all
+    Item.where(@ids)
   end
 end

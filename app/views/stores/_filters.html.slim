@@ -17,5 +17,5 @@ aside
 
               - Current.store.categories.each_with_index do |category, index|
                 .flex.items-center
-                  = f.input category.name, as: :boolean, boolean_style: :nested, label: t(category.name), input_html: {data: { action: "change->autosave#save" },checked: session[:filters][category.name].to_i.positive?, id: "category-#{index}", class: "h-6 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"}, wrapper_html: { class: "pb-3 mb-0 flex items-center"}, label_html: {class: 'top-1 left-6 text-sm text-gray-600'}
+                  = f.input category.name, as: :boolean, boolean_style: :nested, label: t(category.name), input_html: {data: { action: "change->autosave#save" },checked: session[:filters][category.name].to_i.positive?, id: "category-#{index}", class: "h-6 w-4 rounded border-gray-300 text-indigo-600 focus:ring-primary"}, wrapper_html: { class: "pb-3 mb-0 flex items-center"}, label_html: {class: 'top-1 left-6 text-sm text-gray-600'}
               .hidden = f.submit nil, data: { "autosave-target": "button" }
