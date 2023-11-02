@@ -9,12 +9,12 @@
               - @item.photos.each do |photo|
                 button#tabs-1-tab-1.relative.flex.h-24.cursor-pointer.items-center.justify-center.rounded-md.bg-white.text-sm.font-medium.uppercase.text-gray-900.hover:bg-gray-50.focus:outline-none.focus:ring.focus:ring-opacity-50.focus:ring-offset-4[aria-controls="tabs-1-panel-1" role="tab" type="button"]
                   span.absolute.inset-0.overflow-hidden.rounded-md
-                    = cl_image_tag @item.photos.first.blob.key, cloud_name: "bici-couriers", class: "h-full w-full object-cover object-center"
+                    = image_tag @item.photos.first, class: "h-full w-full object-cover object-center"
                   span.ring-transparent.pointer-events-none.absolute.inset-0.rounded-md.ring-2.ring-offset-2[aria-hidden="true"]
 
         .aspect-h-1.aspect-w-1.w-full
           #tabs-1-panel-1[aria-labelledby="tabs-1-tab-1" role="tabpanel" tabindex="0"]
-            = cl_image_tag @item.photos.first.blob.key, cloud_name: "bici-couriers", class: "h-full w-full object-cover object-center sm:rounded-lg"
+            = image_tag @item.photos.first, class: "h-full w-full object-cover object-center sm:rounded-lg"
       .mt-10.px-4.sm:mt-16.sm:px-0.lg:mt-0
         h1.text-3xl.font-bold.tracking-tight.text-gray-900
           = @item.name

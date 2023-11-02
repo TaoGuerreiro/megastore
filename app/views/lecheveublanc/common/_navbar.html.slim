@@ -1,7 +1,8 @@
 .w-full.hidden.md:flex.bg-white.relative.cursor-default.items-center.flex-col.border-b.boder-light
   .top-6.right-6.absolute.flex.items-center
     = render SocialLinks::Component.new
-    = render Cart::Component.new
+
+    = render "shared/cart"
 
   = link_to root_path, class: "inline-block mx-auto" do
     = image_tag("#{Current.store.slug}/logo_v2.png", class: "h-48")

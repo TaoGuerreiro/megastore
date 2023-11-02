@@ -1,5 +1,8 @@
 
 require "open-uri"
+
+OrderItem.destroy_all
+Order.destroy_all
 PaymentMethod.destroy_all
 Item.destroy_all
 Category.destroy_all
@@ -25,7 +28,7 @@ else
     domain: "localhost",
     name: "Le Cheveu Blanc",
     slug: "lecheveublanc",
-    meta_title: "Le Cheveu Blanc Illustration",
+    meta_title: "Le Cheveu Blanc",
     meta_description: "Illustrations militantes from Nantes",
     meta_image: "lecheveublanc/clemence.jpg",
     instagram_url: "https://www.instagram.com/le_cheveu_blanc/",

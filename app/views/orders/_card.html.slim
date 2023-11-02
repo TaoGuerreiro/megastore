@@ -1,5 +1,5 @@
   .flex.space-x-6.border-b.border-gray-200.py-10
-    = cl_image_tag item[:item].photos.first.key, cloud_name: "bici-couriers", class: "h-20 w-20 flex-none rounded-lg bg-gray-100 object-cover object-center sm:h-40 sm:w-40"
+    = image_tag item[:item].photos.first, class: "h-20 w-20 flex-none rounded-lg bg-gray-100 object-cover object-center sm:h-40 sm:w-40"
     .flex.flex-auto.flex-col
       div
         h4.font-medium.text-gray-900

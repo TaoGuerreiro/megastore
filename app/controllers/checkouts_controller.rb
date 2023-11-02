@@ -7,15 +7,21 @@ class CheckoutsController < ApplicationController
     @item = Item.find(params[:item_id])
     session[:checkout_items] << @item.id
 
-    redirect_to item_path(@item), notice: "#{@item.name} ajouté au panier"
+    respond_to do |format|
+      format.html { redirect_to item_path(@item), notice: "#{@item.name} ajouté au panier" }
+      format.turbo_stream
+    end
   end
 
   def remove
     session[:checkout_items] = session[:checkout_items] || []
     @item = Item.find(params[:item_id])
     session[:checkout_items].delete_at session[:checkout_items].index @item.id
-
-    redirect_to item_path(@item), notice: "#{@item.name} supprimé panier"
+    @opened = true
+    respond_to do |format|
+      format.html { redirect_to item_path(@item), notice: "#{@item.name} supprimé panier" }
+      format.turbo_stream
+    end
   end
 
   def show

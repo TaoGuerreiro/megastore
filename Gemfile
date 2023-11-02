@@ -5,12 +5,14 @@ ruby "3.1.2"
 gem "rails", "~> 7.0.8"
 
 gem "bootsnap", require: false
-gem "cloudinary"
+gem "aws-sdk-s3", require: false
 gem "cssbundling-rails"
 gem "devise_invitable"
 gem "devise-i18n"
 gem "devise"
 gem "enumerize"
+gem "image_processing", "~> 1.2"
+
 gem "jbuilder"
 gem "jsbundling-rails"
 gem "money-rails", "~> 1.13"
