@@ -10,8 +10,5 @@ application.register("autosave", AutosaveController)
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
-import CardController from "../../components/cards/card_controller"
-application.register("card", CardController)
-
-import NotificationController from "../../components/notifications/notification_controller"
-application.register("notification", NotificationController)
+import PhotoSwitchController from "./photo_switch_controller"
+application.register("photo-switch", PhotoSwitchController)

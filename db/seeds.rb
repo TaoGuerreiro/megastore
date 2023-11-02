@@ -46,6 +46,8 @@ else
     10.times do
 
       file = URI.open("https://source.unsplash.com/random/300x300/?illustration")
+      file_2 = URI.open("https://loremflickr.com/320/240")
+      file_3 = URI.open("https://picsum.photos/200/300")
       item = Item.new({
         name: Faker::Commerce.product_name,
         description:  Faker::Commerce.material + " " + Faker::Commerce.product_name,
@@ -59,7 +61,11 @@ else
         width: Faker::Number.between(from: 1, to: 100),
         height: Faker::Number.between(from: 1, to: 100)
       })
-      item.photos.attach(io: file, filename: "nes.png", content_type: "image/png")
+      item.photos.attach([
+        { io: file, filename: "nes.png", content_type: "image/png" },
+        { io: file_2, filename: "nes_2.png", content_type: "image/png" },
+        { io: file_3, filename: "nes_3.png", content_type: "image/png" }
+      ])
       item.save
     end
 
