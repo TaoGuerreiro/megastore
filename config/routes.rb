@@ -8,12 +8,22 @@ Rails.application.routes.draw do
 
     namespace :admin do
       authenticate :user, -> (user) { user.admin? } do
-        resource :store, only: [] do
+        resource :store, only: [:edit, :show] do
           get :my_store, on: :member
         end
+
+        resources :store, only: [:edit, :show] do
+          resources :categories, only: [:new, :create, :edit, :update]
+        end
+        resources :categories, only: [:destroy]
+        resources :items, only: [:index, :new, :create, :edit, :update, :destroy] do
+          delete :remove_photo, on: :member
+        end
+        resources :orders, only: [:index, :show, :edit]
       end
     end
   end
+
   constraints(Domain) do
     root to: 'pages#home'
     get "/contact", to: "pages#contact"

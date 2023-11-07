@@ -40,7 +40,6 @@ class CheckoutsController < ApplicationController
   end
 
   def comfirm_payment
-    # binding.pry
     unless @order_intent.valid?
       respond_to do |format|
         format.html { render "checkouts/show", status: :unprocessable_entity }

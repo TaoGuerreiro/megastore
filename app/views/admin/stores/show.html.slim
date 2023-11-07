@@ -1,0 +1,54 @@
+.bg-light.min-h-screen
+  .mx-auto.max-w-5xl.px-4.sm:px-6.lg:px-8.py-12
+    div
+      .px-4.sm:px-0
+        h3.text-base.font-semibold.leading-7.text-gray-900
+          | Informations
+        p.mt-1.max-w-2xl.text-sm.leading-6.text-gray-500
+          | Configuration générale de la boutique
+      .mt-6.border-t.border-gray-100
+        dl.divide-y.divide-gray-200
+
+          .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
+            dt.text-sm.font-medium.leading-6.text-gray-900
+              | Nom
+            dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
+              = @store.name
+          .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
+            dt.text-sm.font-medium.leading-6.text-gray-900
+              | Meta Title
+            dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
+              = @store.meta_title
+          .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
+            dt.text-sm.font-medium.leading-6.text-gray-900
+              | Meta Description
+            dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
+              = @store.meta_description
+          .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
+            dt.text-sm.font-medium.leading-6.text-gray-900
+              | URL Instagram
+            dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
+              = @store.instagram_url
+          .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
+            dt.text-sm.font-medium.leading-6.text-gray-900
+              | URL Facebook
+            dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
+              = @store.facebook_url
+          .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
+            dt.text-sm.font-medium.leading-6.text-gray-900
+              | Texte de la page à propos
+            dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
+              = @store.about_text
+    .py-12
+      .sm:flex.sm:items-center
+        .sm:flex-auto
+          h1.text-base.font-semibold.leading-6.text-gray-900
+            | Catégorie
+        .mt-4.sm:ml-16.sm:mt-0.sm:flex-none
+          = link_to "Ajouter une catégorie", new_admin_store_category_path(@store), data: { turbo_frame: "new_category" }, class: "btn btn-primary"
+
+      .mt-8.flow-root
+        .-mx-4.-my-2.overflow-x-auto.sm:-mx-6.lg:-mx-8
+          .inline-block.min-w-full.py-2.align-middle.sm:px-6.lg:px-8
+            = turbo_frame_tag :new_category do
+            = render "admin/categories/categories"

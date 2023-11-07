@@ -7,6 +7,9 @@ import { application } from "./application"
 import AutosaveController from "./autosave_controller"
 application.register("autosave", AutosaveController)
 
+import PhotoUploadController from "./photo_upload_controller"
+application.register("photo-upload", PhotoUploadController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 

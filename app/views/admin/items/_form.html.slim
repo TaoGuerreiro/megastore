@@ -1,0 +1,22 @@
+.mt-8.flow-root.max-w-3xl.mx-auto
+  .-mx-4.-my-2.overflow-x-auto.sm:-mx-6.lg:-mx-8
+    .inline-block.min-w-full.py-5.align-middle.sm:px-6.lg:px-8 data-controller="photo-upload"
+      = simple_form_for [:admin, @item] do |field|
+        = field.input :name, label: "Nom", placeholder: "Nom"
+        = field.input :description, as: :text, label: "Description", placeholder: "Description"
+        .flex.gap-4
+          = field.input :price, label: "Prix", placeholder: "Prix"
+          = field.input :stock, label: "Stock", placeholder: "Stock"
+          = field.association :category, collection: Current.store.categories.map {|category| [category.name, category.id]}, label: "Catégorie", placeholder: "Catégorie"
+        = field.input :active, label: "En ligne", as: :boolean, input_html: {class: "w-5 h-5 m-0 p-0 flex"}, wrapper_html: {class: "flex items-center"}, label_html: {class: "-top-0.5 left-4"}
+        = field.input :photos, label: false, input_html: { multiple: true, class: "hidden", data: { action: "change->photo-upload#show" }}
+        = field.label :photos do
+          .h-10.inline.px-3.py-2.bg-white.rounded-xl.cursor-pointer.border.border-gray-200 Ajouter une photo
+
+      .mt-5 data-photo-upload-target="photosContainer"
+        - if @item.persisted?
+          - @item.photos.each do |photo|
+            .inline-block.w-20.h-20.mr-4.bg-gray-800.rounded-xl.relative
+              = image_tag photo, class: "w-full h-full object-cover rounded-xl"
+              = button_to remove_photo_admin_item_path(@item, photo_id: photo), method: :delete, class: "absolute top-1 right-1 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-white hover:bg-red-600" do
+                i.fas.fa-times

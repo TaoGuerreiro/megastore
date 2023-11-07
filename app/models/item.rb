@@ -9,4 +9,9 @@ class Item < ApplicationRecord
 
   has_many_attached :photos
   monetize :price_cents  # pour money-rails
+
+  validates :name, presence: true
+  validates :description, presence: true
+  validates :price, presence: true
+  validates :stock, presence: true
 end

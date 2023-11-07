@@ -1,0 +1,11 @@
+= turbo_frame_tag dom_id(category) do
+  ul.flex.justify-between.border-b.border-gray-300
+    li.whitespace-nowrap.py-4.pl-4.pr-3.text-sm.font-medium.text-gray-800.sm:pl-0
+      = category.name
+    div.w-12.flex
+      li.relative.whitespace-nowrap.py-4.pl-3.pr-4.text-right.text-sm.font-medium.sm:pr-0
+        = link_to edit_admin_store_category_path(Current.store, category), data: { turbo_frame: dom_id(category)}, class: "text-primary hover:text-primary/90" do
+          i.fa-solid.fa-pencil-alt
+      li.relative.whitespace-nowrap.py-4.pl-3.pr-4.text-right.text-sm.font-medium.sm:pr-0
+        = link_to admin_category_path(category), data: { turbo_method: :delete }, class: "text-primary hover:text-primary/90" do
+          i.fa-solid.fa-trash

@@ -26,7 +26,7 @@ html
   body.h-full
     .flex
       . = render "shared/sidebar"
-      .w-full.h-full = yield
+      .w-full.h-full.min-h-screen = yield
 
     . id="notifications" class="z-50 fixed right-10 top-10 cursor-pointer w-96"
       - flash.each do |type, data|
