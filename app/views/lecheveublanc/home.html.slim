@@ -1,7 +1,7 @@
 .grid.sm:grid-cols-2.md:grid-cols-3.gap-6.px-12.pt-12 data-controller="card fade-in" data-action="click->card#test"
   .gap-6.space-y-6
-    - images = images_from_directory("colision")
-    = render Cards::CardComponent.new(title: "Collision devices", link: "https://collisiondevices.com/", images: images)
+    - images = images_from_directory("hug")
+    = render Cards::CardComponent.new(  images: images)
 
     - images = images_from_directory("violence")
     = render Cards::CardComponent.new(images: images)
@@ -15,8 +15,8 @@
     - images = images_from_directory("male_tears")
     = render Cards::CardComponent.new( images: images)
 
-    - images = images_from_directory("hug")
-    = render Cards::CardComponent.new(  images: images)
+    - images = images_from_directory("colision")
+    = render Cards::CardComponent.new(title: "Collision devices", link: "https://collisiondevices.com/", images: images)
 
     - images = images_from_directory("period")
     = render Cards::CardComponent.new( images: images)

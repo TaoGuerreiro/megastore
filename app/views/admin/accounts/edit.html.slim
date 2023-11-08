@@ -10,10 +10,25 @@
         .flex.items-center
           = button_tag :submit, form: "edit_user_#{@user}", class: "text-gray-500" do
             i.fa-solid.fa-check
-      .mt-6.border-t.border-gray-100
+      .mt-6.border-t.border-gray-100 data-controller="photo-upload"
         = simple_form_for :user, url: admin_account_path, method: :patch, id: "edit_user_#{@user}" do |field|
-          = field.input :first_name
-          = field.input :last_name
-          = field.input :email
-          = field.input :password
-          = field.input :password_confirmation
+          = field.input :first_name, label: "Prénom", placeholder: "Prénom"
+          = field.input :last_name, label: "Nom", placeholder: "Nom"
+          = field.input :email, label: "Email", placeholder: "Email"
+          .mb-5
+            = field.input :avatar, as: :file, label: false, input_html: { accept: "image/*", class:"hidden" }
+            = field.label :avatar do
+              .h-10.inline.px-3.py-2.bg-white.rounded-xl.cursor-pointer.border.border-gray-200 Parcourir
+
+          .mb-5 data-photo-upload-target="photosContainer"
+            - if @user.avatar.attached?
+              .inline-block.w-36.h-36.mr-4.bg-gray-800.rounded-xl.relative
+                = image_tag @user.avatar, class: "w-full h-full object-cover rounded-xl"
+          / = image_tag @user.avatar, class: "rounded-full w-24 h-24 object-cover"
+
+          = field.input :password, label: "Mot de passe", placeholder: "Mot de passe"
+          = field.input :password_confirmation, label: "Confirmation du mot de passe", placeholder: "Confirmation du mot de passe"
+
+
+              / = button_to remove_photo_admin_item_path(@item, photo_id: photo), method: :delete, class: "absolute top-1 right-1 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-white hover:bg-red-600" do
+              /   i.fas.fa-times

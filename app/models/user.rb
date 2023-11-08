@@ -11,8 +11,13 @@ class User < ApplicationRecord
 
   has_many :stores, foreign_key: :admin_id
   validates :first_name, :last_name, presence: true
+  has_one_attached :avatar
 
   def full_name
     "#{first_name&.capitalize} #{last_name&.upcase}".strip.presence || email
+  end
+
+  def initials
+    "#{first_name&.first}#{last_name&.first}".upcase
   end
 end

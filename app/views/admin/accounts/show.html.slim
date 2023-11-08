@@ -33,3 +33,6 @@
               | Mots de passe
             dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
               = "*" * 10
+          .px-4.flex.justify-center.mx-auto.w-1/2
+            - if current_user.avatar.attached?
+              = image_tag current_user.avatar, class: "w-full h-full object-cover rounded-xl"

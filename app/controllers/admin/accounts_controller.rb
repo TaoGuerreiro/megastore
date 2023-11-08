@@ -40,7 +40,8 @@ module Admin
           :email,
           :avatar,
           :password,
-          :password_confirmation
+          :password_confirmation,
+          :avatar
         )
       end
     end

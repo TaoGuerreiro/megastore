@@ -330,6 +330,7 @@ DEPENDENCIES
   image_processing (~> 1.2)
   jbuilder
   jsbundling-rails
+  mini_magick
   money-rails (~> 1.13)
   pg (~> 1.1)
   postmark-rails

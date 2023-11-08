@@ -1,0 +1,7 @@
+div class="#{AVATAR_CLASSES} #{@classes}"
+  - if @user.avatar.attached?
+    = image_tag(@user.avatar.variant(resize_to_limit: [AVATAR_SIZE, AVATAR_SIZE]))
+  - elsif @user.initials
+    span.p-2 = @user.initials
+  - else
+    = image_tag("default-avatar.png", alt: "Default profil photo", height: AVATAR_SIZE, width: AVATAR_SIZE)

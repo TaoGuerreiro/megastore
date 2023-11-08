@@ -1,4 +1,4 @@
-.bg-light.min-h-screen
+.bg-light.min-h-screen.pt-12.md:pt-0
   .mx-auto.max-w-7xl
     .bg-light.py-10
       .px-4.sm:px-6.lg:px-8
@@ -8,7 +8,7 @@
               | Nouvel article
             p.mt-2.text-sm.text-gray-600
               | Vous pouvez un article çi dessous
-          .mt-4.sm:ml-16.sm:mt-0.sm:flex-none
+          .mt-4.sm:mt-0
             = submit_tag "Ajouter", form: "new_item", class: "btn btn-primary"
 
         = render "form"
