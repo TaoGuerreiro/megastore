@@ -33,10 +33,10 @@ unless Rails.env == "development"
                   Je travaille autant pour l’<strong>édition</strong>, <strong>la presse</strong> ou <strong>le packaging</strong>, que pour des contenus numériques.
                 </p>
                 <p class='leading-7 pb-4'>
-                  Si vous souhaitez travailler avec moi n’hésitez pas à me contacter par <a href='mailto:hello@lecheveublanc.fr'>e-mail</a>
+                  Si vous souhaitez travailler avec moi n’hésitez pas à me contacter par <a class='text-primary' href='mailto:hello@lecheveublanc.fr'>e-mail</a>.
                 </p>
-                <p class=''>
-                  Vous pouvez aussi suivre l’avancée de mes projets en cours sur mon compte <a href='https://www.instagram.com/le_cheveu_blanc'>Instagram</a>
+                <p>
+                  Vous pouvez aussi suivre l’avancée de mes projets en cours sur mon compte <a class='text-primary' href='https://www.instagram.com/le_cheveu_blanc'>Instagram</a>.
                 </p>",
     instagram_url: "https://www.instagram.com/le_cheveu_blanc/",
     facebook_url: "https://www.facebook.com/lecheveublanc/"
