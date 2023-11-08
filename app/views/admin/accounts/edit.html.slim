@@ -1,0 +1,19 @@
+.bg-light.min-h-screen
+  .mx-auto.max-w-5xl.px-4.sm:px-6.lg:px-8.py-12
+    div
+      .flex.justify-between
+        .px-4.sm:px-0
+          h3.text-base.font-semibold.leading-7.text-gray-900
+            | Informations
+          p.mt-1.max-w-2xl.text-sm.leading-6.text-gray-500
+            | Mon compte
+        .flex.items-center
+          = button_tag :submit, form: "edit_user_#{@user}", class: "text-gray-500" do
+            i.fa-solid.fa-check
+      .mt-6.border-t.border-gray-100
+        = simple_form_for :user, url: admin_account_path, method: :patch, id: "edit_user_#{@user}" do |field|
+          = field.input :first_name
+          = field.input :last_name
+          = field.input :email
+          = field.input :password
+          = field.input :password_confirmation

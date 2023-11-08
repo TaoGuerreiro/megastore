@@ -1,11 +1,11 @@
 ul.flex.flex-1.flex-col.gap-y-7[role="list"]
   li
     ul.-mx-2.space-y-1[role="list"]
-      = render MenuItem::Component.new(path: "#", icon_classes: "fa-solid fa-home", title: "Accueil")
+      / = render MenuItem::Component.new(path: "#", icon_classes: "fa-solid fa-home", title: "Accueil")
       = render MenuItem::Component.new(path: admin_orders_path, icon_classes: "fa-solid fa-book", title: "Commandes")
       = render MenuItem::Component.new(path: admin_items_path, icon_classes: "fa-solid fa-star", title: "Mes articles")
-      = render MenuItem::Component.new(path: admin_store_path, icon_classes: "fa-solid fa-sliders", title: "Mon site")
-      = render MenuItem::Component.new(path: "#", icon_classes: "fa-solid fa-gear", title: "Paramètres")
+      = render MenuItem::Component.new(path: admin_store_path(Current.store), icon_classes: "fa-solid fa-sliders", title: "Mon site")
+      = render MenuItem::Component.new(path: admin_account_path, icon_classes: "fa-solid fa-gear", title: "Paramètres")
 
 
   li.-mx-6.mt-auto

@@ -3,8 +3,8 @@ tr
     = order.user.full_name
   td.whitespace-nowrap.px-3.py-4.text-sm.text-gray-700
     = order.shipping_address
-  td.whitespace-nowrap.px-3.py-4.text-sm.text-gray-700
-    = humanized_money_with_symbol(order.amount)
+  td.whitespace-nowrap.px-3.py-4.text-sm.text-gray-700.text-right
+    = number_to_currency(order.amount, format: "%n €")
   td.whitespace-nowrap.px-3.py-4.text-sm.text-gray-700
     = order.status
   td.relative.whitespace-nowrap.py-4.pl-3.pr-4.text-right.text-sm.font-medium.sm:pr-0

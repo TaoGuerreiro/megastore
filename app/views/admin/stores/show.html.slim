@@ -1,44 +1,49 @@
 .bg-light.min-h-screen
   .mx-auto.max-w-5xl.px-4.sm:px-6.lg:px-8.py-12
     div
-      .px-4.sm:px-0
-        h3.text-base.font-semibold.leading-7.text-gray-900
-          | Informations
-        p.mt-1.max-w-2xl.text-sm.leading-6.text-gray-500
-          | Configuration générale de la boutique
+      .flex.justify-between
+        .px-4.sm:px-0
+          h3.text-base.font-semibold.leading-7.text-gray-900
+            | Informations
+          p.mt-1.max-w-2xl.text-sm.leading-6.text-gray-500
+            | Configuration générale de la boutique
+        .flex.items-center
+          = link_to edit_admin_store_path(@store), class: "text-gray-500", data: { turbo_frame: "edit_store" } do
+            i.fa-solid.fa-pen
       .mt-6.border-t.border-gray-100
-        dl.divide-y.divide-gray-200
+        = turbo_frame_tag :edit_store do
+          dl.divide-y.divide-gray-200
 
-          .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
-            dt.text-sm.font-medium.leading-6.text-gray-900
-              | Nom
-            dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
-              = @store.name
-          .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
-            dt.text-sm.font-medium.leading-6.text-gray-900
-              | Meta Title
-            dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
-              = @store.meta_title
-          .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
-            dt.text-sm.font-medium.leading-6.text-gray-900
-              | Meta Description
-            dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
-              = @store.meta_description
-          .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
-            dt.text-sm.font-medium.leading-6.text-gray-900
-              | URL Instagram
-            dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
-              = @store.instagram_url
-          .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
-            dt.text-sm.font-medium.leading-6.text-gray-900
-              | URL Facebook
-            dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
-              = @store.facebook_url
-          .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
-            dt.text-sm.font-medium.leading-6.text-gray-900
-              | Texte de la page à propos
-            dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
-              = @store.about_text
+            .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
+              dt.text-sm.font-medium.leading-6.text-gray-900
+                | Nom
+              dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
+                = @store.name
+            .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
+              dt.text-sm.font-medium.leading-6.text-gray-900
+                | Meta Title
+              dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
+                = @store.meta_title
+            .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
+              dt.text-sm.font-medium.leading-6.text-gray-900
+                | Meta Description
+              dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
+                = @store.meta_description
+            .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
+              dt.text-sm.font-medium.leading-6.text-gray-900
+                | URL Instagram
+              dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
+                = @store.instagram_url
+            .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
+              dt.text-sm.font-medium.leading-6.text-gray-900
+                | URL Facebook
+              dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
+                = @store.facebook_url
+            .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
+              dt.text-sm.font-medium.leading-6.text-gray-900
+                | Texte de la page à propos
+              dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
+                = @store.about_text
     .py-12
       .sm:flex.sm:items-center
         .sm:flex-auto

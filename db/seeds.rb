@@ -20,6 +20,24 @@ unless Rails.env == "development"
     meta_title: "Le Cheveu Blanc",
     meta_description: "Illustrations militantes from Nantes",
     meta_image: "lecheveublanc/clemence.jpg",
+    about_text: "<p class='leading-7 pb-4'>
+                  Je suis Clémence, <strong>illustratrice</strong> indépendante officiant à <strong>Nantes</strong> sous le pseudonyme Le Cheveu Blanc.
+                </p>
+                <p class='leading-7 pb-4'>
+                  Depuis 2019 je poste régulièrement sur Instagram des <strong>illustrations</strong> réalisées d’abord à l’encre, puis numériquement. Au départ comme une expression de mes <strong>prises de conscience féministes</strong>; puis petit à petit une <strong>dimension militante</strong> s’est imposée à ce projet.
+                </p>
+                <p class='leading-7 pb-4'>
+                  Après des études de design et de graphisme et une certaine quête de sens au travers de mon travail, ce projet d’illustration dans sa forme actuelle s’est construit avec l’apprentissage du <strong>dessin numérique</strong> en 2020. Par la suite j’ai eu la chance de collaborer avec divers médias engagés comme le Club Sexu, Yes We Ken ou Madmoizelle, de réaliser la communication du festival Les Femmes s’en Mêlent en 2022, ou encore de faire l’habillage du magazine Kostar de l’automne 2023.
+                </p>
+                <p class='leading-7 pb-4'>
+                  Je travaille autant pour l’<strong>édition</strong>, <strong>la presse</strong> ou <strong>le packaging</strong>, que pour des contenus numériques.
+                </p>
+                <p class='leading-7 pb-4'>
+                  Si vous souhaitez travailler avec moi n’hésitez pas à me contacter par <a href='mailto:your-email@example.com'>e-mail</a>
+                </p>
+                <p class=''>
+                  Vous pouvez aussi suivre l’avancée de mes projets en cours sur mon compte <a href='https://www.instagram.com/yourusername'>Instagram</a>
+                </p>",
     instagram_url: "https://www.instagram.com/le_cheveu_blanc/",
     facebook_url: "https://www.facebook.com/lecheveublanc/"
   })

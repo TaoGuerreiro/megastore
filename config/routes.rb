@@ -8,11 +8,11 @@ Rails.application.routes.draw do
 
     namespace :admin do
       authenticate :user, -> (user) { user.admin? } do
-        resource :store, only: [:edit, :show] do
+        resource :store, only: [] do
           get :my_store, on: :member
         end
 
-        resources :store, only: [:edit, :show] do
+        resources :stores, only: [:show, :edit, :update] do
           resources :categories, only: [:new, :create, :edit, :update]
         end
         resources :categories, only: [:destroy]
@@ -20,6 +20,8 @@ Rails.application.routes.draw do
           delete :remove_photo, on: :member
         end
         resources :orders, only: [:index, :show, :edit]
+
+        resource :account, only: [:show, :edit, :update]
       end
     end
   end

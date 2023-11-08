@@ -1,0 +1,35 @@
+.bg-light.min-h-screen
+  .mx-auto.max-w-5xl.px-4.sm:px-6.lg:px-8.py-12
+    div
+      .flex.justify-between
+        .px-4.sm:px-0
+          h3.text-base.font-semibold.leading-7.text-gray-900
+            | Informations
+          p.mt-1.max-w-2xl.text-sm.leading-6.text-gray-500
+            | Mon compte
+        .flex.items-center
+          = link_to edit_admin_account_path(@user), class: "text-gray-500" do
+            i.fa-solid.fa-pen
+      .mt-6.border-t.border-gray-100
+        dl.divide-y.divide-gray-200
+
+          .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
+            dt.text-sm.font-medium.leading-6.text-gray-900
+              | Nom
+            dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
+              = @user.first_name
+          .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
+            dt.text-sm.font-medium.leading-6.text-gray-900
+              | Prénom
+            dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
+              = @user.last_name
+          .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
+            dt.text-sm.font-medium.leading-6.text-gray-900
+              | Email
+            dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
+              = @user.email
+          .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
+            dt.text-sm.font-medium.leading-6.text-gray-900
+              | Mots de passe
+            dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
+              = "*" * 10

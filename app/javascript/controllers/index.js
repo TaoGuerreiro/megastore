@@ -10,8 +10,8 @@ application.register("autosave", AutosaveController)
 import PhotoUploadController from "./photo_upload_controller"
 application.register("photo-upload", PhotoUploadController)
 
-import HelloController from "./hello_controller"
-application.register("hello", HelloController)
+import FadeInController from "./fade_in_controller"
+application.register("fade-in", FadeInController)
 
 import PhotoSwitchController from "./photo_switch_controller"
 application.register("photo-switch", PhotoSwitchController)

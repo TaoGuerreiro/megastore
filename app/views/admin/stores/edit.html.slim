@@ -1,0 +1,9 @@
+= turbo_frame_tag :edit_store do
+  = simple_form_for [:admin, @store] do |field|
+    = field.input :name, label: 'Nom de la boutique', placeholder: 'Nom de la boutique'
+    = field.input :meta_title, label: 'Meta Title', placeholder: 'Meta Title'
+    = field.input :meta_description, as: :text, label: 'Meta Description', placeholder: 'Meta Description'
+    = field.input :instagram_url, label: 'URL Instagram', placeholder: 'URL Instagram'
+    = field.input :facebook_url, label: 'URL Facebook', placeholder: 'URL Facebook'
+    = field.input :about_text, as: :text, label: 'Texte à propos', placeholder: 'Texte à propos'
+    = field.button :submit, "Valider", class: "btn btn-primary"
