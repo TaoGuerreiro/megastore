@@ -19,7 +19,7 @@ unless Rails.env == "development"
     slug: "lecheveublanc",
     meta_title: "Le Cheveu Blanc",
     meta_description: "Illustrations militantes from Nantes",
-    meta_image: "lecheveublanc/clemence.jpg",
+    meta_image: "lecheveublanc/meta_image.jpg",
     about_text: "<p class='leading-7 pb-4'>
                   Je suis Clémence, <strong>illustratrice</strong> indépendante officiant à <strong>Nantes</strong> sous le pseudonyme Le Cheveu Blanc.
                 </p>
