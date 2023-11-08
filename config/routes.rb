@@ -3,6 +3,11 @@ Rails.application.routes.draw do
   devise_for :users
   mount StripeEvent::Engine, at: '/stripe-webhooks'
 
+  require "sidekiq/web"
+  authenticate :user, ->(user) { user.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   devise_scope :user do
     resource :profile, only: %i[edit update]
 
