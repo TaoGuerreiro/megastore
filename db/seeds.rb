@@ -48,7 +48,7 @@ else
     slug: "lecheveublanc",
     meta_title: "Le Cheveu Blanc",
     meta_description: "Illustrations militantes from Nantes",
-    meta_image: "lecheveublanc/clemence.jpg",
+    meta_image: "lecheveublanc/meta_image.jpg",
     instagram_url: "https://www.instagram.com/le_cheveu_blanc/",
     facebook_url: "https://www.facebook.com/lecheveublanc/"
   })
