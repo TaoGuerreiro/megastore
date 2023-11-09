@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import TrixController from "./trix_controller"
+application.register("trix", TrixController)
+
 import AutosaveController from "./autosave_controller"
 application.register("autosave", AutosaveController)
 
