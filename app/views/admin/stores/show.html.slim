@@ -43,7 +43,7 @@
               dt.text-sm.font-medium.leading-6.text-gray-900
                 | Texte de la page à propos
               dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
-                = @store.about_text
+                = @store.about.body.to_html.html_safe
     .py-12
       .sm:flex.sm:items-center
         .sm:flex-auto

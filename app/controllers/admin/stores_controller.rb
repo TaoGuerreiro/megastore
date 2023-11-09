@@ -29,7 +29,7 @@ module Admin
     private
 
     def store_params
-      params.require(:store).permit(:name, :meta_title, :meta_description, :about_text, :facebook_url, :instagram_url)
+      params.require(:store).permit(:name, :meta_title, :meta_description, :about, :facebook_url, :instagram_url)
     end
   end
 end

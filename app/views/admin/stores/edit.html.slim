@@ -5,5 +5,6 @@
     = field.input :meta_description, as: :text, label: 'Meta Description', placeholder: 'Meta Description'
     = field.input :instagram_url, label: 'URL Instagram', placeholder: 'URL Instagram'
     = field.input :facebook_url, label: 'URL Facebook', placeholder: 'URL Facebook'
-    = field.input :about_text, as: :text, label: 'Texte à propos', placeholder: 'Texte à propos'
+    .mb-5.control data-controller="trix"
+      = field.rich_text_area :about, label: 'Texte à propos', placeholder: 'Texte à propos', data: { trix_target: 'editor' }
     = field.button :submit, "Valider", class: "btn btn-primary"

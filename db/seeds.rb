@@ -20,7 +20,7 @@ unless Rails.env == "development"
     meta_title: "Le Cheveu Blanc",
     meta_description: "Illustrations militantes from Nantes",
     meta_image: "lecheveublanc/meta_image.jpg",
-    about_text: "<p class='leading-7 pb-4'>
+    about: "<p class='leading-7 pb-4'>
                   Je suis Clémence, <strong>illustratrice</strong> indépendante officiant à <strong>Nantes</strong> sous le pseudonyme Le Cheveu Blanc.
                 </p>
                 <p class='leading-7 pb-4'>
@@ -72,6 +72,7 @@ else
         price_cents: Faker::Number.number(digits: 5),
         price_currency: "EUR",
         store: store,
+        active: true,
         category: categories.sample,
         stock: Faker::Number.between(from: 0, to: 100),
         weight: Faker::Number.decimal(l_digits: 2, r_digits: 2),
