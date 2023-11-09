@@ -38,7 +38,7 @@ Rails.application.routes.draw do
     post '/send_message', to: "pages#send_message"
     get '/store', to: "stores#show"
     resource :checkout, only: [:show] do
-      post :payment_method, on: :member
+      post :shipping_method, on: :member
       post :comfirm_payment, on: :member
     end
     resources :items, only: [:show] do

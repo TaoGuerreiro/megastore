@@ -50,8 +50,8 @@
             div
               dt.font-medium.text-gray-900 Methode de livraison
               dd.mt-2.text-gray-700
-                p = @order.payment_method.name
-                p = @order.payment_method.description
+                p = @order.shipping_method.name
+                p = @order.shipping_method.description
 
           h3.sr-only Summary
           dl.space-y-6.border-t.border-gray-200.pt-10.text-sm
@@ -60,7 +60,7 @@
               dd.text-gray-700 = number_to_currency(@order.amount, format: "%n €")
             .flex.justify-between
               dt.font-medium.text-gray-900 Livraison
-              dd.text-gray-700 = number_to_currency(@order.payment_method.price, format: "%n €")
+              dd.text-gray-700 = number_to_currency(@order.shipping_method.price, format: "%n €")
             .flex.justify-between
               dt.font-medium.text-gray-900 Total
-              dd.text-gray-900 = number_to_currency(@order.amount + @order.payment_method.price, format: "%n €")
+              dd.text-gray-900 = number_to_currency(@order.amount + @order.shipping_method.price, format: "%n €")

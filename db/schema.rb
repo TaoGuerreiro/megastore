@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_08_223444) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_09_104249) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -96,14 +96,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_08_223444) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "payment_method_id", null: false
+    t.bigint "shipping_method_id", null: false
     t.string "checkout_session_id"
     t.string "shipping_address"
-    t.index ["payment_method_id"], name: "index_orders_on_payment_method_id"
+    t.index ["shipping_method_id"], name: "index_orders_on_shipping_method_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
-  create_table "payment_methods", force: :cascade do |t|
+  create_table "shipping_methods", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.integer "price_cents", default: 0, null: false
@@ -111,7 +111,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_08_223444) do
     t.bigint "store_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["store_id"], name: "index_payment_methods_on_store_id"
+    t.index ["store_id"], name: "index_shipping_methods_on_store_id"
   end
 
   create_table "stores", force: :cascade do |t|
@@ -153,8 +153,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_08_223444) do
   add_foreign_key "items", "stores"
   add_foreign_key "order_items", "items"
   add_foreign_key "order_items", "orders"
-  add_foreign_key "orders", "payment_methods"
+  add_foreign_key "orders", "shipping_methods"
   add_foreign_key "orders", "users"
-  add_foreign_key "payment_methods", "stores"
+  add_foreign_key "shipping_methods", "stores"
   add_foreign_key "stores", "users", column: "admin_id"
 end

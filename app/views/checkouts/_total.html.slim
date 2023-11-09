@@ -20,7 +20,7 @@
         dt.text-sm
           | Expédition
         dd.text-sm.font-medium.text-gray-900
-          = "#{@order.payment_method&.price || '0.00'} €"
+          = "#{@order.shipping_method&.price || '0.00'} €"
       / .flex.items-center.justify-between.px-6.pb-2
       /   dt.text-sm
       /     | TVA

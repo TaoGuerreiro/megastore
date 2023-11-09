@@ -3,7 +3,7 @@ require "open-uri"
 
 OrderItem.destroy_all
 Order.destroy_all
-PaymentMethod.destroy_all
+ShippingMethod.destroy_all
 Item.destroy_all
 Category.destroy_all
 Store.destroy_all
@@ -88,7 +88,7 @@ else
       item.save
     end
 
-    PaymentMethod.create(store: store, name: "UPS", description: "Dans les 48h", price: 8)
-    PaymentMethod.create(store: store, name: "Mondial relay", description: "entre 2 à 5 jours", price: 4)
-    PaymentMethod.create(store: store, name: "Remise en main propre", description: "Très propre", price: 0)
+    ShippingMethod.create(store: store, name: "UPS", description: "Dans les 48h", price: 8)
+    ShippingMethod.create(store: store, name: "Mondial relay", description: "entre 2 à 5 jours", price: 4)
+    ShippingMethod.create(store: store, name: "Remise en main propre", description: "Très propre", price: 0)
 end

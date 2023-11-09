@@ -11,9 +11,9 @@
       fieldset
         legend.text-lg.font-medium.text-gray-900
           | Methodes de livraison
-        - if field.object.errors[:payment_method].any?
+        - if field.object.errors[:shipping_method].any?
           p.text-red-500
-            = field.object.errors[:payment_method].join(", ")
+            = field.object.errors[:shipping_method].join(", ")
         .mt-4.grid.grid-cols-1.gap-y-6.sm:grid-cols-2.sm:gap-x-4
-          - Current.store.payment_methods.each do |method|
-            = render "payment_method", method: method, field: field
+          - Current.store.shipping_methods.each do |method|
+            = render "shipping_method", method: method, field: field

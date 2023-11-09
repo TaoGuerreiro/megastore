@@ -1,6 +1,6 @@
 class CheckoutsController < ApplicationController
-  before_action :set_order_intent, only: [:show, :payment_method, :comfirm_payment]
-  before_action :set_order, only: [:show, :payment_method, :comfirm_payment]
+  before_action :set_order_intent, only: [:show, :shipping_method, :comfirm_payment]
+  before_action :set_order, only: [:show, :shipping_method, :comfirm_payment]
 
   def add
     session[:checkout_items] = session[:checkout_items] || []
@@ -29,9 +29,9 @@ class CheckoutsController < ApplicationController
     @order_intent = OrderIntent.new
   end
 
-  def payment_method
+  def shipping_method
     set_order_intent
-    @order.payment_method = PaymentMethod.find(params[:order_intent][:payment_method])
+    @order.shipping_method = ShippingMethod.find(params[:order_intent][:shipping_method])
 
     respond_to do |format|
       format.html { render "checkouts/show", status: :unprocessable_entity }
@@ -49,7 +49,7 @@ class CheckoutsController < ApplicationController
     end
 
     @order.status = "confirmed"
-    @order.payment_method = PaymentMethod.first
+    @order.shipping_method = ShippingMethod.first
     @order.user = user
 
     # Enregistrez l'objet @order en premier
@@ -109,6 +109,6 @@ class CheckoutsController < ApplicationController
   def order_intent_params
     return {} unless params[:order_intent]
 
-    params.require(:order_intent).permit(:email, :first_name, :last_name, :address, :phone, :payment_method)
+    params.require(:order_intent).permit(:email, :first_name, :last_name, :address, :phone, :shipping_method)
   end
 end
