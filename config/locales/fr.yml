@@ -1,0 +1,23 @@
+fr:
+  active_record:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              taken: "Cette adresse email est déjà utilisée"
+  active_model:
+    errors:
+      models:
+        order_intent:
+          blank: "Veuillez renseigner une adresse email"
+          attributes:
+            email:
+              taken: "Cette adresse email est déjà utilisée"
+              blank: "Veuillez renseigner une adresse email"
+        user:
+          attributes:
+            email:
+              taken: "Cette adresse email est déjà utilisée"
+      messages:
+        taken: "Cette adresse email est déjà utilisée"

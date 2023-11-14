@@ -20,4 +20,12 @@ class Order < ApplicationRecord
       amount
     end
   end
+
+  def total_price_cents
+    if shipping_method.present?
+      amount_cents + shipping_method.price_cents
+    else
+      amount_cents
+    end
+  end
 end

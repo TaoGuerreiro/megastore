@@ -20,6 +20,7 @@ class Item < ApplicationRecord
   validates :description, presence: true
   validates :price, presence: true
   validates :stock, presence: true
+  validates :weight, presence: true
 
   def self.with_archived
     unscoped.order(:status, :name)

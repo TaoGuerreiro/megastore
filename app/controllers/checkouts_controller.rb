@@ -30,7 +30,6 @@ class CheckoutsController < ApplicationController
   end
 
   def shipping_method
-    set_order_intent
     @order.shipping_method = ShippingMethod.find(params[:order_intent][:shipping_method])
 
     respond_to do |format|
@@ -49,17 +48,19 @@ class CheckoutsController < ApplicationController
     end
 
     @order.status = "confirmed"
-    @order.shipping_method = ShippingMethod.first
+    # binding.pry
+    @order.shipping_method = ShippingMethod.find(order_intent_params[:shipping_method])
     @order.user = user
 
     # Enregistrez l'objet @order en premier
     if @order.save
       session = Stripe::Checkout::Session.create(
         payment_method_types: ['card'],
+        customer_email: @order_intent.email,
         line_items: [{
-          name: "teddy.sku",
+          name: @order.order_items.first.item.name,
           images: nil,
-          amount: @order.amount_cents,
+          amount: @order.total_price_cents,
           currency: 'eur',
           quantity: 1
         }],
