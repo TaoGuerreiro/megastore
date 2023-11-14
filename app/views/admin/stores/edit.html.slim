@@ -1,4 +1,4 @@
-= turbo_frame_tag :edit_store do
+= render TurboModal::Component.new(title: "Editer la boutique") do
   = simple_form_for [:admin, @store] do |field|
     = field.input :name, label: 'Nom de la boutique', placeholder: 'Nom de la boutique'
     = field.input :meta_title, label: 'Meta Title', placeholder: 'Meta Title'

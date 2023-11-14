@@ -3,6 +3,21 @@
 @tailwind utilities;
 
 @layer components {
+  #modal {
+    position: fixed;
+    z-index: 2;
+    right: 10px;
+    top: 10px;
+    width: 400px;
+    word-break: break-word;
+    border-radius: 6px;
+    background: #bad5ff;
+  }
+
+  .disabled {
+    @apply opacity-50;
+  }
+
   .trix-content {
     @apply bg-white;
   }

@@ -9,6 +9,13 @@
             p.mt-2.text-sm.text-gray-600
               | Vous pouvez modifier l'article çi dessous
           .mt-4.sm:ml-16.sm:mt-0.sm:flex-none
+            - if @item.archived?
+              = link_to unarchive_admin_item_path(@item), data: { turbo_method: :patch }, class: "mr-3 text-content" do
+                i.fas.fa-archive.mr-2 class="!text-primary"
+                | Désarchiver
+            - else
+              = link_to archive_admin_item_path(@item), data: { turbo_method: :patch }, class: "mr-3 text-content" do
+                i.fas.fa-archive.mr-2 class="!text-primary"
+                | Archiver
             = submit_tag "Modifier", form: "edit_item_#{@item.id}", class: "btn btn-primary"
-
         = render "form"

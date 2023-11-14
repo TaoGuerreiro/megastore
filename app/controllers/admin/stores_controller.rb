@@ -11,6 +11,7 @@ module Admin
     def show
       @store = Current.store
       @categories = Current.store.categories
+      @shipping_methods = Current.store.shipping_methods
     end
 
     def edit
@@ -20,7 +21,10 @@ module Admin
     def update
       @store = Store.find(params[:id])
       if @store.update(store_params)
-        redirect_to admin_store_path, notice: "Store updated successfully"
+        respond_to do |format|
+          format.html { redirect_to admin_store_path(@store), notice: "Store was successfully updated." }
+          format.turbo_stream
+        end
       else
         render :edit
       end

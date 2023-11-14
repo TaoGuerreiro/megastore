@@ -13,7 +13,8 @@
 
         .aspect-h-1.aspect-w-1.w-full
           #tabs-1-panel-1[aria-labelledby="tabs-1-tab-1" role="tabpanel" tabindex="0"]
-            = image_tag @item.photos.first, class: "h-full w-full object-cover object-center sm:rounded-lg", data: { "photo-switch-target": "photo" }
+            - if @item.photos.attached?
+              = image_tag @item.photos.first, class: "h-full w-full object-cover object-center sm:rounded-lg", data: { "photo-switch-target": "photo" }
       .mt-10.px-4.sm:mt-16.sm:px-0.lg:mt-0
         h1.text-3xl.font-bold.tracking-tight.text-gray-900
           = @item.name

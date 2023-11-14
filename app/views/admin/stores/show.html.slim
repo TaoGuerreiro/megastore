@@ -1,4 +1,5 @@
 .bg-light.min-h-screen.pt-12.md:pt-0
+  = turbo_frame_tag :modal do
   .mx-auto.max-w-5xl.px-4.sm:px-6.lg:px-8.py-12
     div
       .flex.justify-between
@@ -8,52 +9,38 @@
           p.mt-1.max-w-2xl.text-sm.leading-6.text-gray-500
             | Configuration générale de la boutique
         .flex.items-center
-          = link_to edit_admin_store_path(@store), class: "text-gray-500", data: { turbo_frame: "edit_store" } do
+          = link_to edit_admin_store_path(@store), class: "text-gray-500", data: { turbo_frame: :modal } do
             i.fa-solid.fa-pen
       .mt-6.border-t.border-gray-100
-        = turbo_frame_tag :edit_store do
-          dl.divide-y.divide-gray-200
+        = render "admin/stores/store"
 
-            .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
-              dt.text-sm.font-medium.leading-6.text-gray-900
-                | Nom
-              dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
-                = @store.name
-            .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
-              dt.text-sm.font-medium.leading-6.text-gray-900
-                | Meta Title
-              dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
-                = @store.meta_title
-            .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
-              dt.text-sm.font-medium.leading-6.text-gray-900
-                | Meta Description
-              dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
-                = @store.meta_description
-            .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
-              dt.text-sm.font-medium.leading-6.text-gray-900
-                | URL Instagram
-              dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
-                = @store.instagram_url
-            .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
-              dt.text-sm.font-medium.leading-6.text-gray-900
-                | URL Facebook
-              dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
-                = @store.facebook_url
-            .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
-              dt.text-sm.font-medium.leading-6.text-gray-900
-                | Texte de la page à propos
-              dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
-                = @store.about.body.to_html.html_safe
-    .py-12
-      .sm:flex.sm:items-center
-        .sm:flex-auto
-          h1.text-base.font-semibold.leading-6.text-gray-900
-            | Catégorie
-        .mt-4.sm:ml-16.sm:mt-0.sm:flex-none
-          = link_to "Ajouter une catégorie", new_admin_store_category_path(@store), data: { turbo_frame: "new_category" }, class: "btn btn-primary"
+    .py-12.md:flex.w-full
+      .w-full.md:pr-3
+        .sm:flex.sm:items-center
+          .sm:flex-auto
+            h1.text-base.font-semibold.leading-6.text-gray-900
+              | Catégories
+          .mt-4.sm:ml-16.sm:mt-0.sm:flex-none
+            = link_to "Ajouter une catégorie", new_admin_store_category_path(@store), data: { turbo_frame: "new_category" }, class: "btn btn-primary"
 
-      .mt-8.flow-root
-        .-mx-4.-my-2.overflow-x-auto.sm:-mx-6.lg:-mx-8
-          .inline-block.min-w-full.py-2.align-middle.sm:px-6.lg:px-8
-            = turbo_frame_tag :new_category do
-            = render "admin/categories/categories"
+        .mt-8.flow-root
+          .-mx-4.-my-2.overflow-x-auto.sm:-mx-6.lg:-mx-8
+            .inline-block.min-w-full.py-2.align-middle.sm:px-6.lg:px-8
+              = turbo_frame_tag :new_category do
+              = render "admin/categories/categories"
+
+
+      .w-full.pt-12.md:pt-0.md:border-l.md:pl-3
+        .sm:flex.sm:items-center
+          .sm:flex-auto
+            h1.text-base.font-semibold.leading-6.text-gray-900
+              | Livraisons
+          .mt-4.sm:ml-16.sm:mt-0.sm:flex-none
+            = link_to "Ajouter un moyen de livraison", new_admin_store_shipping_method_path(@store), data: { turbo_frame: "modal" }, class: "btn btn-primary"
+
+        .mt-8.flow-root
+          .-mx-4.-my-2.overflow-x-auto.sm:-mx-6.lg:-mx-8
+            .inline-block.min-w-full.py-2.align-middle.sm:px-6.lg:px-8
+              = turbo_frame_tag :new_shipping_method do
+              = render "admin/shipping_methods/shipping_methods"
+      / = turbo_frame_tag "modal" do

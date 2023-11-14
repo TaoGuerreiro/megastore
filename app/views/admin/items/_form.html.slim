@@ -2,16 +2,47 @@
   .
     .inline-block.min-w-full.py-5.align-middle.sm:px-6.lg:px-8 data-controller="photo-upload"
       = simple_form_for [:admin, @item] do |field|
+        h3.mb-6.text-2xl.text-content Informations
+
         = field.input :name, label: "Nom", placeholder: "Nom"
         = field.input :description, as: :text, label: "Description", placeholder: "Description"
         .flex.gap-4
           = field.input :price, label: "Prix", placeholder: "Prix"
           = field.input :stock, label: "Stock", placeholder: "Stock"
           = field.association :category, collection: Current.store.categories.map {|category| [category.name, category.id]}, label: "Catégorie", placeholder: "Catégorie"
-        = field.input :active, label: "En ligne", as: :boolean, input_html: {class: "w-5 h-5 m-0 p-0 flex"}, wrapper_html: {class: "flex items-center"}, label_html: {class: "-top-0.5 left-4"}
+
+        h3.mb-6.text-2xl.text-content Spécifications
+
+        .flex.gap-4
+          .relative.w-full
+            = field.input :width, label: "Largeur", placeholder: "Largeur"
+            span.text-gray-500.text-xs.absolute.right-3.top-3
+              | cm
+
+          .relative.w-full
+            = field.input :height, label: "Hauteur", placeholder: "Hauteur"
+            span.text-gray-500.text-xs.absolute.right-3.top-3
+              | cm
+
+          .relative.w-full
+            = field.input :length, label: "Longueur", placeholder: "Longueur"
+            span.text-gray-500.text-xs.absolute.right-3.top-3
+              | cm
+
+          .relative.w-full
+            = field.input :weight, label: "Poids", placeholder: "Poids"
+            span.text-gray-500.text-xs.absolute.right-3.top-3
+              | gr
+
+
+        h3.mb-6.text-2xl.text-content Photos
+
+        - unless @item.archived?
+          = field.input :active, label: "En ligne", as: :boolean, input_html: { checked: @item.active?, class: "w-5 h-5 m-0 p-0 flex"}, wrapper_html: {class: "flex items-center"}, label_html: {class: "-top-0.5 left-4"}
         = field.input :photos, label: false, input_html: { multiple: true, class: "hidden", data: { action: "change->photo-upload#show" }}
         = field.label :photos do
           .h-10.inline.px-3.py-2.bg-white.rounded-xl.cursor-pointer.border.border-gray-200 Ajouter une photo
+
 
       .mt-5 data-photo-upload-target="photosContainer"
         - if @item.persisted?

@@ -3,7 +3,7 @@ module Admin
     layout "admin"
 
     def index
-      @items = Item.all
+      @items = Item.with_archived
     end
 
     def new
@@ -50,13 +50,38 @@ module Admin
       redirect_to edit_admin_item_path(@item)
     end
 
+    def archive
+      @item = Item.find(params[:id])
+      @item.archive!
+      redirect_to admin_items_path
+    end
+
+    def unarchive
+      @item = Item.find(params[:id])
+      @item.update(status: :offline)
+      redirect_to admin_items_path
+    end
+
     private
 
     def item_params
-      if params[:item][:photos].first.blank?
-        params.require(:item).permit(:name, :description, :price, :image, :stock, :category_id, :active)
-      else
-        params.require(:item).permit(:name, :description, :price, :image, :stock, :category_id, :active, photos: [])
+      params.require(:item).permit(:name, :description, :price, :image, :stock, :length, :width, :height, :weight, :category_id, :active, :status, photos: []).tap do |permitted_params|
+        manage_status(permitted_params)
+        manage_photos(permitted_params)
+      end
+    end
+
+    def manage_status(permitted_params)
+      return unless @item
+      return if permitted_params[:active].nil? || @item.archived?
+
+      permitted_params[:status] = permitted_params[:active] == "1" ? :active : :offline
+    end
+
+    def manage_photos(permitted_params)
+      # raise
+      if permitted_params[:photos].reject(&:blank?).first.blank?
+        permitted_params.delete(:photos)
       end
     end
   end

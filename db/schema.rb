@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_09_104249) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_14_180428) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -74,7 +74,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_09_104249) do
     t.datetime "updated_at", null: false
     t.string "description"
     t.bigint "category_id", null: false
-    t.boolean "active"
+    t.string "status", default: "active"
     t.index ["category_id"], name: "index_items_on_category_id"
     t.index ["store_id"], name: "index_items_on_store_id"
   end
@@ -111,6 +111,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_09_104249) do
     t.bigint "store_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "max_weight"
     t.index ["store_id"], name: "index_shipping_methods_on_store_id"
   end
 

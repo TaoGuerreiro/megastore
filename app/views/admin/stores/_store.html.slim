@@ -1,0 +1,32 @@
+= turbo_frame_tag dom_id(@store)
+  dl.divide-y.divide-gray-200
+    .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
+      dt.text-sm.font-medium.leading-6.text-gray-900
+        | Nom
+      dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
+        = @store.name
+    .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
+      dt.text-sm.font-medium.leading-6.text-gray-900
+        | Meta Title
+      dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
+        = @store.meta_title
+    .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
+      dt.text-sm.font-medium.leading-6.text-gray-900
+        | Meta Description
+      dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
+        = @store.meta_description
+    .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
+      dt.text-sm.font-medium.leading-6.text-gray-900
+        | URL Instagram
+      dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
+        = @store.instagram_url
+    .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
+      dt.text-sm.font-medium.leading-6.text-gray-900
+        | URL Facebook
+      dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
+        = @store.facebook_url
+    .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
+      dt.text-sm.font-medium.leading-6.text-gray-900
+        | Texte de la page à propos
+      dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
+        = @store.about&.body&.to_html&.html_safe

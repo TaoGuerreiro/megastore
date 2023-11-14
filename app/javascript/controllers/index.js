@@ -10,6 +10,9 @@ application.register("trix", TrixController)
 import AutosaveController from "./autosave_controller"
 application.register("autosave", AutosaveController)
 
+import TurboModalController from "./turbo_modal_controller"
+application.register("turbo-modal", TurboModalController)
+
 import PhotoUploadController from "./photo_upload_controller"
 application.register("photo-upload", PhotoUploadController)
 

@@ -17,7 +17,6 @@ class Checkout
   end
 
   def sum
-    # raise
     unique_ids = @ids.uniq
     sum = 0
     unique_ids.map do |id|
@@ -28,7 +27,17 @@ class Checkout
     sum / 100.00
   end
 
+  def weight
+    weight = 0
+    @ids.map do |id|
+      next unless Item.where(id: id).present?
+
+      weight += Item.find(id).weight
+    end
+    weight
+  end
+
   def all
-    Item.where(@ids)
+    Item.where(id: @ids)
   end
 end

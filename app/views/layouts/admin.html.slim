@@ -1,32 +1,12 @@
 doctype html
 html
   head
-    meta name="viewport" content="width=device-width,initial-scale=1"
-
-    title = meta_title
-    meta name="description" content="#{ meta_description }"
-    = favicon_link_tag "#{Current.store.slug}/favicon.png", rel: "icon", type: "image/png"
-    <!-- Facebook Open Graph data -->
-    meta property="og:title" content="#{meta_title}"
-    meta property="og:type" content="website"
-    meta property="og:url" content="#{ request.original_url }"
-    meta property="og:image" content="#{ meta_image }"
-    meta property="og:description" content="#{ meta_description }"
-    meta property="og:site_name" content="#{ meta_title }"
-
-    = csrf_meta_tags
-    = csp_meta_tag
-    link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css"
-    = stylesheet_link_tag "application", "data-turbo-track": "reload"
-    = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
-
-    script src="https://kit.fontawesome.com/910f22a437.js" crossorigin="anonymous"
-
-    #modal.z-50.fixed.hidden
+    = render "shared/head"
   body.h-full
     .flex
       . = render "shared/sidebar"
-      .w-full.h-full.min-h-screen = yield
+      .w-full.h-full.min-h-screen
+        = yield
 
     . id="notifications" class="z-50 fixed right-10 top-10 cursor-pointer w-96"
       - flash.each do |type, data|

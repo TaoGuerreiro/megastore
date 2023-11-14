@@ -2,9 +2,9 @@ class StoresController < ApplicationController
   before_action  :set_store, :set_filters
   def show
     if params[:filters]
-      @items = @store.items.includes(:category).where(category: {name: selected_filters}, active: true)
+      @items = @store.items.includes(:category).where(category: {name: selected_filters}, status: :active)
     else
-      @items = @store.items.where(active: true)
+      @items = @store.items.where(status: :active)
     end
   end
 

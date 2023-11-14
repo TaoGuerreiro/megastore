@@ -19,10 +19,14 @@ Rails.application.routes.draw do
 
         resources :stores, only: [:show, :edit, :update] do
           resources :categories, only: [:new, :create, :edit, :update]
+          resources :shipping_methods, only: [:new, :create, :edit, :update]
         end
         resources :categories, only: [:destroy]
+        resources :shipping_methods, only: [:destroy]
         resources :items, only: [:index, :new, :create, :edit, :update, :destroy] do
           delete :remove_photo, on: :member
+          patch :archive, on: :member
+          patch :unarchive, on: :member
         end
         resources :orders, only: [:index, :show, :edit]
 
