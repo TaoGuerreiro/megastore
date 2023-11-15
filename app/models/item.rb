@@ -11,8 +11,8 @@ class Item < ApplicationRecord
   has_many :orders, through: :order_items
   has_many_attached :photos
 
-  STATUS = ["active", "archived", "offline"].freeze
-  enumerize :status, in: STATUS, default: :active, predicates: true
+  STATUSES = ["active", "archived", "offline"].freeze
+  enumerize :status, in: STATUSES, default: :active, predicates: true
 
   monetize :price_cents
 

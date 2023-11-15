@@ -28,7 +28,7 @@ Rails.application.routes.draw do
           patch :archive, on: :member
           patch :unarchive, on: :member
         end
-        resources :orders, only: [:index, :show, :edit]
+        resources :orders, only: [:index, :show, :edit, :update, :destroy]
 
         resource :account, only: [:show, :edit, :update]
       end

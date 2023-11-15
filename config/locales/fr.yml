@@ -21,3 +21,8 @@ fr:
               taken: "Cette adresse email est déjà utilisée"
       messages:
         taken: "Cette adresse email est déjà utilisée"
+  confirmed: Comfirmé
+  pending: En attente
+  canceled: Annulé
+  paid: Payé
+  refunded: Remboursé

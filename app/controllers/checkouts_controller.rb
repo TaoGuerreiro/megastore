@@ -47,10 +47,12 @@ class CheckoutsController < ApplicationController
       return
     end
 
-    @order.status = "confirmed"
-    # binding.pry
-    @order.shipping_method = ShippingMethod.find(order_intent_params[:shipping_method])
-    @order.user = user
+    @order.assign_attributes(
+      shipping_address: order_intent_params[:address],
+      status: "confirmed",
+      shipping_method: ShippingMethod.find(order_intent_params[:shipping_method]),
+      user: user
+    )
 
     # Enregistrez l'objet @order en premier
     if @order.save

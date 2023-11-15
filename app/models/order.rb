@@ -1,17 +1,23 @@
 # app/models/item.rb
 class Order < ApplicationRecord
   extend Enumerize
+  include Presentable
 
   belongs_to :user
   belongs_to :shipping_method
-  has_many :order_items
+  has_many :order_items, dependent: :destroy
   has_many :items, through: :order_items
 
   monetize :amount_cents
 
-  STATUS = ["pending", "confirmed", "paid", "cancelled", "refunded"].freeze
+  STATUSES = ["pending", "confirmed", "paid", "canceled", "refunded"].freeze
 
-  enumerize :status, in: STATUS, default: "pending", predicates: true
+  enumerize :status, in: STATUSES, default: "pending", predicates: true
+
+  validates :amount, presence: true
+  validates :status, presence: true
+  validates :shipping_address, presence: true
+  validates :shipping_method, presence: true
 
   def total_price
     if shipping_method.present?
