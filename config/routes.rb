@@ -13,10 +13,6 @@ Rails.application.routes.draw do
 
     namespace :admin do
       authenticate :user, -> (user) { user.admin? } do
-        resource :store, only: [] do
-          get :my_store, on: :member
-        end
-
         resources :stores, only: [:show, :edit, :update] do
           resources :categories, only: [:new, :create, :edit, :update]
           resources :shipping_methods, only: [:new, :create, :edit, :update]

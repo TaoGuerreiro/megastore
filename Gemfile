@@ -20,7 +20,7 @@ gem "money-rails", "~> 1.13"
 gem "pg", "~> 1.1"
 gem "postmark-rails"
 gem "puma", "~> 5.0"
-gem "rails-i18n"
+gem 'rails-i18n', '~> 7.0.0'
 gem "redis", "~> 4.0"
 gem "sidekiq-failures", "~> 1.0"
 gem "sidekiq"
