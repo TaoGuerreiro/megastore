@@ -1,0 +1,16 @@
+fr:
+  activerecord:
+    models:
+      order: Commande
+    attributes:
+      order:
+        status: État
+        details: Détails
+        amount: Total
+        amount_cents: Total
+        amount_currency: Devise
+        created_at: Date de création
+        updated_at: Date de mise à jour
+        user: Utilisateur
+        user_id: Utilisateur
+        shipping_address: Adresse de livraison
