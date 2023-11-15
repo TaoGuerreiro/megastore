@@ -4,7 +4,12 @@
     .flex.gap-4.mb-8
       = field.input :first_name, label: "Prénom", placeholder: "Prénom"
       = field.input :last_name, label: "Nom", placeholder: "Nom"
-    .mb-8 = field.input :address, label: "Addresse", placeholder: "Addresse"
+    .flex.flex-col.w-full.relative data-controller="search"
+      .absolute.bg-white.w-full.top-12.z-50.rounded-md data-search-target="list"
+      .mb-8 = field.input :address, label: "Addresse", placeholder: "Addresse", input_html: { autocomplete: "off", data: { action: "keydown->search#navigate keyup->search#fetchAddreses", "search-target": "input" }}
+      .absolute.right-2.z-0.text-gray-300.cursor-pointer class="hover:text-content top-2" data-action="click->search#resetInput"
+        i.fa-solid.fa-xmark.text-2xl
+
     .mb-8 = field.input :phone, label: "Téléphone", placeholder: "Téléphone"
 
     .mt-10.border-t.border-gray-200.pt-10

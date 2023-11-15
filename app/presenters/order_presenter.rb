@@ -13,6 +13,7 @@ class OrderPresenter < BasePresenter
     confirmed: { bg: "bg-yellow-500", text: "text-white", raw: "-yellow-500", exa: "#EAB308", colored_text: "text-yellow-500" },
     refunded: { bg: "bg-indigo-800", text: "text-white", raw: "-indigo-800", exa: "#3730A3", colored_text: "text-indigo-800" },
     paid: { bg: "bg-green-500", text: "text-white", raw: "-green-500", exa: "#22C55E", colored_text: "text-green-500" },
+    sent: { bg: "bg-green-500", text: "text-white", raw: "-green-500", exa: "#22C55E", colored_text: "text-green-500" },
     canceled: { bg: "bg-red-500", text: "text-white", raw: "-red-500", exa: "#ff0000", colored_text: "text-red-500" }
   }.with_indifferent_access.freeze
 
@@ -21,6 +22,7 @@ class OrderPresenter < BasePresenter
     refunded: "fa-file-invoice-dollar",
     confirmed: "fa-hourglass",
     paid: "fa-check",
+    sent: "fa-check",
     canceled: "fa-xmark"
   }.with_indifferent_access.freeze
 

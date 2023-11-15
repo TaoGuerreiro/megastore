@@ -1,0 +1,9 @@
+h1 Nouvelle commande sur le site !
+
+p = "#{@order.user.full_name} vient de passer une commande sur le site."
+
+- @order.items.each do |item|
+  p = "#{item.name} x 1 (#{item.price} €)"
+
+p Plus de détails sur la commande ici :
+a href="#{admin_order_url(@order, host: @store.domain)}" = admin_order_url(@order, host: @store.domain)

@@ -10,6 +10,9 @@ application.register("trix", TrixController)
 import AutosaveController from "./autosave_controller"
 application.register("autosave", AutosaveController)
 
+import SearchController from "./search_controller"
+application.register("search", SearchController)
+
 import TurboModalController from "./turbo_modal_controller"
 application.register("turbo-modal", TurboModalController)
 

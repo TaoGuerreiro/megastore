@@ -17,4 +17,7 @@ link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/tr
 = stylesheet_link_tag "application", "data-turbo-track": "reload"
 = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
 
+= tag :meta, name: :mapbox_token, content: Rails.application.credentials.mapbox.mapbox_api_key
+
+
 script src="https://kit.fontawesome.com/910f22a437.js" crossorigin="anonymous"

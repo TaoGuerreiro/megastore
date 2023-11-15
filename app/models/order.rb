@@ -10,7 +10,7 @@ class Order < ApplicationRecord
 
   monetize :amount_cents
 
-  STATUSES = ["pending", "confirmed", "paid", "canceled", "refunded"].freeze
+  STATUSES = ["pending", "confirmed", "paid", "canceled", "refunded", "sent"].freeze
 
   enumerize :status, in: STATUSES, default: "pending", predicates: true
 
