@@ -1,59 +1,53 @@
 
 require "open-uri"
 
-OrderItem.destroy_all
-Order.destroy_all
-ShippingMethod.destroy_all
-Item.destroy_all
-Category.destroy_all
-Store.destroy_all
-User.destroy_all
-
-admin_localhost = User.create(first_name: "Ted", last_name: "Lasso", email: "admin@example.fr", password: "123456", role: "admin")
-# clemence = User.create(first_name: "Clémence", last_name: "Porcheret", email: "hello@lecheveublanc.fr", password: "123456", role: "admin")
-# salome = User.create(first_name: "Salomé", last_name: "Dubart", email: "hello@studioanemone.fr", password: "123456", role: "admin")
-unsafe = User.create(first_name: "Tao", last_name: "Guerreiro", email: "hello@unsafehxc.fr", password: "123456", role: "admin")
-
 unless Rails.env == "development"
-  store = clemence.stores.create({
-    domain: "lecheveublanc.fr",
+  unsafe = User.create(first_name: "Tao", last_name: "Guerreiro", email: "hello@unsafehxc.fr", password: "123456", role: "admin")
+  store_two = unsafe.stores.create({
+    domain: "unsafehxc.fr",
+    name: "Unsafe",
+    slug: "unsafe",
+    meta_title: "Unsafe",
+    meta_description: "Metal Hardcore from Nantes",
+    meta_image: "unsafe/meta_image.jpg",
+    instagram_url: "https://www.instagram.com/unsafehc/",
+    facebook_url: "https://www.facebook.com/unsafehc/"
+  })
+else
+  OrderItem.destroy_all
+  Order.destroy_all
+  ShippingMethod.destroy_all
+  Item.destroy_all
+  Category.destroy_all
+  Store.destroy_all
+  User.destroy_all
+
+  admin_localhost = User.create(first_name: "Ted", last_name: "Lasso", email: "admin@example.fr", password: "123456", role: "admin")
+  clemence = User.create(first_name: "Clémence", last_name: "Porcheret", email: "hello@lecheveublanc.fr", password: "123456", role: "admin")
+  unsafe = User.create(first_name: "Tao", last_name: "Guerreiro", email: "hello@unsafehxc.fr", password: "123456", role: "admin")
+  # salome = User.create(first_name: "Salomé", last_name: "Dubart", email: "hello@studioanemone.fr", password: "123456", role: "admin")
+  store_one = clemence.stores.create({
+    domain: "localhost",
     name: "Le Cheveu Blanc",
     slug: "lecheveublanc",
     meta_title: "Le Cheveu Blanc",
     meta_description: "Illustrations militantes from Nantes",
     meta_image: "lecheveublanc/meta_image.jpg",
-    about: "<p class='leading-7 pb-4'>
-                  Je suis Clémence, <strong>illustratrice</strong> indépendante officiant à <strong>Nantes</strong> sous le pseudonyme Le Cheveu Blanc.
-                </p>
-                <p class='leading-7 pb-4'>
-                  Depuis 2019 je poste régulièrement sur Instagram des <strong>illustrations</strong> réalisées d’abord à l’encre, puis numériquement. Au départ comme une expression de mes <strong>prises de conscience féministes</strong>; puis petit à petit une <strong>dimension militante</strong> s’est imposée à ce projet.
-                </p>
-                <p class='leading-7 pb-4'>
-                  Après des études de design et de graphisme et une certaine quête de sens au travers de mon travail, ce projet d’illustration dans sa forme actuelle s’est construit avec l’apprentissage du <strong>dessin numérique</strong> en 2020. Par la suite j’ai eu la chance de collaborer avec divers médias engagés comme le Club Sexu, Yes We Ken ou Madmoizelle, de réaliser la communication du festival Les Femmes s’en Mêlent en 2022, ou encore de faire l’habillage du magazine Kostar de l’automne 2023.
-                </p>
-                <p class='leading-7 pb-4'>
-                  Je travaille autant pour l’<strong>édition</strong>, <strong>la presse</strong> ou <strong>le packaging</strong>, que pour des contenus numériques.
-                </p>
-                <p class='leading-7 pb-4'>
-                  Si vous souhaitez travailler avec moi n’hésitez pas à me contacter par <a class='text-primary' href='mailto:hello@lecheveublanc.fr'>e-mail</a>.
-                </p>
-                <p>
-                  Vous pouvez aussi suivre l’avancée de mes projets en cours sur mon compte <a class='text-primary' href='https://www.instagram.com/le_cheveu_blanc'>Instagram</a>.
-                </p>",
     instagram_url: "https://www.instagram.com/le_cheveu_blanc/",
     facebook_url: "https://www.facebook.com/lecheveublanc/"
   })
-else
-  # store = clemence.stores.create({
-  #   domain: "localhost",
-  #   name: "Le Cheveu Blanc",
-  #   slug: "lecheveublanc",
-  #   meta_title: "Le Cheveu Blanc",
-  #   meta_description: "Illustrations militantes from Nantes",
-  #   meta_image: "lecheveublanc/meta_image.jpg",
-  #   instagram_url: "https://www.instagram.com/le_cheveu_blanc/",
-  #   facebook_url: "https://www.facebook.com/lecheveublanc/"
-  # })
+
+  store_two = unsafe.stores.create({
+    domain: "ngrok.io",
+    name: "Unsafe",
+    slug: "unsafe",
+    meta_title: "Unsafe",
+    meta_description: "Metal Hardcore from Nantes",
+    meta_image: "unsafe/meta_image.jpg",
+    instagram_url: "https://www.instagram.com/unsafehc/",
+    facebook_url: "https://www.facebook.com/unsafehc/"
+  })
+
   # store = salome.stores.create({
   #   domain: "localhost",
   #   name: "Studio Anémone",
@@ -64,25 +58,16 @@ else
   #   instagram_url: "https://www.instagram.com/studio.anemone/",
   #   facebook_url: "https://www.facebook.com/"
   # })
-  store = unsafe.stores.create({
-    domain: "localhost",
-    name: "Unsafe",
-    slug: "unsafe",
-    meta_title: "Unsafe",
-    meta_description: "Metal Hardcore from Nantes",
-    meta_image: "unsafe/meta_image.jpg",
-    instagram_url: "https://www.instagram.com/unsafehc/",
-    facebook_url: "https://www.facebook.com/unsafehc/"
-  })
-  categories = []
-  [:stickers, :print, :illustration].each do |category|
-    category = Category.create({
-      store: store,
-      name: category
-    })
+  [store_one, store_two].each do |store|
+    categories = []
+    [:stickers, :print, :illustration].each do |category|
+      category = Category.create({
+        store: store,
+        name: category
+      })
 
-    categories << category
-  end
+      categories << category
+    end
     10.times do
 
       file = URI.open("https://source.unsplash.com/random/300x300/?illustration")
@@ -113,4 +98,5 @@ else
     ShippingMethod.create(store: store, name: "UPS", description: "Dans les 48h", price: 8)
     ShippingMethod.create(store: store, name: "Mondial relay", description: "entre 2 à 5 jours", price: 4)
     ShippingMethod.create(store: store, name: "Remise en main propre", description: "Très propre", price: 0)
+  end
 end

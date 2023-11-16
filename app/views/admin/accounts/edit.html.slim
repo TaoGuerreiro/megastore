@@ -18,7 +18,7 @@
           .mb-5
             = field.input :avatar, as: :file, label: false, input_html: { accept: "image/*", class:"hidden" }
             = field.label :avatar do
-              .h-10.inline.px-3.py-2.bg-contrast.rounded-xl.cursor-pointer.border.border-content Parcourir
+              .btn.btn-primary.inline Parcourir
 
           .mb-5 data-photo-upload-target="photosContainer"
             - if @user.avatar.attached?

@@ -2,7 +2,7 @@
   .
     .inline-block.min-w-full.py-5.align-middle.sm:px-6.lg:px-8 data-controller="photo-upload"
       = simple_form_for [:admin, @item] do |field|
-        h3.mb-6.text-2xl.text-content Informations
+        h3.mb-6.text-2xl.text-contrast Informations
 
         = field.input :name, label: "Nom", placeholder: "Nom"
         = field.input :description, as: :text, label: "Description", placeholder: "Description"
@@ -11,7 +11,7 @@
           = field.input :stock, label: "Stock", placeholder: "Stock"
           = field.association :category, collection: Current.store.categories.map {|category| [category.name, category.id]}, label: "Catégorie", placeholder: "Catégorie"
 
-        h3.mb-6.text-2xl.text-content Spécifications
+        h3.mb-6.text-2xl.text-contrast Spécifications
 
         .flex.gap-4
           .relative.w-full
@@ -35,13 +35,13 @@
               | gr
 
 
-        h3.mb-6.text-2xl.text-content Photos
+        h3.mb-6.text-2xl.text-contrast Photos
 
         - unless @item.archived?
-          = field.input :active, label: "En ligne", as: :boolean, input_html: { checked: @item.active?, class: "w-5 h-5 m-0 p-0 flex"}, wrapper_html: {class: "flex items-center"}, label_html: {class: "-top-0.5 left-4"}
+          = field.input :active, label: "En ligne", as: :boolean, input_html: { checked: @item.active?, class: "w-5 h-5 m-0 p-0 flex checked:bg-primary"}, wrapper_html: {class: "flex items-center"}, label_html: {class: "-top-0.5 left-4"}
         = field.input :photos, label: false, input_html: { multiple: true, class: "hidden", data: { action: "change->photo-upload#show" }}
         = field.label :photos do
-          .h-10.inline.px-3.py-2.bg-contrast.rounded-xl.cursor-pointer.border.border-content Ajouter une photo
+          .btn.btn-primary.inline Ajouter une photo
 
 
       .mt-5 data-photo-upload-target="photosContainer"

@@ -4,8 +4,7 @@ export default class extends Controller {
   static targets = ["head", "links"]
 
   scroll(event) {
-    console.log(this.headTarget.offsetHeight);
-    if (this.hasLinksTarget) {
+    if (this.hasLinksTarget && this.hasHeadTarget) {
       if (event.target.defaultView.pageYOffset > (this.headTarget.offsetHeight)) {
         this.linksTarget.classList.remove("opacity-0");
         this.headTarget.classList.add("opacity-0");

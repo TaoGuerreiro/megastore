@@ -10,13 +10,13 @@
   } */
 
   :root {
-    --color-primary: 139, 128, 249;
-    --color-secondary: 97, 201, 168;
-    --color-light: 249, 244, 245;
-    --color-contrast: 47, 47, 47;
-    --color-midgray: 121, 121, 121;
-    --color-content: 219, 168, 172;
-    --color-contour: 247, 195, 199;
+    --color-primary: 83, 107, 120;
+    --color-secondary: 221, 198, 123;
+    --color-light: 236, 239, 242;
+    --color-contrast: 99, 112, 129;
+    --color-midgray: 110, 132, 139;
+    --color-content: 124, 152, 179;
+    --color-contour: 172, 203, 225;
     --color-form-input: 250, 250, 250;
   }
 
@@ -27,7 +27,7 @@
     --color-contrast: 47, 47, 47;
     --color-midgray: 121, 121, 121;
     --color-content: 200, 200, 200;
-    --color-contour: 228, 228, 228;
+    --color-contour: 238, 238, 238;
     --color-form-input: 250, 250, 250;
   }
 
@@ -59,11 +59,11 @@
   }
 
   .btn-primary {
-    @apply bg-primary rounded-md text-contrast font-bold hover:scale-95 transition-all cursor-pointer;
+    @apply bg-primary rounded-md text-light font-bold hover:scale-95 transition-all cursor-pointer;
   }
 
   .btn-secondary {
-    @apply bg-secondary rounded-md text-contrast font-bold hover:scale-95 transition-all cursor-pointer;
+    @apply bg-secondary rounded-md text-light font-bold hover:scale-95 transition-all cursor-pointer;
   }
 
   .btn-link {
@@ -89,7 +89,7 @@
 
   .form-input:focus ~ .floating-label,
   .form-input:not(:placeholder-shown) ~ .floating-label {
-    @apply transform-gpu -translate-y-6 scale-75 text-secondary bg-contrast rounded-full border border-secondary;
+    @apply transform-gpu -translate-y-6 scale-75 text-contrast bg-form-input rounded-full border border-secondary;
   }
 
   .has-error .form-input {

@@ -20,7 +20,7 @@ export default class extends Controller {
   }
 
   renderList = (addresses) => {
-    const html = `<ul class="z-50 overflow-hidden opacity-100 shadow-lg rounded-lg text-contrast">` +
+    const html = `<ul class="z-50 overflow-hidden opacity-100 shadow-lg text-contrast bg-contour border border-light">` +
       addresses.map((address, index) =>
         `<li data-action="click->search#setAddress" class=" !z-50 py-2 px-3 cursor-pointer address last:rounded-b-lg first:rounded-t-lg hover:rounded-lg hover:bg-content list-group-item address" id="address_${index}" data-address="${address.place_name}">${address.place_name}</li>`
       ).join('') +
