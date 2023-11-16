@@ -1,7 +1,7 @@
 .flex.gap-4.text-2xl.items-center
   - if Current.store.instagram_url.present?
     = link_to Current.store.instagram_url, target: "_blank" do
-      i.fa-brands.fa-instagram.hover:text-primary
+      i.fa-brands.fa-instagram.hover:text-primary class=(@color)
   - if Current.store.facebook_url.present?
     = link_to Current.store.facebook_url, target: "_blank" do
-      i.fa-brands.fa-facebook.hover:text-primary
+      i.fa-brands.fa-facebook.hover:text-primary class=(@color)

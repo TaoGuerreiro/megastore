@@ -1,16 +1,16 @@
 = link_to item_path(item) do
-  .group.relative.flex.flex-col.overflow-hidden.rounded-lg.border.border-gray-200.bg-white
-    .aspect-h-4.aspect-w-3.bg-gray-200.sm:aspect-none.group-hover:opacity-75.sm:h-96
+  .group.relative.flex.flex-col.overflow-hidden.rounded-lg.border.bg-contrast class="border-contour"
+    .aspect-h-4.aspect-w-3.bg-contrast.sm:aspect-none.group-hover:opacity-75.sm:h-96
       - if item.photos.attached?
         = image_tag item.photos.first, class: "h-full w-full object-cover object-center sm:h-full sm:w-full"
-    .flex.flex-1.flex-col.space-y-2.p-4
-      h3.text-sm.font-medium.text-gray-900
+    .flex.flex-1.flex-col.space-y-2.p-4.bg-contour
+      h3.text-sm.font-medium.text-contrast
         span.absolute.inset-0[aria-hidden="true"]
         = item.name
-      p.text-sm.text-gray-500
+      p.text-sm.text-content
         = item.description
       .flex.flex-1.flex-col.justify-end
-        / p.text-sm.italic.text-gray-500
+        / p.text-sm.italic.text-midgray
         /   | 8 colors
-        p.text-base.font-medium.text-gray-900
+        p.text-base.font-medium.text-contrast
           = item.price

@@ -1,25 +1,25 @@
 - unless @order.paid?
-  main.bg-white.px-4.pb-24.pt-4.sm:px-6.px-8
+  main.bg-contrast.px-4.pb-24.pt-4.sm:px-6.px-8
   .mx-auto.max-w-3xl
     .max-w-xl
       h1.text-base.font-medium.text-primary Une erreur s'est produite lors du paiement.
       p.mt-2.text-4xl.font-bold.tracking-tight Vous pouvez réessayer ou me contacter.
-      p.mt-2.text-base.text-gray-500
+      p.mt-2.text-base.text-midgray
       dl.mt-12.text-sm.font-medium
-        dt.text-gray-900 Numéro de commande
+        dt.text-contrast Numéro de commande
         dd.mt-2.text-primary = @order.id
 - else
-  main.bg-white.px-4.pb-24.pt-16.sm:px-6.sm:pt-24.lg:px-8.lg:py-32
+  main.bg-contrast.px-4.pb-24.pt-16.sm:px-6.sm:pt-24.lg:px-8.lg:py-32
     .mx-auto.max-w-3xl
       .max-w-xl
         h1.text-base.font-medium.text-primary Merci pour votre commande!
         p.mt-2.text-4xl.font-bold.tracking-tight Je m'en occupe au plus vite
-        p.mt-2.text-base.text-gray-500
+        p.mt-2.text-base.text-midgray
         dl.mt-12.text-sm.font-medium
-          dt.text-gray-900 Numéro de commande
+          dt.text-contrast Numéro de commande
           dd.mt-2.text-primary = @order.id
 
-      section.mt-10.border-t.border-gray-200[aria-labelledby="order-heading"]
+      section.mt-10.border-t.border-content[aria-labelledby="order-heading"]
         h2#order-heading.sr-only Your order
         h3.sr-only Items
         - @items.each do |item|
@@ -30,37 +30,37 @@
           h4.sr-only Addresses
           dl.grid.grid-cols-2.gap-x-6.py-10.text-sm
             div
-              dt.font-medium.text-gray-900 Adresse de livraison
-              dd.mt-2.text-gray-700
+              dt.font-medium.text-contrast Adresse de livraison
+              dd.mt-2.text-contrast
                 address.not-italic
                   span.block = @order.shipping_address
             div
-              dt.font-medium.text-gray-900 Adresse de facturation
-              dd.mt-2.text-gray-700
+              dt.font-medium.text-contrast Adresse de facturation
+              dd.mt-2.text-contrast
                 address.not-italic
                   span.block = @order.shipping_address
 
           h4.sr-only Payment
-          dl.grid.grid-cols-2.gap-x-6.border-t.border-gray-200.py-10.text-sm
+          dl.grid.grid-cols-2.gap-x-6.border-t.border-content.py-10.text-sm
             div
-              dt.font-medium.text-gray-900 Methode de paiement
-              dd.mt-2.text-gray-700
+              dt.font-medium.text-contrast Methode de paiement
+              dd.mt-2.text-contrast
                 p Stripe
 
             div
-              dt.font-medium.text-gray-900 Methode de livraison
-              dd.mt-2.text-gray-700
+              dt.font-medium.text-contrast Methode de livraison
+              dd.mt-2.text-contrast
                 p = @order.shipping_method.name
                 p = @order.shipping_method.description
 
           h3.sr-only Summary
-          dl.space-y-6.border-t.border-gray-200.pt-10.text-sm
+          dl.space-y-6.border-t.border-content.pt-10.text-sm
             .flex.justify-between
-              dt.font-medium.text-gray-900 Sous-total
-              dd.text-gray-700 = number_to_currency(@order.amount, format: "%n €")
+              dt.font-medium.text-contrast Sous-total
+              dd.text-contrast = number_to_currency(@order.amount, format: "%n €")
             .flex.justify-between
-              dt.font-medium.text-gray-900 Livraison
-              dd.text-gray-700 = number_to_currency(@order.shipping_method.price, format: "%n €")
+              dt.font-medium.text-contrast Livraison
+              dd.text-contrast = number_to_currency(@order.shipping_method.price, format: "%n €")
             .flex.justify-between
-              dt.font-medium.text-gray-900 Total
-              dd.text-gray-900 = number_to_currency(@order.amount + @order.shipping_method.price, format: "%n €")
+              dt.font-medium.text-contrast Total
+              dd.text-contrast = number_to_currency(@order.amount + @order.shipping_method.price, format: "%n €")

@@ -16,8 +16,14 @@ meta property="og:site_name" content="#{ meta_title }"
 link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css"
 = stylesheet_link_tag "application", "data-turbo-track": "reload"
 = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 = tag :meta, name: :mapbox_token, content: Rails.application.credentials.mapbox.mapbox_api_key
 
 
 script src="https://kit.fontawesome.com/910f22a437.js" crossorigin="anonymous"
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Belanosima:wght@400;600;700&family=Noto+Sans+KR:wght@900&family=Noto+Sans:wght@900&display=swap" rel="stylesheet">

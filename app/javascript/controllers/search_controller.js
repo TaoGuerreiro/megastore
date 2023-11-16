@@ -20,9 +20,9 @@ export default class extends Controller {
   }
 
   renderList = (addresses) => {
-    const html = `<ul class="z-50 overflow-hidden opacity-100 shadow-lg rounded-lg text-gray-800">` +
+    const html = `<ul class="z-50 overflow-hidden opacity-100 shadow-lg rounded-lg text-contrast">` +
       addresses.map((address, index) =>
-        `<li data-action="click->search#setAddress" class=" !z-50 py-2 px-3 cursor-pointer address last:rounded-b-lg first:rounded-t-lg hover:rounded-lg hover:bg-gray-200 list-group-item address" id="address_${index}" data-address="${address.place_name}">${address.place_name}</li>`
+        `<li data-action="click->search#setAddress" class=" !z-50 py-2 px-3 cursor-pointer address last:rounded-b-lg first:rounded-t-lg hover:rounded-lg hover:bg-content list-group-item address" id="address_${index}" data-address="${address.place_name}">${address.place_name}</li>`
       ).join('') +
       `</ul>`
     return html
@@ -61,13 +61,13 @@ export default class extends Controller {
       currentTarget--;
       currentTarget = currentTarget <= -1 ? max - 1 : currentTarget;
       addresses[currentTarget].classList.toggle('bg-blue-bici', true);
-      addresses[currentTarget].classList.toggle('text-white', true);
+      addresses[currentTarget].classList.toggle('text-contrast', true);
     } else if (key === "ArrowDown") {
       this.removeFocus(addresses);
       currentTarget++;
       currentTarget = currentTarget > max - 1 ? 0 : currentTarget;
       addresses[currentTarget].classList.toggle('bg-blue-bici', true);
-      addresses[currentTarget].classList.toggle('text-white', true);
+      addresses[currentTarget].classList.toggle('text-contrast', true);
     } else if (key === "Enter") {
       event.preventDefault();
       const input = addresses[currentTarget];
@@ -84,7 +84,7 @@ export default class extends Controller {
   removeFocus = (addresses) => {
     addresses.forEach((address) => {
       address.classList.toggle('bg-blue-bici', false);
-      address.classList.toggle('text-white', false);
+      address.classList.toggle('text-contrast', false);
     })
   }
 

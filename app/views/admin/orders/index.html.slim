@@ -5,19 +5,19 @@
       .px-4.sm:px-6.lg:px-8
         .sm:flex.sm:items-center
           .sm:flex-auto
-            h1.text-base.font-semibold.leading-6.text-gray-900
+            h1.text-base.font-semibold.leading-6.text-contrast
               | Commandes
-            p.mt-2.text-sm.text-gray-600
+            p.mt-2.text-sm.text-midgray
               | Liste de toutes les commandes de votre boutique.
           / TODO
           / .mt-4.sm:ml-16.sm:mt-0.sm:flex-none
-          /   button.block.rounded-md.bg-indigo-500.px-3.py-2.text-center.text-sm.font-semibold.text-white.hover:bg-indigo-400.focus-visible:outline.focus-visible:outline-2.focus-visible:outline-offset-2.focus-visible:outline-indigo-500[type="button"]
+          /   button.block.rounded-md.bg-indigo-500.px-3.py-2.text-center.text-sm.font-semibold.text-contrast.hover:bg-indigo-400.focus-visible:outline.focus-visible:outline-2.focus-visible:outline-offset-2.focus-visible:outline-indigo-500[type="button"]
           /     | Ajouter une commande
         .mt-8.flow-root
           .-mx-4.-my-2.overflow-x-auto.sm:-mx-6.lg:-mx-8
             .inline-block.min-w-full.py-2.align-middle.sm:px-6.lg:px-8
-              .flex-container.min-w-full.divide-y.divide-gray-700
-                .flex.flex-row.text-left.text-sm.font-semibold.text-gray-900.py-3.5
+              .flex-container.min-w-full.divide-y.divide-contrast
+                .flex.flex-row.text-left.text-sm.font-semibold.text-contrast.py-3.5
                   .basis-1/6
                     | Ref.
                   .basis-1/6
@@ -34,5 +34,5 @@
                   .basis-8
                     span.sr-only
                       | Edit
-                .divide-y.divide-gray-300
+                .divide-y.divide-content
                   = render @orders

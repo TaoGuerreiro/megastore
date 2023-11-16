@@ -2,15 +2,15 @@ aside
   h2.sr-only
     | Filters
   .hidden.lg:block
-    form.space-y-10.divide-y.divide-gray-200
+    form.space-y-10.divide-y.divide-content
       div
         fieldset
-          legend.block.text-sm.font-medium.text-gray-900
+          legend.block.text-sm.font-medium.text-contrast
             | Category
           .space-y-3.pt-6 data-controller="autosave"
             = simple_form_for :filters do |f|
 
               - Current.store.categories.each_with_index do |category, index|
                 .flex.items-center
-                  = f.input category.name, as: :boolean, boolean_style: :nested, label: t(category.name), input_html: {data: { action: "change->autosave#save" },checked: session[:filters][category.name].to_i.positive?, id: "category-#{index}", class: "h-6 w-4 rounded border-gray-300 text-primary focus:ring-primary"}, wrapper_html: { class: "pb-3 mb-0 flex items-center"}, label_html: {class: 'top-1 left-6 text-sm text-gray-600'}
+                  = f.input category.name, as: :boolean, boolean_style: :nested, label: t(category.name), input_html: {data: { action: "change->autosave#save" },checked: session[:filters][category.name].to_i.positive?, id: "category-#{index}", class: "h-6 w-4 rounded border-content text-primary focus:ring-primary"}, wrapper_html: { class: "pb-3 mb-0 flex items-center"}, label_html: {class: 'top-1 left-6 text-sm text-midgray'}
               .hidden = f.submit nil, data: { "autosave-target": "button" }

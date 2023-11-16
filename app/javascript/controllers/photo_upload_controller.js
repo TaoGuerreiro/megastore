@@ -20,7 +20,7 @@ export default class extends Controller {
 
       reader.onload = (event) => {
         const mainDiv = document.createElement('div');
-        mainDiv.className = 'inline-block w-20 h-20 mr-4 bg-gray-800 rounded-xl relative'; // Ajoutez des classes de style ici
+        mainDiv.className = 'inline-block w-20 h-20 mr-4 bg-contrast rounded-xl relative'; // Ajoutez des classes de style ici
 
         const imgElement = document.createElement('img');
         imgElement.src = event.target.result;

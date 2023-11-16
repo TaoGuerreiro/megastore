@@ -1,8 +1,8 @@
-div.border-r.border-gray-600.sticky.top-0.z-50
+div.border-r.border-midgray.sticky.top-0.z-50
   // MOBILE NAVBAR
   = check_box_tag :cart, nil, nil, { checked: true, class: "hidden peer"}
   div class="relative z-50 lg:hidden peer-checked:hidden" role="dialog" aria-modal="true"
-    div class="fixed inset-0 bg-gray-900/80"
+    div class="fixed inset-0 bg-contrast/80"
     div class="fixed inset-0 flex"
       div class="relative mr-16 flex w-full max-w-xs flex-1"
         .absolute.left-full.top-0.flex.w-16.justify-center.pt-5
@@ -10,10 +10,10 @@ div.border-r.border-gray-600.sticky.top-0.z-50
             span.sr-only
               | Close sidebar
             = label_tag :cart do
-              i.fa-solid.fa-times.text-gray-400.text-3xl
+              i.fa-solid.fa-times.text-midgray.text-3xl
 
         <!-- Sidebar component, swap this element with another sidebar if you like -->
-        div class="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-2 ring-1 ring-white/10"
+        div class="flex grow flex-col gap-y-5 overflow-y-auto bg-contrast px-6 pb-2 ring-1 ring-contrast/10"
           div class="flex h-16   shrink-0 items-center"
             = image_tag "#{Current.store.slug}/logo.png", class: "w-auto"
           nav class="flex flex-1 flex-col"
@@ -21,7 +21,7 @@ div.border-r.border-gray-600.sticky.top-0.z-50
 
   // DESKTOP NAVBAR
   div class="hidden lg:h-screen lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col"
-    div class="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6"
+    div class="flex grow flex-col gap-y-5 overflow-y-auto bg-contrast px-6"
       div class="flex h-16 shrink-0 items-center"
         = image_tag "#{Current.store.slug}/logo.png", class: " w-auto"
 
@@ -31,10 +31,10 @@ div.border-r.border-gray-600.sticky.top-0.z-50
 
 
 
-  .absolute.top-0.z-40.flex.items-center.gap-x-6.bg-gray-900.px-4.py-4.shadow-sm.rounded-br-lg.sm:px-6.lg:hidden
+  .absolute.top-0.z-40.flex.items-center.gap-x-6.bg-contrast.px-4.py-4.shadow-sm.rounded-br-lg.sm:px-6.lg:hidden
     / = check_box_tag :cart, nil, nil, {checked: @opened, class: "hidden peer"}
     = label_tag :cart do
-      .-m-2.5.p-2.5.text-gray-400.lg:hidden type="button"
+      .-m-2.5.p-2.5.text-midgray.lg:hidden type="button"
         span.sr-only
           | Open sidebar
         i.fa-solid.fa-bars.text-3xl

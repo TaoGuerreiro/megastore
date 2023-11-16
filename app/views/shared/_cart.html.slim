@@ -1,58 +1,57 @@
 
+= turbo_frame_tag :cart_frame, class: "ml-6" do
+  = label_tag :cart do
+    .relative
+      i.fa-solid.fa-cart-shopping.text-2xl.text-contrast
+      .bg-primary.rounded-full.h-6.w-6.flex.items-center.justify-center.absolute.text-contrast.-right-2.-bottom-2
+        = session[:checkout_items].count
+  = check_box_tag :cart, nil, nil, {checked: @opened, class: "hidden peer"}
+  .hidden.peer-checked:block.relative.z-10[aria-labelledby="slide-over-title" role="dialog" aria-modal="true"]
 
-  = turbo_frame_tag :cart_frame, class: "ml-6" do
-    = label_tag :cart do
-      .relative
-        i.fa-solid.fa-cart-shopping.text-2xl
-        .bg-primary.rounded-full.h-6.w-6.flex.items-center.justify-center.absolute.text-white.-right-2.-bottom-2
-          = session[:checkout_items].count
-    = check_box_tag :cart, nil, nil, {checked: @opened, class: "hidden peer"}
-    .hidden.peer-checked:block.relative.z-10[aria-labelledby="slide-over-title" role="dialog" aria-modal="true"]
+    .fixed.inset-0.bg-midgray.bg-opacity-75.transition-opacity
+    .fixed.inset-0.overflow-hidden
+      .absolute.inset-0.overflow-hidden
+        .pointer-events-none.fixed.inset-y-0.right-0.flex.max-w-full.pl-10
+          .pointer-events-auto.w-screen.max-w-md
+            .flex.h-full.flex-col.overflow-y-scroll.bg-contrast.shadow-xl
+              .flex-1.overflow-y-auto.px-4.py-6.sm:px-6.bg-light
+                .flex.items-start.justify-between
+                  h2#slide-over-title.text-lg.font-medium.text-contrast
+                    | Shopping cart
+                  .ml-3.flex.h-7.items-center
+                    = label_tag :cart, class: "" do
+                      .w-16.h-16.flex.items-center.justify-center.rounded-full.p-3
+                        i.fa-solid.fa-xmark.ml-6.text-2xl.text-contrast
+                .mt-8
+                  .flow-root
+                    ul.-my-6.divide-y.divide-content[role="list"]
+                      - Checkout.new(session[:checkout_items]).cart.each do |item|
 
-      .fixed.inset-0.bg-gray-500.bg-opacity-75.transition-opacity
-      .fixed.inset-0.overflow-hidden
-        .absolute.inset-0.overflow-hidden
-          .pointer-events-none.fixed.inset-y-0.right-0.flex.max-w-full.pl-10
-            .pointer-events-auto.w-screen.max-w-md
-              .flex.h-full.flex-col.overflow-y-scroll.bg-white.shadow-xl
-                .flex-1.overflow-y-auto.px-4.py-6.sm:px-6
-                  .flex.items-start.justify-between
-                    h2#slide-over-title.text-lg.font-medium.text-gray-900
-                      | Shopping cart
-                    .ml-3.flex.h-7.items-center
-                      = label_tag :cart, class: "" do
-                        .w-16.h-16.flex.items-center.justify-center.rounded-full.p-3
-                          i.fa-solid.fa-xmark.ml-6.text-2xl
-                  .mt-8
-                    .flow-root
-                      ul.-my-6.divide-y.divide-gray-200[role="list"]
-                        - Checkout.new(session[:checkout_items]).cart.each do |item|
+                        li.flex.py-6
+                          .h-24.w-24.flex-shrink-0.overflow-hidden.rounded-md.border.border-content
+                            = image_tag item[:item].photos.first, class: "h-full.w-full.object-cover.object-center"
+                          .ml-4.flex.flex-1.flex-col
+                            div
+                              .flex.justify-between.text-base.font-medium.text-contrast
+                                h3
+                                  = item[:item].name
+                                p.ml-3
+                                  = "#{item[:item].price} €"
 
-                          li.flex.py-6
-                            .h-24.w-24.flex-shrink-0.overflow-hidden.rounded-md.border.border-gray-200
-                              = image_tag item[:item].photos.first, class: "h-full.w-full.object-cover.object-center"
-                            .ml-4.flex.flex-1.flex-col
-                              div
-                                .flex.justify-between.text-base.font-medium.text-gray-900
-                                  h3
-                                    = item[:item].name
-                                  p.ml-3
-                                    = "#{item[:item].price} €"
-
-                              .flex.flex-1.items-end.justify-between.text-sm
-                                p.text-gray-500
-                                  = "X #{item[:number]}"
-                                .flex
-                                  = button_to "Supprimer", remove_item_checkout_path(item[:item]), method: :post, class: "font-medium text-primary hover:text-primary/90"
+                            .flex.flex-1.items-end.justify-between.text-sm
+                              p.text-midgray
+                                = "X #{item[:number]}"
+                              .flex
+                                = button_to "Supprimer", remove_item_checkout_path(item[:item]), method: :post, class: "font-medium text-primary hover:text-primary/90"
 
 
-                .border-t.border-gray-200.px-4.py-6.sm:px-6
-                  .flex.justify-between.text-base.font-medium.text-gray-900
-                    p
-                      | Total
-                    p
-                      = "#{Checkout.new(session[:checkout_items]).sum} €"
-                  p.mt-0.5.text-sm.text-gray-500
-                    | L'expédition sera calculé à la prochaine étape.
-                  .mt-6
-                    = link_to "Payement", checkout_path, class: "flex items-center justify-center rounded-md border border-transparent bg-primary/90 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-primary", data: { turbo: false }
+              .border-t.border-content.px-4.py-6.sm:px-6.bg-light
+                .flex.justify-between.text-base.font-medium.text-contrast
+                  p
+                    | Total
+                  p
+                    = "#{Checkout.new(session[:checkout_items]).sum} €"
+                p.mt-0.5.text-sm.text-midgray
+                  | L'expédition sera calculé à la prochaine étape.
+                .mt-6
+                  = link_to "Payement", checkout_path, class: "flex items-center justify-center rounded-md border border-transparent bg-primary/90 px-6 py-3 text-base font-medium text-contrast shadow-sm hover:bg-primary", data: { turbo: false }

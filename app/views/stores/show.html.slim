@@ -1,4 +1,4 @@
-.bg-white
+.bg-contrast
   div
     / .relative.z-40.lg:hidden[role="dialog" aria-modal="true"]
     /   .fixed.inset-0.bg-black.bg-opacity-25
@@ -9,7 +9,7 @@
         section.mt-6.lg:col-span-2.lg:mt-0.xl:col-span-3[aria-labelledby="product-heading"]
           - if @items.blank?
             .flex.items-center.justify-center.py-24
-              h1.text-4xl.text-gray-500 C'est pour bientôt ! Stay tuned 😎 !
+              h1.text-4xl.text-midgray C'est pour bientôt ! Stay tuned 😎 !
           - else
             h2#product-heading.sr-only
               | Products

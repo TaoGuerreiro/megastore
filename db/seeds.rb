@@ -10,7 +10,9 @@ Store.destroy_all
 User.destroy_all
 
 admin_localhost = User.create(first_name: "Ted", last_name: "Lasso", email: "admin@example.fr", password: "123456", role: "admin")
-clemence = User.create(first_name: "Clémence", last_name: "Porcheret", email: "hello@lecheveublanc.fr", password: "123456", role: "admin")
+# clemence = User.create(first_name: "Clémence", last_name: "Porcheret", email: "hello@lecheveublanc.fr", password: "123456", role: "admin")
+# salome = User.create(first_name: "Salomé", last_name: "Dubart", email: "hello@studioanemone.fr", password: "123456", role: "admin")
+unsafe = User.create(first_name: "Tao", last_name: "Guerreiro", email: "hello@unsafehxc.fr", password: "123456", role: "admin")
 
 unless Rails.env == "development"
   store = clemence.stores.create({
@@ -42,15 +44,35 @@ unless Rails.env == "development"
     facebook_url: "https://www.facebook.com/lecheveublanc/"
   })
 else
-  store = clemence.stores.create({
+  # store = clemence.stores.create({
+  #   domain: "localhost",
+  #   name: "Le Cheveu Blanc",
+  #   slug: "lecheveublanc",
+  #   meta_title: "Le Cheveu Blanc",
+  #   meta_description: "Illustrations militantes from Nantes",
+  #   meta_image: "lecheveublanc/meta_image.jpg",
+  #   instagram_url: "https://www.instagram.com/le_cheveu_blanc/",
+  #   facebook_url: "https://www.facebook.com/lecheveublanc/"
+  # })
+  # store = salome.stores.create({
+  #   domain: "localhost",
+  #   name: "Studio Anémone",
+  #   slug: "anemone",
+  #   meta_title: "Studio Anémone",
+  #   meta_description: "Céramique from Vannes",
+  #   meta_image: "anemone/meta_image.jpg",
+  #   instagram_url: "https://www.instagram.com/studio.anemone/",
+  #   facebook_url: "https://www.facebook.com/"
+  # })
+  store = unsafe.stores.create({
     domain: "localhost",
-    name: "Le Cheveu Blanc",
-    slug: "lecheveublanc",
-    meta_title: "Le Cheveu Blanc",
-    meta_description: "Illustrations militantes from Nantes",
-    meta_image: "lecheveublanc/meta_image.jpg",
-    instagram_url: "https://www.instagram.com/le_cheveu_blanc/",
-    facebook_url: "https://www.facebook.com/lecheveublanc/"
+    name: "Unsafe",
+    slug: "unsafe",
+    meta_title: "Unsafe",
+    meta_description: "Metal Hardcore from Nantes",
+    meta_image: "unsafe/meta_image.jpg",
+    instagram_url: "https://www.instagram.com/unsafehc/",
+    facebook_url: "https://www.facebook.com/unsafehc/"
   })
   categories = []
   [:stickers, :print, :illustration].each do |category|

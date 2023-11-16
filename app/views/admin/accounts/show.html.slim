@@ -3,35 +3,35 @@
     div
       .flex.justify-between
         .px-4.sm:px-0
-          h3.text-base.font-semibold.leading-7.text-gray-900
+          h3.text-base.font-semibold.leading-7.text-contrast
             | Informations
-          p.mt-1.max-w-2xl.text-sm.leading-6.text-gray-500
+          p.mt-1.max-w-2xl.text-sm.leading-6.text-midgray
             | Mon compte
         .flex.items-center
-          = link_to edit_admin_account_path(@user), class: "text-gray-500" do
+          = link_to edit_admin_account_path(@user), class: "text-midgray" do
             i.fa-solid.fa-pen
-      .mt-6.border-t.border-gray-100
-        dl.divide-y.divide-gray-200
+      .mt-6.border-t.border-contour
+        dl.divide-y.divide-content
 
           .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
-            dt.text-sm.font-medium.leading-6.text-gray-900
+            dt.text-sm.font-medium.leading-6.text-contrast
               | Nom
-            dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
+            dd.mt-1.text-sm.leading-6.text-contrast.sm:col-span-2.sm:mt-0
               = @user.first_name
           .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
-            dt.text-sm.font-medium.leading-6.text-gray-900
+            dt.text-sm.font-medium.leading-6.text-contrast
               | Prénom
-            dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
+            dd.mt-1.text-sm.leading-6.text-contrast.sm:col-span-2.sm:mt-0
               = @user.last_name
           .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
-            dt.text-sm.font-medium.leading-6.text-gray-900
+            dt.text-sm.font-medium.leading-6.text-contrast
               | Email
-            dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
+            dd.mt-1.text-sm.leading-6.text-contrast.sm:col-span-2.sm:mt-0
               = @user.email
           .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
-            dt.text-sm.font-medium.leading-6.text-gray-900
+            dt.text-sm.font-medium.leading-6.text-contrast
               | Mots de passe
-            dd.mt-1.text-sm.leading-6.text-gray-700.sm:col-span-2.sm:mt-0
+            dd.mt-1.text-sm.leading-6.text-contrast.sm:col-span-2.sm:mt-0
               = "*" * 10
           .px-4.flex.justify-center.mx-auto.w-1/2
             - if current_user.avatar.attached?

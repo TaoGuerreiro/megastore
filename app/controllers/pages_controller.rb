@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   def home
+    @items = Current.store.items.where(status: :active)
     render "#{Current.store.slug}/home"
   end
 

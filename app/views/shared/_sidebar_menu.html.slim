@@ -10,8 +10,8 @@ ul.flex.flex-1.flex-col.gap-y-7[role="list"]
 
 
   li.-mx-6.mt-auto
-    .flex.items-center.gap-x-4.px-6.py-3.text-sm.font-semibold.leading-6.text-white.hover:bg-gray-800
-      / = image_tag current_user.avatar, class: "h-8 w-8 rounded-full bg-gray-800"
+    .flex.items-center.gap-x-4.px-6.py-3.text-sm.font-semibold.leading-6.text-contrast.hover:bg-contrast
+      / = image_tag current_user.avatar, class: "h-8 w-8 rounded-full bg-contrast"
       = render Avatar::Component.new(user: current_user)
 
       span.sr-only

@@ -47,6 +47,6 @@ Rails.application.routes.draw do
         post :remove, on: :member
       end
     end
-    resources :orders, only: [:create, :show]
+    resources :orders, only: [:show, :create]
   end
 end

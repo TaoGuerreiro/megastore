@@ -5,12 +5,12 @@
         .px-4.sm:px-6.lg:px-8
           .sm:flex.sm:items-center
             .sm:flex-auto
-              h1.text-base.font-semibold.leading-6.text-gray-900
+              h1.text-base.font-semibold.leading-6.text-contrast
                 | Détails de la commande
             .mt-4.sm:ml-16.sm:mt-0.sm:flex-none
               = link_to admin_order_path(@order), data: { turbo_method: :delete } do
                 i.fa-solid.fa-trash.text-xl
-      section.mt-10.border-t.border-gray-200[aria-labelledby="order-heading"]
+      section.mt-10.border-t.border-content[aria-labelledby="order-heading"]
         h2#order-heading.sr-only Your order
         h3.sr-only Items
         - Checkout.new(@order.items.pluck(:id)).cart.each do |item|
@@ -21,37 +21,37 @@
           h4.sr-only Addresses
           dl.grid.grid-cols-2.gap-x-6.py-10.text-sm
             div
-              dt.font-medium.text-gray-900 Adresse de livraison
-              dd.mt-2.text-gray-700
+              dt.font-medium.text-contrast Adresse de livraison
+              dd.mt-2.text-contrast
                 address.not-italic
                   span.block = @order.shipping_address
             div
-              dt.font-medium.text-gray-900 Adresse de facturation
-              dd.mt-2.text-gray-700
+              dt.font-medium.text-contrast Adresse de facturation
+              dd.mt-2.text-contrast
                 address.not-italic
                   span.block = @order.shipping_address
 
           h4.sr-only Payment
-          dl.grid.grid-cols-2.gap-x-6.border-t.border-gray-200.py-10.text-sm
+          dl.grid.grid-cols-2.gap-x-6.border-t.border-content.py-10.text-sm
             div
-              dt.font-medium.text-gray-900 Methode de paiement
-              dd.mt-2.text-gray-700
+              dt.font-medium.text-contrast Methode de paiement
+              dd.mt-2.text-contrast
                 p Stripe
 
             div
-              dt.font-medium.text-gray-900 Methode de livraison
-              dd.mt-2.text-gray-700
+              dt.font-medium.text-contrast Methode de livraison
+              dd.mt-2.text-contrast
                 p = @order.shipping_method.name
                 p = @order.shipping_method.description
 
           h3.sr-only Summary
-          dl.space-y-6.border-t.border-gray-200.pt-10.text-sm
+          dl.space-y-6.border-t.border-content.pt-10.text-sm
             .flex.justify-between
-              dt.font-medium.text-gray-900 Sous-total
-              dd.text-gray-700 = number_to_currency(@order.amount, format: "%n €")
+              dt.font-medium.text-contrast Sous-total
+              dd.text-contrast = number_to_currency(@order.amount, format: "%n €")
             .flex.justify-between
-              dt.font-medium.text-gray-900 Livraison
-              dd.text-gray-700 = number_to_currency(@order.shipping_method.price, format: "%n €")
+              dt.font-medium.text-contrast Livraison
+              dd.text-contrast = number_to_currency(@order.shipping_method.price, format: "%n €")
             .flex.justify-between
-              dt.font-medium.text-gray-900 Total
-              dd.text-gray-900 = number_to_currency(@order.amount + @order.shipping_method.price, format: "%n €")
+              dt.font-medium.text-contrast Total
+              dd.text-contrast = number_to_currency(@order.amount + @order.shipping_method.price, format: "%n €")

@@ -1,18 +1,18 @@
 tr class="#{'disabled' if item.archived?}"
-  td.whitespace-nowrap.py-4.pl-4.pr-3.text-sm.font-medium.text-gray-800.sm:pl-0.text-center
+  td.whitespace-nowrap.py-4.pl-4.pr-3.text-sm.font-medium.text-contrast.sm:pl-0.text-center
     - if item.active?
       i.fas.fa-check.text-green-500.text-lg
     - else
       i.fas.fa-times.text-red-500.text-lg
-  td.whitespace-nowrap.py-4.pl-4.pr-3.text-sm.font-medium.text-gray-800.sm:pl-0
+  td.whitespace-nowrap.py-4.pl-4.pr-3.text-sm.font-medium.text-contrast.sm:pl-0
     = item.name
-  td.whitespace-nowrap.px-3.py-4.text-sm.text-gray-700
+  td.whitespace-nowrap.px-3.py-4.text-sm.text-contrast
     = "#{item.description.first(30)}..."
-  td.whitespace-nowrap.px-3.py-4.text-sm.text-gray-700
+  td.whitespace-nowrap.px-3.py-4.text-sm.text-contrast
     = item.category.name
-  td.whitespace-nowrap.px-3.py-4.text-sm.text-gray-700.text-right
+  td.whitespace-nowrap.px-3.py-4.text-sm.text-contrast.text-right
     = number_to_currency(item.price, format: "%n €")
-  td.whitespace-nowrap.px-3.py-4.text-sm.text-gray-700.text-right
+  td.whitespace-nowrap.px-3.py-4.text-sm.text-contrast.text-right
     = item.stock
   td.relative.whitespace-nowrap.py-4.pl-3.pr-4.text-right.text-sm.font-medium.sm:pr-0
     = link_to edit_admin_item_path(item), class: "text-primary hover:text-primary/90" do

@@ -5,16 +5,16 @@
       = field.input :first_name, label: "Prénom", placeholder: "Prénom"
       = field.input :last_name, label: "Nom", placeholder: "Nom"
     .flex.flex-col.w-full.relative data-controller="search"
-      .absolute.bg-white.w-full.top-12.z-50.rounded-md data-search-target="list"
+      .absolute.bg-contrast.w-full.top-12.z-50.rounded-md data-search-target="list"
       .mb-8 = field.input :address, label: "Addresse", placeholder: "Addresse", input_html: { autocomplete: "off", data: { action: "keydown->search#navigate keyup->search#fetchAddreses", "search-target": "input" }}
-      .absolute.right-2.z-0.text-gray-300.cursor-pointer class="hover:text-content top-2" data-action="click->search#resetInput"
+      .absolute.right-2.z-0.text-content.cursor-pointer class="hover:text-content top-2" data-action="click->search#resetInput"
         i.fa-solid.fa-xmark.text-2xl
 
     .mb-8 = field.input :phone, label: "Téléphone", placeholder: "Téléphone"
 
-    .mt-10.border-t.border-gray-200.pt-10
+    .mt-10.border-t.border-content.pt-10
       fieldset
-        legend.text-lg.font-medium.text-gray-900
+        legend.text-lg.font-medium.text-contrast
           | Methodes de livraison
         - if field.object.errors[:shipping_method].any?
           p.text-red-500
