@@ -3,7 +3,7 @@ module Admin
     layout "admin"
 
     def index
-      @items = Item.with_archived
+      @items = Item.with_archived.where(store: Current.store)
     end
 
     def new
@@ -11,11 +11,10 @@ module Admin
     end
 
     def create
-      # raise
       @item = Item.new(item_params)
       @item.store = current_user.stores.first
       if @item.save
-        redirect_to admin_items_path
+        redirect_to admin_items_path, notice: "Item was successfully created."
       else
         render :new, status: :unprocessable_entity, notice: "Item could not be created."
       end
@@ -28,7 +27,7 @@ module Admin
     def update
       @item = Item.find(params[:id])
       if @item.update(item_params)
-        redirect_to admin_items_path
+        redirect_to admin_items_path, notice: "Item was successfully updated."
       else
         render :edit, status: :unprocessable_entity, notice: "Item could not be updated."
       end
@@ -37,7 +36,7 @@ module Admin
     def destroy
       @item = Item.find(params[:id])
       @item.destroy
-      redirect_to admin_items_path
+      redirect_to admin_items_path, notice: "Item was successfully destroyed."
     end
 
     def remove_photo
@@ -47,19 +46,19 @@ module Admin
       photo = @item.photos.attachments.find(params[:photo_id])
       photo.purge
 
-      redirect_to edit_admin_item_path(@item)
+      redirect_to edit_admin_item_path(@item), notice: "Photo was successfully removed."
     end
 
     def archive
       @item = Item.find(params[:id])
       @item.archive!
-      redirect_to admin_items_path
+      redirect_to admin_items_path, notice: "Item was successfully archived."
     end
 
     def unarchive
       @item = Item.find(params[:id])
       @item.update(status: :offline)
-      redirect_to admin_items_path
+      redirect_to admin_items_path, notice: "Item was successfully unarchived."
     end
 
     private

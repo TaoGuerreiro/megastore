@@ -1,18 +1,14 @@
-.w-full.hidden.md:flex.cursor-default.items-center.flex-col.top-0.pt-12 class=("absolute" if params[:controller] == "pages" && params[:action] == "home")
+.flex.justify-around.px-24.hidsden.items-center.w-full.transition.fixed.top-0.py-6.z-40.bg-contour class=("hidden" if home?(params)) data-scroll-target="links"
+  .absolute.left-6.hidden.md:block
+    = link_to root_path do
+      = image_tag("#{Current.store.slug}/logo_white.png", class: "h-12")
 
-  = link_to root_path, class: "inline-block mx-auto text-center transition duration-500", data: { "scroll-target": "head" } do
-    = image_tag("#{Current.store.slug}/logo_white.png", class: "h-48")
-    p.text-contrast.text-3xl.font-unsafe.text-primary METAL HARDCORE FROM NANTES
-.flex.justify-around.items-center.w-full.hidden.opacity-0.transition.duration-500.fixed.top-0.py-6.z-50.bg-contour data-scroll-target="links"
-  / = link_to "Portfolio", root_path, class: "btn-link-contrast"
   = link_to "About", about_path, class: "btn-link uppercase font-unsafe"
   = link_to "Booking", contact_path, class: "btn-link  uppercase font-unsafe"
   = link_to "Merch", store_path, class: "btn-link  uppercase font-unsafe"
   .absolute.top-0.right-10 = render "shared/cart"
-.h-36.md:hidden
-  = link_to root_path, class: "w-full flex items-center justify-center" do
-    = image_tag("#{Current.store.slug}/logo_white.png", class: "h-36")
 
+.h-36.md:hidden
   = label_tag :phonenav, class: "fixed shadow-xl z-40 top-10 left-10 rounded-full" do
     .w-16.h-16.bg-secondary.flex.items-center.justify-center.rounded-full.p-3
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

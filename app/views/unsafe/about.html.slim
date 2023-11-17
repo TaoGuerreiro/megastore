@@ -1,9 +1,32 @@
-/ .max-w-5xl.mx-auto.flex.flex-col.items-center.md:flex-row.w-full.pt-12.mb-10
-/   .px-12.pt-6.md:pt-0 class="w-[90%]"
-/     = image_tag "#{Current.store.slug}/salome.jpg", class: "object-contain rounded-lg overflow-hidden"
-/     p.text-midgray.pt-3 Photo Le Cheveu Blanc par <a class="text-primary" href="https://www.instagram.com/amelinevil/">Ameline Vildaer</a> Sept 2023
-/   .w-full.md:px-0.px-12.pt-6.md:pt-0.text-justify
-/     = Current.store.about.body.to_html.html_safe
-/     / = raise
-/ div.w-full.flex.justify-center
-/   a href="mailto:#{Current.store.admin.mail}" class="btn btn-primary" Me contacter
+.grid.sm:grid-cols-2.md:grid-cols-3.gap-6.px-12.pt-36 data-controller="card fade-in" data-action="click->card#test"
+  .gap-6.space-y-6
+    - images = images_from_directory("folder_1")
+    = render Cards::CardComponent.new(  images: images)
+
+    - images = images_from_directory("folder_5")
+    = render Cards::CardComponent.new( images: images)
+
+    - images = images_from_directory("folder_4")
+    = render Cards::CardComponent.new( images: images)
+
+  .gap-6.space-y-6
+
+    - images = images_from_directory("folder_9")
+    = render Cards::CardComponent.new( images: images)
+
+    - images = images_from_directory("folder_2")
+    = render Cards::CardComponent.new(images: images)
+
+
+    - images = images_from_directory("folder_6")
+    = render Cards::CardComponent.new( images: images)
+
+  .gap-6.space-y-6
+    - images = images_from_directory("folder_8")
+    = render Cards::CardComponent.new( images: images)
+
+    - images = images_from_directory("folder_3")
+    = render Cards::CardComponent.new( images: images)
+
+    - images = images_from_directory("folder_7")
+    = render Cards::CardComponent.new( images: images)

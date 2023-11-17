@@ -6,12 +6,10 @@ export default class extends Controller {
   scroll(event) {
     if (this.hasLinksTarget && this.hasHeadTarget) {
       if (event.target.defaultView.pageYOffset > (this.headTarget.offsetHeight)) {
-        this.linksTarget.classList.remove("opacity-0");
         this.headTarget.classList.add("opacity-0");
         this.linksTarget.classList.remove("hidden");
       } else {
         this.linksTarget.classList.add("hidden");
-        this.linksTarget.classList.add("opacity-0");
         this.headTarget.classList.remove("opacity-0");
       }
     }
