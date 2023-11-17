@@ -1,5 +1,4 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
-const colors = require('tailwindcss/colors')
 
 function withOpacity(varName) {
   return ({ opacityValue }) => {
@@ -23,7 +22,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
-        unsafe: "'Noto Sans'"
+        unsafe: ["'Noto Sans'", ...defaultTheme.fontFamily.sans],
       },
       colors:{
         primary: withOpacity('--color-primary'),
