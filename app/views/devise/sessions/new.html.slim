@@ -1,5 +1,5 @@
-.max-w-5xl.mx-auto
-  h2.my-8 Connexion
+.max-w-5xl.mx-auto class="min-h-[calc(100vh-12rem)] pt-24 px-8"
+  h2.my-8.text-contrast Connexion
 
   = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
     div class="form-inputs"
