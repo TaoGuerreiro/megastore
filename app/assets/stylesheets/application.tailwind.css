@@ -4,10 +4,6 @@
 
 
 @layer base {
-/*
-  h1, h2, h3 {
-    font-family: Noto Sans;
-  } */
 
   :root {
     --color-primary: 83, 107, 120;
