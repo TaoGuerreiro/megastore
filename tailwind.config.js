@@ -11,6 +11,7 @@ function withOpacity(varName) {
 
 module.exports = {
   content: [
+    './app/assets/stylesheets/safe-list.css',
     './app/components/**/*.{rb,erb,html,slim}',
     './app/helpers/**/*.rb',
     './app/javascript/**/*.js',
