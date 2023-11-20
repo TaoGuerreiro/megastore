@@ -11,6 +11,7 @@ module Admin
     end
 
     def create
+      # raise
       @item = Item.new(item_params)
       @item.store = current_user.stores.first
       if @item.save
@@ -64,7 +65,7 @@ module Admin
     private
 
     def item_params
-      params.require(:item).permit(:name, :description, :price, :image, :stock, :length, :width, :height, :weight, :category_id, :active, :status, photos: []).tap do |permitted_params|
+      params.require(:item).permit(:name, :description, :price, :image, :stock, :length, :width, :height, :weight, :category_id, :active, :status, photos: [], shipping_method_ids: []).tap do |permitted_params|
         manage_status(permitted_params)
         manage_photos(permitted_params)
       end

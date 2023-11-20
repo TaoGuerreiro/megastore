@@ -59,7 +59,7 @@ module Admin
     end
 
     def shipping_method_params
-      params.require(:shipping_method).permit(:name, :description, :price, :max_weight)
+      params.require(:shipping_method).permit(:name, :description, :price, :max_weight, :service_name)
     end
   end
 end

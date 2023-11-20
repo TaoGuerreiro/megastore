@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_14_180428) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_17_221537) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -58,6 +58,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_14_180428) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["store_id"], name: "index_categories_on_store_id"
+  end
+
+  create_table "item_shipments", force: :cascade do |t|
+    t.bigint "item_id", null: false
+    t.bigint "shipping_method_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_item_shipments_on_item_id"
+    t.index ["shipping_method_id"], name: "index_item_shipments_on_shipping_method_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -112,6 +121,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_14_180428) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "max_weight"
+    t.string "service_name"
     t.index ["store_id"], name: "index_shipping_methods_on_store_id"
   end
 
@@ -150,6 +160,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_14_180428) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "categories", "stores"
+  add_foreign_key "item_shipments", "items"
+  add_foreign_key "item_shipments", "shipping_methods"
   add_foreign_key "items", "categories"
   add_foreign_key "items", "stores"
   add_foreign_key "order_items", "items"

@@ -9,6 +9,8 @@ class Item < ApplicationRecord
   belongs_to :category
   has_many :order_items, dependent: :destroy
   has_many :orders, through: :order_items
+  has_many :item_shipments, dependent: :destroy
+  has_many :shipping_methods, through: :item_shipments
   has_many_attached :photos
 
   STATUSES = ["active", "archived", "offline"].freeze

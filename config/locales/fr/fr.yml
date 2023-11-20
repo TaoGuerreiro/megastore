@@ -26,3 +26,13 @@ fr:
   canceled: Annulé
   paid: Payé
   refunded: Remboursé
+  enumerize:
+    shipping_method:
+      service_name:
+        ups: "UPS"
+        fedex: "FedEx"
+        poste: "La Poste"
+        dhl: "DHL"
+        mr: "Mondial Relay"
+        tnt: "TNT"
+        gls: "GLS"

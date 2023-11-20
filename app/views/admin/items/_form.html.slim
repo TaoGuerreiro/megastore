@@ -43,6 +43,22 @@
         = field.label :photos do
           .btn.btn-primary.inline Ajouter une photo
 
+        .grid.grid-cols-3.mt-8
+          - ShippingMethod.all.each do |shipping_method|
+            div class="relative"
+              = field.check_box :shipping_method_ids, { id: "shipping_method_#{shipping_method.id}", multiple: true, checked: @item.shipping_methods.pluck(:id).include?(shipping_method.id), class: "hidden peer" }, shipping_method.id, nil
+              = field.label :shipping_method_ids, for: "shipping_method_#{shipping_method.id}", class: "block py-3 px-2 first:mx-0 mx-2 my-2 border rounded-md cursor-pointer text-content bg-contour peer-checked:bg-tertiary peer-checked:text-white transition-colors duration-300" do
+                span.flex.flex-1
+                  span.flex.flex-col
+                    span#delivery-method-0-label.block.text-sm.font-medium.text-contrast
+                      p.truncate
+                        = shipping_method.name
+                    span#delivery-method-0-description-0.mt-1.flex.items-center.text-sm.text-midgray
+                      = shipping_method.description
+                    span#delivery-method-0-description-1.mt-6.text-sm.font-medium.text-contrast
+                      = "#{shipping_method.price} €"
+              .hidden.peer-checked:block.absolute.right-10.top-1/2.-translate-y-1/2
+                i.fa-solid.fa-badge-check.text-3xl.text-primary
 
       .mt-5 data-photo-upload-target="photosContainer"
         - if @item.persisted?
