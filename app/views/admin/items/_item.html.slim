@@ -1,7 +1,7 @@
 tr class="#{'disabled' if item.archived?}"
-  td.whitespace-nowrap.py-4.pl-4.pr-3.text-sm.font-medium.text-contrast.sm:pl-0.text-center
+  td.py-4.pl-4.pr-3.sm:pl-0
     - if item.photos.attached?
-      = image_tag item.photos.first.variant(resize_to_fill: [50, 50]), class: "w-10 h-10 rounded-md"
+      = image_tag item.photos.first.variant(resize_to_fill: [50, 50]), class: "max-w-none w-10 h-10 rounded-md"
   td.whitespace-nowrap.py-4.pl-4.pr-3.text-sm.font-medium.text-contrast.sm:pl-0
     - if item.active?
       i.fas.fa-check.text-green-500.text-lg
