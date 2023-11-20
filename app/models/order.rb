@@ -34,4 +34,8 @@ class Order < ApplicationRecord
       amount_cents
     end
   end
+
+  def store
+    items.first.store
+  end
 end

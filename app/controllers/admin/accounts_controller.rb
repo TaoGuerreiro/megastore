@@ -21,6 +21,7 @@ module Admin
 
     def set_user
       @user = current_user
+      authorize! @user
     end
 
     def user_params

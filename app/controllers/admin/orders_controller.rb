@@ -3,7 +3,8 @@ module Admin
     layout "admin"
 
     def index
-      @orders = Order.all
+      @orders = authorized_scope(Order.all)
+      authorize! @orders
     end
 
     def show

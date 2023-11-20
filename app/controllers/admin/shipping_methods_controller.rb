@@ -8,10 +8,12 @@ module Admin
 
     def new
       @shipping_method = Current.store.shipping_methods.build
+      authorize! @shipping_method
     end
 
     def create
       @shipping_method = Current.store.shipping_methods.build(shipping_method_params)
+      authorize! @shipping_method
 
       if @shipping_method.save
         respond_to do |format|
@@ -52,6 +54,7 @@ module Admin
 
     def set_shipping_method
       @shipping_method = Current.store.shipping_methods.find(params[:id])
+      authorize! @shipping_method
     end
 
     def set_store

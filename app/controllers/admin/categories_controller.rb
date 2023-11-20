@@ -8,10 +8,12 @@ module Admin
 
     def new
       @category = Current.store.categories.build
+      authorize! @category
     end
 
     def create
       @category = Current.store.categories.build(category_params)
+      authorize! @category
 
       if @category.save
         respond_to do |format|
@@ -49,6 +51,7 @@ module Admin
 
     def set_category
       @category = Current.store.categories.find(params[:id])
+      authorize! @category
     end
 
     def set_store

@@ -1,18 +1,22 @@
 module Admin
   class ItemsController < ApplicationController
     layout "admin"
+    before_action :set_shipping_methods, only: [:new, :edit]
 
     def index
-      @items = Item.with_archived.where(store: Current.store)
+      @items = authorized_scope(Item.all)
+      authorize! @items
     end
 
     def new
       @item = Item.new
+      authorize! @item
     end
 
     def create
-      # raise
       @item = Item.new(item_params)
+      authorize! @item
+
       @item.store = current_user.stores.first
       if @item.save
         redirect_to admin_items_path, notice: "Item was successfully created."
@@ -23,10 +27,13 @@ module Admin
 
     def edit
       @item = Item.find(params[:id])
+      authorize! @item
     end
 
     def update
       @item = Item.find(params[:id])
+      authorize! @item
+
       if @item.update(item_params)
         redirect_to admin_items_path, notice: "Item was successfully updated."
       else
@@ -36,12 +43,15 @@ module Admin
 
     def destroy
       @item = Item.find(params[:id])
+      authorize! @item
+
       @item.destroy
       redirect_to admin_items_path, notice: "Item was successfully destroyed."
     end
 
     def remove_photo
       @item = Item.find(params[:id])
+      authorize! @item
 
       # photo = @item.photos.find_by(key: params[:key])
       @photo = @item.photos.attachments.find(params[:photo_id])
@@ -56,17 +66,25 @@ module Admin
 
     def archive
       @item = Item.find(params[:id])
+      authorize! @item
+
       @item.archive!
       redirect_to admin_items_path, notice: "Item was successfully archived."
     end
 
     def unarchive
       @item = Item.find(params[:id])
+      authorize! @item
+
       @item.update(status: :offline)
       redirect_to admin_items_path, notice: "Item was successfully unarchived."
     end
 
     private
+
+    def set_shipping_methods
+      @shipping_methods = authorized_scope(ShippingMethod.all)
+    end
 
     def item_params
       params.require(:item).permit(:name, :description, :price, :image, :stock, :length, :width, :height, :weight, :category_id, :active, :status, photos: [], shipping_method_ids: []).tap do |permitted_params|

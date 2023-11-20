@@ -5,7 +5,15 @@ class ApplicationController < ActionController::Base
     { host: Current.store.domain || "localhost:3000" }
   end
 
+  rescue_from ActionPolicy::Unauthorized do |exception|
+    redirect_to root_path, alert: t("forbidden_action")
+  end
+
   private
+
+  def test
+    raise
+  end
 
   def after_sign_in_path_for(resource)
     Current.store = Store.find_by(domain: request.domain)

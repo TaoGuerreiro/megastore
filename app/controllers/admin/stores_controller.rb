@@ -1,25 +1,23 @@
 module Admin
   class StoresController < ApplicationController
     before_action :authenticate_user!
-
     layout "admin"
-
-    def my_store
-      # raise
-    end
 
     def show
       @store = Current.store
+      authorize! @store
       @categories = Current.store.categories
       @shipping_methods = Current.store.shipping_methods
     end
 
     def edit
       @store = Current.store
+      authorize! @store
     end
 
     def update
       @store = Store.find(params[:id])
+      authorize! @store
       if @store.update(store_params)
         respond_to do |format|
           format.html { redirect_to admin_store_path(@store), notice: "Store was successfully updated." }

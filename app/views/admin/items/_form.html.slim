@@ -41,7 +41,7 @@
           = field.input :active, label: "En ligne", as: :boolean, input_html: { checked: @item.active?, class: "w-5 h-5 m-0 p-0 flex checked:bg-primary"}, wrapper_html: {class: "flex items-center"}, label_html: {class: "-top-0.5 left-4"}
 
         .grid.grid-cols-3.mt-8
-          - ShippingMethod.all.each do |shipping_method|
+          - @shipping_methods.each do |shipping_method|
             div class="relative"
               = render ShippingMethod::Component.new(field: field, shipping_method: shipping_method)
 

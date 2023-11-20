@@ -1,5 +1,6 @@
 class StoresController < ApplicationController
   before_action  :set_store, :set_filters
+
   def show
     if params[:filters]
       @items = @store.items.includes(:category).where(category: {name: selected_filters}, status: :active)
