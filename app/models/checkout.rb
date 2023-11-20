@@ -4,6 +4,8 @@ class Checkout
   end
 
   def cart
+    return if @ids.nil?
+
     unique_ids = @ids.uniq
     cart = unique_ids.map do |id|
       next unless Item.where(id: id).present?
@@ -17,6 +19,8 @@ class Checkout
   end
 
   def sum
+    return if @ids.nil?
+
     unique_ids = @ids.uniq
     sum = 0
     unique_ids.map do |id|
@@ -28,6 +32,8 @@ class Checkout
   end
 
   def weight
+    return if @ids.nil?
+
     weight = 0
     @ids.map do |id|
       next unless Item.where(id: id).present?
