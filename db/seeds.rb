@@ -27,7 +27,7 @@ else
   unsafe = User.create(first_name: "Tao", last_name: "Guerreiro", email: "hello@unsafehxc.fr", password: "123456", role: "admin")
   # salome = User.create(first_name: "Salomé", last_name: "Dubart", email: "hello@studioanemone.fr", password: "123456", role: "admin")
   store_one = clemence.stores.create({
-    domain: "ngrok.io",
+    domain: "localhost",
     name: "Le Cheveu Blanc",
     slug: "lecheveublanc",
     meta_title: "Le Cheveu Blanc",
@@ -38,7 +38,7 @@ else
   })
 
   store_two = unsafe.stores.create({
-    domain: "localhost",
+    domain: "ngrok.io",
     name: "Unsafe",
     slug: "unsafe",
     meta_title: "Unsafe",

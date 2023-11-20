@@ -39,4 +39,8 @@ class Item < ApplicationRecord
   def archive!
     update(status: :archived)
   end
+
+  def destroyabled?
+    order_items.empty?
+  end
 end

@@ -13,17 +13,19 @@ meta property="og:site_name" content="#{ meta_title }"
 
 = csrf_meta_tags
 = csp_meta_tag
-link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css"
 = stylesheet_link_tag "application", "data-turbo-track": "reload"
 = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 = tag :meta, name: :mapbox_token, content: Rails.application.credentials.mapbox.mapbox_api_key
 
 
+link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css"
+link rel="preconnect" href="https://fonts.googleapis.com"
+link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="true"
+link rel="preconnect" href="https://fonts.googleapis.com"
+link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="true"
+link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Belanosima:wght@400;600;700&family=Noto+Sans+KR:wght@900&family=Noto+Sans:wght@900&display=swap" rel="stylesheet"
+link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css"
+
+script src="https://unpkg.com/@popperjs/core@2"
+script src="https://unpkg.com/tippy.js@6"
 script src="https://kit.fontawesome.com/910f22a437.js" crossorigin="anonymous"
-
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Belanosima:wght@400;600;700&family=Noto+Sans+KR:wght@900&family=Noto+Sans:wght@900&display=swap" rel="stylesheet">

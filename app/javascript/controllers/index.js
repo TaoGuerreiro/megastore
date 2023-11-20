@@ -31,6 +31,9 @@ application.register("card", CardController)
 import NotificationController from "../../components/notifications/notification_controller"
 application.register("notification", NotificationController)
 
+import TooltipController from "../../components/tooltip/tooltip_controller"
+application.register("tooltip", TooltipController)
+
 // UNSAFE
 
 import ScrollController from "./unsafe/scroll_controller"

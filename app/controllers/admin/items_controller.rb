@@ -44,10 +44,14 @@ module Admin
       @item = Item.find(params[:id])
 
       # photo = @item.photos.find_by(key: params[:key])
-      photo = @item.photos.attachments.find(params[:photo_id])
-      photo.purge
+      @photo = @item.photos.attachments.find(params[:photo_id])
+      @photo.purge
 
-      redirect_to edit_admin_item_path(@item), notice: "Photo was successfully removed."
+
+      respond_to do |format|
+        format.html { redirect_to edit_admin_item_path(@item), notice: "Photo was successfully removed." }
+        format.turbo_stream
+      end
     end
 
     def archive
@@ -72,14 +76,12 @@ module Admin
     end
 
     def manage_status(permitted_params)
-      return unless @item
-      return if permitted_params[:active].nil? || @item.archived?
+      return if permitted_params[:active].nil? || @item&.archived?
 
       permitted_params[:status] = permitted_params[:active] == "1" ? :active : :offline
     end
 
     def manage_photos(permitted_params)
-      # raise
       if permitted_params[:photos].reject(&:blank?).first.blank?
         permitted_params.delete(:photos)
       end

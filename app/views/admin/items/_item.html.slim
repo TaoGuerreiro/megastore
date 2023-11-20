@@ -1,5 +1,8 @@
 tr class="#{'disabled' if item.archived?}"
   td.whitespace-nowrap.py-4.pl-4.pr-3.text-sm.font-medium.text-contrast.sm:pl-0.text-center
+    - if item.photos.attached?
+      = image_tag item.photos.first.variant(resize_to_fill: [50, 50]), class: "w-10 h-10 rounded-md"
+  td.whitespace-nowrap.py-4.pl-4.pr-3.text-sm.font-medium.text-contrast.sm:pl-0
     - if item.active?
       i.fas.fa-check.text-green-500.text-lg
     - else
@@ -17,3 +20,9 @@ tr class="#{'disabled' if item.archived?}"
   td.relative.whitespace-nowrap.py-4.pl-3.pr-4.text-right.text-sm.font-medium.sm:pr-0
     = link_to edit_admin_item_path(item), class: "text-primary hover:text-primary/90" do
       i.fas.fa-pen.text-lg
+  td.relative.whitespace-nowrap.py-4.pl-3.pr-4.text-right.text-sm.font-medium.sm:pr-0
+    - if item.destroyabled?
+      = link_to admin_item_path(item), data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer cet article ?" }, class: "text-primary hover:text-primary/90" do
+        i.fas.fa-trash.text-lg
+    - else
+      i.fas.fa-trash.text-lg.disabled

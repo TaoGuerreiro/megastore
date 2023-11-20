@@ -1,6 +1,6 @@
 li.flex.px-4.py-6.sm:px-6
   .flex-shrink-0
-    = image_tag item[:item].photos.first, class: "w-20 rounded-md"
+    = image_tag item[:item]&.photos&.first, class: "w-20 rounded-md"
   .ml-6.flex.flex-1.flex-col
     .flex
       .min-w-0.flex-1
