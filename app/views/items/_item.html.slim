@@ -1,0 +1,57 @@
+= turbo_frame_tag dom_id(@item) do
+  .
+    .mx-auto.max-w-2xl.px-4.py-16.sm:px-6.sm:py-24.lg:max-w-7xl.lg:px-8
+      .lg:grid.lg:grid-cols-2.lg:items-start.lg:gap-x-8
+        .flex.flex-col-reverse data-controller="photo-switch"
+          .mx-auto.mt-6.hidden.w-full.max-w-2xl.sm:block.lg:max-w-none
+            .grid.grid-cols-4.gap-6[aria-orientation="horizontal" role="tablist"]
+
+              - @item.photos.each do |photo|
+                button#tabs-1-tab-1.relative.flex.h-24.cursor-pointer.items-center.justify-center.rounded-md.bg-contrast.text-sm.font-medium.uppercase.text-contrast.hover:bg-light.focus:outline-none.focus:ring.focus:ring-opacity-50.focus:ring-offset-4[aria-controls="tabs-1-panel-1" role="tab" type="button"]
+                  span.absolute.inset-0.overflow-hidden.rounded-md
+                    = image_tag photo, class: "h-full w-full object-cover object-center", data: { action: "click->photo-switch#switch" }
+                  span.ring-transparent.pointer-events-none.absolute.inset-0.rounded-md.ring-2.ring-offset-2[aria-hidden="true"]
+
+          .aspect-h-1.aspect-w-1.w-full
+            #tabs-1-panel-1[aria-labelledby="tabs-1-tab-1" role="tabpanel" tabindex="0"]
+              - if @item.photos.attached?
+                = image_tag @item.photos.first, class: "h-full w-full object-cover object-center sm:rounded-lg", data: { "photo-switch-target": "photo" }
+        .mt-10.px-4.sm:mt-16.sm:px-0.lg:mt-0
+          h1.text-3xl.font-bold.tracking-tight.text-contrast
+            = @item.name
+          .mt-3
+            h2.sr-only
+              | Product information
+            p.text-3xl.tracking-tight.text-contrast
+              = "#{@item.price} €"
+          .mt-6
+            h3.sr-only
+              | Description
+            .space-y-6.text-base.text-contrast
+              p
+                = @item.description
+          .mt-6
+            .mt-10
+              - unless @virtual_stock <= 0
+                = button_to "Ajouter au panier", add_item_checkout_path(@item), method: :post, class: "btn btn-primary mb-4"
+                p.text-sm.text-midgray
+                  = "(#{@virtual_stock} en stock)"
+              - else
+                p class="text-red-500 font-bold" = "RUPTURE DE STOCK"
+          section.mt-12[aria-labelledby="details-heading"]
+            h2#details-heading.sr-only
+              | Additional details
+            .divide-y.divide-content.border-t
+              div
+                h3
+                  button.group.relative.flex.w-full.items-center.justify-between.py-6.text-left[type="button" aria-controls="disclosure-1" aria-expanded="false"]
+                    span.text-contrast.text-sm.font-medium
+                      | Informations
+                #disclosure-1.prose.prose-sm.pb-6.text-midgray.font-thin
+                  ul.list-disc.leading-8.pl-3
+                    li
+                      | Livraison gratuite en main propre possible sur Nantes
+                    li
+                      | Tout est emballé par mes soins pour que votre commande arrive en parfait état
+                    li
+                      | Paiement sécurisé

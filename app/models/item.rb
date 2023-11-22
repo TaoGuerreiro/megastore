@@ -36,6 +36,10 @@ class Item < ApplicationRecord
     unscoped.order(:status, :name)
   end
 
+  def soldout?
+    stock == 0
+  end
+
   def active?
     status == "active"
   end

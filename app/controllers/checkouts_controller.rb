@@ -5,8 +5,9 @@ class CheckoutsController < ApplicationController
   def add
     session[:checkout_items] = session[:checkout_items] || []
     @item = Item.find(params[:item_id])
-    session[:checkout_items] << @item.id
 
+    session[:checkout_items] << @item.id
+    set_virtual_stock
     respond_to do |format|
       format.html { redirect_to item_path(@item), notice: "#{@item.name} ajouté au panier" }
       format.turbo_stream
@@ -18,6 +19,8 @@ class CheckoutsController < ApplicationController
     @item = Item.find(params[:item_id])
     session[:checkout_items].delete_at session[:checkout_items].index @item.id
     @opened = true
+
+    set_virtual_stock
     respond_to do |format|
       format.html { redirect_to item_path(@item), notice: "#{@item.name} supprimé panier" }
       format.turbo_stream
@@ -115,5 +118,11 @@ class CheckoutsController < ApplicationController
     return {} unless params[:order_intent]
 
     params.require(:order_intent).permit(:email, :first_name, :last_name, :address, :phone, :shipping_method)
+  end
+
+  def set_virtual_stock
+    @item = Item.find(params[:item_id])
+    cart_stock = Checkout.new(session[:checkout_items]).cart.find { |item| item[:item].id == @item.id }&.[](:number) || 0
+    @virtual_stock = @item.stock - cart_stock
   end
 end
