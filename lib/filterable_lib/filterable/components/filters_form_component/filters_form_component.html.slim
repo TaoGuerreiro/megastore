@@ -1,5 +1,5 @@
 = tag.turbo_frame id: filterable.turbo_frame_id do
-  .w-max.px-3
+  .w-max
     = form_with url: submit_path,
                 data: { controller: "filterable", filterable_filters_path_value: filterable_filters_path(filterable.model) },
                 id: filterable.form_id,

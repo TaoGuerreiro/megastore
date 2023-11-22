@@ -19,7 +19,7 @@ module.exports = {
     './app/views/**/*.{erb,html,slim}',
     './public/*.html',
     './config/initializers/simple_form.rb',
-    "./lib/filterable_lib/**/*.rb",
+    "./lib/filterable_lib/**/*.{rb,erb,html,slim}",
 
   ],
   theme: {
