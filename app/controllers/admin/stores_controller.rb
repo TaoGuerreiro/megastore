@@ -31,7 +31,7 @@ module Admin
     private
 
     def store_params
-      params.require(:store).permit(:name, :meta_title, :meta_description, :about, :facebook_url, :instagram_url)
+      params.require(:store).permit(:name, :meta_title, :meta_description, :about, :facebook_url, :instagram_url, :stripe_webhook_secret_key, :stripe_secret_key, :stripe_publishable_key)
     end
   end
 end
