@@ -34,3 +34,4 @@
 !/app/assets/builds/.keep
 
 /node_modules
+/db/stripe_key.yml

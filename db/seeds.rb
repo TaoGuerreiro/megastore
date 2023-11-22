@@ -34,7 +34,10 @@ else
     meta_description: "Illustrations militantes from Nantes",
     meta_image: "lecheveublanc/meta_image.jpg",
     instagram_url: "https://www.instagram.com/le_cheveu_blanc/",
-    facebook_url: "https://www.facebook.com/lecheveublanc/"
+    facebook_url: "https://www.facebook.com/lecheveublanc/",
+    stripe_publishable_key: YAML.load_file("db/stripe_key.yml")["stripe_publishable_key"],
+    stripe_secret_key: YAML.load_file("db/stripe_key.yml")["stripe_secret_key"],
+    stripe_webhook_secret_key: YAML.load_file("db/stripe_key.yml")["stripe_webhook_secret_key"]
   })
 
   store_two = unsafe.stores.create({
@@ -58,6 +61,7 @@ else
   #   instagram_url: "https://www.instagram.com/studio.anemone/",
   #   facebook_url: "https://www.facebook.com/"
   # })
+
   [store_one, store_two].each do |store|
     categories = []
     [:stickers, :print, :illustration].each do |category|

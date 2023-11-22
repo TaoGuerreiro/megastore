@@ -7,4 +7,7 @@
     = field.input :facebook_url, label: 'URL Facebook', placeholder: 'URL Facebook'
     .mb-5.control data-controller="trix"
       = field.rich_text_area :about, label: 'Texte à propos', placeholder: 'Texte à propos', data: { trix_target: 'editor' }
+    = field.input :stripe_publishable_key, as: :string, label: 'Clef publique Stripe', placeholder: 'Clef publique Stripe'
+    = field.input :stripe_secret_key, as: :string, label: 'Clef secrete Stripe', placeholder: 'Clef secrete Stripe'
+    = field.input :stripe_webhook_secret_key, as: :string, label: 'Clef webhook Stripe', placeholder: 'Clef webhook Stripe'
     = field.button :submit, "Valider", class: "btn btn-primary"

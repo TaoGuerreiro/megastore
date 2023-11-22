@@ -25,6 +25,23 @@
         | URL Facebook
       dd.mt-1.text-sm.leading-6.text-contrast.sm:col-span-2.sm:mt-0
         = @store.facebook_url
+
+    .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
+      dt.text-sm.font-medium.leading-6.text-contrast
+        | Stripe publishable key
+      dd.mt-1.text-sm.leading-6.text-contrast.sm:col-span-2.sm:mt-0
+        = @store.stripe_publishable_key
+    .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
+      dt.text-sm.font-medium.leading-6.text-contrast
+        | Stripe secret key
+      dd.mt-1.text-sm.leading-6.text-contrast.sm:col-span-2.sm:mt-0
+        = @store.stripe_secret_key
+    .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
+      dt.text-sm.font-medium.leading-6.text-contrast
+        | Stripe webhook secret key
+      dd.mt-1.text-sm.leading-6.text-contrast.sm:col-span-2.sm:mt-0
+        = @store.stripe_webhook_secret_key
+
     .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
       dt.text-sm.font-medium.leading-6.text-contrast
         | Texte de la page à propos

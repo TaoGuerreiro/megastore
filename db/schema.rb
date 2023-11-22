@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_17_221537) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_22_133835) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -138,6 +138,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_17_221537) do
     t.string "instagram_url"
     t.string "facebook_url"
     t.string "about_text"
+    t.text "stripe_publishable_key"
+    t.text "stripe_secret_key"
+    t.text "stripe_webhook_secret_key"
     t.index ["admin_id"], name: "index_stores_on_admin_id"
   end
 

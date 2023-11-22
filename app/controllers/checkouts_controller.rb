@@ -25,6 +25,7 @@ class CheckoutsController < ApplicationController
   end
 
   def show
+    StripeConfigurationService.setup
     @items = Checkout.new(session[:checkout_items]).cart
     @order_intent = OrderIntent.new
   end
