@@ -34,6 +34,16 @@ application.register("notification", NotificationController)
 import TooltipController from "../../components/tooltip/tooltip_controller"
 application.register("tooltip", TooltipController)
 
+import FilterableController from "./filterable_controller"
+application.register("filterable", FilterableController)
+
+import FilterableWrapperController from "./filterable_wrapper_controller"
+application.register("filterable-wrapper", FilterableWrapperController)
+
+import FilterableSortController from "./filterable_sort_controller"
+application.register("filterable-sort", FilterableSortController)
+
+
 // UNSAFE
 
 import ScrollController from "./unsafe/scroll_controller"

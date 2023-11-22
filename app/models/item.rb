@@ -1,9 +1,9 @@
 # app/models/item.rb
 class Item < ApplicationRecord
+  include Filterable
   extend Enumerize
-  attr_accessor :active
 
-  # default_scope { where(status: :active) }
+  attr_accessor :active
 
   belongs_to :store
   belongs_to :category
@@ -13,10 +13,19 @@ class Item < ApplicationRecord
   has_many :shipping_methods, through: :item_shipments
   has_many_attached :photos
 
+
   STATUSES = ["active", "archived", "offline"].freeze
   enumerize :status, in: STATUSES, default: :active, predicates: true
 
   monetize :price_cents
+
+  filterable do
+    columns :name
+    columns :description
+    columns :price_cents
+    columns :stock
+    association :category, label_method: :name
+  end
 
   validates :name, presence: true
   validates :description, presence: true

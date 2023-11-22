@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_22_133835) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_22_172215) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -58,6 +58,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_22_133835) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["store_id"], name: "index_categories_on_store_id"
+  end
+
+  create_table "filterable_views", force: :cascade do |t|
+    t.string "title", null: false
+    t.json "filters", default: [], null: false
+    t.string "conjonction", default: "and", null: false
+    t.json "sort", default: {}, null: false
+    t.string "model", null: false
+    t.string "context_name"
+    t.string "owner_type", null: false
+    t.bigint "owner_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_type", "owner_id"], name: "index_filterable_views_on_owner"
   end
 
   create_table "item_shipments", force: :cascade do |t|

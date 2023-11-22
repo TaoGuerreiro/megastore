@@ -32,6 +32,7 @@ class CheckoutsController < ApplicationController
 
   def shipping_method
     @order.shipping_method = ShippingMethod.find(params[:order_intent][:shipping_method])
+    @order_intent.shipping_method = ShippingMethod.find(params[:order_intent][:shipping_method])
 
     respond_to do |format|
       format.html { render "checkouts/show", status: :unprocessable_entity }

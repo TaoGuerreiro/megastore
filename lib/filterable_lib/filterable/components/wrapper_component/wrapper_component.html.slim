@@ -1,0 +1,47 @@
+div class="relative z-[2]" data-controller="filterable-wrapper" data-filterable-wrapper-hidden-class="hidden"
+  div class=(wrapper_classes)
+    = button_tag label_text,
+                 type: "button",
+                 title: label_text,
+                 class: filters_btn_classes,
+                 data: { action: "click->filterable-wrapper#openFilters" }
+
+    - if can_use_views? && views.present?
+      div class="relative inline-block text-left h-full"
+        = button_tag type: "button",
+                     class: views_btn_classes,
+                     data: { action: "click->filterable-wrapper#openViews" } do
+          div class="flex justify-center items-center text-gray-400"
+            i class="far fa-fw fa-chevron-down"
+
+        section[
+          data-filterable-wrapper-target="viewsList"
+          class="hidden absolute left-0 z-10 mt-2 w-max min-w-[8rem] max-w-[24rem] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-gray-200 focus:outline-none"
+          role="menu"
+          aria-orientation="vertical"
+          aria-labelledby="menu-button"
+          tabindex="-1"
+        ]
+          div class="" role="none"
+            - views.each do |view|
+              div class="flex justify-between items-center group text-sm hover:bg-gray-50 first:rounded-t-md last:rounded-b-md"
+                = link_to view.title,
+                          view.to_path(submit_path),
+                          id: dom_id(view),
+                          class: ["grow text-gray-700 block px-4 py-2", ("font-bold" if view.id === selected_view_id)],
+                          role: "menuitem",
+                          tabindex: "-1"
+                = button_to filterable_view_path(view), method: :delete, class: "invisible p-2 group-hover:visible" do
+                  i class="fal fa-fw fa-trash-alt text-red-400 hover:text-red-600"
+
+  section[
+    data-filterable-wrapper-target="filtersForm"
+    class="absolute top-[-2px] left-[-2px] bg-white rounded-md shadow-md ring-1 ring-gray-900 ring-opacity-5 hidden overflow-hidden"
+  ]
+    header.px-5.py-3.font-medium.text-gray-900.border-b.flex.justify-between.items-center.px-3
+      = t("filterable.filters")
+      = button_tag type: "button",
+                   class: "px-2 text-gray-500 hover:text-gray-800",
+                   data: { filterable_wrapper_target: "closeFiltersFormBtn" } do
+        i.far.fa-times.pointer-events-none
+    = with_filters_form

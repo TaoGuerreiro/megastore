@@ -1,14 +1,20 @@
-input[type="checkbox" id="shipping_method_#{shipping_method.id}" name="item[shipping_method_ids][]" value=shipping_method.id class="hidden peer" multiple=true checked=(checked)]
-label[for="shipping_method_#{shipping_method.id}" class="block py-3 px-2 first:mx-0 mx-2 my-2 border rounded-md cursor-pointer text-content bg-contour peer-checked:bg-tertiary peer-checked:text-white transition-colors duration-300"]
-  span.flex.flex-1
-    span.flex.flex-col
-      span#delivery-method-0-label.block.text-sm.font-medium.text-contrast
-        p.truncate
-          | #{shipping_method.name}
-      span#delivery-method-0-description-0.mt-1.flex.items-center.text-sm.text-midgray data-controller="info-circle"
-        . #{shipping_method.description.first(15)}
-        = render Tooltip::Component.new(message: shipping_method.description)
-      span#delivery-method-0-description-1.mt-6.text-sm.font-medium.text-contrast
-        | #{shipping_method.price} €
-span.hidden.peer-checked:block.absolute.right-10.top-1/2.-translate-y-1/2
-  i.fa-solid.fa-badge-check.text-3xl.text-primary
+.relative data-controller="autosave"
+  - if @item.is_a?(OrderIntent)
+    input[type="radio" id="shipping_method_#{shipping_method.id}" name="order_intent[shipping_method]" value=shipping_method.id data-action="change->autosave#save" class="hidden peer" multiple=true checked=(checked)]
+  - else
+    input[type="checkbox" id="shipping_method_#{shipping_method.id}" name="item[shipping_method_ids][]" value=shipping_method.id data-action="change->autosave#save" class="hidden peer" multiple=true checked=(checked)]
+  label[for="shipping_method_#{shipping_method.id}" class="block py-3 px-2 first:mx-0 mx-2 my-2 border rounded-md cursor-pointer text-content bg-contour peer-checked:bg-tertiary peer-checked:text-white transition-colors duration-300"]
+    span.flex.flex-1
+      span.flex.flex-col
+        span#delivery-method-0-label.block.text-sm.font-medium.text-contrast
+          p.truncate
+            | #{shipping_method.name}
+        span#delivery-method-0-description-0.mt-1.flex.items-center.text-sm.text-midgray data-controller="info-circle"
+          . #{shipping_method.description.first(15)}
+          = render Tooltip::Component.new(message: shipping_method.description)
+        span#delivery-method-0-description-1.mt-6.text-sm.font-medium.text-contrast
+          | #{shipping_method.price} €
+  span.hidden.peer-checked:block.absolute.right-10.top-1/2.-translate-y-1/2
+    i.fa-solid.fa-badge-check.text-3xl.text-primary
+  - if field
+    .hidden = field.submit "Select volume", formmethod: "post", formaction: shipping_method_checkout_path(id: field.object), data: { "autosave-target": "button" }

@@ -11,7 +11,9 @@
           .mt-4.sm:ml-16.sm:mt-0.sm:flex-none.fixed.top-10.right-10.z-50
             = link_to "Ajouter un article", new_admin_item_path, class: "btn btn-secondary"
 
+
         .mt-8.flow-root
+          = filterable_form_for(Item)
           .-mx-4.-my-2.overflow-x-auto.sm:-mx-6.lg:-mx-8
             .inline-block.min-w-full.py-2.align-middle.sm:px-6.lg:px-8
               table.min-w-full.divide-y.divide-contrast
@@ -22,16 +24,22 @@
                         | Image
                     th.py-3.5.pl-4.pr-3.text-left.text-sm.font-semibold.text-contrast.sm:pl-0.text-center[scope="col"]
                       | En ligne
+
                     th.py-3.5.pl-4.pr-3.text-left.text-sm.font-semibold.text-contrast.sm:pl-0[scope="col"]
-                      | Nom
+                      = filterable_sort_button(Item, :name) do
+                        | Nom
                     th.px-3.py-3.5.text-left.text-sm.font-semibold.text-contrast[scope="col"]
-                      | Description
+                      = filterable_sort_button(Item, :description) do
+                        | Description
                     th.px-3.py-3.5.text-left.text-sm.font-semibold.text-contrast[scope="col"]
-                      | Catégories
+                      = filterable_sort_button(Item, :category_id) do
+                        | Catégories
                     th.px-3.py-3.5.text-left.text-sm.font-semibold.text-contrast.text-right[scope="col"]
-                      | Prix
+                      = filterable_sort_button(Item, :price_cents) do
+                        | Prix
                     th.px-3.py-3.5.text-left.text-sm.font-semibold.text-contrast[scope="col"]
-                      | Stock
+                      = filterable_sort_button(Item, :stock) do
+                        | Stock
                     th.relative.py-3.5.pl-3.pr-4.sm:pr-0[scope="col"]
                       span.sr-only
                         | Edit

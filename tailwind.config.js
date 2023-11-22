@@ -1,4 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
+const colors = require('tailwindcss/colors')
 
 function withOpacity(varName) {
   return ({ opacityValue }) => {
@@ -18,6 +19,8 @@ module.exports = {
     './app/views/**/*.{erb,html,slim}',
     './public/*.html',
     './config/initializers/simple_form.rb',
+    "./lib/filterable_lib/**/*.rb",
+
   ],
   theme: {
     extend: {

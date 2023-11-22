@@ -4,7 +4,7 @@ module Admin
     before_action :set_shipping_methods, only: [:new, :edit]
 
     def index
-      @items = authorized_scope(Item.all)
+      @items = filterable(Item, authorized_scope(Item.all))
       authorize! @items
     end
 

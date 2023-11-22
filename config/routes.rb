@@ -8,6 +8,14 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
+  resources :filterables, only: [], param: :model_name do
+    resource :filters, only: %i[show create], controller: "filterable/filters"
+    resources :views, only: %i[create], controller: "filterable/views"
+    collection do
+      resources :views, only: %i[destroy], as: :filterable_view, controller: "filterable/views"
+    end
+  end
+
   devise_scope :user do
     resource :profile, only: %i[edit update]
 

@@ -1,0 +1,14 @@
+div class="w-18 flex justify-between py-2"
+  = hidden_field_tag "filterable_view[model]", model
+  = hidden_field_tag "filterable_view[owner_type]", views_owner.model_name
+  = hidden_field_tag "filterable_view[owner_id]", views_owner.id
+  = hidden_field_tag "filterable_view[context_name]", filterable_context.name
+
+  = text_field_tag "filterable_view[title]", nil, class: view_title_input_classes, placeholder: t(".save")
+
+  = button_tag type: "submit",
+               class: "ml-2 px-2 btn btn-primary-light",
+               formaction: filterable_views_path(model),
+               formmethod: "POST",
+               data: { turbo_frame: "_top" } do
+    i class="far fa-fw fa-save"

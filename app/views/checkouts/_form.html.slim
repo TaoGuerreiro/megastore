@@ -20,5 +20,5 @@
           p.text-red-500
             = field.object.errors[:shipping_method].join(", ")
         .mt-4.grid.grid-cols-1.gap-y-6.sm:grid-cols-2.sm:gap-x-4
-          - Current.store.availible_methods(Checkout.new(session[:checkout_items]).weight).each do |method|
-            = render "shipping_method", method: method, field: field
+          - Current.store.availible_methods(session[:checkout_items]).each do |method|
+            = render ShippingMethod::Component.new(shipping_method: method, field: field)
