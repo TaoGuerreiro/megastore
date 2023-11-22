@@ -1,5 +1,5 @@
 .bg-light.min-h-screen.pt-12.md:pt-0
-  .mx-auto.max-w-7xl
+  .mx-auto.max-w-7xl.px-8
     .bg-light.py-10
       .px-4.sm:px-6.lg:px-8
         .sm:flex.sm:items-center
@@ -19,3 +19,9 @@
                 | Archiver
             = submit_tag "Modifier", form: "edit_item_#{@item.id}", class: "btn btn-primary"
         = render "form"
+
+    h2.text-3xl.mb-4
+      | Prévisualisation de l'article
+      i.fas.fa-eye.ml-2 class="!text-primary"
+    .border-b-2.w-full.border-content
+    = render "items/item", item: @item
