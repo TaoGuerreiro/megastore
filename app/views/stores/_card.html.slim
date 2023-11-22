@@ -13,4 +13,6 @@
         / p.text-sm.italic.text-midgray
         /   | 8 colors
         p.text-base.font-medium.text-contrast
-          = item.price
+          = "#{item.price} €"
+        p.text-sm.font-base.text-contrast
+          = "Il en reste #{ item.stock } exemplaires"

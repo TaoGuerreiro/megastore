@@ -33,7 +33,6 @@ module Admin
     def update
       @item = Item.find(params[:id])
       authorize! @item
-
       if @item.update(item_params)
         redirect_to admin_items_path, notice: "Item was successfully updated."
       else
@@ -90,6 +89,7 @@ module Admin
       params.require(:item).permit(:name, :description, :price, :image, :stock, :length, :width, :height, :weight, :category_id, :active, :status, photos: [], shipping_method_ids: []).tap do |permitted_params|
         manage_status(permitted_params)
         manage_photos(permitted_params)
+        convert_dimensions(permitted_params)
       end
     end
 
@@ -102,6 +102,14 @@ module Admin
     def manage_photos(permitted_params)
       if permitted_params[:photos].reject(&:blank?).first.blank?
         permitted_params.delete(:photos)
+      end
+    end
+
+    def convert_dimensions(permitted_params)
+      [:length, :width, :height].each do |dimension|
+        if permitted_params[dimension].present?
+          permitted_params[dimension] = permitted_params[dimension].gsub(',', '.').to_f * 10
+        end
       end
     end
   end

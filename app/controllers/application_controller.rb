@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   include Filterable::FilterableRequest
-
   before_action :set_current_store, :clean_checkout_cart
 
   def default_url_options

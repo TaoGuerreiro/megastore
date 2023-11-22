@@ -15,22 +15,22 @@
 
         .flex.gap-4
           .relative.w-full
-            = field.input :width, label: "Largeur", placeholder: "Largeur"
+            = field.input :width, as: :string, label: "Largeur", placeholder: "Largeur", input_html: { value: number_with_precision(@item.width / 10.0, precision: 1) }
             span.text-midgray.text-xs.absolute.right-3.top-3
               | cm
 
           .relative.w-full
-            = field.input :height, label: "Hauteur", placeholder: "Hauteur"
+            = field.input :height, as: :string, label: "Hauteur", placeholder: "Hauteur", input_html: { value: number_with_precision(@item.height / 10.0, precision: 1) }
             span.text-midgray.text-xs.absolute.right-3.top-3
               | cm
 
           .relative.w-full
-            = field.input :length, label: "Longueur", placeholder: "Longueur"
+            = field.input :length, as: :string, label: "Longueur", placeholder: "Longueur", input_html: { value: number_with_precision(@item.length / 10.0, precision: 1) }
             span.text-midgray.text-xs.absolute.right-3.top-3
               | cm
 
           .relative.w-full
-            = field.input :weight, label: "Poids", placeholder: "Poids"
+            = field.input :weight, as: :string, label: "Poids", placeholder: "Poids", input_html: { value: @item.width }
             span.text-midgray.text-xs.absolute.right-3.top-3
               | gr
 

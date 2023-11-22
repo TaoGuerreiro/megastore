@@ -13,7 +13,6 @@ class Item < ApplicationRecord
   has_many :shipping_methods, through: :item_shipments
   has_many_attached :photos
 
-
   STATUSES = ["active", "archived", "offline"].freeze
   enumerize :status, in: STATUSES, default: :active, predicates: true
 
