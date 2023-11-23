@@ -50,3 +50,9 @@ application.register("select", SelectController)
 
 import ScrollController from "./unsafe/scroll_controller"
 application.register("scroll", ScrollController)
+
+
+// SALOME
+
+import HoverController from "./anemone/hover_controller"
+application.register("hover", HoverController)

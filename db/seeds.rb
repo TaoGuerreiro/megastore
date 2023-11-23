@@ -105,3 +105,15 @@ else
     ShippingMethod.create(store: store, name: "Remise en main propre", description: "Très propre", price: 0)
   end
 end
+
+
+salome.stores.create({
+    domain: "studioanemone.fr",
+    name: "Studio Anémone",
+    slug: "anemone",
+    meta_title: "Studio Anémone",
+    meta_description: "Céramique from Vannes",
+    meta_image: "anemone/meta_image.jpg",
+    instagram_url: "https://www.instagram.com/studio.anemone/",
+    facebook_url: "https://www.facebook.com/"
+  })

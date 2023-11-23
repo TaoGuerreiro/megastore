@@ -4,10 +4,13 @@
   = link_to root_path, class: "flex flex-col items-center text-center transition duration-500 w-full", data: { "scroll-target": "head" } do
     = image_tag("#{Current.store.slug}/logo_black.png", class: "mb-6 h-20 md:h-48")
 
-main.mx-auto.max-w-2xl.px-4.pt-12.lg:max-w-7xl.lg:px-8
-  section.mt-6.lg:col-span-2.lg:mt-0.xl:col-span-3[aria-labelledby="product-heading"]
-    h2#product-heading.sr-only
-      | Products
-    .grid.grid-cols-2.gap-4.sm:grid-cols-2.sm:gap-x-6.sm:gap-y-10.lg:gap-x-8.xl:grid-cols-3
-      - @items.each do |item|
-        = render "stores/card", item:
+main.mx-auto.max-w-2xl.px-4.pt-12.lg:max-w-7xl.lg:px-8.relative.min-h-screen.flex.py-24 data-controller="hover"
+  div class="flex w-full h-screen overflow-hidden rounded-xl"
+    div class="overflow-hidden transition-all grayscale duration-500" data-action="mouseover->hover#scale mouseleave->hover#unscale"
+      = image_tag "anemone/photo_1.jpg", class: "w-[200%] object-cover h-full"
+    div class="overflow-hidden transition-all grayscale duration-500" data-action="mouseover->hover#scale mouseleave->hover#unscale"
+      = image_tag "anemone/photo_2.jpg", class: "w-[200%] object-cover h-full"
+    div class="overflow-hidden transition-all grayscale duration-500" data-action="mouseover->hover#scale mouseleave->hover#unscale"
+      = image_tag "anemone/photo_3.jpg", class: "w-[200%] object-cover h-full"
+    div class="overflow-hidden transition-all grayscale duration-500" data-action="mouseover->hover#scale mouseleave->hover#unscale"
+      = image_tag "anemone/photo_4.jpg", class: "w-[200%] object-cover h-full"
