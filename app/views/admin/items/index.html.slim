@@ -16,7 +16,7 @@
           = filterable_form_for(Item)
           .-mx-4.-my-2.overflow-x-auto.sm:-mx-6.lg:-mx-8
             .inline-block.min-w-full.py-2.align-middle.sm:px-6.lg:px-8 data-controller="bulk-edit-items"
-              .hisdden.z-50.rounded.fixed.px-3.py-3.bg-content.right-10.top-20 data-bulk-edit-items-target="container"
+              .hidden.z-50.rounded.fixed.px-3.py-3.bg-content.right-10.top-20 data-bulk-edit-items-target="container"
                 = form_tag online_admin_bulk_edit_items_path, method: :patch do
                   = text_field_tag :item_ids, {}, data: { "bulk-edit-items-target": "input" }, type: :hidden
                   = button_tag "Online", class: "btn btn-menu inline-block" do
