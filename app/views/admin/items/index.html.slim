@@ -2,7 +2,7 @@
   .mx-auto.max-w-5xl
     .bg-light.py-10
       .px-4.sm:px-6.lg:px-8
-        .sm:flex.sm:items-center
+        .sm:flex.sm:items-center.mb-6
           .sm:flex-auto
             h1.text-base.font-semibold.leading-6.text-contrast
               | Articles
@@ -10,7 +10,18 @@
               | Liste de toutes les articles de votre boutique.
           .mt-4.sm:ml-16.sm:mt-0.sm:flex-none.fixed.top-10.right-10.z-50
             = link_to "Ajouter un article", new_admin_item_path, class: "btn btn-secondary"
-
+        .flex.items-center
+            i.fas.fa-times.text-red-500.text-lg.mr-1.w-6
+            .text-sm.text-midgray
+              = "#{pluralize(@items.offline.count, "article")} hors ligne"
+        .flex.items-center
+            i.fas.fa-check.text-green-500.text-lg.mr-1.w-6
+            .text-sm.text-midgray
+              = "#{pluralize(@items.active.count, "article")} en ligne"
+        .flex.items-center
+            i.fas.fa-archive.text-gray-500.text-lg.mr-1.w-6
+            .text-sm.text-midgray
+              = "#{pluralize(@items.archived.count, "article")} archivé"
 
         .mt-8.flow-root
           = filterable_form_for(Item)
@@ -38,9 +49,10 @@
                         | Checkbox
                     th.py-3.5.pl-4.pr-3.text-left.text-sm.font-semibold.text-contrast.sm:pl-0.text-center[scope="col"]
                       span.sr-only
-                        | Image
+                        | En ligne
                     th.py-3.5.pl-4.pr-3.text-left.text-sm.font-semibold.text-contrast.sm:pl-0.text-center[scope="col"]
-                      | En ligne
+                      span.sr-only
+                        | Image
 
                     th.py-3.5.pl-4.pr-3.text-left.text-sm.font-semibold.text-contrast.sm:pl-0[scope="col"]
                       = filterable_sort_button(Item, :name) do

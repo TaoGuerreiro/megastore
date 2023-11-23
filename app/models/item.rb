@@ -34,6 +34,10 @@ class Item < ApplicationRecord
   validates :stock, presence: true
   validates :weight, presence: true
 
+  scope :active, -> { where(status: :active) }
+  scope :archived, -> { where(status: :archived) }
+  scope :offline, -> { where(status: :offline) }
+
   def self.with_archived
     unscoped.order(:status, :name)
   end
