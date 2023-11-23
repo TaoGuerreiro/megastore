@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_23_112249) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_23_130547) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -172,6 +172,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_23_112249) do
     t.text "stripe_publishable_key"
     t.text "stripe_secret_key"
     t.text "stripe_webhook_secret_key"
+    t.boolean "holiday", default: true
+    t.string "holiday_sentence", default: "Boutique en vacances"
     t.index ["admin_id"], name: "index_stores_on_admin_id"
   end
 

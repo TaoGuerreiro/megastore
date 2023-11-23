@@ -2,7 +2,7 @@ module Admin
   class BulkEditItemsController < ApplicationController
     def online
       items = Item.where(id: params[:item_ids].split(','))
-      items.update_all(status: :online)
+      items.update_all(status: :active)
       redirect_to admin_items_path
     end
 

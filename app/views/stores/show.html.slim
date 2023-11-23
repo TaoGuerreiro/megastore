@@ -3,9 +3,9 @@
     .pb-24.pt-12.lg:grid.lg:grid-cols-3.lg:gap-x-8.xl:grid-cols-4
       = render "filters"
       section.mt-6.lg:col-span-2.lg:mt-0.xl:col-span-3[aria-labelledby="product-heading"]
-        - if @items.blank?
+        - if @items.blank? || Current.store.holiday
           .flex.items-center.justify-center.py-24
-            h1.text-4xl.text-midgray C'est pour bientôt ! Stay tuned 😎 !
+            h1.text-4xl.text-midgray = Current.store.holiday_sentence
         - else
           h2#product-heading.sr-only
             | Products

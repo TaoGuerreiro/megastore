@@ -2,8 +2,8 @@
   = tag.div data: { controller: "turbo-modal",
                     turbo_modal_target: "modal",
                     action: "turbo:submit-end->turbo-modal#submitEnd keyup@window->turbo-modal#closeWithKeyboard click@window->turbo-modal#closeBackground" },
-                    class: "overflow-y-scroll backdrop-blur-sm fixed top-0 overflow-y-scroll right-0 min-h-screen w-screen break-words z-[1000] flex items-center justify-center" do
-    .bg-light.rounded-lg.shadow-lg.overflow-y-scroll.w-full.max-w-4xl.px-6.py-12.relative.border.border-contour
+                    class: "overflow-y-scroll py-12 backdrop-blur-sm fixed top-0 bottom-0 overflow-y-scroll right-0  w-screen break-words z-[1000] md:flex items-center justify-center" do
+    .bg-light.rounded-lg.shadow-lg.overflow-y-scroll.w-full.max-w-4xl.px-6.py-6.relative.border.border-contour.md:mt-12
       h2.text-2xl.mb-4 = @title
       = content
       = button_tag "Close", data: { action: "turbo-modal#hideModal" }, type: "button", class: "absolute top-6 right-6" do

@@ -5,6 +5,10 @@
     = field.input :meta_description, as: :text, label: 'Meta Description', placeholder: 'Meta Description'
     = field.input :instagram_url, label: 'URL Instagram', placeholder: 'URL Instagram'
     = field.input :facebook_url, label: 'URL Facebook', placeholder: 'URL Facebook'
+    .md:flex.items-center
+      = field.input :holiday, label: "Mode vacances", as: :boolean, input_html: { checked: @store.holiday?, class: "w-5 h-5 m-0 p-0 flex checked:bg-primary"}, wrapper_html: {class: "flex items-center basis-1/4"}, label_html: {class: "-top-0.5 left-4"}
+      = field.input :holiday_sentence, label: 'Message vacances', placeholder: 'Message vacances', input_html: { class: "w-full" }, wrapper_html: {class: "basis-3/4"}
+
     .mb-5.control data-controller="trix"
       = field.rich_text_area :about, label: 'Texte à propos', placeholder: 'Texte à propos', data: { trix_target: 'editor' }
     = field.input :stripe_publishable_key, as: :string, label: 'Clef publique Stripe', placeholder: 'Clef publique Stripe'
