@@ -15,8 +15,8 @@
         .mt-8.flow-root
           = filterable_form_for(Item)
           .-mx-4.-my-2.overflow-x-auto.sm:-mx-6.lg:-mx-8
-            .relative.inline-block.min-w-full.py-2.align-middle.sm:px-6.lg:px-8 data-controller="bulk-edit-items"
-              .hidden.z-50.rounded.absolute.px-3.py-3.bg-content.left-16.top-10 data-bulk-edit-items-target="container"
+            .inline-block.min-w-full.py-2.align-middle.sm:px-6.lg:px-8 data-controller="bulk-edit-items"
+              .hisdden.z-50.rounded.fixed.px-3.py-3.bg-content.right-10.top-20 data-bulk-edit-items-target="container"
                 = form_tag online_admin_bulk_edit_items_path, method: :patch do
                   = text_field_tag :item_ids, {}, data: { "bulk-edit-items-target": "input" }, type: :hidden
                   = button_tag "Online", class: "btn btn-menu inline-block" do
@@ -33,6 +33,9 @@
               table.min-w-full.divide-y.divide-contrast
                 thead
                   tr
+                    th.py-3.5.pl-4.pr-3.text-left.text-sm.font-semibold.text-contrast.sm:pl-0.text-center[scope="col"]
+                      span.sr-only
+                        | Checkbox
                     th.py-3.5.pl-4.pr-3.text-left.text-sm.font-semibold.text-contrast.sm:pl-0.text-center[scope="col"]
                       span.sr-only
                         | Image
@@ -61,5 +64,5 @@
                       span.sr-only
                         | Remove
                   tbody.divide-y.divide-content
-                      - @items.each do |item|
+                      - @items.order(:name).each do |item|
                         = render "item", item: item
