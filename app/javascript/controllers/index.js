@@ -43,6 +43,9 @@ application.register("filterable-sort", FilterableSortController)
 import BulkEditItemsController from "./bulk_edit_items_controller"
 application.register("bulk-edit-items", BulkEditItemsController)
 
+import SelectController from "./select_controller"
+application.register("select", SelectController)
+
 // UNSAFE
 
 import ScrollController from "./unsafe/scroll_controller"

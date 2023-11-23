@@ -2,6 +2,7 @@ module Admin
   class ItemsController < ApplicationController
     layout "admin"
     before_action :set_shipping_methods, only: [:new, :edit]
+    before_action :set_specifications, only: [:new, :edit]
 
     def index
       @items = filterable(Item, authorized_scope(Item.all))
@@ -31,6 +32,7 @@ module Admin
     end
 
     def update
+      # raise
       @item = Item.find(params[:id])
       authorize! @item
       if @item.update(item_params)
@@ -85,8 +87,12 @@ module Admin
       @shipping_methods = authorized_scope(ShippingMethod.all)
     end
 
+    def set_specifications
+      @specifications = authorized_scope(Specification.all)
+    end
+
     def item_params
-      params.require(:item).permit(:name, :description, :price, :image, :stock, :length, :width, :height, :weight, :category_id, :active, :status, photos: [], shipping_method_ids: []).tap do |permitted_params|
+      params.require(:item).permit(:name, :description, :price, :image, :stock, :length, :width, :height, :weight, :category_id, :active, :status, photos: [], shipping_method_ids: [], specification_ids: []).tap do |permitted_params|
         manage_status(permitted_params)
         manage_photos(permitted_params)
         convert_dimensions(permitted_params)

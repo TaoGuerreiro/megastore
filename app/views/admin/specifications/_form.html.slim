@@ -1,0 +1,5 @@
+.px-4.sm:px-0
+  = simple_form_for [:admin, @store, @specification], html: { class: "" } do |field|
+    = field.input :name, label: "Nom", placeholder: "Nom"
+    = button_tag type: :submit, class: "text-right w-full" do
+      i.fa-solid.fa-check.text-2xl.text-midgray

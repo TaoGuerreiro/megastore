@@ -8,6 +8,7 @@ module Admin
       authorize! @store
       @categories = Current.store.categories
       @shipping_methods = Current.store.shipping_methods
+      @specifications = Current.store.specifications
     end
 
     def edit

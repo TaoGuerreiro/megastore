@@ -24,7 +24,9 @@ Rails.application.routes.draw do
         resources :stores, only: [:show, :edit, :update] do
           resources :categories, only: [:new, :create, :edit, :update]
           resources :shipping_methods, only: [:new, :create, :edit, :update]
+          resources :specifications, only: [:new, :create, :edit, :update]
         end
+        resources :specifications, only: [:destroy]
         resources :categories, only: [:destroy]
         resources :shipping_methods, only: [:destroy]
         resource :bulk_edit_items, only: [] do

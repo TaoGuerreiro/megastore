@@ -7,6 +7,8 @@ class Item < ApplicationRecord
 
   belongs_to :store
   belongs_to :category
+  has_many :item_specifications, dependent: :destroy
+  has_many :specifications, through: :item_specifications
   has_many :order_items, dependent: :destroy
   has_many :orders, through: :order_items
   has_many :item_shipments, dependent: :destroy

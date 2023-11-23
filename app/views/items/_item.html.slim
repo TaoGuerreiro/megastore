@@ -50,9 +50,6 @@
                       | Informations
                 #disclosure-1.prose.prose-sm.pb-6.text-midgray.font-thin
                   ul.list-disc.leading-8.pl-3
-                    li
-                      | Livraison gratuite en main propre possible sur Nantes
-                    li
-                      | Tout est emballé par mes soins pour que votre commande arrive en parfait état
-                    li
-                      | Paiement sécurisé
+                    - @item.specifications.each do |specification|
+                      li = specification.name
+-

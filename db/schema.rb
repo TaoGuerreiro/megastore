@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_22_172215) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_23_112249) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -83,6 +83,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_22_172215) do
     t.index ["shipping_method_id"], name: "index_item_shipments_on_shipping_method_id"
   end
 
+  create_table "item_specifications", force: :cascade do |t|
+    t.bigint "item_id", null: false
+    t.bigint "specification_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_item_specifications_on_item_id"
+    t.index ["specification_id"], name: "index_item_specifications_on_specification_id"
+  end
+
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.integer "price_cents"
@@ -139,6 +148,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_22_172215) do
     t.index ["store_id"], name: "index_shipping_methods_on_store_id"
   end
 
+  create_table "specifications", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "store_id", null: false
+    t.index ["store_id"], name: "index_specifications_on_store_id"
+  end
+
   create_table "stores", force: :cascade do |t|
     t.string "name"
     t.string "domain"
@@ -179,6 +196,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_22_172215) do
   add_foreign_key "categories", "stores"
   add_foreign_key "item_shipments", "items"
   add_foreign_key "item_shipments", "shipping_methods"
+  add_foreign_key "item_specifications", "items"
+  add_foreign_key "item_specifications", "specifications"
   add_foreign_key "items", "categories"
   add_foreign_key "items", "stores"
   add_foreign_key "order_items", "items"
@@ -186,5 +205,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_22_172215) do
   add_foreign_key "orders", "shipping_methods"
   add_foreign_key "orders", "users"
   add_foreign_key "shipping_methods", "stores"
+  add_foreign_key "specifications", "stores"
   add_foreign_key "stores", "users", column: "admin_id"
 end

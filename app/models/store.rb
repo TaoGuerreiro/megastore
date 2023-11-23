@@ -3,6 +3,7 @@ class Store < ApplicationRecord
   has_many :categories
   has_many :shipping_methods
   has_many :items
+  has_many :specifications
   has_rich_text :about
 
   encrypts :stripe_publishable_key
