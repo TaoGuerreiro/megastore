@@ -4,6 +4,7 @@
   = link_to root_path, class: "flex flex-col items-center text-center transition duration-500 w-full", data: { "scroll-target": "head" } do
     = image_tag("#{Current.store.slug}/logo_black.png", class: "mb-6 h-20 md:h-48")
 
+
 main.mx-auto.max-w-2xl.px-4.pt-12.lg:max-w-7xl.lg:px-8.relative.min-h-screen.flex.py-24 data-controller="hover"
   div class="flex w-full h-screen overflow-hidden rounded-xl"
     div class="overflow-hidden transition-all grayscale duration-500" data-action="mouseover->hover#scale mouseleave->hover#unscale"
