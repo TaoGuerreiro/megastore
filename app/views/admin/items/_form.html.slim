@@ -15,17 +15,17 @@
 
         .flex.gap-4
           .relative.w-full
-            = field.input :width, as: :string, label: "Largeur", placeholder: "Largeur", input_html: { value: number_with_precision(@item.width / 10.0, precision: 1) }
+            = field.input :width, as: :string, label: "Largeur", placeholder: "Largeur", input_html: { value: number_with_precision(@item&.width&.fdiv(10), precision: 1) }
             span.text-midgray.text-xs.absolute.right-3.top-3
               | cm
 
           .relative.w-full
-            = field.input :height, as: :string, label: "Hauteur", placeholder: "Hauteur", input_html: { value: number_with_precision(@item.height / 10.0, precision: 1) }
+            = field.input :height, as: :string, label: "Hauteur", placeholder: "Hauteur", input_html: { value: number_with_precision(@item&.height&.fdiv(10), precision: 1) }
             span.text-midgray.text-xs.absolute.right-3.top-3
               | cm
 
           .relative.w-full
-            = field.input :length, as: :string, label: "Longueur", placeholder: "Longueur", input_html: { value: number_with_precision(@item.length / 10.0, precision: 1) }
+            = field.input :length, as: :string, label: "Longueur", placeholder: "Longueur", input_html: { value: number_with_precision(@item&.length&.fdiv(10), precision: 1) }
             span.text-midgray.text-xs.absolute.right-3.top-3
               | cm
 
