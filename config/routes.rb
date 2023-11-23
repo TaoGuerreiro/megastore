@@ -27,6 +27,10 @@ Rails.application.routes.draw do
         end
         resources :categories, only: [:destroy]
         resources :shipping_methods, only: [:destroy]
+        resource :bulk_edit_items, only: [] do
+          patch :online, on: :member
+          patch :offline, on: :member
+        end
         resources :items, only: [:index, :new, :create, :edit, :update, :destroy] do
           delete :remove_photo, on: :member
           patch :archive, on: :member

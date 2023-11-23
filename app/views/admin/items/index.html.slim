@@ -15,7 +15,21 @@
         .mt-8.flow-root
           = filterable_form_for(Item)
           .-mx-4.-my-2.overflow-x-auto.sm:-mx-6.lg:-mx-8
-            .inline-block.min-w-full.py-2.align-middle.sm:px-6.lg:px-8
+            .relative.inline-block.min-w-full.py-2.align-middle.sm:px-6.lg:px-8 data-controller="bulk-edit-items"
+              .hidden.z-50.rounded.absolute.px-3.py-3.bg-content.left-16.top-10 data-bulk-edit-items-target="container"
+                = form_tag online_admin_bulk_edit_items_path, method: :patch do
+                  = text_field_tag :item_ids, {}, data: { "bulk-edit-items-target": "input" }, type: :hidden
+                  = button_tag "Online", class: "btn btn-menu inline-block" do
+                    i.fa-solid.fa-eye.mr-2
+                    span
+                      | Online
+                .border-b.border-primary
+                = form_tag offline_admin_bulk_edit_items_path, method: :patch do
+                  = text_field_tag :item_ids, {}, data: { "bulk-edit-items-target": "input" }, type: :hidden
+                  = button_tag "Offline", class: "btn btn-menu inline-block" do
+                    i.fa-solid.fa-eye-slash.mr-2
+                    span
+                      | Offline
               table.min-w-full.divide-y.divide-contrast
                 thead
                   tr
@@ -46,6 +60,6 @@
                     th.relative.py-3.5.pl-3.pr-4.sm:pr-0[scope="col"]
                       span.sr-only
                         | Remove
-                tbody.divide-y.divide-content
-                  - @items.each do |item|
-                    = render "item", item: item
+                  tbody.divide-y.divide-content
+                      - @items.each do |item|
+                        = render "item", item: item

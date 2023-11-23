@@ -5,10 +5,6 @@ export default class extends Controller {
 
   static classes = ["hidden"]
 
-  connect() {
-    console.log("coucou");
-  }
-
   openViews(event) {
     event.stopPropagation();
 

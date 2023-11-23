@@ -19,9 +19,6 @@ application.register("turbo-modal", TurboModalController)
 import PhotoUploadController from "./photo_upload_controller"
 application.register("photo-upload", PhotoUploadController)
 
-import FadeInController from "./fade_in_controller"
-application.register("fade-in", FadeInController)
-
 import PhotoSwitchController from "./photo_switch_controller"
 application.register("photo-switch", PhotoSwitchController)
 
@@ -43,6 +40,8 @@ application.register("filterable-wrapper", FilterableWrapperController)
 import FilterableSortController from "./filterable_sort_controller"
 application.register("filterable-sort", FilterableSortController)
 
+import BulkEditItemsController from "./bulk_edit_items_controller"
+application.register("bulk-edit-items", BulkEditItemsController)
 
 // UNSAFE
 

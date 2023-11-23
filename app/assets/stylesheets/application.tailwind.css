@@ -54,6 +54,10 @@
     @apply px-3 py-2;
   }
 
+  .btn-menu {
+    @apply bg-transparent text-contrast font-bold hover:scale-95 transition-all cursor-pointer;
+  }
+
   .btn-primary {
     @apply bg-primary rounded-md text-light font-bold hover:scale-95 transition-all cursor-pointer;
   }
