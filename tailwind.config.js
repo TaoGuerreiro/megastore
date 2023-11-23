@@ -24,9 +24,6 @@ module.exports = {
   ],
   theme: {
     extend: {
-      flex: {
-        '2': '1 1 50%'
-      }
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
         unsafe: ["'Noto Sans'", ...defaultTheme.fontFamily.sans],
