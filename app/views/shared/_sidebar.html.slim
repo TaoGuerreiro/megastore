@@ -14,7 +14,7 @@ div.border-r.border-midgray.sticky.top-0.z-50
 
         <!-- Sidebar component, swap this element with another sidebar if you like -->
         div class="flex grow flex-col gap-y-5 overflow-y-auto bg-contrast px-6 pb-2 ring-1 ring-contrast/10"
-          div class="flex h-16 pt-10 my-8  shrink-0 items-center"
+          div class="flex pt-10 my-3  shrink-0 items-center"
             = image_tag "#{Current.store.slug}/logo.png", class: "w-auto"
           nav class="flex flex-1 flex-col"
             = render "shared/sidebar_menu"
@@ -22,7 +22,7 @@ div.border-r.border-midgray.sticky.top-0.z-50
   // DESKTOP NAVBAR
   div class="hidden lg:h-screen lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col"
     div class="flex grow flex-col gap-y-5 overflow-y-auto bg-contrast px-6"
-      div class="flex h-16 my-8 shrink-0 items-center"
+      div class="flex my-3 shrink-0 items-center object-contain"
         = image_tag "#{Current.store.slug}/logo.png", class: " w-auto"
 
       nav.flex.flex-1.flex-col
