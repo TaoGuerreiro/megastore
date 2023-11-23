@@ -17,6 +17,7 @@ else
   OrderItem.destroy_all
   Order.destroy_all
   ShippingMethod.destroy_all
+  Specification.destroy_all
   Item.destroy_all
   Category.destroy_all
   Store.destroy_all
@@ -25,9 +26,9 @@ else
   admin_localhost = User.create(first_name: "Ted", last_name: "Lasso", email: "admin@example.fr", password: "123456", role: "admin")
   clemence = User.create(first_name: "Clémence", last_name: "Porcheret", email: "hello@lecheveublanc.fr", password: "123456", role: "admin")
   unsafe = User.create(first_name: "Tao", last_name: "Guerreiro", email: "hello@unsafehxc.fr", password: "123456", role: "admin")
-  # salome = User.create(first_name: "Salomé", last_name: "Dubart", email: "hello@studioanemone.fr", password: "123456", role: "admin")
+  salome = User.create(first_name: "Salomé", last_name: "Dubart", email: "hello@studioanemone.fr", password: "123456", role: "admin")
   store_one = clemence.stores.create({
-    domain: "localhost",
+    domain: "localdhost",
     name: "Le Cheveu Blanc",
     slug: "lecheveublanc",
     meta_title: "Le Cheveu Blanc",
@@ -51,18 +52,18 @@ else
     facebook_url: "https://www.facebook.com/unsafehc/"
   })
 
-  # store = salome.stores.create({
-  #   domain: "localhost",
-  #   name: "Studio Anémone",
-  #   slug: "anemone",
-  #   meta_title: "Studio Anémone",
-  #   meta_description: "Céramique from Vannes",
-  #   meta_image: "anemone/meta_image.jpg",
-  #   instagram_url: "https://www.instagram.com/studio.anemone/",
-  #   facebook_url: "https://www.facebook.com/"
-  # })
+  store_three = salome.stores.create({
+    domain: "localhost",
+    name: "Studio Anémone",
+    slug: "anemone",
+    meta_title: "Studio Anémone",
+    meta_description: "Céramique from Vannes",
+    meta_image: "anemone/meta_image.jpg",
+    instagram_url: "https://www.instagram.com/studio.anemone/",
+    facebook_url: "https://www.facebook.com/"
+  })
 
-  [store_one, store_two].each do |store|
+  [store_one, store_two, store_three].each do |store|
     categories = []
     [:stickers, :print, :illustration].each do |category|
       category = Category.create({

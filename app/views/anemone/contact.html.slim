@@ -1,8 +1,7 @@
-.max-w-5xl.mx-auto.flex.w-full.pt-12
+.max-w-5xl.mx-auto.flex.w-full.pt-10.md:pt-36.min-h-screen
   .w-full.px-12.md:px-0
-    .text-2xl.font-bold.mb-6
-      | Une idée de projet ? Contactez-moi !
-
+    .text-2xl.font-bold.mb-6.text-contrast
+      | Me contacter
 
     = simple_form_for @contact, url: send_message_path, method: :post do |field|
       .text-input.mb-3
@@ -12,5 +11,5 @@
       .text-input.mb-3.hidden
         = field.input :nickname
       .text-input.mb-3
-        = field.input :content, as: :text, label: "Détails", placeholder: "Détails", input_html: { rows: 5 }
+        = field.input :content, as: :text, label: "Message", placeholder: "Message", input_html: { rows: 5 }
       = field.submit "Envoyer", class: "btn btn-primary"

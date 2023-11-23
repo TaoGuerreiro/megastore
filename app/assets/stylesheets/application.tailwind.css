@@ -37,6 +37,16 @@
     --color-contour: 35, 35, 43;
     --color-form-input: 35, 35, 35;
   }
+  .anemone {
+    --color-primary: 67, 146, 241;
+    --color-secondary: 72, 61, 63;
+    --color-light: 249, 244, 245;
+    --color-contrast: 47, 47, 47;
+    --color-midgray: 121, 121, 121;
+    --color-content: 200, 200, 200;
+    --color-contour: 238, 238, 238;
+    --color-form-input: 250, 250, 250;
+  }
 }
 
 @layer components {

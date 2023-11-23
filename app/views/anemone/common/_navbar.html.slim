@@ -1,22 +1,16 @@
-.w-full.hidden.md:flex.bg-contrast.relative.cursor-default.items-center.flex-col.border-b.boder-light
-  .top-6.right-6.absolute.flex.items-center
-    = render SocialLinks::Component.new
+.hidden.md:block
+  .justify-around.px-24.items-center.w-full.transition.fixed.top-0.py-6.z-40.bg-contour.flex class=("hidden" if home?(params)) data-scroll-target="links"
+    .absolute.left-6
+      = link_to root_path do
+        = image_tag("#{Current.store.slug}/logo_black.png", class: "h-12")
 
-    = render "shared/cart"
+    = link_to "À propos", about_path, class: "btn-link uppercase font-unsafe"
+    = link_to "Contact", contact_path, class: "btn-link  uppercase font-unsafe"
+    = link_to "Boutique", store_path, class: "btn-link  uppercase font-unsafe"
+    .absolute.top-0.right-10 = render "shared/cart"
 
-  = link_to root_path, class: "inline-block mx-auto" do
-    = image_tag("#{Current.store.slug}/logo.png", class: "h-48")
-  .flex.justify-around.items-center.pb-12.w-full
-    = link_to "Portfolio", root_path, class: "btn-link"
-    = link_to "À propos", about_path, class: "btn-link"
-    = link_to "Contact", contact_path, class: "btn-link"
-    = link_to "Boutique", store_path, class: "btn-link"
-
-.h-36.md:hidden
-  = link_to root_path, class: "w-full flex items-center justify-center" do
-    = image_tag("#{Current.store.slug}/logo.png", class: "h-36")
-
-  = label_tag :phonenav, class: "fixed shadow-xl z-40 top-10 left-10 rounded-full" do
+.md:hidden
+  = label_tag :phonenav, class: "fixed shadow-xl z-40 bottom-10 right-10 rounded-full" do
     .w-16.h-16.bg-secondary.flex.items-center.justify-center.rounded-full.p-3
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
@@ -29,7 +23,6 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
     .flex.flex-col.justify-around.items-start.py-12.px-12
-      = link_to "Portfolio", root_path, class: "tracking-widest text-5xl text-contrast mb-8"
-      = link_to "À propos", about_path, class: "tracking-widest text-5xl text-contrast mb-8"
-      = link_to "Contact", contact_path, class: "tracking-widest text-5xl text-contrast mb-8"
-      / = link_to "Boutique", nested_taxons_path("categories"), class: "tracking-widest text-5xl text-contrast mb-8"
+      = link_to "About", about_path, class: "tracking-widest text-5xl text-contrast mb-8"
+      = link_to "Booking", contact_path, class: "tracking-widest text-5xl text-contrast mb-8"
+      = link_to "Merch",store_path, class: "tracking-widest text-5xl text-contrast mb-8"
