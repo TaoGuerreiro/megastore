@@ -2,7 +2,7 @@
 = turbo_frame_tag :cart_frame, class: "ml-6" do
   = label_tag :cart do
     .relative
-      i.fa-solid.fa-cart-shopping.text-2xl.text-contrast
+      i.fa-solid.fa-cart-shopping.text-2xl
       .bg-primary.rounded-full.h-6.w-6.flex.items-center.justify-center.absolute.text-contrast.-right-2.-bottom-2
         = session[:checkout_items]&.count
   = check_box_tag :cart, nil, nil, {checked: @opened, class: "hidden peer"}

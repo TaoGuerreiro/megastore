@@ -27,6 +27,7 @@ module.exports = {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
         unsafe: ["'Noto Sans'", ...defaultTheme.fontFamily.sans],
+        anemone: ["'Avenir lourd'"],
       },
       colors:{
         primary: withOpacity('--color-primary'),

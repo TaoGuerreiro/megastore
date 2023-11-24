@@ -1,13 +1,15 @@
-.hidden.md:block
-  .justify-around.px-24.items-center.w-full.transition.fixed.top-0.py-6.z-40.bg-contour.flex class=("hidden" if home?(params)) data-scroll-target="links"
+- color = home?(params) ? "text-light" : "text-contrast"
+.
+  .justify-around.px-24.items-center.w-full.transition.fixed.top-0.py-6.z-40.flex
     .absolute.left-6
-      = link_to root_path do
-        = image_tag("#{Current.store.slug}/logo_black.png", class: "h-12")
+      - unless home?(params)
+        = link_to root_path do
+          = image_tag("#{Current.store.slug}/logo_black.png", class: "h-12")
 
-    = link_to "À propos", about_path, class: "btn-link font-anemone font-bold tracking-wider"
-    = link_to "Contact", contact_path, class: "btn-link  font-anemone font-bold tracking-wider"
-    = link_to "Boutique", store_path, class: "btn-link  font-anemone font-bold tracking-wider"
-    .absolute.top-0.right-10 = render "shared/cart"
+    = link_to "À propos", about_path, class: "btn-link font-anemone font-bold tracking-wider #{color}"
+    = link_to "Contact", contact_path, class: "btn-link  font-anemone font-bold tracking-wider #{color}"
+    = link_to "Boutique", store_path, class: "btn-link  font-anemone font-bold tracking-wider #{color}"
+    .absolute.top-0.right-10 class=(color) = render "shared/cart"
 
 .md:hidden
   = label_tag :phonenav, class: "fixed shadow-xl z-40 bottom-10 right-10 rounded-full" do
@@ -23,6 +25,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
     .flex.flex-col.justify-around.items-start.py-12.px-12
+      = link_to "Accueil", root_path, class: "tracking-widerst text-5xl text-contrast mb-8"
       = link_to "À propos", about_path, class: "tracking-widerst text-5xl text-contrast mb-8"
       = link_to "Contact", contact_path, class: "tracking-widest text-5xl text-contrast mb-8"
       = link_to "Boutique",store_path, class: "tracking-widest text-5xl text-contrast mb-8"

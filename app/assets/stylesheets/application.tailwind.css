@@ -3,7 +3,19 @@
 @tailwind utilities;
 @import 'actiontext.css';
 
+
+
+
 @layer base {
+
+  @font-face {
+    font-family: "Avenir libre";
+    src: font-url("avenir_libre.ttf") format('truetype');
+  }
+  @font-face {
+    font-family: "Avenir lourd";
+    src: font-url("avenir_lourd.ttf") format('truetype');
+  }
 
   :root {
     --color-primary: 83, 107, 120;
