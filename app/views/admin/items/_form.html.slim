@@ -49,9 +49,10 @@
 
 
         .grid.grid-cols-3.mt-8
-          - @shipping_methods.each do |shipping_method|
-            div class="relative"
-              = render ShippingMethod::Component.new(field: field, shipping_method: shipping_method)
+          - if @shipping_methods
+            - @shipping_methods.each do |shipping_method|
+              div class="relative"
+                = render ShippingMethod::Component.new(field: field, shipping_method: shipping_method)
 
 
         = field.input :photos, label: false, input_html: { multiple: true, class: "hidden", data: { action: "change->photo-upload#show" }}
