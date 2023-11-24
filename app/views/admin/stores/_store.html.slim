@@ -41,7 +41,11 @@
         | Stripe webhook secret key
       dd.mt-1.text-sm.leading-6.text-contrast.sm:col-span-2.sm:mt-0
         = @store.stripe_webhook_secret_key
-
+    .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
+      dt.text-sm.font-medium.leading-6.text-contrast
+        | Mode vacances
+      dd.mt-1.text-sm.leading-6.text-contrast.sm:col-span-2.sm:mt-0
+        = @store.holiday ? "Activé (#{@store.holiday_sentence})" : "Désactivé"
     .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
       dt.text-sm.font-medium.leading-6.text-contrast
         | Texte de la page à propos
