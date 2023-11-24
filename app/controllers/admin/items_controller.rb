@@ -1,7 +1,7 @@
 module Admin
   class ItemsController < ApplicationController
     layout "admin"
-    before_action :set_shipping_methods, only: [:new, :edit]
+    before_action :set_shipping_methods, only: [:new, :edit, :create, :update]
     before_action :set_specifications, only: [:new, :edit]
 
     def index
