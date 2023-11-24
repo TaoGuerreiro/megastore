@@ -15,4 +15,8 @@ class ShippingMethod::Component < ViewComponent::Base
       false
     end
   end
+
+  def js_controller
+    "autosave" if @item.is_a?(OrderIntent)
+  end
 end

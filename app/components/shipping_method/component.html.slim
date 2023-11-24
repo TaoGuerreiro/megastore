@@ -1,4 +1,4 @@
-.relative data-controller="autosave"
+.relative data-controller="#{js_controller}"
   - if @item.is_a?(OrderIntent)
     input[type="radio" id="shipping_method_#{shipping_method.id}" name="order_intent[shipping_method]" value=shipping_method.id data-action="change->autosave#save" class="hidden peer" multiple=true checked=(checked)]
   - else
