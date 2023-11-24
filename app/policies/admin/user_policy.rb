@@ -1,13 +1,13 @@
 class Admin::UserPolicy < ApplicationPolicy
   def show?
-    user.id == record.id
+    user_id_queen_or_admin?
   end
 
   def edit?
-    user.id == record.id
+    user_id_queen_or_admin?
   end
 
   def update?
-    user.id == record.id
+    user_id_queen_or_admin?
   end
 end

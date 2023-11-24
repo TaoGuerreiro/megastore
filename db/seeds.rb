@@ -27,8 +27,9 @@ else
   clemence = User.create(first_name: "Clémence", last_name: "Porcheret", email: "hello@lecheveublanc.fr", password: "123456", role: "admin")
   unsafe = User.create(first_name: "Tao", last_name: "Guerreiro", email: "hello@unsafehxc.fr", password: "123456", role: "admin")
   salome = User.create(first_name: "Salomé", last_name: "Dubart", email: "hello@studioanemone.fr", password: "123456", role: "admin")
+  flo = User.create(first_name: "Flo", last_name: "Queen", email: "florent.guilbaud@gmail.com", password: "123456", role: "queen")
   store_one = clemence.stores.create({
-    domain: "localdhost",
+    domain: "localhost",
     name: "Le Cheveu Blanc",
     slug: "lecheveublanc",
     meta_title: "Le Cheveu Blanc",
@@ -53,7 +54,7 @@ else
   })
 
   store_three = salome.stores.create({
-    domain: "localhost",
+    domain: "localshost",
     name: "Studio Anémone",
     slug: "anemone",
     meta_title: "Studio Anémone",
@@ -100,20 +101,8 @@ else
       item.save
     end
 
-    ShippingMethod.create(store: store, name: "UPS", description: "Dans les 48h", price: 8)
-    ShippingMethod.create(store: store, name: "Mondial relay", description: "entre 2 à 5 jours", price: 4)
-    ShippingMethod.create(store: store, name: "Remise en main propre", description: "Très propre", price: 0)
+    ShippingMethod.create(store: store, name: "UPS", description: "Dans les 48h", price: 8, max_weight: 1000000)
+    ShippingMethod.create(store: store, name: "Mondial relay", description: "entre 2 à 5 jours", price: 4, max_weight: 1000000)
+    ShippingMethod.create(store: store, name: "Remise en main propre", description: "Très propre", price: 0, max_weight: 1000000)
   end
 end
-
-
-salome.stores.create({
-    domain: "studioanemone.fr",
-    name: "Studio Anémone",
-    slug: "anemone",
-    meta_title: "Studio Anémone",
-    meta_description: "Céramique from Vannes",
-    meta_image: "anemone/meta_image.jpg",
-    instagram_url: "https://www.instagram.com/studio.anemone/",
-    facebook_url: "https://www.facebook.com/"
-  })

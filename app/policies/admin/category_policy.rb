@@ -1,22 +1,26 @@
 class Admin::CategoryPolicy < ApplicationPolicy
 
+  relation_scope do |relation|
+    relation.with_archived.where(store: Current.store)
+  end
+
   def new?
-    user.admin?
+    queen_or_admin?
   end
 
   def create?
-    user.admin?
+    queen_or_admin?
   end
 
   def edit?
-    user.id == record.store.admin_id
+    queen_or_store_record?
   end
 
   def update?
-    user.id == record.store.admin_id
+    queen_or_store_record?
   end
 
   def destroy?
-    user.id == record.store.admin_id
+    queen_or_store_record?
   end
 end

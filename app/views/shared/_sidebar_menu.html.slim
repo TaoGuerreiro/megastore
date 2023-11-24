@@ -15,5 +15,8 @@ ul.flex.flex-1.flex-col.gap-y-7[role="list"]
 
       span.sr-only
         | Your profile
-      span[aria-hidden="true"]
-        = current_user.full_name
+      .flex.items-center.justify-between.w-full
+        span[aria-hidden="true"]
+          = current_user.full_name
+        = link_to destroy_user_session_path, data: { turbo_method: :delete } do
+          i.fa-solid.fa-arrow-right-from-bracket.text-base.text-midgray.ml-1

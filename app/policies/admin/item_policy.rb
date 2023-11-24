@@ -1,32 +1,32 @@
 class Admin::ItemPolicy < ApplicationPolicy
 
   relation_scope do |relation|
-    # next relation if user.admin?
     relation.with_archived.where(store: Current.store)
   end
 
+  def index?
+    queen_or_admin?
+  end
+
   def new?
-    true
+    queen_or_admin?
   end
 
   def create?
-    true
+    queen_or_admin?
   end
 
   def archive?
-    user.id == record.store.admin_id
+    queen_or_store_record?
   end
 
   def unarchive?
-    user.id == record.store.admin_id
+    queen_or_store_record?
   end
 
-  def index?
-    true
-  end
 
   def edit?
-    user.id == record.store.admin_id
+    queen_or_store_record?
   end
 
   def update?
@@ -34,24 +34,10 @@ class Admin::ItemPolicy < ApplicationPolicy
   end
 
   def destroy?
-    (user.id == record.store.admin_id) && record.order_items.empty?
+    queen_or_store_record? && record.order_items.empty?
   end
 
   def remove_photo?
-    user.id == record.store.admin_id
+    queen_or_store_record?
   end
-
-  # #
-  # def update?
-  #   # here we can access our context and record
-  #   user.admin? || (user.id == record.user_id)
-  # end
-
-  # Scoping
-  # See https://actionpolicy.evilmartians.io/#/scoping
-  #
-  # relation_scope do |relation|
-  #   next relation if user.admin?
-  #   relation.where(user: user)
-  # end
 end

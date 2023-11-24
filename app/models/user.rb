@@ -7,7 +7,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  enumerize :role, in: %i[admin user], default: :user, predicates: true
+  enumerize :role, in: %i[admin user queen], default: :user, predicates: true
 
   has_many :stores, foreign_key: :admin_id
   validates :first_name, :last_name, presence: true

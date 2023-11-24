@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   mount StripeEvent::Engine, at: '/stripe-webhooks'
 
   require "sidekiq/web"
-  authenticate :user, ->(user) { user.admin? } do
+  authenticate :user, ->(user) { user.queen? } do
     mount Sidekiq::Web => '/sidekiq'
   end
 
@@ -18,9 +18,8 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     resource :profile, only: %i[edit update]
-
     namespace :admin do
-      authenticate :user, -> (user) { user.admin? } do
+      authenticate :user, -> (user) { user.queen? || user.admin? } do
         resources :stores, only: [:show, :edit, :update] do
           resources :categories, only: [:new, :create, :edit, :update]
           resources :shipping_methods, only: [:new, :create, :edit, :update]
