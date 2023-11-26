@@ -4,7 +4,7 @@ class Checkout
   end
 
   def cart
-    return if @ids.nil?
+    return [] if @ids.nil?
 
     unique_ids = @ids.uniq
     cart = unique_ids.map do |id|
@@ -15,9 +15,7 @@ class Checkout
         number: @ids.count(id)
       }
     end
-    puts "$" * 100
-    puts cart
-    puts "$" * 100
+
     cart.first.blank? ? [] : cart
   end
 
