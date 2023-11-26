@@ -5,7 +5,7 @@ module Admin
     before_action :set_specifications, only: [:new, :edit]
 
     def index
-      @items = filterable(Item, authorized_scope(Item.all))
+      @items = filterable(Item, authorized_scope(Item.includes(:photos, :category)))
       authorize! @items
     end
 

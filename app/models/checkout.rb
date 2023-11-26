@@ -15,7 +15,7 @@ class Checkout
         number: @ids.count(id)
       }
     end
-    cart.first.nil? ? [] : cart
+    cart.first.blank? ? [] : cart
   end
 
   def sum
