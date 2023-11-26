@@ -15,6 +15,9 @@ class Checkout
         number: @ids.count(id)
       }
     end
+    puts "$" * 100
+    puts cart
+    puts "$" * 100
     cart.first.blank? ? [] : cart
   end
 
