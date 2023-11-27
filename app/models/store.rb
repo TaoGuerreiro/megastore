@@ -21,7 +21,7 @@ class Store < ApplicationRecord
       .group('shipping_methods.service_name')
       .to_sql
 
-    most_expensive_shipping_methods = ShippingMethod
+    most_expensive_shipping_methods = ShippingMethod.where(store: self)
       .joins("INNER JOIN (#{max_prices}) as max_prices ON shipping_methods.service_name = max_prices.service_name AND shipping_methods.price_cents = max_prices.max_price")
 
     most_expensive_shipping_methods
