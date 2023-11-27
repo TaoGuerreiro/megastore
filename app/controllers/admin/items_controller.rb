@@ -32,7 +32,6 @@ module Admin
     end
 
     def update
-      raise
       @item = Item.find(params[:id])
       authorize! @item
       if @item.update(item_params)
