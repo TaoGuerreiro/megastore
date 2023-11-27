@@ -3,9 +3,9 @@ class StoresController < ApplicationController
 
   def show
     if params[:filters]
-      @items = @store.items.includes(:category).where(category: {name: selected_filters}, status: :active)
+      @items = @store.items.includes(:category).where(category: {name: selected_filters}, status: :active).order(created_at: :desc)
     else
-      @items = @store.items.where(status: :active)
+      @items = @store.items.where(status: :active).order(created_at: :desc)
     end
   end
 
