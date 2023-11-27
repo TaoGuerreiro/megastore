@@ -7,8 +7,15 @@
     span.flex.flex-1
       span.flex.flex-col
         span#delivery-method-0-label.block.text-sm.font-medium.text-contrast
-          p.truncate
-            | #{shipping_method.name}
+          - if @item.is_a?(OrderIntent)
+            p.truncate
+              | #{t(shipping_method.service_name)}
+          - else
+            p.truncate
+              - if shipping_method.name.length > 27
+                | #{shipping_method.name.first(27)}...
+              - else
+                = shipping_method.name
         span#delivery-method-0-description-0.mt-1.flex.items-center.text-sm.text-midgray data-controller="info-circle"
           . #{shipping_method.description.first(15)}
           = render Tooltip::Component.new(message: shipping_method.description)

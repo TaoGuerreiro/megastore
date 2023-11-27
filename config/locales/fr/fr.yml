@@ -36,3 +36,11 @@ fr:
         mr: "Mondial Relay"
         tnt: "TNT"
         gls: "GLS"
+  ups: "UPS"
+  fedex: "FedEx"
+  poste: "La Poste"
+  dhl: "DHL"
+  mr: "Mondial Relay"
+  tnt: "TNT"
+  gls: "GLS"
+  other : Remise en main propre

@@ -15,7 +15,8 @@ class Store < ApplicationRecord
   end
 
   def availible_methods(ids)
-    max_prices = ShippingMethod.where(store: self).joins(item_shipments: :item)
+    max_prices = ShippingMethod.where(store: self)
+      .joins(item_shipments: :item)
       .where(items: { id: ids })
       .select('shipping_methods.service_name, MAX(shipping_methods.price_cents) as max_price')
       .group('shipping_methods.service_name')
