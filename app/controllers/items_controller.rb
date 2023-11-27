@@ -7,6 +7,7 @@ class ItemsController < ApplicationController
 
   private
 
+  # This method is used to calculate the virtual stock of an item.
   def set_virtual_stock
     @item = Item.find(params[:id])
     cart_stock = Checkout.new(session[:checkout_items]).cart.find { |item| item[:item].id == @item.id }&.[](:number) || 0
