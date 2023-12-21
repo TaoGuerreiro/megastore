@@ -49,6 +49,28 @@ module Admin
       redirect_to admin_items_path, notice: "Item was successfully destroyed."
     end
 
+    def add_stock
+      @item = Item.find(params[:id])
+      authorize! @item
+      @item.stock += 1
+      @item.save
+      respond_to do |format|
+        format.html { redirect_to admin_items_path, notice: "Stock was successfully increased." }
+        format.turbo_stream
+      end
+    end
+
+    def remove_stock
+      @item = Item.find(params[:id])
+      authorize! @item
+      @item.stock -= 1
+      @item.save
+      respond_to do |format|
+        format.html { redirect_to admin_items_path, notice: "Stock was successfully decreased." }
+        format.turbo_stream
+      end
+    end
+
     def remove_photo
       @item = Item.find(params[:id])
       authorize! @item
@@ -105,10 +127,14 @@ module Admin
     end
 
     def manage_photos(permitted_params)
-      if permitted_params[:photos].reject(&:blank?).first.blank?
-        permitted_params.delete(:photos)
+      if permitted_params[:photos]
+        permitted_params[:photos].each do |photo|
+          @item.photos.attach(photo) unless photo.blank?
+        end
       end
+      permitted_params.delete(:photos)
     end
+
 
     def convert_dimensions(permitted_params)
       [:length, :width, :height].each do |dimension|

@@ -2,6 +2,7 @@
 class Item < ApplicationRecord
   include Filterable
   extend Enumerize
+  include PgSearch::Model
 
   attr_accessor :active
 
@@ -37,6 +38,12 @@ class Item < ApplicationRecord
   scope :active, -> { where(status: :active) }
   scope :archived, -> { where(status: :archived) }
   scope :offline, -> { where(status: :offline) }
+
+  pg_search_scope :search_by_name_and_description,
+  against: [ :name, :description ],
+  using: {
+    tsearch: { prefix: true }
+  }
 
   def self.with_archived
     unscoped.order(:status, :name)

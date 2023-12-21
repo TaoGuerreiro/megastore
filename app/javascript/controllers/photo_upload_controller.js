@@ -12,9 +12,6 @@ export default class extends Controller {
     const files = input.files;
     if (!files) return;
 
-    // Videz le conteneur de photos pour les nouvelles images chargées
-    this.photosContainerTarget.innerHTML = '';
-
     Array.from(files).forEach((file) => {
       const reader = new FileReader();
 

@@ -19,6 +19,7 @@ gem "jbuilder"
 gem "jsbundling-rails"
 gem "money-rails", "~> 1.13"
 gem "pg", "~> 1.1"
+gem "pg_search"
 gem "postmark-rails"
 gem "puma", "~> 5.0"
 gem 'rails-i18n', '~> 7.0.0'

@@ -1,30 +1,37 @@
-tr class="#{'disabled' if item.archived?}"
-  td.py-4.pl-4.pr-3.sm:pl-0
-    = check_box_tag "#{item.id}", item.id, false, class: "w-6 h-6 rounded-md text-primary focus:ring-primary", data: { action: "change->bulk-edit-items#select" }
-  td.whitespace-nowrap.py-4.pl-4.pr-3.text-sm.font-medium.text-contrast.text-center.sm:pl-0
-    - if item.active?
-      i.fas.fa-check.text-green-500.text-lg
-    - else
-      i.fas.fa-times.text-red-500.text-lg
-  td.py-4.pl-4.pr-3.sm:pl-0
-    - if item.photos.attached?
-      = image_tag item.photos.first.variant(resize_to_fill: [50, 50]), class: "max-w-none w-10 h-10 rounded-md"
-  td.whitespace-nowrap.py-4.pl-4.pr-3.text-sm.font-medium.text-contrast.sm:pl-0
-    = item.name.size > 30 ? "#{item.name.first(30)}..." : item.name
-  td.whitespace-nowrap.px-3.py-4.text-sm.text-contrast
-    = "#{item.description.first(30)}..."
-  td.whitespace-nowrap.px-3.py-4.text-sm.text-contrast
-    = item.category.name
-  td.whitespace-nowrap.px-3.py-4.text-sm.text-contrast.text-right
-    = number_to_currency(item.price, format: "%n €")
-  td.whitespace-nowrap.px-3.py-4.text-sm.text-contrast.text-center
-    = item.stock
-  td.relative.whitespace-nowrap.py-4.pl-3.pr-4.text-right.text-sm.font-medium.sm:pr-0
-    = link_to edit_admin_item_path(item), class: "text-primary hover:text-primary/90" do
-      i.fas.fa-pen.text-lg
-  td.relative.whitespace-nowrap.py-4.pl-3.pr-4.text-right.text-sm.font-medium.sm:pr-0
-    - if item.destroyabled?
-      = link_to admin_item_path(item), data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer cet article ?" }, class: "text-primary hover:text-primary/90" do
-        i.fas.fa-trash.text-lg
-    - else
-      i.fas.fa-trash.text-lg.disabled
+= turbo_frame_tag dom_id(item) do
+  div.flex.w-full class="#{'disabled' if item.archived?}"
+    .w-12.flex.justify-center.items-center
+      = check_box_tag "#{item.id}", item.id, false, class: "w-6 h-6 rounded-md text-primary focus:ring-primary", data: { action: "change->bulk-edit-items#select" }
+    .w-12.flex.justify-center.items-center.px-2
+      - if item.active?
+        i.fas.fa-check.text-green-500.text-lg
+      - else
+        i.fas.fa-times.text-red-500.text-lg
+    .w-12.flex.justify-center.items-center
+      - if item.photos.attached?
+        = image_tag item.photos.first.variant(resize_to_fill: [50, 50]), class: "max-w-none w-10 h-10 rounded-md"
+    .w-48.px-2.text-sm.font-medium.text-contrast.flex.items-center
+      = item.name.size > 30 ? "#{item.name.first(30)}..." : item.name
+    .w-64.whitespace-nowrap.px-2.py-4.text-sm.text-contrast
+      = "#{item.description.first(30)}..."
+    .w-28.whitespace-nowrap.px-2.py-4.text-sm.text-contrast
+      = item.category.name
+    .w-20.whitespace-nowrap.px-3.py-4.text-sm.text-contrast.text-right
+      = number_to_currency(item.price, format: "%n €")
+    .w-20.whitespace-nowrap.px-3.py-4.text-sm.text-contrast.text-center
+      div
+        = link_to add_stock_admin_item_path(item), data: { turbo_method: :patch }, class: "text-primary hover:text-primary/90" do
+          i.fa-solid.fa-plus
+        = item.stock
+        = link_to remove_stock_admin_item_path(item), data: { turbo_method: :patch }, class: "text-primary hover:text-primary/90" do
+          i.fa-solid.fa-minus
+
+    .w-10.relative.whitespace-nowrap.py-4.pl-3.pr-4.text-right.text-sm.font-medium.sm:pr-0
+      = link_to edit_admin_item_path(item), class: "text-primary hover:text-primary/90", data: { turbo: :false}  do
+        i.fas.fa-pen.text-lg
+    .w-10.relative.py-4.pl-3.pr-4.text-right.text-sm.font-medium.sm:pr-0
+      - if item.destroyabled?
+        = link_to admin_item_path(item), data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer cet article ?" }, class: "text-primary hover:text-primary/90" do
+          i.fas.fa-trash.text-lg
+      - else
+        i.fas.fa-trash.text-lg.disabled

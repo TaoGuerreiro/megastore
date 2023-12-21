@@ -36,6 +36,8 @@ Rails.application.routes.draw do
           delete :remove_photo, on: :member
           patch :archive, on: :member
           patch :unarchive, on: :member
+          patch :add_stock, on: :member
+          patch :remove_stock, on: :member
         end
         resources :orders, only: [:index, :show, :edit, :update, :destroy]
 

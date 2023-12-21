@@ -24,8 +24,15 @@ class Admin::ItemPolicy < ApplicationPolicy
     queen_or_store_record?
   end
 
-
   def edit?
+    queen_or_store_record?
+  end
+
+  def add_stock?
+    queen_or_store_record?
+  end
+
+  def remove_stock?
     queen_or_store_record?
   end
 

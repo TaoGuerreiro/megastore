@@ -33,12 +33,23 @@
                 = @item.description
           .mt-6
             .mt-10
-              - unless @virtual_stock <= 0
-                = button_to "Ajouter au panier", add_item_checkout_path(@item), method: :post, class: "btn btn-primary mb-4"
-                p.text-sm.text-midgray
-                  = "(#{@virtual_stock} en stock)"
+              - if Current.store.display_stock?
+                - unless @virtual_stock <= 0
+                  = button_to "Ajouter au panier", add_item_checkout_path(@item), method: :post, class: "btn btn-primary mb-4"
+                  p.text-sm.text-midgray
+                    = "(#{@virtual_stock} en stock)"
+                - else
+                  p class="text-red-500 font-bold" = "RUPTURE DE STOCK"
               - else
-                p class="text-red-500 font-bold" = "RUPTURE DE STOCK"
+                - if @virtual_stock > 1
+                  = button_to "Ajouter au panier", add_item_checkout_path(@item), method: :post, class: "btn btn-primary mb-4"
+                - elsif @virtual_stock == 1
+
+                  = button_to "Ajouter au panier", add_item_checkout_path(@item), method: :post, class: "btn btn-primary mb-4"
+                  p.text-sm.text-primary
+                    = "Plus qu'un seul exemplaire en stock !"
+                - else
+                  p class="text-red-500 font-bold" = "RUPTURE DE STOCK"
           section.mt-12[aria-labelledby="details-heading"]
             h2#details-heading.sr-only
               | Additional details

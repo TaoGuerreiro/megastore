@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from ActionPolicy::Unauthorized do |exception|
-    redirect_to root_path, alert: t("forbidden_action")
+    redirect_to root_path, alert: exception.result.details[:reason]
   end
 
   private

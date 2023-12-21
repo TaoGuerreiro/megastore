@@ -1,6 +1,10 @@
 h1 Nouvelle commande sur le site !
 
 p = "#{@order.user.full_name} vient de passer une commande sur le site."
+p = "tel : #{@order.user.phone}"
+
+p Adresses de livraison et de facturation :
+p = @order.shipping_address
 
 - @order.items.each do |item|
   p = "#{item.name} x 1 (#{item.price} €)"

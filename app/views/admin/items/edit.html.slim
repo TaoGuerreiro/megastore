@@ -24,4 +24,5 @@
       | Prévisualisation de l'article
       i.fas.fa-eye.ml-2 class="!text-primary"
     .border-b-2.w-full.border-content
-    = render "items/item", item: @item
+    div class=(Current.store.slug)
+      = render "items/item", item: @item

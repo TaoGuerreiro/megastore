@@ -6,9 +6,23 @@ aside
       div
         fieldset
           legend.block.text-sm.font-medium.text-contrast
-            | Category
+            | Filtres
           .space-y-3.pt-6 data-controller="autosave"
             = simple_form_for :filters do |f|
+              = f.input :query, label: "Recherche", input_html: { value: @query, data: { action: "change->autosave#save" }}
+              = f.input :sort, collection: ["Prix croissant", "Prix décroissant", "A-Z", "Nouveautés"], label: false, input_html: {data: { action: "change->autosave#save" }, id: "sort", class: " rounded border-content text-primary focus:ring-primary"}, wrapper_html: { class: "pb-3 mb-0 flex items-center"}, selected: @default_sort
+              p.text-sm.text-midgray
+                | Prix
+              .flex.gap-3
+                .relative.w-full
+                  = f.input :min_price, label: false, input_html: { value: number_with_precision(@min_price, precision: 2), data: { action: "change->autosave#save" }}
+                  span.text-midgray.text-xs.absolute.right-3.top-3
+                    | €
+                .relative.w-full
+                  = f.input :max_price, label: false, input_html: { value: number_with_precision(@max_price, precision: 2), data: { action: "change->autosave#save" }}
+                  span.text-midgray.text-xs.absolute.right-3.top-3
+                    | €
+
 
               - Current.store.categories.each_with_index do |category, index|
                 .flex.items-center
