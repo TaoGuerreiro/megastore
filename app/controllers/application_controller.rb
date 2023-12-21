@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
   include Filterable::FilterableRequest
+  include Pagy::Backend
+
   before_action :set_current_store, :clean_checkout_cart
 
   def default_url_options

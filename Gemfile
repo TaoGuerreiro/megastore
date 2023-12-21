@@ -18,6 +18,7 @@ gem "action_policy"
 gem "jbuilder"
 gem "jsbundling-rails"
 gem "money-rails", "~> 1.13"
+gem 'pagy', '~> 6.2'
 gem "pg", "~> 1.1"
 gem "pg_search"
 gem "postmark-rails"

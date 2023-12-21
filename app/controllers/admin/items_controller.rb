@@ -6,6 +6,7 @@ module Admin
 
     def index
       @items = filterable(Item, authorized_scope(Item.includes(:photos, :category)))
+      @pagy, @items = pagy(@items)
       authorize! @items
     end
 
