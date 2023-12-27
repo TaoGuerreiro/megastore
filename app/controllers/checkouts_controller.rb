@@ -98,6 +98,7 @@ class CheckoutsController < ApplicationController
     User.find_or_create_by(email: order_intent_params[:email]) do |user|
       user.first_name = order_intent_params[:first_name]
       user.last_name = order_intent_params[:last_name]
+      user.phone = order_intent_params[:phone]
       user.password = SecureRandom.hex(10)
     end
   end

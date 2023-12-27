@@ -1,17 +1,19 @@
-= render TurboModal::Component.new(title: "Editer la boutique") do
+= render TurboModal::Component.new(title: t('store.edit.title')) do
   = simple_form_for [:admin, @store] do |field|
-    = field.input :name, label: 'Nom de la boutique', placeholder: 'Nom de la boutique'
-    = field.input :meta_title, label: 'Meta Title', placeholder: 'Meta Title'
-    = field.input :meta_description, as: :text, label: 'Meta Description', placeholder: 'Meta Description'
-    = field.input :instagram_url, label: 'URL Instagram', placeholder: 'URL Instagram'
-    = field.input :facebook_url, label: 'URL Facebook', placeholder: 'URL Facebook'
+    = field.input :name, label: t('store.edit.name'), placeholder: t('store.edit.name_placeholder')
+    = field.input :meta_title, label: t('store.edit.meta_title'), placeholder: t('store.edit.meta_title_placeholder')
+    = field.input :meta_description, as: :text, label: t('store.edit.meta_description'), placeholder: t('store.edit.meta_description_placeholder')
+    = field.input :instagram_url, label: t('store.edit.instagram_url'), placeholder: t('store.edit.instagram_url_placeholder')
+    = field.input :facebook_url, label: t('store.edit.facebook_url'), placeholder: t('store.edit.facebook_url_placeholder')
     .md:flex.items-center
-      = field.input :holiday, label: "Mode vacances", as: :boolean, input_html: { checked: @store.holiday?, class: "w-5 h-5 m-0 p-0 flex checked:bg-primary"}, wrapper_html: {class: "flex items-center basis-1/4"}, label_html: {class: "-top-0.5 left-4"}
-      = field.input :holiday_sentence, label: 'Message vacances', placeholder: 'Message vacances', input_html: { class: "w-full" }, wrapper_html: {class: "basis-3/4"}
+      = field.input :holiday, label: t('store.edit.holiday'), as: :boolean, input_html: { checked: @store.holiday?, class: "w-5 h-5 m-0 p-0 flex checked:bg-primary"}, wrapper_html: {class: "flex items-center basis-1/4"}, label_html: {class: "-top-0.5 left-4"}
+      = field.input :holiday_sentence, label: t('store.edit.holiday_message'), placeholder: t('store.edit.holiday_message_placeholder'), input_html: { class: "w-full" }, wrapper_html: {class: "basis-3/4"}
 
     .mb-5.control data-controller="trix"
-      = field.rich_text_area :about, label: 'Texte à propos', placeholder: 'Texte à propos', data: { trix_target: 'editor' }
-    = field.input :stripe_publishable_key, as: :string, label: 'Clef publique Stripe', placeholder: 'Clef publique Stripe'
-    = field.input :stripe_secret_key, as: :string, label: 'Clef secrete Stripe', placeholder: 'Clef secrete Stripe'
-    = field.input :stripe_webhook_secret_key, as: :string, label: 'Clef webhook Stripe', placeholder: 'Clef webhook Stripe'
-    = field.button :submit, "Valider", class: "btn btn-primary"
+      = field.rich_text_area :about, label: t('store.edit.about_text'), placeholder: t('store.edit.about_text_placeholder'), data: { trix_target: 'editor' }
+    = field.input :mail_body, as: :text, label: t('store.edit.mail_text'), placeholder: t('store.edit.mail_text_placeholder'), input_html: { rows: 5 }
+    = field.input :stripe_publishable_key, as: :string, label: t('store.edit.stripe_public_key'), placeholder: t('store.edit.stripe_public_key_placeholder')
+    = field.input :stripe_secret_key, as: :string, label: t('store.edit.stripe_secret_key'), placeholder: t('store.edit.stripe_secret_key_placeholder')
+    = field.input :stripe_webhook_secret_key, as: :string, label: t('store.edit.stripe_webhook_key'), placeholder: t('store.edit.stripe_webhook_key_placeholder')
+    = field.input :postmark_key, as: :string, label: t('store.edit.postmark_key'), placeholder: t('store.edit.postmark_key_placeholder')
+    = field.button :submit, t('store.edit.submit'), class: "btn btn-primary"

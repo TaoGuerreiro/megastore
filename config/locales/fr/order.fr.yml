@@ -1,0 +1,23 @@
+fr:
+  orders:
+    show:
+      addresses: "Addresses"
+      billing_address: "Adresse de facturation"
+      error_subtitle: "Vous pouvez réessayer ou me contacter."
+      error_title: "Une erreur s'est produite lors du paiement."
+      items: "Items"
+      order_details: "Détails de la commande"
+      order_number: "Numéro de commande"
+      payment_method: "Methode de paiement"
+      payment: "Payment"
+      shipping_address: "Adresse de livraison"
+      shipping_method: "Methode de livraison"
+      shipping: "Livraison"
+      subtotal: "Sous-total"
+      success_subtitle: "Je m'en occupe au plus vite"
+      success_title: "Merci pour votre commande!"
+      summary: "Sommaire"
+      total: "Total"
+      total: "Total"
+      your_information: "Your information"
+      your_order: "Your order"

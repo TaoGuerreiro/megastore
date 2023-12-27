@@ -1,6 +1,7 @@
 class Checkout
   def initialize(ids)
-    @ids = ids
+    set_ids(ids)
+    # @ids = ids
   end
 
   def cart
@@ -46,5 +47,15 @@ class Checkout
 
   def all
     Item.where(id: @ids)
+  end
+
+  private
+
+  def set_ids(ids)
+    @ids = if ids.is_a?(Array)
+      ids
+    else
+      ids.order_items.flat_map { |order_item| [order_item.item_id] * order_item.quantity }
+    end
   end
 end

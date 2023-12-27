@@ -25,9 +25,11 @@ store_one = clemence.stores.create({
   meta_image: "lecheveublanc/meta_image.jpg",
   instagram_url: "https://www.instagram.com/le_cheveu_blanc/",
   facebook_url: "https://www.facebook.com/lecheveublanc/",
-  stripe_publishable_key: YAML.load_file("db/stripe_key.yml")["stripe_publishable_key"],
-  stripe_secret_key: YAML.load_file("db/stripe_key.yml")["stripe_secret_key"],
-  stripe_webhook_secret_key: YAML.load_file("db/stripe_key.yml")["stripe_webhook_secret_key"]
+  mail_body: "Merci pour ta commande frero",
+  stripe_publishable_key: YAML.load_file("db/keys.yml")["stripe_publishable_key"],
+  stripe_secret_key: YAML.load_file("db/keys.yml")["stripe_secret_key"],
+  stripe_webhook_secret_key: YAML.load_file("db/keys.yml")["stripe_webhook_secret_key"],
+  postmark_key: YAML.load_file("db/keys.yml")["postmark_key"]
 })
 
 store_two = unsafe.stores.create({
