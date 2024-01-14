@@ -1,5 +1,8 @@
 .grid.sm:grid-cols-2.md:grid-cols-3.gap-6.px-12.pt-12 data-controller="card fade-in" data-action="click->card#test"
   .gap-6.space-y-6
+    - images = images_from_directory("juliette")
+    = render Cards::CardComponent.new(title: "Haut les coeurs", link: "https://open.spotify.com/show/1SfdmzdblZUZnhy86KXZyI", images: images)
+
     - images = images_from_directory("hug")
     = render Cards::CardComponent.new(  images: images)
 
@@ -10,10 +13,10 @@
     = render Cards::CardComponent.new( images: images)
 
     - images = images_from_directory("maison")
-    = render Cards::CardComponent.new(title: "Haut les coeurs", link: "https://open.spotify.com/show/0Sh1i3tvxIYyf1AMFaO6qQ", images: images)
+    = render Cards::CardComponent.new(title: "Haut les coeurs", link: "https://open.spotify.com/show/1SfdmzdblZUZnhy86KXZyI", images: images)
 
     - images = images_from_directory("male_tears")
-    = render Cards::CardComponent.new( images: images)
+    = render Cards::CardComponent.new(title: "Haut les coeurs", link: "https://open.spotify.com/show/1SfdmzdblZUZnhy86KXZyI", images: images)
 
     - images = images_from_directory("colision")
     = render Cards::CardComponent.new(title: "Collision devices", link: "https://collisiondevices.com/", images: images)
@@ -26,6 +29,8 @@
 
   .gap-6.space-y-6
     - images = images_from_directory("chaden")
+    = render Cards::CardComponent.new(title: "Haut les coeurs", link: "https://open.spotify.com/show/1SfdmzdblZUZnhy86KXZyI", images: images)
+    - images = images_from_directory("danse")
     = render Cards::CardComponent.new( images: images)
 
     - images = images_from_directory("bd")
@@ -37,13 +42,16 @@
     - images = images_from_directory("queer")
     = render Cards::CardComponent.new( images: images)
 
-    - images = images_from_directory("hlc")
-    = render Cards::CardComponent.new( images: images)
+    - images = images_from_directory("tea")
+    = render Cards::CardComponent.new(title: "Haut les coeurs", link: "https://open.spotify.com/show/1SfdmzdblZUZnhy86KXZyI", images: images)
 
     - images = images_from_directory("lfsm")
     = render Cards::CardComponent.new(title: "Les femmes s'en mêlent", link: "https://lfsm.net/", images: images)
 
   .gap-6.space-y-6
+    - images = images_from_directory("noel")
+    = render Cards::CardComponent.new( images: images)
+
     - images = images_from_directory("acab")
     = render Cards::CardComponent.new( images: images)
 
@@ -51,7 +59,7 @@
     = render Cards::CardComponent.new(title: "Kostar", link: "https://www.kostar.fr/", images: images)
 
     - images = images_from_directory("hlc")
-    = render Cards::CardComponent.new( images: images)
+    = render Cards::CardComponent.new(title: "Haut les coeurs", link: "https://open.spotify.com/show/1SfdmzdblZUZnhy86KXZyI", images: images)
 
     - images = images_from_directory("ours")
     = render Cards::CardComponent.new( images: images)
@@ -66,4 +74,4 @@
     = render Cards::CardComponent.new(title: "La cour des miracles", link: "https://www.lacourdesmiracles.shop/", images: images)
 
     - images = images_from_directory("mer")
-    = render Cards::CardComponent.new( images: images)
+    = render Cards::CardComponent.new(title: "Haut les coeurs", link: "https://open.spotify.com/show/1SfdmzdblZUZnhy86KXZyI", images: images)

@@ -1,34 +1,33 @@
 class Checkout
   def initialize(ids)
     set_ids(ids)
-    # @ids = ids
   end
 
   def cart
     return [] if @ids.nil?
 
-    unique_ids = @ids.uniq
-    cart = unique_ids.map do |id|
-      next unless Item.where(id: id).present?
+    items = Item.where(id: @ids.uniq)
+    @ids.map do |id|
+      item = items.find { |i| i.id == id }
+      next unless item
 
       {
-        item: Item.find(id),
+        item: item,
         number: @ids.count(id)
       }
-    end
-
-    cart.first.blank? ? [] : cart
+    end.compact
   end
 
   def sum
     return if @ids.nil?
 
-    unique_ids = @ids.uniq
+    items = Item.where(id: @ids.uniq)
     sum = 0
-    unique_ids.map do |id|
-      next unless Item.where(id: id).present?
+    @ids.each do |id|
+      item = items.find { |i| i.id == id }
+      next unless item
 
-      sum += Item.find(id).price_cents * @ids.count(id)
+      sum += item.price_cents * @ids.count(id)
     end
     sum / 100.00
   end
@@ -36,11 +35,13 @@ class Checkout
   def weight
     return if @ids.nil?
 
+    items = Item.where(id: @ids.uniq)
     weight = 0
-    @ids.map do |id|
-      next unless Item.where(id: id).present?
+    @ids.each do |id|
+      item = items.find { |i| i.id == id }
+      next unless item
 
-      weight += Item.find(id).weight
+      weight += item.weight
     end
     weight
   end
@@ -52,8 +53,11 @@ class Checkout
   private
 
   def set_ids(ids)
+
     @ids = if ids.is_a?(Array)
       ids
+    elsif ids.nil?
+      []
     else
       ids.order_items.flat_map { |order_item| [order_item.item_id] * order_item.quantity }
     end
