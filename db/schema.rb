@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_27_181151) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_15_185028) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -177,6 +177,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_27_181151) do
     t.boolean "display_stock", default: false
     t.text "postmark_key"
     t.text "mail_body"
+    t.text "sendcloud_private_key"
+    t.text "sendcloud_public_key"
+    t.string "postal_code"
+    t.string "city"
+    t.string "country"
+    t.string "address"
     t.index ["admin_id"], name: "index_stores_on_admin_id"
   end
 

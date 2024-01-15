@@ -10,6 +10,8 @@ class Store < ApplicationRecord
   encrypts :stripe_secret_key
   encrypts :stripe_webhook_secret_key
   encrypts :postmark_key
+  encrypts :sendcloud_private_key
+  encrypts :sendcloud_public_key
 
   def holiday?
     holiday

@@ -33,7 +33,7 @@
           = "#{@order.total_price} €"
       .border-t.border-content.px-4.py-6.sm:px-6
         - if @order.status == 'confirmed'
-          button id="pay" class="btn btn-secondary w-full" Payer
+          button id="pay" class="w-full btn btn-secondary" Payer
           script src="https://js.stripe.com/v3/"
           script
             |

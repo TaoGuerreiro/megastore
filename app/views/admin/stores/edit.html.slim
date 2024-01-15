@@ -5,6 +5,18 @@
     = field.input :meta_description, as: :text, label: t('store.edit.meta_description'), placeholder: t('store.edit.meta_description_placeholder')
     = field.input :instagram_url, label: t('store.edit.instagram_url'), placeholder: t('store.edit.instagram_url_placeholder')
     = field.input :facebook_url, label: t('store.edit.facebook_url'), placeholder: t('store.edit.facebook_url_placeholder')
+
+    .flex.gap-4
+      .basis-2/3
+        = field.input :address, label: t('store.edit.address'), placeholder: t('store.edit.address_placeholder')
+      .basis-1/3
+        = field.input :city, label: t('store.edit.city'), placeholder: t('store.edit.city_placeholder')
+    .flex.gap-4
+      .basis-1/4
+        = field.input :postal_code, label: t('store.edit.postal_code'), placeholder: t('store.edit.postal_code_placeholder')
+      .basis-3/4
+        = field.input :country, label: t('store.edit.country'), placeholder: t('store.edit.country_placeholder')
+
     .md:flex.items-center
       = field.input :holiday, label: t('store.edit.holiday'), as: :boolean, input_html: { checked: @store.holiday?, class: "w-5 h-5 m-0 p-0 flex checked:bg-primary"}, wrapper_html: {class: "flex items-center basis-1/4"}, label_html: {class: "-top-0.5 left-4"}
       = field.input :holiday_sentence, label: t('store.edit.holiday_message'), placeholder: t('store.edit.holiday_message_placeholder'), input_html: { class: "w-full" }, wrapper_html: {class: "basis-3/4"}
@@ -16,4 +28,6 @@
     = field.input :stripe_secret_key, as: :string, label: t('store.edit.stripe_secret_key'), placeholder: t('store.edit.stripe_secret_key_placeholder')
     = field.input :stripe_webhook_secret_key, as: :string, label: t('store.edit.stripe_webhook_key'), placeholder: t('store.edit.stripe_webhook_key_placeholder')
     = field.input :postmark_key, as: :string, label: t('store.edit.postmark_key'), placeholder: t('store.edit.postmark_key_placeholder')
+    = field.input :sendcloud_public_key, as: :string, label: t('store.edit.sendcloud_public_key'), placeholder: t('store.edit.sendcloud_public_key_placeholder')
+    = field.input :sendcloud_private_key, as: :string, label: t('store.edit.sendcloud_private_key'), placeholder: t('store.edit.sendcloud_private_key_placeholder')
     = field.button :submit, t('store.edit.submit'), class: "btn btn-primary"

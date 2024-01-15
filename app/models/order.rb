@@ -38,4 +38,8 @@ class Order < ApplicationRecord
   def store
     items.first.store
   end
+
+  def shipping_method
+    nil
+  end
 end

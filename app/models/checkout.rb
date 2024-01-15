@@ -6,16 +6,17 @@ class Checkout
   def cart
     return [] if @ids.nil?
 
-    items = Item.where(id: @ids.uniq)
-    @ids.map do |id|
-      item = items.find { |i| i.id == id }
-      next unless item
+    unique_ids = @ids.uniq
+    cart = unique_ids.map do |id|
+      next unless Item.where(id: id).present?
 
       {
-        item: item,
+        item: Item.find(id),
         number: @ids.count(id)
       }
-    end.compact
+    end
+
+    cart.first.blank? ? [] : cart
   end
 
   def sum
@@ -53,7 +54,6 @@ class Checkout
   private
 
   def set_ids(ids)
-
     @ids = if ids.is_a?(Array)
       ids
     elsif ids.nil?

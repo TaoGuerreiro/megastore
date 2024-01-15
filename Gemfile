@@ -15,6 +15,8 @@ gem "image_processing", "~> 1.2"
 gem "mini_magick"
 
 gem "action_policy"
+gem 'country_select'
+gem "httparty"
 gem "jbuilder"
 gem "jsbundling-rails"
 gem "money-rails", "~> 1.13"
