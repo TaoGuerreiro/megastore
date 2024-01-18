@@ -1,26 +1,21 @@
 = turbo_frame_tag :form do
-  = simple_form_for @order_intent, url: orders_path, method: :post, id: "order_intent" do |field|
-    .mb-8 = field.input :email, label: "Email", placeholder: "Email"
-    .flex.gap-4.mb-8
+  = simple_form_for @order_intent, url: order_intents_path, method: :post, id: "order_intent" do |field|
+    .mb-4 = field.input :email, label: "Email", placeholder: "Email"
+    .flex.gap-4.mb-4
       = field.input :first_name, label: "Prénom", placeholder: "Prénom"
       = field.input :last_name, label: "Nom", placeholder: "Nom"
-    .flex.flex-col.w-full.relative data-controller="search"
-      .absolute.bg-contrast.w-full.top-12.z-50.rounded-md data-search-target="list"
-      .mb-8 = field.input :address, label: "Addresse", placeholder: "Addresse", input_html: { autocomplete: "off", data: { action: "keydown->search#navigate keyup->search#fetchAddreses", "search-target": "input" }}
-      .absolute.right-2.z-0.text-content.cursor-pointer class="hover:text-content top-2" data-action="click->search#resetInput"
-        i.fa-solid.fa-xmark.text-2xl
+    .flex.gap-4.mb-4
+      = field.input :address, label: "Addresse", placeholder: "Addresse"
+      = field.input :city, label: "Ville", placeholder: "Ville"
+    .flex.gap-4.mb-4
+      = field.input :postal_code, label: "Code postal", placeholder: "Code postal"
+      = field.input :country, label: "Pays", placeholder: "Pays"
+    / .flex.flex-col.w-full.relative data-controller="search"
+    /   .absolute.bg-contrast.w-full.top-12.z-50.rounded-md data-search-target="list"
+    /   .mb-4 = field.input :address, label: "Addresse", placeholder: "Addresse", input_html: { autocomplete: "off", data: { action: "keydown->search#navigate keyup->search#fetchAddreses", "search-target": "input" }}
+    /   .absolute.right-2.z-0.text-content.cursor-pointer class="hover:text-content top-2" data-action="click->search#resetInput"
+    /     i.fa-solid.fa-xmark.text-2xl
 
-    .mb-8 = field.input :phone, label: "Téléphone", placeholder: "Téléphone"
+    .mb-4 = field.input :phone, label: "Téléphone", placeholder: "Téléphone"
 
-    .mt-10.border-t.border-content.pt-10
-      fieldset
-        legend.text-lg.font-medium.text-contrast
-          | Méthodes de livraisons
-      - Delivery.new(field.object, Checkout.new(session[:checkout_items]).weight).shipping_methods.each do |method|
-        = method
-        / - if field.object.errors[:shipping_method].any?
-        /   p.text-red-500s
-        /     = field.object.errors[:shipping_method].join(", ")
-        / .mt-4.grid.grid-cols-1.gap-y-6.sm:grid-cols-2.sm:gap-x-4
-        /   - Current.store.availible_methods(session[:checkout_items]).each do |method|
-        /     = render ShippingMethod::Component.new(shipping_method: method, field: field)
+    = field.submit "Valider", class: "btn btn-primary btn-block"

@@ -1,0 +1,12 @@
+.mt-10.border-t.border-content.pt-10
+  fieldset
+    legend.text-lg.font-medium.text-contrast
+      | Méthodes de livraisons
+  - Delivery.new(@order_intent, Checkout.new(session[:checkout_items]).weight).shipping_methods.each do |method|
+    = method
+    / - if field.object.errors[:shipping_method].any?
+    /   p.text-red-500s
+    /     = field.object.errors[:shipping_method].join(", ")
+    / .mt-4.grid.grid-cols-1.gap-y-6.sm:grid-cols-2.sm:gap-x-4
+    /   - Current.store.availible_methods(session[:checkout_items]).each do |method|
+    /     = render ShippingMethod::Component.new(shipping_method: method, field: field)

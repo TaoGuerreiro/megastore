@@ -1,10 +1,10 @@
 = turbo_frame_tag :total do
   .mt-10.lg:mt-0
     h2.text-lg.font-medium.text-contrast
-      | Résumé de la commande
+      = t('order_summary')
     .mt-4.rounded-lg.border.border-content.bg-contour.shadow-sm
       h3.sr-only
-        | Items in your cart
+        = t('items_in_cart')
       ul.divide-y.divide-content[role="list"]
         - @items.each do |item|
           = render "card", item: item
@@ -13,27 +13,22 @@
 
       .flex.items-center.justify-between.px-6.pb-2
         dt.text-sm.text-contrast
-          | Sous-total
+          = t('subtotal')
         dd.text-sm.font-medium.text-contrast
           = "#{@order.amount} €"
       .flex.items-center.justify-between.px-6.pb-2
         dt.text-sm.text-contrast
-          | Expédition
+          = t('shipping')
         dd.text-sm.font-medium.text-contrast
           = "#{@order.shipping_method&.price || '0.00'} €"
-      / .flex.items-center.justify-between.px-6.pb-2
-      /   dt.text-sm
-      /     | TVA
-      /   dd.text-sm.font-medium.text-contrast
-      /     | 0.00€
       .flex.items-center.justify-between.border-t.border-content.pt-6.px-6.pb-2
         dt.text-base.font-medium.text-contrast
-          | Total
+          = t('total')
         dd.text-base.font-medium.text-contrast
           = "#{@order.total_price} €"
       .border-t.border-content.px-4.py-6.sm:px-6
         - if @order.status == 'confirmed'
-          button id="pay" class="w-full btn btn-secondary" Payer
+          button id="pay" class="w-full btn btn-secondary" = t('pay')
           script src="https://js.stripe.com/v3/"
           script
             |
@@ -46,4 +41,4 @@
               });
 
         - else
-          = button_tag "Confirmer", formmethod: "post", formaction: comfirm_payment_checkout_path, form: "new_order_intent", class: " btn btn-primary w-full active:spinner"
+          = button_tag t('confirm'), formmethod: "post", formaction: comfirm_payment_checkout_path, form: "new_order_intent", class: " btn btn-primary w-full active:spinner"

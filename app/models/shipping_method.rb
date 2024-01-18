@@ -11,7 +11,7 @@ class ShippingMethod
   end
 
   def all
-    raise
+    # raise
     response = HTTParty.get(@url, headers: headers)
     filter_and_group_shipping_methods(response["shipping_methods"])
   end

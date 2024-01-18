@@ -1,7 +1,15 @@
 class OrderIntent
   include ActiveModel::Model
 
-  attr_accessor :email, :first_name, :last_name, :address, :phone, :shipping_method
+  attr_accessor :email,
+                :first_name,
+                :last_name,
+                :address,
+                :postal_code,
+                :city,
+                :country,
+                :phone,
+                :shipping_method
 
   def initialize(attr = {})
     @email = attr[:email]
