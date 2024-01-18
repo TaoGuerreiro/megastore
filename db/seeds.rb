@@ -17,7 +17,7 @@ unsafe = User.create(first_name: "Tao", last_name: "Guerreiro", email: "hello@un
 salome = User.create(first_name: "Salomé", last_name: "Dubart", email: "hello@studioanemone.fr", password: "123456", role: "admin")
 flo = User.create(first_name: "Flo", last_name: "Queen", email: "florent.guilbaud@gmail.com", password: "123456", role: "queen")
 store_one = clemence.stores.create({
-  domain: "localhost",
+  domain: "_ocalhost",
   name: "Le Cheveu Blanc",
   slug: "lecheveublanc",
   meta_title: "Le Cheveu Blanc",
@@ -44,7 +44,7 @@ store_two = unsafe.stores.create({
 })
 
 store_three = salome.stores.create({
-  domain: "locdalhost",
+  domain: "localhost",
   name: "Studio Anémone",
   slug: "anemone",
   meta_title: "Studio Anémone",
