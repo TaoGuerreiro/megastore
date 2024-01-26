@@ -50,9 +50,9 @@
     --color-form-input: 35, 35, 35;
   }
   .anemone {
-    --color-primary: 67, 146, 241;
+    --color-primary: 136, 180, 180;
     --color-secondary: 72, 61, 63;
-    --color-light: 249, 244, 245;
+    --color-light: 240, 240, 240;
     --color-contrast: 47, 47, 47;
     --color-midgray: 121, 121, 121;
     --color-content: 200, 200, 200;
@@ -77,28 +77,28 @@
   }
 
   .btn-menu {
-    @apply bg-transparent text-contrast font-bold hover:scale-95 transition-all cursor-pointer;
+    @apply font-bold transition-all bg-transparent cursor-pointer text-contrast hover:scale-95;
   }
 
   .btn-primary {
-    @apply bg-primary rounded-md text-light font-bold hover:scale-95 transition-all cursor-pointer;
+    @apply font-bold transition-all rounded-md cursor-pointer bg-primary text-light hover:scale-95;
   }
 
   .btn-secondary {
-    @apply bg-secondary rounded-md text-light font-bold hover:scale-95 transition-all cursor-pointer;
+    @apply font-bold transition-all rounded-md cursor-pointer bg-secondary text-light hover:scale-95;
   }
 
   .btn-link {
-    @apply tracking-wider text-contrast hover:text-primary transition-all text-xl;
+    @apply text-xl tracking-wider transition-all text-contrast hover:text-primary;
   }
 
   /* Floating Label CSS */
   .form-group {
-    @apply relative mb-5 w-full;
+    @apply relative w-full mb-5;
   }
 
   .form-input {
-    @apply bg-form-input text-contrast appearance-none block w-full py-2 px-3 border border-content rounded-md placeholder-transparent focus:outline-none focus:ring-secondary focus:border-secondary;
+    @apply block w-full px-3 py-2 placeholder-transparent border rounded-md appearance-none bg-form-input text-contrast border-content focus:outline-none focus:ring-secondary focus:border-secondary;
     @apply transition-all duration-200;
     @apply z-40; /* Ajoutez cette ligne pour définir le z-index du champ de saisie */
   }
@@ -111,7 +111,7 @@
 
   .form-input:focus ~ .floating-label,
   .form-input:not(:placeholder-shown) ~ .floating-label {
-    @apply transform-gpu -translate-y-6 scale-75 text-contrast bg-form-input rounded-full border border-secondary;
+    @apply scale-75 -translate-y-6 border rounded-full transform-gpu text-contrast bg-form-input border-secondary;
   }
 
   .has-error .form-input {
@@ -127,14 +127,14 @@
   }
 
   .spinner {
-    @apply relative w-full inline-block align-middle cursor-pointer border-none;
+    @apply relative inline-block w-full align-middle border-none cursor-pointer;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
   }
 
   .spinner:after {
-    @apply absolute block transition-transform duration-200 text-contrast w-12 animate-spin;
+    @apply absolute block w-12 transition-transform duration-200 text-contrast animate-spin;
     content: "\f110";
     font-family: "Font Awesome 6 Pro";
     display: inline-block;

@@ -1,14 +1,14 @@
 - color = home?(params) ? "text-light" : "text-contrast"
 .
-  .justify-around.px-24.items-center.w-full.transition.fixed.top-0.py-6.z-40.flex
-    .absolute.left-6
+  .justify-end.px-24.items-center.w-full.transition.fixed.top-0.py-8.z-40.flex.gap-8
+    .absolute.left-12
       - unless home?(params)
         = link_to root_path do
-          = image_tag("#{Current.store.slug}/logo_black.png", class: "h-12")
+          = image_tag("#{Current.store.slug}/logo_black.png", class: "h-16")
 
-    = link_to "À propos", about_path, class: "btn-link font-anemone font-bold tracking-wider #{color}"
-    = link_to "Contact", contact_path, class: "btn-link  font-anemone font-bold tracking-wider #{color}"
-    = link_to "Boutique", store_path, class: "btn-link  font-anemone font-bold tracking-wider #{color}"
+    = link_to "À propos", about_path, class: "btn-link font-anemone font-normal tracking-wider #{color}"
+    = link_to "Contact", contact_path, class: "btn-link  font-anemone font-normal tracking-wider #{color}"
+    = link_to "Boutique", store_path, class: "btn-link  font-anemone font-normal tracking-wider #{color}"
     .absolute.top-0.right-10 class=(color) = render "shared/cart"
 
 .md:hidden
