@@ -89,6 +89,6 @@ export default class extends Controller {
   }
 
   get authToken() {
-    // return document.head.querySelector('meta[name="mapbox_token"]').content;
+    return document.head.querySelector('meta[name="mapbox_token"]').content;
   }
 }
