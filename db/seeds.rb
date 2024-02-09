@@ -4,7 +4,6 @@ return unless Rails.env.development?
 
 OrderItem.destroy_all
 Order.destroy_all
-# ShippingMethod.destroy_all
 Specification.destroy_all
 Item.destroy_all
 Category.destroy_all
@@ -92,8 +91,4 @@ store_three = salome.stores.create({
     ])
     item.save
   end
-
-  # ShippingMethod.create(store: store, name: "UPS", description: "Dans les 48h", price: 8, max_weight: 1000000)
-  # ShippingMethod.create(store: store, name: "Mondial relay", description: "entre 2 à 5 jours", price: 4, max_weight: 1000000)
-  # ShippingMethod.create(store: store, name: "Remise en main propre", description: "Très propre", price: 0, max_weight: 1000000)
 end

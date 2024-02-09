@@ -29,22 +29,6 @@
               = turbo_frame_tag :new_category do
               = render "admin/categories/categories"
 
-
-      .w-full.mb-6.pb-6.border-b
-        .sm:flex.sm:items-center
-          .sm:flex-auto
-            h1.text-2xl.font-semibold.leading-6.text-contrast
-              | Livraisons
-          .mt-4.sm:ml-16.sm:mt-0.sm:flex-none
-            = link_to "Ajouter un moyen de livraison", new_admin_store_shipping_method_path(@store), data: { turbo_frame: "modal" }, class: "btn btn-primary"
-
-        .mt-8.flow-root
-          .-mx-4.-my-2.overflow-x-auto.sm:-mx-6.lg:-mx-8
-            .inline-block.min-w-full.py-2.align-middle.sm:px-6.lg:px-8
-              = turbo_frame_tag :new_shipping_method do
-              = render "admin/shipping_methods/shipping_methods"
-
-
       .w-full.mb-12.pb-6
         .sm:flex.sm:items-center
           .sm:flex-auto

@@ -106,7 +106,6 @@ module Admin
     private
 
     def set_shipping_methods
-      # @shipping_methods = authorized_scope(ShippingMethod.all)
       @shipping_methods = []
     end
 
