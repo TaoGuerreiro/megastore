@@ -2,7 +2,6 @@
 class Admin::OrderMailer < ApplicationMailer
   def payment_confirmation(order)
     @order = order
-    # mail to: @order.user.email, subject: "Confirmation de paiement"
     items = @order.items.map do |item|
       {
         "description": item.name,
@@ -10,6 +9,7 @@ class Admin::OrderMailer < ApplicationMailer
       }
     end
     client = Postmark::ApiClient.new(@order.store.postmark_key)
+
     client.deliver_with_template({
       :from=> @order.store.admin.email,
       :to=> @order.user.email,

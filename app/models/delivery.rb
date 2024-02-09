@@ -6,6 +6,6 @@ class Delivery
   end
 
   def shipping_methods
-    ShippingMethod.new(Current.store, @order_intent_params).all
+    Carrier.new(Current.store, @order_intent_params).all
   end
 end

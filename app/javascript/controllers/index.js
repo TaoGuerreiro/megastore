@@ -46,13 +46,13 @@ application.register("bulk-edit-items", BulkEditItemsController)
 import SelectController from "./select_controller"
 application.register("select", SelectController)
 
-// UNSAFE
+import ServicePointsController from "./service_points_controller"
+application.register("service-points", ServicePointsController)
 
+// UNSAFE
 import ScrollController from "./unsafe/scroll_controller"
 application.register("scroll", ScrollController)
 
-
 // SALOME
-
 import HoverController from "./anemone/hover_controller"
 application.register("hover", HoverController)

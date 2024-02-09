@@ -15,19 +15,19 @@
         dt.text-sm.text-contrast
           = t('subtotal')
         dd.text-sm.font-medium.text-contrast
-          = "#{@order.amount} €"
+          = "#{@order_intent.items_price || '0.00'} €"
       .flex.items-center.justify-between.px-6.pb-2
         dt.text-sm.text-contrast
           = t('shipping')
         dd.text-sm.font-medium.text-contrast
-          = "#{@order.shipping_method&.price || '0.00'} €"
+          = "#{@order_intent.shipping_price || '0.00'} €"
       .flex.items-center.justify-between.border-t.border-content.pt-6.px-6.pb-2
         dt.text-base.font-medium.text-contrast
           = t('total')
         dd.text-base.font-medium.text-contrast
-          = "#{@order.total_price} €"
+          = "#{@order_intent.total_price || '0.00'} €"
       .border-t.border-content.px-4.py-6.sm:px-6
-        - if @order.status == 'confirmed'
+        - if @order && @order.status == 'confirmed'
           button id="pay" class="w-full btn btn-secondary" = t('pay')
           script src="https://js.stripe.com/v3/"
           script
@@ -41,4 +41,4 @@
               });
 
         - else
-          = button_tag t('confirm'), formmethod: "post", formaction: comfirm_payment_checkout_path, form: "new_order_intent", class: " btn btn-primary w-full active:spinner"
+          = button_tag t('confirm'), formmethod: "post", formaction: confirm_payment_checkout_path, form: "new_order_intent", class: " btn btn-primary w-full active:spinner"

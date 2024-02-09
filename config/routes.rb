@@ -54,7 +54,8 @@ Rails.application.routes.draw do
     get '/store', to: "stores#show"
     resource :checkout, only: [:show] do
       post :shipping_method, on: :member
-      post :comfirm_payment, on: :member
+      post :confirm_payment, on: :member
+      post :service_point, on: :member
     end
     resources :items, only: [:show] do
       resource :checkout, only: [] do
@@ -64,5 +65,8 @@ Rails.application.routes.draw do
     end
     resources :orders, only: [:show]
     resources :order_intents, only: [:create]
+    resource :order_intents, only: [] do
+      post :shipping_method, on: :member
+    end
   end
 end

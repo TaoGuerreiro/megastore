@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_15_185028) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_02_215606) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -74,15 +74,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_15_185028) do
     t.index ["owner_type", "owner_id"], name: "index_filterable_views_on_owner"
   end
 
-  create_table "item_shipments", force: :cascade do |t|
-    t.bigint "item_id", null: false
-    t.bigint "shipping_method_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["item_id"], name: "index_item_shipments_on_item_id"
-    t.index ["shipping_method_id"], name: "index_item_shipments_on_shipping_method_id"
-  end
-
   create_table "item_specifications", force: :cascade do |t|
     t.bigint "item_id", null: false
     t.bigint "specification_id", null: false
@@ -123,29 +114,28 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_15_185028) do
 
   create_table "orders", force: :cascade do |t|
     t.integer "amount_cents", default: 0, null: false
-    t.string "amount_currency", default: "USD", null: false
+    t.string "amount_currency", default: "EUR", null: false
     t.string "status"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "shipping_method_id", null: false
     t.string "checkout_session_id"
     t.string "shipping_address"
-    t.index ["shipping_method_id"], name: "index_orders_on_shipping_method_id"
-    t.index ["user_id"], name: "index_orders_on_user_id"
-  end
-
-  create_table "shipping_methods", force: :cascade do |t|
-    t.string "name"
-    t.string "description"
-    t.integer "price_cents", default: 0, null: false
-    t.string "price_currency", default: "USD", null: false
+    t.integer "api_shipping_id"
+    t.integer "api_service_point_id"
+    t.integer "shipping_cost_cents", default: 0, null: false
+    t.string "shipping_cost_currency", default: "EUR", null: false
+    t.string "shipping_method_carrier"
+    t.string "shipping_service_point_address"
+    t.string "shipping_service_point_name"
+    t.string "shipping_country"
+    t.string "shipping_city"
+    t.string "shipping_postal_code"
+    t.string "weight"
     t.bigint "store_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "max_weight"
-    t.string "service_name"
-    t.index ["store_id"], name: "index_shipping_methods_on_store_id"
+    t.integer "parcel_id"
+    t.index ["store_id"], name: "index_orders_on_store_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "specifications", force: :cascade do |t|
@@ -206,17 +196,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_15_185028) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "categories", "stores"
-  add_foreign_key "item_shipments", "items"
-  add_foreign_key "item_shipments", "shipping_methods"
   add_foreign_key "item_specifications", "items"
   add_foreign_key "item_specifications", "specifications"
   add_foreign_key "items", "categories"
   add_foreign_key "items", "stores"
   add_foreign_key "order_items", "items"
   add_foreign_key "order_items", "orders"
-  add_foreign_key "orders", "shipping_methods"
+  add_foreign_key "orders", "stores"
   add_foreign_key "orders", "users"
-  add_foreign_key "shipping_methods", "stores"
   add_foreign_key "specifications", "stores"
   add_foreign_key "stores", "users", column: "admin_id"
 end

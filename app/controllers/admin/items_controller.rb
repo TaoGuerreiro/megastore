@@ -106,7 +106,8 @@ module Admin
     private
 
     def set_shipping_methods
-      @shipping_methods = authorized_scope(ShippingMethod.all)
+      # @shipping_methods = authorized_scope(ShippingMethod.all)
+      @shipping_methods = []
     end
 
     def set_specifications
@@ -130,7 +131,9 @@ module Admin
     def manage_photos(permitted_params)
       if permitted_params[:photos]
         permitted_params[:photos].each do |photo|
-          @item.photos.attach(photo) unless photo.blank?
+          unless @item.nil?
+            @item.photos.attach(photo) unless photo.blank?
+          end
         end
       end
       permitted_params.delete(:photos)

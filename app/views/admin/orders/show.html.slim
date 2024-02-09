@@ -9,7 +9,10 @@
                 = t('orders.show.order_details')
             .mt-4.sm:ml-16.sm:mt-0.sm:flex-none
               = link_to admin_order_path(@order), data: { turbo_method: :delete } do
-                i.fa-solid.fa-trash.text-xl
+                i.fa-solid.fa-trash.text-xl.mr-3
+              = link_to @order.label, target: "_blank" do
+                i.fa-solid.fa-sheet-plastic.text-xl
+
       section.mt-10.border-t.border-content[aria-labelledby="order-heading"]
         h2#order-heading.sr-only = t('orders.show.your_order')
         h3.sr-only = t('orders.show.items')
@@ -41,8 +44,8 @@
             div
               dt.font-medium.text-contrast = t('orders.show.shipping_method')
               dd.mt-2.text-contrast
-                p = @order.shipping_method.name
-                p = @order.shipping_method.description
+                p = @order.shipping_method_carrier
+                / p = @order.shipping_method.description
 
           h3.sr-only = t('orders.show.summary')
           dl.space-y-6.border-t.border-content.pt-10.text-sm
@@ -51,7 +54,7 @@
               dd.text-contrast = number_to_currency(@order.amount, format: "%n €")
             .flex.justify-between
               dt.font-medium.text-contrast = t('orders.show.shipping')
-              dd.text-contrast = number_to_currency(@order.shipping_method.price, format: "%n €")
+              dd.text-contrast = number_to_currency(@order.shipping_cost, format: "%n €")
             .flex.justify-between
               dt.font-medium.text-contrast = t('orders.show.total')
-              dd.text-contrast = number_to_currency(@order.amount + @order.shipping_method.price, format: "%n €")
+              dd.text-contrast = number_to_currency(@order.amount + @order.shipping_cost, format: "%n €")

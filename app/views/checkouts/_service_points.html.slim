@@ -1,0 +1,24 @@
+- @service_points = [{:id=>10604583, :name=>"LATELIER DES FLEURS", :street=>"BOULEVARD DES PAS ENCHANTES", :house_number=>"80", :postal_code=>"44230", :city=>"SAINT SEBASTIEN SUR LOIRE", :country=>"FR", :longitude=>-1.509906, :latitude=>47.208604, :distance=>988}, {:id=>10461109, :name=>"L2 A PIECES AUTOMOBILES", :street=>"BOULEVARD DE SARREBRUCK", :house_number=>"12", :postal_code=>"44000", :city=>"NANTES", :country=>"FR", :longitude=>-1.522872, :latitude=>47.216099, :distance=>2271}, {:id=>10890667, :name=>"MARCELLO PIZZAS", :street=>"ROUTE DE CLISSON", :house_number=>"411", :postal_code=>"44230", :city=>"SAINT SEBASTIEN SUR LOIRE", :country=>"FR", :longitude=>-1.479298, :latitude=>47.18728, :distance=>2349}, {:id=>11629329, :name=>"LOCKER SUPER U SAINT JACQUES NA", :street=>"BOULEVARD JOLIOT CURIE", :house_number=>"75", :postal_code=>"44200", :city=>"NANTES", :country=>"FR", :longitude=>-1.530382, :latitude=>47.194258, :distance=>2570}, {:id=>12328002, :name=>"LOCKER CARREFOUR ROSA PARKS NAN", :street=>"BOULEVARD DE BERLIN", :house_number=>"22", :postal_code=>"44000", :city=>"NANTES", :country=>"FR", :longitude=>-1.529439, :latitude=>47.214812, :distance=>2607}, {:id=>11629040, :name=>"LOCKER 24/7 CCIAL BEAULIEU NANT", :street=>"BOULEVARD GENERAL DE GAULLE", :house_number=>"", :postal_code=>"44200", :city=>"NANTES", :country=>"FR", :longitude=>-1.536643, :latitude=>47.205059, :distance=>2834}, {:id=>11710759, :name=>"TERRACBD", :street=>"ROUTE DE LA GARE", :house_number=>"115", :postal_code=>"44120", :city=>"VERTOU", :country=>"FR", :longitude=>-1.476179, :latitude=>47.182733, :distance=>2892}, {:id=>10596664, :name=>"CHEZ PESTE ET CHIPIE", :street=>"BOULEVARD JOLIOT CURIE", :house_number=>"16", :postal_code=>"44200", :city=>"NANTES", :country=>"FR", :longitude=>-1.535559, :latitude=>47.195377, :distance=>2892}, {:id=>10585128, :name=>"AUTHENTIK DESIGN", :street=>"ROUTE DE LA GARE", :house_number=>"115", :postal_code=>"44120", :city=>"VERTOU", :country=>"FR", :longitude=>-1.476179, :latitude=>47.182733, :distance=>2892}]
+.flex.h-96.mt-6
+  .basis-1/3.pr-2.overflow-y-scroll
+    - @service_points.each do |point|
+      .relative data-controller="autosave"
+        = radio_button_tag "service_point", point[:id],nil, id: "service_point_#{point[:id]}", class: "hidden peer", data: { action: "change->autosave#save" }
+        = label_tag "service_point", for: "service_point_#{point[:id]}", class: "block py-2 px-2 first:mx-0 mb-2 border rounded-md cursor-pointer text-content bg-contour peer-checked:bg-tertiary peer-checked:text-contrast transition-colors duration-300 peer-checked:border peer-checked:border-primary" do
+          span.flex.flex-1
+            span.flex.justify-between.w-full
+              .flex
+                span.mr-2
+                  = image_tag "carriers/mondial_relay.png", class: "w-12"
+                span
+                  span.block.text-xs.font-medium.text-contrast
+                    . = point[:name].capitalize
+                    / . = method[:service_point_input]
+                  span#delivery-method-0-description-0.mt-1.flex.items-center.text-xs.text-midgray
+                    . = "#{point[:house_number]&.capitalize} #{point[:street]&.capitalize}, #{point[:postal_code]&.capitalize} #{point[:city]&.capitalize}"
+              span#delivery-method-0-description-1.mt-6.text-xs.font-medium.text-contrast
+                / = "#{number_to_currency 3.48}"
+        .hidden.peer-checked:block.absolute.right-3.top-3
+          i.fa-solid.fa-badge-check.text-xl.text-primary
+        / .hidden = submit_tag "Select volume", formmethod: "post", formaction: shipping_method_checkout_path(id: field.object), data: { "autosave-target": "button" }
+  #map.h-96.basis-2/3 data-controller="service-points" data-service-points-service-points-value=(@service_points.to_json)

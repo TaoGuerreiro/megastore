@@ -50,8 +50,13 @@
             div
               dt.font-medium.text-contrast = t('orders.show.shipping_method')
               dd.mt-2.text-contrast
-                p = @order.shipping_method.name
-                p = @order.shipping_method.description
+                p = t(@order.shipping_method_carrier)
+              - if @order.shipping_service_point_name.present?
+                div.mt-2
+                  dt.font-medium.text-contrast = t('orders.show.service_point')
+                  dd.mt-2.text-contrast
+                    p = @order.shipping_service_point_name
+                    p = @order.shipping_service_point_address
 
           h3.sr-only Summary
           dl.space-y-6.border-t.border-content.pt-10.text-sm
@@ -60,7 +65,7 @@
               dd.text-contrast = number_to_currency(@order.amount, format: "%n €")
             .flex.justify-between
               dt.font-medium.text-contrast = t('orders.show.shipping')
-              dd.text-contrast = number_to_currency(@order.shipping_method.price, format: "%n €")
+              dd.text-contrast = number_to_currency(@order.shipping_cost, format: "%n €")
             .flex.justify-between
               dt.font-medium.text-contrast = t('orders.show.total')
-              dd.text-contrast = number_to_currency(@order.amount + @order.shipping_method.price, format: "%n €")
+              dd.text-contrast = number_to_currency(@order.total_price, format: "%n €")

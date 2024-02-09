@@ -2,12 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 @import 'actiontext.css';
-
+@import 'mapbox-gl/dist/mapbox-gl.css';
 
 
 
 @layer base {
-
   @font-face {
     font-family: "Avenir libre";
     src: font-url("avenir_libre.ttf") format('truetype');

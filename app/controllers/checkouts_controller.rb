@@ -1,51 +1,60 @@
 class CheckoutsController < ApplicationController
-  before_action :set_order_intent, only: [:show, :shipping_method, :comfirm_payment]
-  before_action :set_order, only: [:show, :shipping_method, :comfirm_payment]
+  before_action :set_order_intent, only: [:shipping_method, :confirm_payment, :service_point]
 
   def add
-    session[:checkout_items] = session[:checkout_items] || []
-    @item = Item.find(params[:item_id])
-
-    session[:checkout_items] << @item.id
-    set_virtual_stock
-    respond_to do |format|
-      format.html { redirect_to item_path(@item), notice: "#{@item.name} ajouté au panier" }
-      format.turbo_stream
-    end
+    manage_item_in_cart(:add)
   end
 
   def remove
-    session[:checkout_items] = session[:checkout_items] || []
-    @item = Item.find(params[:item_id])
-    session[:checkout_items].delete_at session[:checkout_items].index @item.id
-    @opened = true
-
-    set_virtual_stock
-    respond_to do |format|
-      format.html { redirect_to item_path(@item), notice: "#{@item.name} supprimé panier" }
-      format.turbo_stream
-    end
+    manage_item_in_cart(:remove)
   end
 
   def show
-    StripeConfigurationService.setup
+
+    @total = Checkout.new(session[:checkout_items]).sum
     @items = Checkout.new(session[:checkout_items]).cart
-    @order_intent = OrderIntent.new
+    @order_intent = OrderIntent.new(items_price: @total)
+    StripeConfigurationService.setup
     # authorize! :checkout TODO fix
   end
 
   def shipping_method
-    @order.shipping_method = ShippingMethod.find(params[:order_intent][:shipping_method])
-    @order_intent.shipping_method = ShippingMethod.find(params[:order_intent][:shipping_method])
+    @shipping_method = find_shipping_method
+    @shipping_methods = session[:shipping_methods].map { |shipping_method| shipping_method.symbolize_keys}
+    @order_intent.shipping_price = @shipping_method[:price].to_f
+
+    if @shipping_method[:service_point_input] == "required"
+      @order_intent.need_point = true
+      @service_points = Shipment::ServicePoint.new(Current.store,
+        {
+          country: @order_intent.country,
+          postal_code: @order_intent.postal_code,
+          radius: 3000,
+          carrier: @shipping_method[:carrier]
+        }).all
+        session[:service_points] = @service_points
+    end
 
     respond_to do |format|
-      format.html { render "checkouts/show", status: :unprocessable_entity }
-      format.turbo_stream
+      if @order_intent.valid?(:shipping_method)
+        format.html { redirect_to checkout_path, notice: "Shipping method was successfully added." }
+        format.turbo_stream
+      else
+        format.html { render "checkouts/show", status: :unprocessable_entity }
+        format.turbo_stream
+      end
     end
   end
 
-  def comfirm_payment
-    unless @order_intent.valid?
+  def service_point
+  end
+
+  def confirm_payment
+    @shipping_methods = session[:shipping_methods].map { |shipping_method| shipping_method.symbolize_keys}
+    @shipping_method  = find_shipping_method
+    @service_points   = session[:service_points].map { |service_point| service_point.symbolize_keys} if session[:service_points]
+
+    unless @order_intent.valid?([:basic_informations_input, :shipping_method, :service_point])
       respond_to do |format|
         format.html { render "checkouts/show", status: :unprocessable_entity }
         format.turbo_stream
@@ -53,37 +62,40 @@ class CheckoutsController < ApplicationController
       return
     end
 
-    @order.assign_attributes(
-      shipping_address: order_intent_params[:address],
+    @order = Order.new(
+      store: Current.store,
+      shipping_address: @order_intent.address,
+      shipping_country: @order_intent.country,
+      shipping_city: @order_intent.city,
+      shipping_postal_code: @order_intent.postal_code,
+      weight: @order_intent.weight,
       status: "confirmed",
-      shipping_method: ShippingMethod.find(order_intent_params[:shipping_method]),
-      user: user
+      api_shipping_id: @order_intent.shipping_method,
+      api_service_point_id: @order_intent.service_point,
+      user: user,
+      items: @items.map { |item| item[:item] },
+      shipping_cost: @order_intent.shipping_price.to_f,
+      amount: @order_intent.items_price.to_f,
+      shipping_method_carrier: @shipping_method[:carrier],
     )
 
-    # Enregistrez l'objet @order en premier
-    if @order.save
-      session = Stripe::Checkout::Session.create(
-        payment_method_types: ['card'],
-        customer_email: @order_intent.email,
-        line_items: [{
-          name: @order.order_items.first.item.name,
-          images: nil,
-          amount: @order.total_price_cents,
-          currency: 'eur',
-          quantity: 1
-        }],
-        success_url: order_url(@order),
-        cancel_url: order_url(@order)
+    if @order_intent.need_point?
+      service_point = @service_points.find { |service_point| service_point[:id] == @order_intent.service_point.to_i }
+      service_point_full_address = "#{service_point[:street]} #{service_point[:postal_code]}, #{service_point[:city]}"
+      @order.assign_attributes(
+        shipping_service_point_address: service_point_full_address,
+        shipping_service_point_name: service_point[:name],
       )
+    end
 
-      @order.update(checkout_session_id: session.id)
-
+    if @order.save
+      create_stripe_session
       respond_to do |format|
         format.html { render "checkouts/show", status: :unprocessable_entity }
         format.turbo_stream
       end
     else
-      # Gérez l'erreur d'enregistrement de @order ici
+      # Handle @order save error here
       respond_to do |format|
         format.html { render "checkouts/show", status: :unprocessable_entity }
         format.turbo_stream
@@ -91,8 +103,53 @@ class CheckoutsController < ApplicationController
     end
   end
 
-
   private
+
+  def find_shipping_method
+    Shipment::ShippingMethod.new(Current.store,
+      {
+        country: @order_intent.country,
+        postal_code: @order_intent.postal_code
+      }).find(params[:order_intent][:shipping_method])
+  end
+
+  def create_stripe_session
+    session = Stripe::Checkout::Session.create(
+      payment_method_types: ['card'],
+      customer_email: @order_intent.email,
+      line_items: [{
+        name: @order.order_items.first.item.name,
+        images: nil,
+        amount: @order.total_price_cents,
+        currency: 'eur',
+        quantity: 1
+      }],
+      success_url: order_url(@order),
+      cancel_url: order_url(@order)
+    )
+
+    @order.update(checkout_session_id: session.id)
+  end
+
+  def manage_item_in_cart(action)
+    session[:checkout_items] = session[:checkout_items] || []
+    @item = Item.find(params[:item_id])
+
+    if action == :add
+      session[:checkout_items] << @item.id
+      notice = "#{@item.name} ajouté au panier"
+    else
+      session[:checkout_items].delete_at session[:checkout_items].index @item.id
+      @opened = true
+      notice = "#{@item.name} supprimé panier"
+    end
+
+    set_virtual_stock
+    respond_to do |format|
+      format.html { redirect_to item_path(@item), notice: notice }
+      format.turbo_stream
+    end
+  end
 
   def user
     User.find_or_create_by(email: order_intent_params[:email]) do |user|
@@ -108,18 +165,10 @@ class CheckoutsController < ApplicationController
     @order_intent = OrderIntent.new(order_intent_params)
   end
 
-  def set_order
-    @total = Checkout.new(session[:checkout_items]).sum
-    @order = Order.new({
-        amount: @total,
-        order_items: @items.map { |item| OrderItem.new(item: item[:item], quantity: item[:number]) }
-    })
-  end
-
   def order_intent_params
     return {} unless params[:order_intent]
 
-    params.require(:order_intent).permit(:email, :first_name, :last_name, :address, :phone, :shipping_method)
+    params.require(:order_intent).permit(:email, :first_name, :last_name, :address, :phone, :shipping_method, :city, :country, :postal_code, :service_point, :items_price, :shipping_price, :need_point, :weight)
   end
 
   def set_virtual_stock
@@ -128,3 +177,12 @@ class CheckoutsController < ApplicationController
     @virtual_stock = @item.stock - cart_stock
   end
 end
+
+
+
+# [
+#   {:id=>371, :name=>"Colissimo Home 0-0.25kg", :carrier=>"colissimo", :min_weight=>"0.001", :max_weight=>"0.251", :service_point_input=>"none", :price=>7.09, :lead_time_hours=>48},
+#   {:id=>1345, :name=>"Chrono 18 0-2kg", :carrier=>"chronopost", :min_weight=>"0.001", :max_weight=>"2.001", :service_point_input=>"none", :price=>13.64, :lead_time_hours=>48},
+#   {:id=>4745, :name=>"Colis Privé Point Relais 0-0.25kg", :carrier=>"colisprive", :min_weight=>"0.001", :max_weight=>"0.251", :service_point_input=>"required", :price=>3.37, :lead_time_hours=>48},
+#   {:id=>1676, :name=>"Mondial Relay Point Relais L 0-0.5kg", :carrier=>"mondial_relay", :min_weight=>"0.015", :max_weight=>"0.501", :service_point_input=>"required", :price=>3.48, :lead_time_hours=>48}
+# ]

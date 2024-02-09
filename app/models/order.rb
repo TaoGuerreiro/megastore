@@ -4,11 +4,13 @@ class Order < ApplicationRecord
   include Presentable
 
   belongs_to :user
-  belongs_to :shipping_method
+  belongs_to :store
   has_many :order_items, dependent: :destroy
   has_many :items, through: :order_items
+  has_one_attached :label
 
   monetize :amount_cents
+  monetize :shipping_cost_cents
 
   STATUSES = ["pending", "confirmed", "paid", "canceled", "refunded", "sent"].freeze
 
@@ -17,29 +19,22 @@ class Order < ApplicationRecord
   validates :amount, presence: true
   validates :status, presence: true
   validates :shipping_address, presence: true
-  validates :shipping_method, presence: true
+  validates :user, presence: true
+
 
   def total_price
-    if shipping_method.present?
-      amount + shipping_method.price
+    if api_shipping_id.present?
+      amount + shipping_cost
     else
       amount
     end
   end
 
   def total_price_cents
-    if shipping_method.present?
-      amount_cents + shipping_method.price_cents
+    if api_shipping_id.present?
+      amount_cents + shipping_cost_cents
     else
       amount_cents
     end
-  end
-
-  def store
-    items.first.store
-  end
-
-  def shipping_method
-    nil
   end
 end

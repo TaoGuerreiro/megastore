@@ -4,7 +4,7 @@ return unless Rails.env.development?
 
 OrderItem.destroy_all
 Order.destroy_all
-ShippingMethod.destroy_all
+# ShippingMethod.destroy_all
 Specification.destroy_all
 Item.destroy_all
 Category.destroy_all
@@ -17,7 +17,7 @@ unsafe = User.create(first_name: "Tao", last_name: "Guerreiro", email: "hello@un
 salome = User.create(first_name: "Salomé", last_name: "Dubart", email: "hello@studioanemone.fr", password: "123456", role: "admin")
 flo = User.create(first_name: "Flo", last_name: "Queen", email: "florent.guilbaud@gmail.com", password: "123456", role: "queen")
 store_one = clemence.stores.create({
-  domain: "_ocalhost",
+  domain: "localhost",
   name: "Le Cheveu Blanc",
   slug: "lecheveublanc",
   meta_title: "Le Cheveu Blanc",
@@ -29,7 +29,9 @@ store_one = clemence.stores.create({
   stripe_publishable_key: YAML.load_file("db/keys.yml")["stripe_publishable_key"],
   stripe_secret_key: YAML.load_file("db/keys.yml")["stripe_secret_key"],
   stripe_webhook_secret_key: YAML.load_file("db/keys.yml")["stripe_webhook_secret_key"],
-  postmark_key: YAML.load_file("db/keys.yml")["postmark_key"]
+  postmark_key: YAML.load_file("db/keys.yml")["postmark_key"],
+  sendcloud_private_key: YAML.load_file("db/keys.yml")["sendcloud_private_key"],
+  sendcloud_public_key: YAML.load_file("db/keys.yml")["sendcloud_public_key"],
 })
 
 store_two = unsafe.stores.create({
@@ -44,7 +46,7 @@ store_two = unsafe.stores.create({
 })
 
 store_three = salome.stores.create({
-  domain: "localhost",
+  domain: "old_localhost",
   name: "Studio Anémone",
   slug: "anemone",
   meta_title: "Studio Anémone",
@@ -67,8 +69,8 @@ store_three = salome.stores.create({
 
   10.times do
     file = URI.open("https://source.unsplash.com/random/300x300/?illustration")
-    file_2 = URI.open("https://loremflickr.com/320/240")
-    file_3 = URI.open("https://picsum.photos/200/300")
+    file_2 = URI.open("https://source.unsplash.com/random/300x300/?cat")
+    file_3 = URI.open("https://source.unsplash.com/random/300x300/?dog")
     item = Item.new({
       name: Faker::Commerce.product_name,
       description:  Faker::Commerce.material + " " + Faker::Commerce.product_name,
@@ -91,7 +93,7 @@ store_three = salome.stores.create({
     item.save
   end
 
-  ShippingMethod.create(store: store, name: "UPS", description: "Dans les 48h", price: 8, max_weight: 1000000)
-  ShippingMethod.create(store: store, name: "Mondial relay", description: "entre 2 à 5 jours", price: 4, max_weight: 1000000)
-  ShippingMethod.create(store: store, name: "Remise en main propre", description: "Très propre", price: 0, max_weight: 1000000)
+  # ShippingMethod.create(store: store, name: "UPS", description: "Dans les 48h", price: 8, max_weight: 1000000)
+  # ShippingMethod.create(store: store, name: "Mondial relay", description: "entre 2 à 5 jours", price: 4, max_weight: 1000000)
+  # ShippingMethod.create(store: store, name: "Remise en main propre", description: "Très propre", price: 0, max_weight: 1000000)
 end

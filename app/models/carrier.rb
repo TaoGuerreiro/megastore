@@ -1,4 +1,4 @@
-class ShippingMethod
+class Carrier
   include ActiveModel::Model
   BASE_URL = "https://panel.sendcloud.sc/api/v2"
 
@@ -6,14 +6,24 @@ class ShippingMethod
     @params = params
     @token = encode_credentials(store.sendcloud_public_key, store.sendcloud_private_key)
     @from = store.postal_code
-    @weight = params[:weight] || 0.5
-    @url = "#{BASE_URL}/shipping_methods?from_postal_code=#{@from}&to_postal_code=#{params[:to_postal_code]}&to_country=#{params[:to_country]}"
+    @weight = params[:weight].fdiv(1000) || 0.5
+    @url = "#{BASE_URL}/shipping_methods?from_postal_code=#{@from}&to_postal_code=#{params["postal_code"]}&to_country=#{params["country"]}"
   end
 
   def all
-    # raise
     response = HTTParty.get(@url, headers: headers)
-    filter_and_group_shipping_methods(response["shipping_methods"])
+    filter_and_group_shipping_methods(response["shipping_methods"]).map do |method|
+      ShippingMethod.new({
+        shipping_method_api_id: method["id"],
+        name: method["name"],
+        carrier: method["carrier"],
+        min_weight: method["min_weight"],
+        max_weight: method["max_weight"],
+        service_point_input: method["service_point_input"],
+        price: method["countries"][0]["price"],
+        lead_time_hours: method["countries"][0]["lead_time_hours"]
+      })
+    end
   end
 
   private
