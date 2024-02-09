@@ -3,10 +3,6 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["input", "list"]
 
-  connect() {
-    console.log('test');
-  }
-
   fetchAddreses = (event) => {
     const { value } = event.currentTarget;
     const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?types=address&country=fr&autocomplete=true&access_token=${this.authToken}`
