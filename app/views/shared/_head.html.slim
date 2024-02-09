@@ -15,7 +15,7 @@ meta property="og:site_name" content="#{ meta_title }"
 = csp_meta_tag
 = stylesheet_link_tag "application", "data-turbo-track": "reload"
 = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
-= tag :meta, name: :mapbox_token, content: Rails.application.credentials.mapbox.mapbox_api_key
+/ = tag :meta, name: :mapbox_token, content: Rails.application.credentials.mapbox.mapbox_api_key
 
 
 link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css"
