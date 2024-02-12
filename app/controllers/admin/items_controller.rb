@@ -1,6 +1,7 @@
 module Admin
   class ItemsController < ApplicationController
     layout "admin"
+
     before_action :set_shipping_methods, only: [:new, :edit, :create, :update]
     before_action :set_specifications, only: [:new, :edit]
 
@@ -16,11 +17,13 @@ module Admin
     end
 
     def create
-      @item = Item.new(item_params)
+      @item = Item.new(item_params.except(:photos))
       authorize! @item
 
-      @item.store = current_user.stores.first
+      @item.store = Store.find_by(domain: request.domain)
+
       if @item.save
+        manage_photos(item_params)
         redirect_to admin_items_path, notice: "Item was successfully created."
       else
         render :new, status: :unprocessable_entity, notice: "Item could not be created."
@@ -130,8 +133,12 @@ module Admin
     def manage_photos(permitted_params)
       if permitted_params[:photos]
         permitted_params[:photos].each do |photo|
-          unless @item.nil?
-            @item.photos.attach(photo) unless photo.blank?
+          if @item
+            if @item.persisted?
+              @item.photos.attach(photo) unless photo.blank?
+            else
+              @item.photos.build(photo) unless photo.blank?
+            end
           end
         end
       end
