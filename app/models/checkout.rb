@@ -24,7 +24,7 @@ class Checkout
 
     items = Item.where(id: @ids.uniq)
     sum = 0
-    @ids.each do |id|
+    @ids.uniq.each do |id|
       item = items.find { |i| i.id == id }
       next unless item
 

@@ -1,1 +1,3 @@
 = turbo_stream.replace dom_id(@specification), partial: "admin/specifications/specification", locals: { specification: @specification }
+= turbo_stream.prepend "notifications" do
+  = render(Notifications::Component.new(type: "success", data: {title: "Bravo", body: "Spécification modifiée avec succès."}))

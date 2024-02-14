@@ -1,25 +1,5 @@
-    # {"id"=>4768,
-    #  "name"=>"Colis Privé Point Relais 19-20kg",
-    #  "carrier"=>"colisprive",
-    #  "min_weight"=>"19.001",
-    #  "max_weight"=>"20.001",
-    #  "service_point_input"=>"required",
-    #  "price"=>0,
-    #  "countries"=>[{"id"=>8,
-    #  "name"=>"France",
-    #  "price"=>14.72,
-    #  "iso_2"=>"FR",
-    #  "iso_3"=>"FRA",
-    #  "lead_time_hours"=>48,
-    #  "price_breakdown"=>[{"type"=>"price_without_insurance",
-    #  "label"=>"Label",
-    #  "value"=>13.95},
-    #  {"type"=>"fuel",
-    #  "label"=>"Fuel surcharge (5.50%)",
-    #  "value"=>0.77}]}]}
 class Shipment
   class ShippingMethod < Shipment
-    include ActiveModel::Model
 
     def initialize(store, param)
       super(store)
@@ -90,3 +70,24 @@ class Shipment
     end
   end
 end
+
+
+# {"id"=>4768,
+#  "name"=>"Colis Privé Point Relais 19-20kg",
+#  "carrier"=>"colisprive",
+#  "min_weight"=>"19.001",
+#  "max_weight"=>"20.001",
+#  "service_point_input"=>"required",
+#  "price"=>0,
+#  "countries"=>[{"id"=>8,
+#  "name"=>"France",
+#  "price"=>14.72,
+#  "iso_2"=>"FR",
+#  "iso_3"=>"FRA",
+#  "lead_time_hours"=>48,
+#  "price_breakdown"=>[{"type"=>"price_without_insurance",
+#  "label"=>"Label",
+#  "value"=>13.95},
+#  {"type"=>"fuel",
+#  "label"=>"Fuel surcharge (5.50%)",
+#  "value"=>0.77}]}]}

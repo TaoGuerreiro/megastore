@@ -9,7 +9,11 @@
         i.fas.fa-times.text-red-500.text-lg
     .w-12.flex.justify-center.items-center
       - if item.photos.attached?
-        = image_tag item.photos.first.variant(resize_to_fill: [50, 50]), class: "max-w-none w-10 h-10 rounded-md"
+        .relative.max-w-none.w-10.h-10.rounded-md
+          = image_tag item.photos.first.variant(resize_to_fill: [50, 50]), class: ""
+          span.absolute.-left-2.-bottom-2.text-center.flex.items-center.justify-center
+            span.rounded-full.w-4.h-4.bg-primary/80.text-xs.text-secondary = item.photos.count
+
     .w-48.px-2.text-sm.font-medium.text-contrast.flex.items-center
       = item.name.size > 30 ? "#{item.name.first(30)}..." : item.name
     .w-64.whitespace-nowrap.px-2.py-4.text-sm.text-contrast

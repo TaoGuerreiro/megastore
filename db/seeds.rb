@@ -4,6 +4,7 @@ return unless Rails.env.development?
 
 OrderItem.destroy_all
 Order.destroy_all
+ItemSpecification.destroy_all
 Specification.destroy_all
 Item.destroy_all
 Category.destroy_all
@@ -79,7 +80,7 @@ store_three = salome.stores.create({
       active: true,
       category: categories.sample,
       stock: Faker::Number.between(from: 0, to: 100),
-      weight: Faker::Number.decimal(l_digits: 2, r_digits: 2),
+      weight: Faker::Number.between(from: 20, to: 1000),
       length: Faker::Number.between(from: 1, to: 100),
       width: Faker::Number.between(from: 1, to: 100),
       height: Faker::Number.between(from: 1, to: 100)

@@ -1,1 +1,3 @@
 = turbo_stream.remove dom_id(@specification)
+= turbo_stream.prepend "notifications" do
+  = render(Notifications::Component.new(type: "success", data: {title: "GG", body: "Spécification supprimée avec succès."}))

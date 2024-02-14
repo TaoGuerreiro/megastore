@@ -1,2 +1,4 @@
 = turbo_stream.prepend :specifications, partial: "admin/specifications/specification", locals: { specification: @specification }
 = turbo_stream.update :new_specification, ""
+= turbo_stream.prepend "notifications" do
+  = render(Notifications::Component.new(type: "success", data: {title: "Au top", body: "Spécification ajoutée avec succès."}))

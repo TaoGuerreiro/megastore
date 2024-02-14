@@ -36,14 +36,14 @@ module Admin
     end
 
     def destroy
-      if @category.destroy
-        flash[:notice] = "Category was successfully destroyed."
-        respond_to do |format|
-          format.html { redirect_to admin_store_path, notice: "Category was successfully destroyed." }
-          format.turbo_stream
-        end
-      else
-        redirect_to admin_store_path, alert: "Category was not destroyed."
+      begin
+        @category.destroy!
+      rescue
+      end
+
+      respond_to do |format|
+        format.html { redirect_to admin_store_path, status: :see_othet }
+        format.turbo_stream
       end
     end
 

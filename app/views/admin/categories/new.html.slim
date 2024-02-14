@@ -1,2 +1,2 @@
-= turbo_frame_tag :new_category do
+= render TurboModal::Component.new(title: "Nouvelle catégorie") do
   = render "form", category: @category

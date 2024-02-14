@@ -49,8 +49,17 @@ module Admin
       @item = Item.find(params[:id])
       authorize! @item
 
-      @item.destroy
-      redirect_to admin_items_path, notice: "Item was successfully destroyed."
+      if @item.destroy
+        respond_to do |format|
+          format.html { redirect_to admin_items_path, notice: "Item was successfully destroyed." }
+          format.turbo_stream
+        end
+      else
+        respond_to do |format|
+          format.html { redirect_to admin_items_path, notice: "Item could not be destroyed." }
+          format.turbo_stream
+        end
+      end
     end
 
     def add_stock

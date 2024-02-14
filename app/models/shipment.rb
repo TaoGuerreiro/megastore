@@ -1,5 +1,6 @@
 class Shipment
   include ActiveModel::Model
+
   BASE_URL = "https://panel.sendcloud.sc/api/v2"
   SERVICE_POINT_BASE_URL = "https://servicepoints.sendcloud.sc/api/v2"
 

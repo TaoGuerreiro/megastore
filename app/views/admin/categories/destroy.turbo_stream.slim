@@ -1,1 +1,7 @@
-= turbo_stream.remove dom_id(@category)
+- if @category.persisted?
+  = turbo_stream.prepend "notifications" do
+    = render(Notifications::Component.new(type: "error", data: {title: "Erreur", body: "Cette catégorie est rattachée à des articles."}))
+-else
+  = turbo_stream.prepend "notifications" do
+    = render(Notifications::Component.new(type: "success", data: {title: "Effectué", body: "Catégorie bien effacée."}))
+  = turbo_stream.remove dom_id(@category)

@@ -1,2 +1,4 @@
 = turbo_stream.prepend :categories, partial: "admin/categories/category", locals: { category: @category }
 = turbo_stream.update :new_category, ""
+= turbo_stream.prepend "notifications" do
+  = render(Notifications::Component.new(type: "success", data: {title: "Effectué", body: "Catégorie bien ajoutée."}))

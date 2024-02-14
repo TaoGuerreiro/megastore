@@ -21,7 +21,7 @@
             h1.text-2xl.font-semibold.leading-6.text-contrast
               | Catégories
           .mt-4.sm:ml-16.sm:mt-0.sm:flex-none
-            = link_to "Ajouter une catégorie", new_admin_store_category_path(@store), data: { turbo_frame: "new_category" }, class: "btn btn-primary"
+            = link_to "Ajouter une catégorie", new_admin_store_category_path(@store), data: { turbo_frame: "modal" }, class: "btn btn-primary"
 
         .mt-8.flow-root
           .-mx-4.-my-2.overflow-x-auto.sm:-mx-6.lg:-mx-8

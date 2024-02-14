@@ -3,12 +3,13 @@ class OrderIntentsController < ApplicationController
     @order_intent = OrderIntent.new(order_intent_params)
     weight = Checkout.new(session[:checkout_items]).weight
     @order_intent.weight = weight
-    @shipping_methods = Shipment::ShippingMethod.new(Current.store,
-      {
-        country: order_intent_params[:country],
-        postal_code: order_intent_params[:postal_code],
-        weight:
-      }).all
+
+    body = {
+            country: order_intent_params[:country],
+            postal_code: order_intent_params[:postal_code],
+            weight:
+          }
+    @shipping_methods = Shipment::ShippingMethod.new(Current.store, body).all
 
     session[:shipping_methods] = @shipping_methods
 
