@@ -1,0 +1,30 @@
+div
+  div.mb-2
+    .w-full.text-sm
+      .font-bold.mb-1 = "#{service_point["name"].capitalize}"
+      . = "#{service_point["street"].capitalize}"
+      . = "#{service_point["postal_code"]} #{service_point["city"].capitalize}"
+  .grid.grid-cols-2.gap-2.text-xs
+    .w-1/2.whitespace-nowrap
+      . Monday
+      . Tuesday
+      . Wednesday
+      . Thursday
+      . Friday
+      . Saturday
+      . Sunday
+    .w-1/2.whitespace-nowrap
+      .
+        = service_point["formatted_opening_times"]["0"].empty? ? "Closed" : service_point["formatted_opening_times"]["0"].join(", ")
+      .
+        = service_point["formatted_opening_times"]["1"].empty? ? "Closed" : service_point["formatted_opening_times"]["1"].join(", ")
+      .
+        = service_point["formatted_opening_times"]["2"].empty? ? "Closed" : service_point["formatted_opening_times"]["2"].join(", ")
+      .
+        = service_point["formatted_opening_times"]["3"].empty? ? "Closed" : service_point["formatted_opening_times"]["3"].join(", ")
+      .
+        = service_point["formatted_opening_times"]["4"].empty? ? "Closed" : service_point["formatted_opening_times"]["4"].join(", ")
+      .
+        = service_point["formatted_opening_times"]["5"].empty? ? "Closed" : service_point["formatted_opening_times"]["5"].join(", ")
+      .
+        = service_point["formatted_opening_times"]["6"].empty? ? "Closed" : service_point["formatted_opening_times"]["6"].join(", ")

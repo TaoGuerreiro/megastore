@@ -15,17 +15,17 @@
         dt.text-sm.text-contrast
           = t('subtotal')
         dd.text-sm.font-medium.text-contrast
-          = "#{@order_intent.items_price || '0.00'} €"
+          = number_to_currency(@order_intent.items_price, unit: '€', format: '%n %u')
       .flex.items-center.justify-between.px-6.pb-2
         dt.text-sm.text-contrast
           = t('shipping')
         dd.text-sm.font-medium.text-contrast
-          = "#{@order_intent.shipping_price || '0.00'} €"
+          = number_to_currency(@order_intent.shipping_price, unit: '€', format: '%n %u')
       .flex.items-center.justify-between.border-t.border-content.pt-6.px-6.pb-2
         dt.text-base.font-medium.text-contrast
           = t('total')
         dd.text-base.font-medium.text-contrast
-          = "#{@order_intent.total_price || '0.00'} €"
+          = number_to_currency(@order_intent.total_price, unit: '€', format: '%n %u')
       .border-t.border-content.px-4.py-6.sm:px-6
         - if @order && @order.status == 'confirmed'
           button id="pay" class="w-full btn btn-secondary" = t('pay')

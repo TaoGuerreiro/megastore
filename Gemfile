@@ -15,6 +15,7 @@ gem "image_processing", "~> 1.2"
 gem "mini_magick"
 
 gem "action_policy"
+gem 'activerecord-session_store'
 gem 'country_select'
 gem "httparty"
 gem "jbuilder"

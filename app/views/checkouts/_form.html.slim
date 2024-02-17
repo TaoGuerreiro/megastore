@@ -1,54 +1,56 @@
 = turbo_frame_tag :form do
   = simple_form_for order_intent, url: order_intents_path, method: :post, id: "order_intent" do |field|
-    .mb-4 = field.input :email, label: "Email", placeholder: "Email"
-    .flex.gap-4.mb-4
-      = field.input :first_name, label: "Prénom", placeholder: "Prénom"
-      = field.input :last_name, label: "Nom", placeholder: "Nom"
-    .flex.gap-4.mb-4
-      = field.input :address, label: "Addresse", placeholder: "Addresse"
-      = field.input :city, label: "Ville", placeholder: "Ville"
-    .flex.gap-4.mb-4
-      = field.input :postal_code, label: "Code postal", placeholder: "Code postal"
-      = field.input :country, label: "Pays", placeholder: "Pays"
-    .mb-4 = field.input :phone, label: "Téléphone", placeholder: "Téléphone"
-    .hiddden
-      = field.input :items_price, label: "items_price", placeholder: "items_price"
-      = field.input :shipping_price, label: "shipping_price", placeholder: "shipping_price"
-      = field.input :need_point, label: "need_point", placeholder: "need_point"
-      = field.input :weight, label: "weight", placeholder: "weight"
+    . class="#{'hidden' if field.object.country.present?}"
+      .mb-4 = field.input :email, label: "Email", placeholder: "Email"
+      .flex.gap-4.mb-4
+        = field.input :first_name, label: "Prénom", placeholder: "Prénom"
+        = field.input :last_name, label: "Nom", placeholder: "Nom"
+      .flex.gap-4.mb-4
+        = field.input :address, label: "Addresse", placeholder: "Addresse"
+        = field.input :city, label: "Ville", placeholder: "Ville"
+      .flex.gap-4.mb-4
+        = field.input :postal_code, label: "Code postal", placeholder: "Code postal"
+        = field.input :country, label: "Pays", placeholder: "Pays"
+      .mb-4 = field.input :phone, label: "Téléphone", placeholder: "Téléphone"
+      .hidden
+        = field.input :items_price, label: "items_price", placeholder: "items_price"
+        = field.input :shipping_price, label: "shipping_price", placeholder: "shipping_price"
+        = field.input :need_point, label: "need_point", placeholder: "need_point"
+        = field.input :weight, label: "weight", placeholder: "weight"
 
-    = field.submit "Valider", class: "btn btn-primary btn-block mx-auto w-full"
+      = field.submit "Valider", class: "btn btn-primary btn-block mx-auto w-full"
 
 
 
     - if field.object.country.present?
-      - if field.object.errors[:shipping_method].any?
-        p.text-red-500
-          = field.object.errors[:shipping_method].join(", ")
+      . class="#{'hidden' if field.object.shipping_method.present?}"
+        - if field.object.errors[:shipping_method].any?
+          p.text-red-500
+            = field.object.errors[:shipping_method].join(", ")
 
-      - shipping_methods.each do |method|
-        .relative.mt-4 data-controller="autosave"
-          = field.radio_button :shipping_method, method[:id], id: "shipping_method_#{method[:id]}", class: "hidden peer", data: { action: "change->autosave#save" }
-          = field.label :shipping_method, for: "shipping_method_#{method[:id]}", class: "block py-3 px-3 first:mx-0 my-2 border rounded-md cursor-pointer text-content bg-contour peer-checked:bg-tertiary peer-checked:text-contrast transition-colors duration-300 peer-checked:border peer-checked:border-primary" do
-            span.flex.flex-1
-              span.flex.justify-between.w-full
-                .flex
-                  span.mr-2
-                    = image_tag "carriers/#{method[:carrier]}.png", class: "w-12"
-                  span
-                    span.block.text-sm.font-medium.text-contrast
-                      . = t(method[:carrier])
-                      / . = method[:service_point_input]
-                    span#delivery-method-0-description-0.mt-1.flex.items-center.text-sm.text-midgray
-                      - if method[:service_point_input] == "required"
-                        | Livraison en point relais
-                      - else
-                        | Livraison à domicile
-                span#delivery-method-0-description-1.mt-6.text-sm.font-medium.text-contrast
-                  = "#{number_to_currency method[:price]}"
-          .hidden.peer-checked:block.absolute.right-3.top-3
-            i.fa-solid.fa-badge-check.text-xl.text-primary
-          .hidden = field.submit "Select volume", formmethod: "post", formaction: shipping_method_checkout_path(id: field.object), data: { "autosave-target": "button" }
+        - shipping_methods.each do |method|
+          .relative.mt-4 data-controller="autosave"
+            = field.radio_button :shipping_method, method[:id], id: "shipping_method_#{method[:id]}", class: "hidden peer", data: { action: "change->autosave#save" }
+            = field.label :shipping_method, for: "shipping_method_#{method[:id]}", class: "block py-3 px-3 first:mx-0 my-2 border rounded-md cursor-pointer text-content bg-contour peer-checked:bg-tertiary peer-checked:text-contrast transition-colors duration-300 peer-checked:border peer-checked:border-primary" do
+              span.flex.flex-1
+                span.flex.justify-between.w-full
+                  .flex
+                    span.mr-2
+                      = image_tag "carriers/#{method[:carrier]}.png", class: "w-12"
+                    span
+                      span.block.text-sm.font-medium.text-contrast
+                        . = t(method[:carrier])
+                        / . = method[:service_point_input]
+                      span#delivery-method-0-description-0.mt-1.flex.items-center.text-sm.text-midgray
+                        - if method[:service_point_input] == "required"
+                          | Livraison en point relais
+                        - else
+                          | Livraison à domicile
+                  span#delivery-method-0-description-1.mt-6.text-sm.font-medium.text-contrast
+                    = "#{number_to_currency method[:price]}"
+            .hidden.peer-checked:block.absolute.right-3.top-3
+              i.fa-solid.fa-badge-check.text-xl.text-primary
+            .hidden = field.submit "Select volume", formmethod: "post", formaction: shipping_method_checkout_path(id: field.object), data: { "autosave-target": "button" }
 
 
 
@@ -60,18 +62,17 @@
         - if field.object.errors[:service_point].any?
           p.text-red-500
             = field.object.errors[:service_point].join(", ")
-
-        .flex.h-96.mt-6
+        .flex.h-96.mt-6.row-span-2 data-controller="service-points" data-service-points-service-points-value=(service_points.to_json)
           .basis-1/3.pr-2.overflow-y-scroll
-            - service_points.each do |point|
-              .relative data-controller="autosave"
+            - service_points.each_with_index do |point, index|
+              .relative data-controller="autosave" data-service-points-target="point" data-action="mouseenter->service-points#show mouseleave->service-points#showAll" data-point=(point.to_json)
                 = field.radio_button :service_point, point[:id], id: "service_point_#{point[:id]}", class: "hidden peer", data: { action: "change->autosave#save" }
-                = field.label :service_point, for: "service_point_#{point[:id]}", class: "block py-3 px-3 first:mx-0 my-2 border rounded-md cursor-pointer text-content bg-contour peer-checked:bg-tertiary peer-checked:text-contrast transition-colors duration-300 peer-checked:border peer-checked:border-primary" do
+                = field.label :service_point, for: "service_point_#{point[:id]}", class: "block py-3 px-3 first:mx-0 mb-2 border rounded-md cursor-pointer text-content bg-contour peer-checked:bg-tertiary peer-checked:text-contrast transition-colors duration-300 peer-checked:border peer-checked:border-primary" do
                   span.flex.flex-1
                     span.flex.justify-between.w-full
                       .flex
                         span.mr-2.max-w-6
-                          = image_tag "carriers/mondial_relay.png"
+                          = image_tag "carriers/#{shipping_method[:carrier]}"
                         span
                           span.block.text-xs.font-medium.text-contrast
                             . = point[:name].capitalize
@@ -82,5 +83,8 @@
                         / = "#{number_to_currency 3.48}"
                 .hidden.peer-checked:block.absolute.right-3.top-3
                   i.fa-solid.fa-badge-check.text-xl.text-primary
+                .absolute.left-3.bottom-3
+                  .relative.w-6.h-6.rounded-full.bg-primary.text-contour.flex.item-center.justify-center
+                    = index + 1
                 .hidden = field.submit "Select volume", formmethod: "post", formaction: service_point_checkout_path(id: field.object), data: { "autosave-target": "button" }
-          #map.h-96.basis-2/3 data-controller="service-points" data-service-points-service-points-value=(service_points.to_json)
+          #map.h-96.basis-2/3 data-service-points-target="map"
