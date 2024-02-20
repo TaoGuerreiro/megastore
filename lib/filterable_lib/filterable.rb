@@ -15,11 +15,11 @@ module Filterable
   }.with_indifferent_access.freeze
 
   def self.btn_classes
-    "btn border !inline-block flex p-0 text-gray-700 border-gray-300 bg-white shadow-sm focus:ring-gray-500"
+    'btn border !inline-block flex p-0 text-gray-700 border-gray-300 bg-white shadow-sm focus:ring-gray-500'
   end
 
   def self.btn_active_classes
-    "bg-zinc-50 font-semibold"
+    'bg-zinc-50 font-semibold'
   end
 
   class_methods do

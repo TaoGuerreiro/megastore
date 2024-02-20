@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OrderIntent
   include ActiveModel::Model
 
@@ -16,7 +18,6 @@ class OrderIntent
                 :need_point,
                 :weight
 
-
   def initialize(attr = {})
     @email = attr[:email]
     @first_name = attr[:first_name]
@@ -30,11 +31,11 @@ class OrderIntent
     @service_point = attr[:service_point]
     @items_price = attr[:items_price]
     @shipping_price = attr[:shipping_price]
-    @need_point = attr[:need_point]
+    @need_point = attr[:need_point] || "false"
     @weight = attr[:weight]
   end
 
-  with_options on: :basic_informations_input do
+  with_options on: :step_one do
     validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
     validates :first_name, presence: true
     validates :last_name, presence: true
@@ -43,6 +44,12 @@ class OrderIntent
     validates :country, presence: true
     validates :postal_code, presence: true
     validates :city, presence: true
+    validates :need_point, inclusion: { in: [false, "false"] }
+  end
+
+  with_options on: :step_two do
+    validates :shipping_method, presence: true
+    validates :need_point, inclusion: { in: [true, "true"] }
   end
 
   with_options on: :shipping_method do
@@ -56,7 +63,7 @@ class OrderIntent
   end
 
   def need_point?
-    need_point == "true"
+    need_point == 'true'
   end
 
   def total_price

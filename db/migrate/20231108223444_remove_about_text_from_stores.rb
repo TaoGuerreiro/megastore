@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RemoveAboutTextFromStores < ActiveRecord::Migration[7.0]
   def up
     Store.find_each do |store|

@@ -1,5 +1,5 @@
+# frozen_string_literal: true
 # require Rails.root.join("app/services/stripe_checkout_session_service.rb")
-
 
 # Rails.configuration.stripe = {
 #   publishable_key: Rails.application.credentials.stripe.public_send(Rails.env).stripe_publishable_key,

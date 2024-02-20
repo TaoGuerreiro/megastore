@@ -1,13 +1,17 @@
-class Admin::StorePolicy < ApplicationPolicy
-  def show?
-    user.queen? || user.id == record.admin_id
-  end
+# frozen_string_literal: true
 
-  def edit?
-    user.queen? || user.id == record.admin_id
-  end
+module Admin
+  class StorePolicy < ApplicationPolicy
+    def show?
+      user.queen? || user.id == record.admin_id
+    end
 
-  def update?
-    user.queen? || user.id == record.admin_id
+    def edit?
+      user.queen? || user.id == record.admin_id
+    end
+
+    def update?
+      user.queen? || user.id == record.admin_id
+    end
   end
 end

@@ -2,7 +2,7 @@
 
 module Filterable
   class View < ApplicationRecord
-    self.table_name = "filterable_views"
+    self.table_name = 'filterable_views'
 
     belongs_to :owner, polymorphic: true
 
@@ -21,7 +21,7 @@ module Filterable
     def to_path(submit_path)
       uri = URI.parse(submit_path)
       uri.query = {
-        filterable: { filters: filters, conjonction: conjonction, sort: sort, selected_view_id: id }
+        filterable: { filters:, conjonction:, sort:, selected_view_id: id }
       }.to_query
       uri.to_s
     end
@@ -29,7 +29,7 @@ module Filterable
     def query=(value)
       return if value.blank?
 
-      value.with_defaults!(conjonction: "and", sort: {}, filters: [])
+      value.with_defaults!(conjonction: 'and', sort: {}, filters: [])
 
       assign_attributes(value.slice(:conjonction, :sort, :filters))
     end

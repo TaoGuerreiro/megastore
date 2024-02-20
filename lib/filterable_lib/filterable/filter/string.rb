@@ -3,15 +3,15 @@
 module Filterable
   class Filter
     class String < Filter
-      operator("contains") { arel_column.matches("%#{value_for_sql}%") }
-      operator("equal") { arel_column.eq(value_for_sql) }
-      operator("not_equal") { arel_column.eq(nil).or(arel_column.not_eq(value_for_sql)) }
-      operator("empty") { arel_column.eq(nil).or(arel_column.eq("")) }
-      operator("not_empty") { arel_column.not_eq(nil).and(arel_column.not_eq("")) }
+      operator('contains') { arel_column.matches("%#{value_for_sql}%") }
+      operator('equal') { arel_column.eq(value_for_sql) }
+      operator('not_equal') { arel_column.eq(nil).or(arel_column.not_eq(value_for_sql)) }
+      operator('empty') { arel_column.eq(nil).or(arel_column.eq('')) }
+      operator('not_empty') { arel_column.not_eq(nil).and(arel_column.not_eq('')) }
 
       def operators_options
         super.reject do |(_translation, operator)|
-          operator == "contains" if enumerized?
+          operator == 'contains' if enumerized?
         end
       end
 

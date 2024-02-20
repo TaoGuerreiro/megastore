@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module Admin
   class SpecificationsController < ApplicationController
     before_action :authenticate_user!
     before_action :set_specification, only: %i[edit update destroy]
     before_action :set_store, only: %i[new create edit update destroy]
 
-    layout "admin"
+    layout 'admin'
 
     def new
       @specification = Current.store.specifications.build
@@ -17,7 +19,7 @@ module Admin
 
       if @specification.save
         respond_to do |format|
-          format.html { redirect_to admin_store_path, notice: "Shipping method was successfully created." }
+          format.html { redirect_to admin_store_path, notice: 'Shipping method was successfully created.' }
           format.turbo_stream
         end
       else
@@ -30,7 +32,7 @@ module Admin
     def update
       if @specification.update(specification_params)
         respond_to do |format|
-          format.html { redirect_to admin_store_path, notice: "Shipping method was successfully updated." }
+          format.html { redirect_to admin_store_path, notice: 'Shipping method was successfully updated.' }
           format.turbo_stream
         end
       else
@@ -40,13 +42,13 @@ module Admin
 
     def destroy
       if @specification.destroy
-        flash[:notice] = "Shipping method was successfully destroyed."
+        flash[:notice] = 'Shipping method was successfully destroyed.'
         respond_to do |format|
-          format.html { redirect_to admin_store_path, notice: "Shipping method was successfully destroyed." }
+          format.html { redirect_to admin_store_path, notice: 'Shipping method was successfully destroyed.' }
           format.turbo_stream
         end
       else
-        redirect_to admin_store_path, alert: "Shipping method was not destroyed."
+        redirect_to admin_store_path, alert: 'Shipping method was not destroyed.'
       end
     end
 

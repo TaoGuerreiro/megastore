@@ -1,13 +1,14 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 # See https://actionpolicy.evilmartians.io/#/testing?id=testing-policies
-class Admin::StorePolicyTest < ActiveSupport::TestCase
-  def test_index
-  end
+module Admin
+  class StorePolicyTest < ActiveSupport::TestCase
+    def test_index; end
 
-  def test_create
-  end
+    def test_create; end
 
-  def test_manage
+    def test_manage; end
   end
 end

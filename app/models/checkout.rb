@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Checkout
   def initialize(ids)
     set_ids(ids)
@@ -8,7 +10,7 @@ class Checkout
 
     unique_ids = @ids.uniq
     cart = unique_ids.map do |id|
-      next unless Item.where(id: id).present?
+      next unless Item.where(id:).present?
 
       {
         item: Item.find(id),
@@ -55,11 +57,11 @@ class Checkout
 
   def set_ids(ids)
     @ids = if ids.is_a?(Array)
-      ids
-    elsif ids.nil?
-      []
-    else
-      ids.order_items.flat_map { |order_item| [order_item.item_id] * order_item.quantity }
-    end
+             ids
+           elsif ids.nil?
+             []
+           else
+             ids.order_items.flat_map { |order_item| [order_item.item_id] * order_item.quantity }
+           end
   end
 end

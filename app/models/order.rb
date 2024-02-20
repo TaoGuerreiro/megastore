@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # app/models/item.rb
 class Order < ApplicationRecord
   extend Enumerize
@@ -12,15 +14,14 @@ class Order < ApplicationRecord
   monetize :amount_cents
   monetize :shipping_cost_cents
 
-  STATUSES = ["pending", "confirmed", "paid", "canceled", "refunded", "sent"].freeze
+  STATUSES = %w[pending confirmed paid canceled refunded sent].freeze
 
-  enumerize :status, in: STATUSES, default: "pending", predicates: true
+  enumerize :status, in: STATUSES, default: 'pending', predicates: true
 
   validates :amount, presence: true
   validates :status, presence: true
   validates :shipping_address, presence: true
   validates :user, presence: true
-
 
   def total_price
     if api_shipping_id.present?

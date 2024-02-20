@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StoresController < ApplicationController
   before_action :set_store, :set_filters
 
@@ -20,27 +22,28 @@ class StoresController < ApplicationController
   end
 
   def default_sort
-    params.dig(:filters, :sort) || "Nouveautés"
+    params.dig(:filters, :sort) || 'Nouveautés'
   end
 
   def fetch_items
     return @store.items.where(status: :active).order(created_at: :desc) unless params[:filters]
 
-    items = @store.items.includes(:category).where(category: {name: selected_filters}, status: :active).where(price_range_inputs).order(sorting_input)
+    items = @store.items.includes(:category).where(category: { name: selected_filters },
+                                                   status: :active).where(price_range_inputs).order(sorting_input)
     items = items.search_by_name_and_description(@query) if @query.present?
     items
   end
 
   def sorting_input
     case params.dig(:filters, :sort)
-    when "Prix croissant"
-      "items.price_cents ASC"
-    when "Prix décroissant"
-      "items.price_cents DESC"
-    when "A-Z"
-      "items.name ASC"
+    when 'Prix croissant'
+      'items.price_cents ASC'
+    when 'Prix décroissant'
+      'items.price_cents DESC'
+    when 'A-Z'
+      'items.name ASC'
     else
-      "items.created_at DESC"
+      'items.created_at DESC'
     end
   end
 
@@ -51,11 +54,11 @@ class StoresController < ApplicationController
   end
 
   def set_filters
-    if params[:filters]
-      session[:filters] = params.require(:filters).permit(@store.categories.pluck(:name)).to_h { |key, value| [key, value.to_i] }
-    else
-      session[:filters]  = @store.categories.pluck(:name).map { |name| [name, 1] }.to_h
-    end
+    session[:filters] = if params[:filters]
+                          params.require(:filters).permit(@store.categories.pluck(:name)).transform_values(&:to_i)
+                        else
+                          @store.categories.pluck(:name).map { |name| [name, 1] }.to_h
+                        end
   end
 
   def set_store
@@ -63,6 +66,6 @@ class StoresController < ApplicationController
   end
 
   def selected_filters
-    session[:filters].select { |k, v| v == "1" }.keys
+    session[:filters].select { |_k, v| v == '1' }.keys
   end
 end

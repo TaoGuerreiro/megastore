@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module MetaTagsHelper
   def meta_title
     content_for?(:meta_title) ? content_for(:meta_title) : Current.store.meta_title
@@ -10,6 +12,6 @@ module MetaTagsHelper
   def meta_image
     meta_image = (content_for?(:meta_image) ? content_for(:meta_image) : Current.store.meta_image)
     # little twist to make it work equally with an asset or a url
-    meta_image.starts_with?("http") ? meta_image : image_url(meta_image)
+    meta_image.starts_with?('http') ? meta_image : image_url(meta_image)
   end
 end

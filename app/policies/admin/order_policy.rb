@@ -1,16 +1,20 @@
-class Admin::OrderPolicy < ApplicationPolicy
-  # See https://actionpolicy.evilmartians.io/#/writing_policies
-  #
+# frozen_string_literal: true
 
-  relation_scope do |relation|
-    relation.includes(:order_items, :items).where(items: {store: Current.store})
-  end
+module Admin
+  class OrderPolicy < ApplicationPolicy
+    # See https://actionpolicy.evilmartians.io/#/writing_policies
+    #
 
-  def index?
-    queen_or_admin?
-  end
+    relation_scope do |relation|
+      relation.includes(:order_items, :items).where(items: { store: Current.store })
+    end
 
-  def show?
-    queen_or_admin?
+    def index?
+      queen_or_admin?
+    end
+
+    def show?
+      queen_or_admin?
+    end
   end
 end

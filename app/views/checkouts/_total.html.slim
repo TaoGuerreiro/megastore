@@ -7,7 +7,7 @@
         = t('items_in_cart')
       ul.divide-y.divide-content[role="list"]
         - @items.each do |item|
-          = render "card", item: item
+          = render "checkouts/card", item: item
 
       dl.space-y-6.border-t.border-content.px-4.py-6.sm:px-6
 

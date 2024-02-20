@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class PagesController < ApplicationController
-  layout "application"
+  layout 'application'
 
   def home
     @items = Current.store.items.where(status: :active)
@@ -17,8 +19,8 @@ class PagesController < ApplicationController
     if @contact.valid?
       begin
         ContactMailer.with(contact: @contact).new_message_from_store.deliver_now
-        redirect_to root_path, notice: "Message bien envoyé", status: :see_other
-      rescue => e
+        redirect_to root_path, notice: 'Message bien envoyé', status: :see_other
+      rescue StandardError => e
         flash[:error] = "Une erreur est survenue lors de l'envoi du message. Veuillez réessayer."
         render "#{Current.store.slug}/contact", status: :unprocessable_entity
       end

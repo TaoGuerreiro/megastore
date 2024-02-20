@@ -1,2 +1,4 @@
 = turbo_stream.replace :cart_frame, partial: "shared/cart"
 = turbo_stream.update dom_id(@item), partial: "items/item", locals: { item: @item }
+= turbo_stream.prepend "notifications" do
+  = render(Notifications::Component.new(type: "success", data: {title: "Ajouté", body: "#{@item.name} ajouté à votre panier"}))

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # app/models/item.rb
 class Item < ApplicationRecord
   include Filterable
@@ -14,7 +16,7 @@ class Item < ApplicationRecord
   has_many :orders, through: :order_items
   has_many_attached :photos
 
-  STATUSES = ["active", "archived", "offline"].freeze
+  STATUSES = %w[active archived offline].freeze
   enumerize :status, in: STATUSES, default: :active, predicates: true
 
   monetize :price_cents
@@ -38,25 +40,25 @@ class Item < ApplicationRecord
   scope :offline, -> { where(status: :offline) }
 
   pg_search_scope :search_by_name_and_description,
-  against: [ :name, :description ],
-  using: {
-    tsearch: { prefix: true }
-  }
+                  against: %i[name description],
+                  using: {
+                    tsearch: { prefix: true }
+                  }
 
   def self.with_archived
     unscoped.order(:status, :name)
   end
 
   def soldout?
-    stock == 0
+    stock.zero?
   end
 
   def active?
-    status == "active"
+    status == 'active'
   end
 
   def archived?
-    status == "archived"
+    status == 'archived'
   end
 
   def archive!

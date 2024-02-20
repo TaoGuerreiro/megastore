@@ -1,5 +1,6 @@
-class ApplicationPolicy < ActionPolicy::Base
+# frozen_string_literal: true
 
+class ApplicationPolicy < ActionPolicy::Base
   private
 
   def queen_or_admin?

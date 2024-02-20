@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module Admin
   class AccountsController < ApplicationController
     before_action :authenticate_user!
     before_action :set_user
 
-    layout "admin"
+    layout 'admin'
 
     def show; end
 
@@ -11,9 +13,9 @@ module Admin
 
     def update
       if @user.update(user_params)
-        redirect_to admin_account_path, notice: "Account updated successfully"
+        redirect_to admin_account_path, notice: 'Account updated successfully'
       else
-        render :edit, status: :unprocessable_entity, notice: "Account could not be updated"
+        render :edit, status: :unprocessable_entity, notice: 'Account could not be updated'
       end
     end
 
@@ -31,7 +33,7 @@ module Admin
           :last_name,
           :username,
           :email,
-          :avatar,
+          :avatar
         )
       else
         params.require(:user).permit(

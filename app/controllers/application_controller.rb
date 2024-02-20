@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   include Filterable::FilterableRequest
   include Pagy::Backend
@@ -5,7 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :set_current_store, :clean_checkout_cart
 
   def default_url_options
-    { host: Current.store.domain || "localhost:3000" }
+    { host: Current.store.domain || 'localhost:3000' }
   end
 
   rescue_from ActionPolicy::Unauthorized do |exception|
@@ -14,7 +16,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def after_sign_in_path_for(resource)
+  def after_sign_in_path_for(_resource)
     Current.store = Store.find_by(domain: request.domain)
 
     admin_orders_path
@@ -27,9 +29,9 @@ class ApplicationController < ActionController::Base
   def clean_checkout_cart
     return if current_user
 
-    if Item.where(id: session[:checkout_items]).blank?
-      session.clear
-      session[:checkout_items] = []
-    end
+    return unless Item.where(id: session[:checkout_items]).blank?
+
+    session.clear
+    session[:checkout_items] = []
   end
 end

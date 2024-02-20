@@ -1,0 +1,28 @@
+nav.flex.justify-center aria-label="Progress"
+  ol role="list" class="flex items-center"
+    - @before.times do
+      li class="relative pr-8 sm:pr-20"
+        / Completed Step
+        div.absolute.inset-0.flex.items-center aria-hidden="true"
+          div.w-full.bg-primary class="h-0.5"
+        a href="#" class="relative flex items-center justify-center w-8 h-8 rounded-full bg-primary hover:bg-indigo-900"
+          svg.w-5.h-5.text-white viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
+            path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"
+          span.sr-only Step 1
+
+    li class="relative #{'pr-8 sm:pr-20' unless @last_step}"
+      / Current Step
+      div.absolute.inset-0.flex.items-center aria-hidden="true"
+        div.w-full.bg-gray-200 class="h-0.5"
+      a href="#" class="relative flex items-center justify-center w-8 h-8 bg-white border-2 rounded-full border-primary" aria-current="step"
+        span.h-2.5.w-2.5.rounded-full.bg-primary aria-hidden="true"
+        span.sr-only Step 3
+
+    - @after.times do |index|
+      li class="relative #{'pr-8 sm:pr-20' unless index == @after - 1}"
+        / Upcoming Step
+        div.absolute.inset-0.flex.items-center aria-hidden="true"
+          div.w-full.bg-gray-200 class="h-0.5"
+        a href="#" class="relative flex items-center justify-center w-8 h-8 bg-white border-2 border-gray-300 rounded-full group hover:border-gray-400"
+          span.h-2.5.w-2.5.rounded-full.bg-transparent.group-hover:bg-gray-300 aria-hidden="true"
+          span.sr-only Step 4

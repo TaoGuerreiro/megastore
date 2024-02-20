@@ -1,13 +1,17 @@
-class Admin::UserPolicy < ApplicationPolicy
-  def show?
-    user_id_queen_or_admin?
-  end
+# frozen_string_literal: true
 
-  def edit?
-    user_id_queen_or_admin?
-  end
+module Admin
+  class UserPolicy < ApplicationPolicy
+    def show?
+      user_id_queen_or_admin?
+    end
 
-  def update?
-    user_id_queen_or_admin?
+    def edit?
+      user_id_queen_or_admin?
+    end
+
+    def update?
+      user_id_queen_or_admin?
+    end
   end
 end

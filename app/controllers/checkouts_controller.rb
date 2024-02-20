@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 class CheckoutsController < ApplicationController
-  before_action :set_order_intent, only: [:shipping_method, :confirm_payment, :service_point]
+  before_action :set_order_intent,
+                only: %i[shipping_method confirm_payment service_point undo_shipping_method undo_service_point]
 
   def add
     manage_item_in_cart(:add)
@@ -10,7 +13,6 @@ class CheckoutsController < ApplicationController
   end
 
   def show
-
     @total = Checkout.new(session[:checkout_items]).sum
     @items = Checkout.new(session[:checkout_items]).cart
     @order_intent = OrderIntent.new(items_price: @total)
@@ -18,45 +20,14 @@ class CheckoutsController < ApplicationController
     # authorize! :checkout TODO fix
   end
 
-  def shipping_method
-    @shipping_method = find_shipping_method
-    @shipping_methods = session[:shipping_methods].map { |shipping_method| shipping_method.symbolize_keys}
-    @order_intent.shipping_price = @shipping_method[:price].to_f
-
-    if @shipping_method[:service_point_input] == "required"
-      @order_intent.need_point = true
-      @service_points = Shipment::ServicePoint.new(Current.store,
-        {
-          country: @order_intent.country,
-          postal_code: @order_intent.postal_code,
-          radius: 3000,
-          carrier: @shipping_method[:carrier]
-        }).all
-        session[:service_points] = @service_points
-    end
-
-    respond_to do |format|
-      if @order_intent.valid?(:shipping_method)
-        format.html { redirect_to checkout_path, notice: "Shipping method was successfully added." }
-        format.turbo_stream
-      else
-        format.html { render "checkouts/show", status: :unprocessable_entity }
-        format.turbo_stream
-      end
-    end
-  end
-
-  def service_point
-  end
-
   def confirm_payment
-    @shipping_methods = session[:shipping_methods].map { |shipping_method| shipping_method.symbolize_keys}
+    @shipping_methods = session[:shipping_methods].map(&:symbolize_keys)
     @shipping_method  = find_shipping_method
-    @service_points   = session[:service_points].map { |service_point| service_point.symbolize_keys} if session[:service_points]
+    @service_points = session[:service_points].map(&:symbolize_keys) if session[:service_points]
 
-    unless @order_intent.valid?([:basic_informations_input, :shipping_method, :service_point])
+    unless @order_intent.valid?(%i[step_one shipping_method service_point])
       respond_to do |format|
-        format.html { render "checkouts/show", status: :unprocessable_entity }
+        format.html { render 'checkouts/show', status: :unprocessable_entity }
         format.turbo_stream
       end
       return
@@ -69,14 +40,14 @@ class CheckoutsController < ApplicationController
       shipping_city: @order_intent.city,
       shipping_postal_code: @order_intent.postal_code,
       weight: @order_intent.weight,
-      status: "confirmed",
+      status: 'confirmed',
       api_shipping_id: @order_intent.shipping_method,
       api_service_point_id: @order_intent.service_point,
-      user: user,
+      user:,
       items: @items.map { |item| item[:item] },
       shipping_cost: @order_intent.shipping_price.to_f,
       amount: @order_intent.items_price.to_f,
-      shipping_method_carrier: @shipping_method[:carrier],
+      shipping_method_carrier: @shipping_method[:carrier]
     )
 
     if @order_intent.need_point?
@@ -84,22 +55,18 @@ class CheckoutsController < ApplicationController
       service_point_full_address = "#{service_point[:street]} #{service_point[:postal_code]}, #{service_point[:city]}"
       @order.assign_attributes(
         shipping_service_point_address: service_point_full_address,
-        shipping_service_point_name: service_point[:name],
+        shipping_service_point_name: service_point[:name]
       )
     end
 
     if @order.save
       create_stripe_session
-      respond_to do |format|
-        format.html { render "checkouts/show", status: :unprocessable_entity }
-        format.turbo_stream
-      end
     else
       # Handle @order save error here
-      respond_to do |format|
-        format.html { render "checkouts/show", status: :unprocessable_entity }
-        format.turbo_stream
-      end
+    end
+    respond_to do |format|
+      format.html { render 'checkouts/show', status: :unprocessable_entity }
+      format.turbo_stream
     end
   end
 
@@ -107,10 +74,10 @@ class CheckoutsController < ApplicationController
 
   def find_shipping_method
     Shipment::ShippingMethod.new(Current.store,
-      {
-        country: @order_intent.country,
-        postal_code: @order_intent.postal_code
-      }).find(params[:order_intent][:shipping_method])
+                                 {
+                                   country: @order_intent.country,
+                                   postal_code: @order_intent.postal_code
+                                 }).find(params[:order_intent][:shipping_method])
   end
 
   def create_stripe_session
@@ -146,7 +113,7 @@ class CheckoutsController < ApplicationController
 
     set_virtual_stock
     respond_to do |format|
-      format.html { redirect_to item_path(@item), notice: notice }
+      format.html { redirect_to item_path(@item), notice: }
       format.turbo_stream
     end
   end
@@ -168,17 +135,18 @@ class CheckoutsController < ApplicationController
   def order_intent_params
     return {} unless params[:order_intent]
 
-    params.require(:order_intent).permit(:email, :first_name, :last_name, :address, :phone, :shipping_method, :city, :country, :postal_code, :service_point, :items_price, :shipping_price, :need_point, :weight)
+    params.require(:order_intent).permit(:email, :first_name, :last_name, :address, :phone, :shipping_method, :city,
+                                         :country, :postal_code, :service_point, :items_price, :shipping_price, :need_point, :weight)
   end
 
   def set_virtual_stock
     @item = Item.find(params[:item_id])
-    cart_stock = Checkout.new(session[:checkout_items]).cart.find { |item| item[:item].id == @item.id }&.[](:number) || 0
+    cart_stock = Checkout.new(session[:checkout_items]).cart.find do |item|
+                   item[:item].id == @item.id
+                 end&.[](:number) || 0
     @virtual_stock = @item.stock - cart_stock
   end
 end
-
-
 
 # [
 #   {:id=>371, :name=>"Colissimo Home 0-0.25kg", :carrier=>"colissimo", :min_weight=>"0.001", :max_weight=>"0.251", :service_point_input=>"none", :price=>7.09, :lead_time_hours=>48},

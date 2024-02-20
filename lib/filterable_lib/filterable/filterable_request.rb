@@ -7,7 +7,7 @@ module Filterable
     def filterable(model, base_relation = model.all)
       return base_relation if params[:filterable].blank?
 
-      model.filter(filterable_params, base_relation: base_relation)
+      model.filter(filterable_params, base_relation:)
     end
 
     def filterable_params
@@ -19,7 +19,7 @@ module Filterable
         :selected_view_id,
         :context_name,
         sort: {},
-        filters: [:column_name, :operator, :value]
+        filters: %i[column_name operator value]
       )
     end
 

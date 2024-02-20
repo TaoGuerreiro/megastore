@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # {
 #   "parcel": {
 #     "name": "<string>",
@@ -102,9 +104,9 @@ class Shipment
 
     def create_label
       url = "#{BASE_URL}/parcels?errors=verbose-carrier"
-      response = HTTParty.post(url, headers: headers, body: body.to_json)
+      response = HTTParty.post(url, headers:, body: body.to_json)
       response.parsed_response
-      @order.update(parcel_id: response["parcel"]["id"])
+      @order.update(parcel_id: response['parcel']['id'])
     end
 
     def body
@@ -122,12 +124,12 @@ class Shipment
             "id": @order.api_shipping_id,
             "name": @order.shipping_method_carrier
           },
-          "weight": (@order.weight.to_i.fdiv(1000)).to_s,
-          "height": "50",
-          "width": "50",
-          "length": "50",
+          "weight": @order.weight.to_i.fdiv(1000).to_s,
+          "height": '50',
+          "width": '50',
+          "length": '50',
           "order_number": @order.id,
-          "shipping_method_checkout_name": "Stripe",
+          "shipping_method_checkout_name": 'Stripe',
           "to_service_point": @order.api_service_point_id,
           "from_name": @store.name,
           "from_company_name": @store.name,
@@ -136,14 +138,12 @@ class Shipment
           "from_postal_code": @store.postal_code,
           "from_country": @store.country,
           "from_telephone": @store.admin.phone,
-          "from_email": @store.admin.email,
+          "from_email": @store.admin.email
         }
       }
     end
   end
 end
-
-
 
 # {
 #   "parcel": {

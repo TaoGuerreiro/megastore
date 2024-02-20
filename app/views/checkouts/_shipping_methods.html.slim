@@ -1,0 +1,34 @@
+- if field.object.errors[:shipping_method].any?
+  p.text-red-500
+    = field.object.errors[:shipping_method].join(", ")
+
+.mb-3.relative
+  .absolute.left-3.top-2 = link_to checkout_path, class: "" do
+    i.fa-solid.fa-arrow-left.text-lg.text-primary
+  = render Step::Component.new(steps: 3, current_step: 2)
+h2.text-lg.font-medium.text-contrast.align-middle
+  | Methode de livraison
+
+- shipping_methods.each do |method|
+  .relative.mt-4 data-controller="autosave"
+    = field.radio_button :shipping_method, method[:id], id: "shipping_method_#{method[:id]}", class: "hidden peer", data: { action: "change->autosave#save" }
+    = field.label :shipping_method, for: "shipping_method_#{method[:id]}", class: "block py-3 px-3 first:mx-0 my-2 border rounded-md cursor-pointer text-content bg-contour peer-checked:bg-tertiary peer-checked:text-contrast transition-colors duration-300 peer-checked:border peer-checked:border-primary" do
+      span.flex.flex-1
+        span.flex.justify-between.w-full
+          .flex
+            span.mr-2
+              = image_tag "carriers/#{method[:carrier]}.png", class: "w-12"
+            span
+              span.block.text-sm.font-medium.text-contrast
+                . = t(method[:carrier])
+                / . = method[:service_point_input]
+              span#delivery-method-0-description-0.mt-1.flex.items-center.text-sm.text-midgray
+                - if method[:service_point_input] == "required"
+                  | Livraison en point relais
+                - else
+                  | Livraison à domicile
+          span#delivery-method-0-description-1.mt-6.text-sm.font-medium.text-contrast
+            = "#{number_to_currency method[:price]}"
+    .hidden.peer-checked:block.absolute.right-3.top-3
+      i.fa-solid.fa-badge-check.text-xl.text-primary
+    .hidden = field.submit "Select volume", formmethod: "patch", formaction: shipping_method_order_intents_path(id: field.object), data: { "autosave-target": "button" }

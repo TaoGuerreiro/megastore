@@ -3,7 +3,7 @@
 module Filterable
   module Components
     class FiltersFormComponent < ApplicationComponent
-      renders_one :view_form, -> { ViewFormComponent.new(filterable_context: filterable_context) }
+      renders_one :view_form, -> { ViewFormComponent.new(filterable_context:) }
 
       def initialize(filters:, filterable_context:)
         super
@@ -24,8 +24,8 @@ module Filterable
         column_name, order = current_sort.to_h.entries.first
         form.hidden_field "filterable[sort][#{column_name}]",
                           value: order,
-                          data: { column_name: column_name },
-                          id: "filterable_sort"
+                          data: { column_name: },
+                          id: 'filterable_sort'
       end
 
       def filterable_input_classes
@@ -44,15 +44,15 @@ module Filterable
       end
 
       def filterable_value_input(form, filter, index) # rubocop:disable Metrics/MethodLength
-        input_name = "filterable[filters][][value]"
+        input_name = 'filterable[filters][][value]'
         input_options = { class: filterable_input_classes, data: { value_input_index: index } }
-        input_options.merge!(style: "display: none;", disabled: true) unless filter.needs_input?
+        input_options.merge!(style: 'display: none;', disabled: true) unless filter.needs_input?
 
-        if filter.type.in?([:date, :datetime])
+        if filter.type.in?(%i[date datetime])
           input_options[:value] = filter.value&.to_date
           form.date_field input_name, input_options
         elsif filter.needs_select_input?
-          input_options[:class] = [filterable_input_classes, "cursor-pointer"]
+          input_options[:class] = [filterable_input_classes, 'cursor-pointer']
           form.select input_name, filter.select_options, { selected: filter.value }, input_options
         else
           input_options[:value] = filter.value

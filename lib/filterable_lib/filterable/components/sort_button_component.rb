@@ -17,12 +17,12 @@ module Filterable
         form_id = model.filterable.form_id
         icon_fa_class = filterable_sort_icon(column)
         content_tag(:div, nil, {
-                      class: "h-full cursor-pointer flex justify-between",
+                      class: 'h-full cursor-pointer flex justify-between',
                       data: {
-                        controller: "filterable-sort",
+                        controller: 'filterable-sort',
                         filterable_sort_form_id_value: form_id,
                         filterable_sort_column_name_value: column,
-                        action: "click->filterable-sort#sortColumn"
+                        action: 'click->filterable-sort#sortColumn'
                       }
                     }) do
           concat inner_content
@@ -39,9 +39,9 @@ module Filterable
       def filterable_sort_icon(column)
         current_sort = filterable_params[:sort]
         column_name, order = current_sort.to_h.entries.first if current_sort
-        return "fa-sort" unless current_sort && column_name == column.to_s
+        return 'fa-sort' unless current_sort && column_name == column.to_s
 
-        order == "asc" ? "fa-sort-down" : "fa-sort-up"
+        order == 'asc' ? 'fa-sort-down' : 'fa-sort-up'
       end
     end
   end

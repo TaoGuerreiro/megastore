@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Avatar
   class Component < ViewComponent::Base
     AVATAR_CLASSES = <<-TXT.squish

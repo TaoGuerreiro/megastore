@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module Admin
   class CategoriesController < ApplicationController
     before_action :authenticate_user!
     before_action :set_category, only: %i[edit update destroy]
     before_action :set_store, only: %i[new create edit update destroy]
 
-    layout "admin"
+    layout 'admin'
 
     def new
       @category = Current.store.categories.build
@@ -17,7 +19,7 @@ module Admin
 
       if @category.save
         respond_to do |format|
-          format.html { redirect_to admin_store_path, notice: "Category was successfully created." }
+          format.html { redirect_to admin_store_path, notice: 'Category was successfully created.' }
           format.turbo_stream
         end
       else
@@ -29,7 +31,7 @@ module Admin
 
     def update
       if @category.update(category_params)
-        redirect_to admin_store_path, notice: "Category was successfully updated."
+        redirect_to admin_store_path, notice: 'Category was successfully updated.'
       else
         render :edit
       end
@@ -38,7 +40,7 @@ module Admin
     def destroy
       begin
         @category.destroy!
-      rescue
+      rescue StandardError
       end
 
       respond_to do |format|

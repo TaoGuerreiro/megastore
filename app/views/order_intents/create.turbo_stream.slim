@@ -1,2 +1,1 @@
-= turbo_stream.replace :shipping_methods, partial: "checkouts/form", locals: { shipping_methods: @shipping_methods, order_intent: @order_intent }
-/ = turbo_stream.replace :form, partial: "checkouts/form", locals: { order_intent: @order_intent }
+= turbo_stream.update :shipping_methods, partial: "checkouts/form", locals: { shipping_methods: @shipping_methods, order_intent: @order_intent }

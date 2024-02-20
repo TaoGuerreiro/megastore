@@ -20,15 +20,15 @@ module Filterable
     end
 
     def column(column_name, input_formatter: nil)
-      @columns << Column.new(column_name, self, input_formatter: input_formatter)
+      @columns << Column.new(column_name, self, input_formatter:)
     end
 
     def association(column_name, label_method:, select_scope: nil)
-      @columns << Column.new(column_name, self, label_method: label_method, select_scope: select_scope)
+      @columns << Column.new(column_name, self, label_method:, select_scope:)
     end
 
     def associated_column(column_name, from:, input_formatter: nil)
-      @columns << Column.new(column_name, self, associated_from: from, input_formatter: input_formatter)
+      @columns << Column.new(column_name, self, associated_from: from, input_formatter:)
     end
 
     def column_names

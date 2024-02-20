@@ -4,9 +4,6 @@
       | Checkout
     .lg:grid.lg:grid-cols-2.lg:gap-x-12.xl:gap-x-16
       div
-        h2.text-lg.font-medium.text-contrast.mb-4
-          | Informations complémentaire
         #shipping_methods
           = render "form", order_intent: @order_intent
-        #service_points
       = render "total"

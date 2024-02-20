@@ -11,7 +11,7 @@ module Filterable
 
       def call
         helpers.turbo_stream.replace(model.filterable.turbo_frame_id) do
-          render FiltersFormComponent.new(filters: filters, filterable_context: filterable_context)
+          render FiltersFormComponent.new(filters:, filterable_context:)
         end
       end
 
