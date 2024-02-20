@@ -48,26 +48,20 @@ class OrderIntentsController < ApplicationController
     respond_to do |format|
       if @order_intent.valid?(:shipping_method)
         format.html { redirect_to checkout_path, notice: 'Shipping method was successfully added.' }
+        format.turbo_stream
       else
         format.html { render 'checkouts/show', status: :unprocessable_entity }
+        format.turbo_stream
       end
-      format.turbo_stream
     end
   end
 
-  def service_point; end
-
-  # def undo_shipping_method
-  #   @total = Checkout.new(session[:checkout_items]).sum
-  #   @items = Checkout.new(session[:checkout_items]).cart
-  #   @order_intent = OrderIntent.new(items_price: @total)
-  #   # StripeConfigurationService.setup
-
-  #   respond_to do |format|
-  #     format.html { redirect_to checkout_path, notice: "Shipping method was successfully removed." }
-  #     format.turbo_stream
-  #   end
-  # end
+  def service_point
+    respond_to do |format|
+      format.html { redirect_to checkout_path, notice: 'Shipping method was successfully added.' }
+      format.turbo_stream
+    end
+  end
 
   def undo_service_point
     @order_intent.shipping_method = nil
@@ -96,7 +90,9 @@ class OrderIntentsController < ApplicationController
   end
 
   def order_intent_params
-    params.require(:order_intent).permit(:address, :city, :country, :email, :first_name, :last_name, :phone,
-                                         :postal_code, :shipping_method, :shipping_price, :items_price, :need_point, :weight)
+    return {} unless params[:order_intent]
+
+    params.require(:order_intent).permit(:email, :first_name, :last_name, :address, :phone, :shipping_method, :city,
+                                         :country, :postal_code, :service_point, :items_price, :shipping_price, :need_point, :weight)
   end
 end

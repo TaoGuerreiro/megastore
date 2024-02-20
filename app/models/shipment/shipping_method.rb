@@ -20,6 +20,7 @@ class Shipment
         colisprive: { service_point_input: true, home_input: false },
         sendcloud: { service_point_input: false, home_input: false }
       }
+
       filter_and_group_shipping_methods(response['shipping_methods'], filter_params).map do |method|
         {
           id: method['id'],

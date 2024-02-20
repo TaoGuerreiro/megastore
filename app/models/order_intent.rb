@@ -63,7 +63,12 @@ class OrderIntent
   end
 
   def need_point?
-    need_point == 'true'
+    need_point == true
+  end
+
+  def completed?
+    (need_point? && service_point.present?) ||
+    (!need_point? && shipping_method.present?)
   end
 
   def total_price

@@ -4,6 +4,7 @@
       .mb-3 = render Step::Component.new(steps: 3, current_step: 1)
       h2.text-lg.font-medium.text-contrast.mb-4
         | Informations complémentaires
+
       .mb-4 = field.input :email, label: "Email", placeholder: "Email"
       .flex.gap-4.mb-4
         = field.input :first_name, label: "Prénom", placeholder: "Prénom"
@@ -20,8 +21,10 @@
         = field.input :shipping_price, label: "shipping_price", placeholder: "shipping_price"
         = field.input :need_point, label: "need_point", placeholder: "need_point"
         = field.input :weight, label: "weight", placeholder: "weight"
+        = field.input :shipping_method, label: "shipping_method", placeholder: "shipping_method"
 
-      = field.submit "Valider", class: "btn btn-primary btn-block mx-auto w-full"
+      = button_tag type: "submit", class: "btn btn-primary btn-block w-full", data: { "controller": "spinner", action: "click->spinner#spin" } do
+        . Continuer
 
     - if field.object.valid?(:step_one)
       = render "checkouts/shipping_methods", field: field, shipping_methods: shipping_methods

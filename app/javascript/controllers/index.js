@@ -49,6 +49,9 @@ application.register("select", SelectController)
 import ServicePointsController from "./service_points_controller"
 application.register("service-points", ServicePointsController)
 
+import SpinnerController from "./spinner_controller"
+application.register("spinner", SpinnerController)
+
 // UNSAFE
 import ScrollController from "./unsafe/scroll_controller"
 application.register("scroll", ScrollController)

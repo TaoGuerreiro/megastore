@@ -4,7 +4,6 @@ export default class extends Controller {
   static targets = ['map']
   connect() {
     this.markers = [];
-    console.log('ServicePointsController#connect');
     mapboxgl.accessToken = this.authToken;
 
     this.map = new mapboxgl.Map({
@@ -56,7 +55,6 @@ export default class extends Controller {
     this.markers.forEach((marker) => {
       marker.getPopup().remove()
     });
-    console.log(point.index);
     this.markers[point.index - 1].togglePopup()
 
     // je veux ouvrir la popup du hovered_marker
