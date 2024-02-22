@@ -1,5 +1,5 @@
 = turbo_frame_tag :form do
-  = simple_form_for order_intent, url: order_intents_path, method: :post, id: "order_intent" do |field|
+  = simple_form_for order_intent, url: order_intents_path, method: :post, id: "order_intent", data: { controller: "address-autocomplete" } do |field|
     . class="#{'hidden' if field.object.errors.empty? && params[:controller] != 'checkouts'}"
       .mb-3 = render Step::Component.new(steps: 3, current_step: 1)
       h2.text-lg.font-medium.text-contrast.mb-4
@@ -9,12 +9,15 @@
       .flex.gap-4.mb-4
         = field.input :first_name, label: "Prénom", placeholder: "Prénom"
         = field.input :last_name, label: "Nom", placeholder: "Nom"
+      .mb-6.w-full data-address-autocomplete-target="input"
+      .flex.gap-4.mb-1
+        .basis-3/4 = field.input :address, label: "Addresse", placeholder: "Addresse", input_html: { data: { 'address-autocomplete-target': 'address' } }
+        .basis-1/4 = field.input :street_number, label: "Numéro", placeholder: "Numéro", input_html: { data: { 'address-autocomplete-target': 'streetNumber' } }
+      .flex.gap-4.mb-1
+        = field.input :postal_code, label: "Code postal", placeholder: "Code postal", input_html: { data: { 'address-autocomplete-target': 'postalCode' } }
+        = field.input :city, label: "Ville", placeholder: "Ville", input_html: { data: { 'address-autocomplete-target': 'city' } }
       .flex.gap-4.mb-4
-        = field.input :address, label: "Addresse", placeholder: "Addresse"
-        = field.input :city, label: "Ville", placeholder: "Ville"
-      .flex.gap-4.mb-4
-        = field.input :postal_code, label: "Code postal", placeholder: "Code postal"
-        = field.input :country, label: "Pays", placeholder: "Pays"
+        = field.input :country, label: "Pays", placeholder: "Pays", input_html: { data: { 'address-autocomplete-target': 'country' } }
       .mb-4 = field.input :phone, label: "Téléphone", placeholder: "Téléphone"
       .hidden
         = field.input :items_price, label: "items_price", placeholder: "items_price"

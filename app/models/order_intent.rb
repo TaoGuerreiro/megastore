@@ -16,12 +16,14 @@ class OrderIntent
                 :items_price,
                 :shipping_price,
                 :need_point,
-                :weight
+                :weight,
+                :street_number
 
   def initialize(attr = {})
     @email = attr[:email]
     @first_name = attr[:first_name]
     @last_name = attr[:last_name]
+    @street_number = attr[:street_number]
     @address = attr[:address]
     @postal_code = attr[:postal_code]
     @city = attr[:city]

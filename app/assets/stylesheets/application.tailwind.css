@@ -24,7 +24,7 @@
     --color-midgray: 110, 132, 139;
     --color-content: 124, 152, 179;
     --color-contour: 172, 203, 225;
-    --color-form-input: 250, 250, 250;
+    --color-form-input: 255, 255, 255;
   }
 
   .lecheveublanc {
@@ -35,7 +35,7 @@
     --color-midgray: 121, 121, 121;
     --color-content: 200, 200, 200;
     --color-contour: 238, 238, 238;
-    --color-form-input: 250, 250, 250;
+    --color-form-input: 255, 255, 255;
   }
 
   .unsafe {
@@ -56,7 +56,12 @@
     --color-midgray: 121, 121, 121;
     --color-content: 200, 200, 200;
     --color-contour: 238, 238, 238;
-    --color-form-input: 250, 250, 250;
+    --color-form-input: 255, 255, 255;
+  }
+
+  .mapboxgl-ctrl-geocoder {
+    width: 100% !important;
+    max-width: none !important;
   }
 }
 
@@ -97,7 +102,7 @@
   }
 
   .form-input {
-    @apply block w-full px-3 py-2 placeholder-transparent border rounded-md appearance-none bg-form-input text-contrast border-content focus:outline-none focus:ring-secondary focus:border-secondary;
+    @apply block w-full px-3 py-2 placeholder-transparent border rounded-md appearance-none !bg-form-input text-contrast border-content focus:outline-none focus:ring-secondary focus:border-secondary;
     @apply transition-all duration-200;
     @apply z-40; /* Ajoutez cette ligne pour définir le z-index du champ de saisie */
   }
@@ -140,5 +145,4 @@
     vertical-align: middle;
     font-weight:900;
   }
-
 }

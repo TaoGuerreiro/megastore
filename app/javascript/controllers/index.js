@@ -52,6 +52,9 @@ application.register("service-points", ServicePointsController)
 import SpinnerController from "./spinner_controller"
 application.register("spinner", SpinnerController)
 
+import AddressAutocompleteController from "./address_autocomplete_controller"
+application.register("address-autocomplete", AddressAutocompleteController)
+
 // UNSAFE
 import ScrollController from "./unsafe/scroll_controller"
 application.register("scroll", ScrollController)
