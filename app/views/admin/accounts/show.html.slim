@@ -30,6 +30,11 @@
               = @user.email
           .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
             dt.text-sm.font-medium.leading-6.text-contrast
+              | Téléphone
+            dd.mt-1.text-sm.leading-6.text-contrast.sm:col-span-2.sm:mt-0
+              = @user.phone
+          .px-4.py-6.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-0
+            dt.text-sm.font-medium.leading-6.text-contrast
               | Mots de passe
             dd.mt-1.text-sm.leading-6.text-contrast.sm:col-span-2.sm:mt-0
               = "*" * 10

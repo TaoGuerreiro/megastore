@@ -14,15 +14,15 @@ Store.destroy_all
 User.destroy_all
 
 admin_localhost = User.create(first_name: 'Ted', last_name: 'Lasso', email: 'admin@example.fr', password: '123456',
-                              role: 'admin')
+                              role: 'admin', phone: "0674236080")
 clemence = User.create(first_name: 'Clémence', last_name: 'Porcheret', email: 'hello@lecheveublanc.fr',
-                       password: '123456', role: 'admin')
+                       password: '123456', role: 'admin', phone: "0674236080")
 unsafe = User.create(first_name: 'Tao', last_name: 'Guerreiro', email: 'hello@unsafehxc.fr', password: '123456',
-                     role: 'admin')
+                     role: 'admin', phone: "0674236080")
 salome = User.create(first_name: 'Salomé', last_name: 'Dubart', email: 'hello@studioanemone.fr', password: '123456',
-                     role: 'admin')
+                     role: 'admin', phone: "0674236080")
 flo = User.create(first_name: 'Flo', last_name: 'Queen', email: 'florent.guilbaud@gmail.com', password: '123456',
-                  role: 'queen')
+                  role: 'queen', phone: "0674236080")
 store_one = clemence.stores.create({
                                      domain: 'localhost',
                                      name: 'Le Cheveu Blanc',
@@ -33,6 +33,10 @@ store_one = clemence.stores.create({
                                      instagram_url: 'https://www.instagram.com/le_cheveu_blanc/',
                                      facebook_url: 'https://www.facebook.com/lecheveublanc/',
                                      mail_body: 'Merci pour ta commande frero',
+                                     address: '1 rue de la paix',
+                                     city: 'Nantes',
+                                     postal_code: '44000',
+                                     country: 'France',
                                      stripe_publishable_key: YAML.load_file('db/keys.yml')['stripe_publishable_key'],
                                      stripe_secret_key: YAML.load_file('db/keys.yml')['stripe_secret_key'],
                                      stripe_webhook_secret_key: YAML.load_file('db/keys.yml')['stripe_webhook_secret_key'],

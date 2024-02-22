@@ -82,4 +82,12 @@ class OrderIntent
   def full_address
     "#{address}, #{postal_code} #{city}, #{country}"
   end
+
+  def address_with_number
+    "#{street_number} #{address}"
+  end
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end

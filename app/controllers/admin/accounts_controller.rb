@@ -33,7 +33,8 @@ module Admin
           :last_name,
           :username,
           :email,
-          :avatar
+          :avatar,
+          :phone
         )
       else
         params.require(:user).permit(
@@ -44,7 +45,7 @@ module Admin
           :avatar,
           :password,
           :password_confirmation,
-          :avatar
+          :phone
         )
       end
     end

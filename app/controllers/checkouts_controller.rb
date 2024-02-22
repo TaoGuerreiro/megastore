@@ -35,19 +35,20 @@ class CheckoutsController < ApplicationController
 
     @order = Order.new(
       store: Current.store,
-      shipping_address: @order_intent.address,
+      shipping_full_name: @order_intent.full_name,
+      shipping_address: @order_intent.address_with_number,
       shipping_country: @order_intent.country,
       shipping_city: @order_intent.city,
       shipping_postal_code: @order_intent.postal_code,
+      shipping_method_carrier: @shipping_method[:carrier]
       weight: @order_intent.weight,
-      status: 'confirmed',
       api_shipping_id: @order_intent.shipping_method,
       api_service_point_id: @order_intent.service_point,
-      user:,
       items: @items.map { |item| item[:item] },
-      shipping_cost: @order_intent.shipping_price.to_f,
       amount: @order_intent.items_price.to_f,
-      shipping_method_carrier: @shipping_method[:carrier]
+      shipping_cost: @order_intent.shipping_price.to_f,
+      user:,
+      status: 'confirmed',
     )
 
     if @order_intent.need_point?

@@ -112,7 +112,7 @@ class Shipment
     def body
       {
         "parcel": {
-          "name": @store.name,
+          "name": @order.shipping_full_name,
           "address": @order.shipping_address,
           "city": @order.shipping_city,
           "postal_code": @order.shipping_postal_code,

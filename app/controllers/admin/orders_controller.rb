@@ -15,8 +15,6 @@ module Admin
 
     def edit
       @order = Order.find(params[:id])
-      # @order.update(status: params[:status])
-      # redirect_to admin_orders_path
     end
 
     def update

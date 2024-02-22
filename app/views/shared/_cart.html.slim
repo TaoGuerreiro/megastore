@@ -17,7 +17,7 @@
               .flex-1.overflow-y-auto.px-4.py-6.sm:px-6.bg-light
                 .flex.items-start.justify-between
                   h2#slide-over-title.text-lg.font-medium.text-contrast
-                    | Shopping cart
+                    | Panier
                   .ml-3.flex.h-7.items-center
                     = label_tag :cart, class: "" do
                       .w-16.h-16.flex.items-center.justify-center.rounded-full.p-3
@@ -36,7 +36,7 @@
                                 h3
                                   = item[:item].name
                                 p.ml-3
-                                  = "#{item[:item].price} €"
+                                  = number_to_currency(item[:item].price, unit: "€", separator: ",", delimiter: " ", format: "%n %u")
 
                             .flex.flex-1.items-end.justify-between.text-sm
                               p.text-midgray
@@ -50,7 +50,7 @@
                   p
                     | Total
                   p
-                    = "#{Checkout.new(session[:checkout_items]).sum} €"
+                    = number_to_currency(Checkout.new(session[:checkout_items]).sum, unit: "€", separator: ",", delimiter: " ", format: "%n %u")
                 p.mt-0.5.text-sm.text-midgray
                   | L'expédition sera calculé à la prochaine étape.
                 .mt-6

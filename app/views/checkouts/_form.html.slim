@@ -1,6 +1,6 @@
 = turbo_frame_tag :form do
   = simple_form_for order_intent, url: order_intents_path, method: :post, id: "order_intent", data: { controller: "address-autocomplete" } do |field|
-    . class="#{'hidden' if field.object.errors.empty? && params[:controller] != 'checkouts'}"
+    . class="#{'hidden' if field.object.errors.empty? && params[:controller] != 'checkouts' || params[:action] == 'confirm_payment'}"
       .mb-3 = render Step::Component.new(steps: 3, current_step: 1)
       h2.text-lg.font-medium.text-contrast.mb-4
         | Informations complémentaires
