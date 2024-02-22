@@ -30,8 +30,9 @@
   .gap-6.space-y-6
     - images = images_from_directory("chaden")
     = render Cards::CardComponent.new(title: "Haut les coeurs", link: "https://open.spotify.com/show/1SfdmzdblZUZnhy86KXZyI", images: images)
+
     - images = images_from_directory("danse")
-    = render Cards::CardComponent.new( images: images)
+    = render Cards::CardComponent.new(title: "Haut les coeurs", link: "https://open.spotify.com/show/1SfdmzdblZUZnhy86KXZyI", images: images)
 
     - images = images_from_directory("bd")
     = render Cards::CardComponent.new( images: images)

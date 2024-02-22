@@ -1,8 +1,10 @@
 .rounded-lg.hover:scale-105.transition.relative.group.opacity-100 data-controller='card' data-action="click->card#show"
-  / data-replace="{ 'opacity-0': 'opacity-100' }"
   .text-center.text-xs.md:text-3xl.text-light.font-bold.uppercase.group-hover:opacity-100.group-hover:shadow-xl.opacity-0.absolute.top-0.bottom-0.left-0.right-0.rounded-lg.hover:shadow-xl.transition.flex.items-center.justify-center class="bg-secondary/90"
     = title
   = image_tag images[0], class: "cursor-pointer max-w-full rounded-lg group-hover:opacity-10 transition"
+  .absolute.left-0.right-0.h-5.bottom-2.flex.justify-center.gap-2
+    - images.size.times do
+      .h-2.w-2.bg-primary/30.rounded-full.inline-block
   template data-card-target="template"
     .md:px-24.md:py-12.relative.w-screen.h-screen.backdrop-blur-sm.bg-primary/50 data-controller='card'
       i.fa-solid.hover:scale-110.fa-xmark.right-10.top-10.text-3xl.text-contrast.absolute.cursor-pointer.z-50 data-action="click->card#quit"
