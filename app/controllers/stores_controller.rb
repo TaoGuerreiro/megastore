@@ -27,10 +27,10 @@ class StoresController < ApplicationController
 
   def fetch_items
     return @store.items.where(status: :active).order(created_at: :desc) unless params[:filters]
-
+    # raise
     items = @store.items.includes(:category).where(category: { name: selected_filters },
                                                    status: :active).where(price_range_inputs).order(sorting_input)
-    items = items.search_by_name_and_description(@query) if @query.present?
+    items = items.search_by_name_and_description(@query) if @query.present? && @query != ''
     items
   end
 
@@ -66,6 +66,7 @@ class StoresController < ApplicationController
   end
 
   def selected_filters
-    session[:filters].select { |_k, v| v == '1' }.keys
+    # raise
+    session[:filters].select { |_k, v| v == 1 }.keys
   end
 end
