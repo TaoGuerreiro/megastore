@@ -37,7 +37,7 @@
         h3.mb-6.text-2xl.text-contrast Photos
 
         - unless @item.archived?
-          = field.input :active, label: "En ligne", as: :boolean, input_html: { checked: @item.active?, class: "w-5 h-5 m-0 p-0 flex checked:bg-primary"}, wrapper_html: {class: "flex items-center"}, label_html: {class: "-top-0.5 left-4"}
+          = field.input :active, label: "En ligne", as: :boolean, input_html: { checked: @item.active?, class: "w-5 h-5 m-0 p-0 flex checked:!bg-primary"}, wrapper_html: {class: "flex items-center"}, label_html: {class: "-top-0.5 left-4"}
 
         h3.mb-6.text-2xl.text-contrast Spécifications
         = field.association :specifications,

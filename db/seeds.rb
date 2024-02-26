@@ -14,15 +14,15 @@ Store.destroy_all
 User.destroy_all
 
 admin_localhost = User.create(first_name: 'Ted', last_name: 'Lasso', email: 'admin@example.fr', password: '123456',
-                              role: 'admin', phone: "0674236080")
+                              role: 'admin', phone: '0674236080')
 clemence = User.create(first_name: 'Clémence', last_name: 'Porcheret', email: 'hello@lecheveublanc.fr',
-                       password: '123456', role: 'admin', phone: "0674236080")
+                       password: '123456', role: 'admin', phone: '0674236080')
 unsafe = User.create(first_name: 'Tao', last_name: 'Guerreiro', email: 'hello@unsafehxc.fr', password: '123456',
-                     role: 'admin', phone: "0674236080")
+                     role: 'admin', phone: '0674236080')
 salome = User.create(first_name: 'Salomé', last_name: 'Dubart', email: 'hello@studioanemone.fr', password: '123456',
-                     role: 'admin', phone: "0674236080")
+                     role: 'admin', phone: '0674236080')
 flo = User.create(first_name: 'Flo', last_name: 'Queen', email: 'florent.guilbaud@gmail.com', password: '123456',
-                  role: 'queen', phone: "0674236080")
+                  role: 'queen', phone: '0674236080')
 store_one = clemence.stores.create({
                                      domain: 'localhost',
                                      name: 'Le Cheveu Blanc',

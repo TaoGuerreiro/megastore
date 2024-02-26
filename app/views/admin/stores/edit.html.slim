@@ -18,7 +18,7 @@
         = field.input :country, label: t('store.edit.country'), placeholder: t('store.edit.country_placeholder')
 
     .md:flex.items-center
-      = field.input :holiday, label: t('store.edit.holiday'), as: :boolean, input_html: { checked: @store.holiday?, class: "w-5 h-5 m-0 p-0 flex checked:bg-primary"}, wrapper_html: {class: "flex items-center basis-1/4"}, label_html: {class: "-top-0.5 left-4"}
+      = field.input :holiday, label: t('store.edit.holiday'), as: :boolean, input_html: { checked: @store.holiday?, class: "w-5 h-5 m-0 p-0 flex checked:!bg-primary"}, wrapper_html: {class: "flex items-center basis-1/4"}, label_html: {class: "-top-0.5 left-4"}
       = field.input :holiday_sentence, label: t('store.edit.holiday_message'), placeholder: t('store.edit.holiday_message_placeholder'), input_html: { class: "w-full" }, wrapper_html: {class: "basis-3/4"}
 
     .mb-5.control data-controller="trix"

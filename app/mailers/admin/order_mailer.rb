@@ -7,10 +7,12 @@ module Admin
       items = @order.items.map do |item|
         {
           "description": item.name,
-          "amount": item.price_cents
+          "amount": item.price_cents / 100.00,
+          "currency": t(item.price_currency),
         }
       end
       client = Postmark::ApiClient.new(@order.store.postmark_key)
+      currency = t(@order.amount_currency)
 
       client.deliver_with_template({
                                      from: @order.store.admin.email,
@@ -24,9 +26,10 @@ module Admin
                                        'order_id' => @order.id,
                                        'date' => @order.created_at.strftime('%d/%m/%Y'),
                                        'receipt_details' => items,
-                                       'total' => @order.amount,
+                                       'total' => @order.amount_cents / 100.00,
                                        'store_username' => @order.store.name,
-                                       'company_name' => @order.store.name
+                                       'company_name' => @order.store.name,
+                                       'currency' => currency,
                                      }
                                    })
     end

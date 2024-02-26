@@ -13,15 +13,15 @@
         .flex.items-center
             i.fas.fa-times.text-red-500.text-lg.mr-1.w-6
             .text-sm.text-midgray
-              = "#{pluralize(@items.offline.count, "article")} hors ligne"
+              = "#{pluralize(@offline_items_count, "article")} hors ligne"
         .flex.items-center
             i.fas.fa-check.text-green-500.text-lg.mr-1.w-6
             .text-sm.text-midgray
-              = "#{pluralize(@items.active.count, "article")} en ligne"
+              = "#{pluralize(@active_items_count, "article")} en ligne"
         .flex.items-center
             i.fas.fa-archive.text-gray-500.text-lg.mr-1.w-6
             .text-sm.text-midgray
-              = "#{pluralize(@items.archived.count, "article")} archivé"
+              = "#{pluralize(@archived_items_count, "article")} archivé"
 
         .mt-8.flow-root
           = filterable_form_for(Item)
@@ -65,7 +65,7 @@
                   .w-20.px-2.py-3.5.text-left.text-sm.font-semibold.text-contrast.text-right
                     = filterable_sort_button(Item, :price_cents) do
                       | Prix
-                  .w-20.px-2.py-3.5.text-left.text-sm.font-semibold.text-contrast
+                  .w-24.px-2.py-3.5.text-left.text-sm.font-semibold.text-contrast
                     = filterable_sort_button(Item, :stock) do
                       | Stock
                   .w-10
@@ -75,8 +75,8 @@
                     span.sr-only
                       | Remove
                 .divide-y.divide-content
-                    - @items.order(:name).each do |item|
-                      = render "item", item: item
+                  - @items.order(:name).each do |item|
+                    = render "item", item: item
 
                 .w-full.flex.justify-center.pt-3
                   == pagy_nav(@pagy)

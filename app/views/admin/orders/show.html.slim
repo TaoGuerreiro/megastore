@@ -2,22 +2,26 @@
   .bg-light.min-h-screen.py-12.md:pt-0
     .mx-auto.max-w-5xl.px-6.md:px-0
       .bg-light.py-10
-        .px-4.sm:px-6.lg:px-8
-          .sm:flex.sm:items-center
-            .sm:flex-auto
-              h1.text-base.font-semibold.leading-6.text-contrast
-                = t('orders.show.order_details')
-            .mt-4.sm:ml-16.sm:mt-0.sm:flex-none
+        .px-4.sm:px-6.lg:px-0
+          .flex.w-full.justify-between
+            .flex
               = link_to admin_order_path(@order), data: { turbo_method: :delete } do
                 i.fa-solid.fa-trash.text-xl.mr-3
+              h1.text-base.font-semibold.leading-6.text-contrast
+                = t('orders.show.order_details')
+            .mt-4.sm:mt-0.sm:flex-none
               - if @order.label.attached?
                 = link_to @order.label, target: "_blank" do
                   i.fa-solid.fa-sheet-plastic.text-xl
+                = link_to @order.api_tracking_url, target: "_blank" do
+                  i.fa-solid.fa-truck.text-xl.ml-3
               - else
                 i.fa-solid.fa-sheet-plastic.text-xl.text-gray-300
 
+
       section.mt-10.border-t.border-content[aria-labelledby="order-heading"]
         h2#order-heading.sr-only = t('orders.show.your_order')
+
         h3.sr-only = t('orders.show.items')
         - Checkout.new(@order).cart.each do |item|
           = render "orders/card", item: item
@@ -30,12 +34,13 @@
               dt.font-medium.text-contrast = t('orders.show.shipping_address')
               dd.mt-2.text-contrast
                 address.not-italic
-                  span.block = @order.shipping_address
+                  span.block = @order.full_address
             div
-              dt.font-medium.text-contrast = t('orders.show.billing_address')
+              dt.font-medium.text-contrast = t('orders.show.tracking_number')
               dd.mt-2.text-contrast
                 address.not-italic
-                  span.block = @order.shipping_address
+                  = link_to @order.api_tracking_url, target: "_blank" do
+                    span.block.hover:text-primary = @order.api_tracking_number
 
           h4.sr-only = t('orders.show.payment')
           dl.grid.grid-cols-2.gap-x-6.border-t.border-content.py-10.text-sm
@@ -47,7 +52,8 @@
             div
               dt.font-medium.text-contrast = t('orders.show.shipping_method')
               dd.mt-2.text-contrast
-                p = @order.shipping_method_carrier
+                p = t(@order.shipping_method_carrier)
+                p.text-content.text-xs = @order.api_shipping_method_name
                 / p = @order.shipping_method.description
 
           h3.sr-only = t('orders.show.summary')

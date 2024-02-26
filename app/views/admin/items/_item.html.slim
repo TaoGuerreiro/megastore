@@ -22,13 +22,15 @@
       = item.category.name
     .w-20.whitespace-nowrap.px-3.py-4.text-sm.text-contrast.text-right
       = number_to_currency(item.price, format: "%n €")
-    .w-20.whitespace-nowrap.px-3.py-4.text-sm.text-contrast.text-center
-      div
-        = link_to add_stock_admin_item_path(item), data: { turbo_method: :patch }, class: "text-primary hover:text-primary/90" do
-          i.fa-solid.fa-plus
-        = item.stock
+    .w-24.whitespace-nowrap.px-3.py-4.text-sm.text-contrast.text-center
+      div.flex
         = link_to remove_stock_admin_item_path(item), data: { turbo_method: :patch }, class: "text-primary hover:text-primary/90" do
-          i.fa-solid.fa-minus
+          .rounded-full.bg-primary.text-content.w-5.h-5.flex.items-center.justify-center.text-center
+            i.fas.fa-minus.py-1.text-xs
+        .min-w-10.px-2= item.stock
+        = link_to add_stock_admin_item_path(item), data: { turbo_method: :patch }, class: "text-primary hover:text-primary/90" do
+          .rounded-full.bg-primary.text-content.w-5.h-5.flex.items-center.justify-center.text-center
+            i.fas.fa-plus.py-1.text-xs
 
     .w-10.relative.whitespace-nowrap.py-4.pl-3.pr-4.text-right.text-sm.font-medium.sm:pr-0
       = link_to edit_admin_item_path(item), class: "text-primary hover:text-primary/90", data: { turbo: :false}  do

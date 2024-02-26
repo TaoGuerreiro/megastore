@@ -21,11 +21,12 @@ class CheckoutsController < ApplicationController
   end
 
   def confirm_payment
+    # binding.pry
     @shipping_methods = session[:shipping_methods].map(&:symbolize_keys)
     @shipping_method  = find_shipping_method
     @service_points = session[:service_points].map(&:symbolize_keys) if session[:service_points]
 
-    unless @order_intent.valid?(%i[step_one shipping_method service_point])
+    unless @order_intent.valid?(:finalize_order)
       respond_to do |format|
         format.html { render 'checkouts/show', status: :unprocessable_entity }
         format.turbo_stream
@@ -40,16 +41,17 @@ class CheckoutsController < ApplicationController
       shipping_country: @order_intent.country,
       shipping_city: @order_intent.city,
       shipping_postal_code: @order_intent.postal_code,
-      shipping_method_carrier: @shipping_method[:carrier]
+      shipping_method_carrier: @shipping_method[:carrier],
       weight: @order_intent.weight,
       api_shipping_id: @order_intent.shipping_method,
       api_service_point_id: @order_intent.service_point,
-      items: @items.map { |item| item[:item] },
+      order_items: @items.map { |item| OrderItem.new(item: item[:item], quantity: item[:number]) },
       amount: @order_intent.items_price.to_f,
       shipping_cost: @order_intent.shipping_price.to_f,
       user:,
       status: 'confirmed',
-    )
+      )
+
 
     if @order_intent.need_point?
       service_point = @service_points.find { |service_point| service_point[:id] == @order_intent.service_point.to_i }

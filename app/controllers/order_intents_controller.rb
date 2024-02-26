@@ -20,11 +20,10 @@ class OrderIntentsController < ApplicationController
     respond_to do |format|
       if @order_intent.valid?(:step_one)
         format.html { redirect_to checkout_path, notice: 'Order intent was successfully created.' }
-        format.turbo_stream
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.turbo_stream
       end
+      format.turbo_stream
     end
   end
 
@@ -48,11 +47,10 @@ class OrderIntentsController < ApplicationController
     respond_to do |format|
       if @order_intent.valid?(:shipping_method)
         format.html { redirect_to checkout_path, notice: 'Shipping method was successfully added.' }
-        format.turbo_stream
       else
         format.html { render 'checkouts/show', status: :unprocessable_entity }
-        format.turbo_stream
       end
+      format.turbo_stream
     end
   end
 

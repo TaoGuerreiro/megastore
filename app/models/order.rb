@@ -38,4 +38,8 @@ class Order < ApplicationRecord
       amount_cents
     end
   end
+
+  def full_address
+    "#{shipping_address}, #{shipping_postal_code} #{shipping_city}, #{shipping_country}"
+  end
 end

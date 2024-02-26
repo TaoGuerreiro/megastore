@@ -106,7 +106,12 @@ class Shipment
       url = "#{BASE_URL}/parcels?errors=verbose-carrier"
       response = HTTParty.post(url, headers:, body: body.to_json)
       response.parsed_response
-      @order.update(parcel_id: response['parcel']['id'])
+      @order.update(
+        parcel_id: response['parcel']['id'],
+        api_tracking_number: response['parcel']['tracking_number'],
+        api_tracking_url: response['parcel']['tracking_url'],
+        api_shipping_method_name: response['parcel']['shipment']['name']
+      )
     end
 
     def body

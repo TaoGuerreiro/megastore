@@ -33,7 +33,7 @@ class OrderIntent
     @service_point = attr[:service_point]
     @items_price = attr[:items_price]
     @shipping_price = attr[:shipping_price]
-    @need_point = attr[:need_point] || "false"
+    @need_point = attr[:need_point] || 'false'
     @weight = attr[:weight]
   end
 
@@ -46,21 +46,26 @@ class OrderIntent
     validates :country, presence: true
     validates :postal_code, presence: true
     validates :city, presence: true
-    validates :need_point, inclusion: { in: [false, "false"] }
+    validates :need_point, inclusion: { in: [false, 'false'] }
   end
 
   with_options on: :step_two do
     validates :shipping_method, presence: true
-    validates :need_point, inclusion: { in: [true, "true"] }
+    validates :need_point, inclusion: { in: [true, 'true'] }
   end
 
-  with_options on: :shipping_method do
+  with_options on: :finalize_order do
+    validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+    validates :first_name, presence: true
+    validates :last_name, presence: true
+    validates :address, presence: true
+    validates :phone, presence: true
+    validates :country, presence: true
+    validates :postal_code, presence: true
+    validates :city, presence: true
     validates :shipping_method, presence: true
     validates :items_price, presence: true
     validates :shipping_price, presence: true
-  end
-
-  with_options on: :service_point do
     validates :service_point, presence: true, if: :need_point?
   end
 
@@ -70,7 +75,7 @@ class OrderIntent
 
   def completed?
     (need_point? && service_point.present?) ||
-    (!need_point? && shipping_method.present?)
+      (!need_point? && shipping_method.present?)
   end
 
   def total_price

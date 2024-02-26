@@ -8,6 +8,10 @@ module Admin
     before_action :set_specifications, only: %i[new edit]
 
     def index
+      @active_items_count = Item.where(store: Current.store, status: :active).count
+      @offline_items_count = Item.where(store: Current.store, status: :offline).count
+      @archived_items_count = Item.where(store: Current.store, status: :archived).count
+
       @items = filterable(Item, authorized_scope(Item.includes(:photos, :category)))
       @pagy, @items = pagy(@items)
       authorize! @items
