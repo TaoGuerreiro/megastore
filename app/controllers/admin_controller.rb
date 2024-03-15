@@ -9,6 +9,7 @@ class AdminController < ApplicationController
   private
 
   def check_subscription
+    return if current_user.queen?
     return if params["controller"] == "admin/subscriptions" && params["action"] == "create"
 
     redirect_to new_admin_onboarding_path unless current_user.stores.first.active_subscription?
