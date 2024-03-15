@@ -18,7 +18,7 @@ module Admin
 
       link = Stripe::AccountLink.create(
         account: account.id,
-        refresh_url: admin_store_url,
+        refresh_url: admin_store_url(Current.store),
         return_url: new_admin_onboarding_url,
         type: "account_onboarding",
         collect: "eventually_due",
