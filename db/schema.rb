@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_15_113136) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_15_160048) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -123,7 +123,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_15_113136) do
 
   create_table "orders", force: :cascade do |t|
     t.integer "amount_cents", default: 0, null: false
-    t.string "amount_currency", default: "EUR", null: false
+    t.string "amount_currency", default: "USD", null: false
     t.string "status"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -183,9 +183,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_15_113136) do
     t.string "instagram_url"
     t.string "facebook_url"
     t.string "about_text"
-    t.text "stripe_publishable_key"
-    t.text "stripe_secret_key"
-    t.text "stripe_webhook_secret_key"
     t.boolean "holiday", default: true
     t.string "holiday_sentence", default: "Boutique en vacances"
     t.boolean "display_stock", default: false

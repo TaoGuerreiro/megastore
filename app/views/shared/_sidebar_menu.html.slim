@@ -1,22 +1,27 @@
-ul.flex.flex-1.flex-col.gap-y-7[role="list"]
-  li
-    ul.-mx-2.space-y-1[role="list"]
-      / = render MenuItem::Component.new(path: "#", icon_classes: "fa-solid fa-home", title: "Accueil")
-      = render MenuItem::Component.new(path: admin_orders_path, icon_classes: "fa-solid fa-book", title: "Commandes")
-      = render MenuItem::Component.new(path: admin_items_path, icon_classes: "fa-solid fa-star", title: "Mes articles")
-      = render MenuItem::Component.new(path: admin_store_path(Current.store), icon_classes: "fa-solid fa-sliders", title: "Mon site")
-      = render MenuItem::Component.new(path: admin_account_path, icon_classes: "fa-solid fa-gear", title: "Paramètres")
-      / = render MenuItem::Component.new(path: admin_account_path, icon_classes: "fa-solid fa-envelope", title: "Emails")
+- if current_user.admin? || current_user.queen?
+  ul.flex.flex-1.flex-col.gap-y-7[role="list"]
+    li
+      ul.-mx-2.space-y-1[role="list"]
+        / = render MenuItem::Component.new(path: "#", icon_classes: "fa-solid fa-home", title: "Accueil")
+        = render MenuItem::Component.new(path: admin_orders_path, icon_classes: "fa-solid fa-book", title: "Commandes")
+        = render MenuItem::Component.new(path: admin_items_path, icon_classes: "fa-solid fa-star", title: "Mes articles")
+        = render MenuItem::Component.new(path: admin_store_path(Current.store), icon_classes: "fa-solid fa-sliders", title: "Mon site")
+        = render MenuItem::Component.new(path: admin_account_path, icon_classes: "fa-solid fa-gear", title: "Paramètres")
+        / = render MenuItem::Component.new(path: admin_account_path, icon_classes: "fa-solid fa-envelope", title: "Emails")
 
+        - if current_user.queen?
+          .pt-6
+            h2.text-content.font-bold.mb-2 Pour la Reine
+            = render MenuItem::Component.new(path: queen_users_path, icon_classes: "fa-solid fa-users", title: "Utilisateur.ices")
 
-  li.-mx-6.mt-auto
-    .flex.items-center.gap-x-4.px-6.py-3.text-sm.font-semibold.leading-6.text-light.hover:bg-contrast
-      = render Avatar::Component.new(user: current_user)
+    li.-mx-6.mt-auto
+      .flex.items-center.gap-x-4.px-6.py-3.text-sm.font-semibold.leading-6.text-light.hover:bg-contrast
+        = render Avatar::Component.new(user: current_user)
 
-      span.sr-only
-        | Your profile
-      .flex.items-center.justify-between.w-full
-        span[aria-hidden="true"]
-          = current_user.full_name
-        = link_to destroy_user_session_path, data: { turbo_method: :delete } do
-          i.fa-solid.fa-arrow-right-from-bracket.text-base.text-midgray.ml-1
+        span.sr-only
+          | Your profile
+        .flex.items-center.justify-between.w-full
+          span[aria-hidden="true"]
+            = current_user.full_name
+          = link_to destroy_user_session_path, data: { turbo_method: :delete } do
+            i.fa-solid.fa-arrow-right-from-bracket.text-base.text-midgray.ml-1

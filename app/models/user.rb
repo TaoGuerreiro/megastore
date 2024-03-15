@@ -2,7 +2,7 @@
 
 class User < ApplicationRecord
   extend Enumerize
-
+  delegate :name, to: :store, prefix: true, allow_nil: true
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
 
@@ -11,9 +11,11 @@ class User < ApplicationRecord
 
   enumerize :role, in: %i[admin user queen], default: :user, predicates: true
 
-  has_many :stores, foreign_key: :admin_id
+  has_one :store, foreign_key: :admin_id
   validates :first_name, :last_name, presence: true
   has_one_attached :avatar
+
+  accepts_nested_attributes_for :store
 
   def full_name
     "#{first_name&.capitalize} #{last_name&.upcase}".strip.presence || email

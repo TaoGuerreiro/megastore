@@ -21,6 +21,11 @@ Rails.application.routes.draw do
   end
 
   devise_scope :user do
+    namespace :queen do
+      authenticate :user, ->(user) { user.queen? } do
+        resources :users, only: %i[index show edit update destroy]
+      end
+    end
     resource :profile, only: %i[edit update]
     namespace :admin do
       authenticate :user, ->(user) { user.queen? || user.admin? } do

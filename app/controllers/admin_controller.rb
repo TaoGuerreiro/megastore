@@ -12,6 +12,6 @@ class AdminController < ApplicationController
     return if current_user.queen?
     return if params["controller"] == "admin/subscriptions" && params["action"] == "create"
 
-    redirect_to new_admin_onboarding_path unless current_user.stores.first.active_subscription?
+    redirect_to new_admin_onboarding_path unless current_user.store.active_subscription?
   end
 end

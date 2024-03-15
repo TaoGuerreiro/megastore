@@ -1,0 +1,11 @@
+.px-4.sm:px-6.lg:px-8
+  .sm:flex.sm:items-center
+    .sm:flex-auto
+      h1.text-base.font-semibold.leading-6.text-gray-900 = @user.full_name
+      p.mt-2.text-sm.text-gray-700 = @user.store_name
+    .mt-4.sm:ml-16.sm:mt-0.sm:flex-none
+      = submit_tag "Enregistrer", form: "edit_user_#{@user.id}" ,class: "btn btn-primary"
+  .flow-root.mt-8
+    .-mx-4.-my-2.overflow-x-auto.sm:-mx-6.lg:-mx-8
+      .inline-block.min-w-full.py-2.align-middle.sm:px-6.lg:px-8
+        = render "form", user: @user

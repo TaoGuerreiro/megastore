@@ -24,12 +24,10 @@
     .mb-5.control data-controller="trix"
       = field.rich_text_area :about, label: t('store.edit.about_text'), placeholder: t('store.edit.about_text_placeholder'), data: { trix_target: 'editor' }
     = field.input :mail_body, as: :text, label: t('store.edit.mail_text'), placeholder: t('store.edit.mail_text_placeholder'), input_html: { rows: 5 }
-    = field.input :stripe_publishable_key, as: :string, label: t('store.edit.stripe_public_key'), placeholder: t('store.edit.stripe_public_key_placeholder')
-    = field.input :stripe_secret_key, as: :string, label: t('store.edit.stripe_secret_key'), placeholder: t('store.edit.stripe_secret_key_placeholder')
-    = field.input :stripe_webhook_secret_key, as: :string, label: t('store.edit.stripe_webhook_key'), placeholder: t('store.edit.stripe_webhook_key_placeholder')
-    = field.input :postmark_key, as: :string, label: t('store.edit.postmark_key'), placeholder: t('store.edit.postmark_key_placeholder')
-    = field.input :sendcloud_public_key, as: :string, label: t('store.edit.sendcloud_public_key'), placeholder: t('store.edit.sendcloud_public_key_placeholder')
-    = field.input :sendcloud_private_key, as: :string, label: t('store.edit.sendcloud_private_key'), placeholder: t('store.edit.sendcloud_private_key_placeholder')
+    - if current_user.queen?
+      = field.input :postmark_key, as: :string, label: t('store.edit.postmark_key'), placeholder: t('store.edit.postmark_key_placeholder')
+      = field.input :sendcloud_public_key, as: :string, label: t('store.edit.sendcloud_public_key'), placeholder: t('store.edit.sendcloud_public_key_placeholder')
+      = field.input :sendcloud_private_key, as: :string, label: t('store.edit.sendcloud_private_key'), placeholder: t('store.edit.sendcloud_private_key_placeholder')
     .flex.items-center
       = field.button :submit, t('store.edit.submit'), class: "btn btn-primary"
   .absolute.right-6.bottom-8 = button_to "Annuler mon abonnement", admin_subscription_path, method: :delete, data: { turbo: false }, class: "ml-auto block mt-4 text-decoration-underlined text-secondary hover:text-red-600"

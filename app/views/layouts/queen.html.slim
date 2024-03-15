@@ -1,0 +1,14 @@
+doctype html
+html
+  head
+    = render "shared/head"
+  body.h-full
+    .flex
+      . = render "shared/sidebar"
+      .w-full.h-full.min-h-screen.pt-12
+        = yield
+
+    . id="notifications" class="fixed z-50 cursor-pointer left-10 bottom-10 w-96"
+      - flash.each do |type, data|
+        = render Notifications::Component.new(type: type, data: data)
+      - flash.clear

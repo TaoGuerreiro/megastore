@@ -17,6 +17,8 @@ class ApplicationController < ActionController::Base
   private
 
   def after_sign_in_path_for(resource)
+    return queen_users_path if resource.queen?
+
     Current.store = Store.find_by(domain: request.domain)
     if resource.stores.first.active_subscription?
       admin_orders_path
