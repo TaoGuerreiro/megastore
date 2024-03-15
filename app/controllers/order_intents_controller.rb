@@ -30,7 +30,8 @@ class OrderIntentsController < ApplicationController
   def shipping_method
     @shipping_method = find_shipping_method
     @shipping_methods = session[:shipping_methods].map(&:symbolize_keys)
-    @order_intent.shipping_price = @shipping_method[:price].to_f
+    @order_intent.shipping_price = @shipping_method[:price].to_f * 1.2
+    @order_intent.fees_price = @order_intent.shipping_price * Current.store.rates
 
     if @shipping_method[:service_point_input] == 'required'
       @order_intent.need_point = true
@@ -46,7 +47,7 @@ class OrderIntentsController < ApplicationController
 
     respond_to do |format|
       if @order_intent.valid?(:shipping_method)
-        format.html { redirect_to checkout_path, notice: 'Shipping method was successfully added.' }
+        format.html { redirect_to checkout_path, notice: "Shipping method was successfully added." }
       else
         format.html { render 'checkouts/show', status: :unprocessable_entity }
       end
@@ -91,6 +92,6 @@ class OrderIntentsController < ApplicationController
     return {} unless params[:order_intent]
 
     params.require(:order_intent).permit(:email, :first_name, :last_name, :address, :phone, :shipping_method, :city,
-                                         :country, :postal_code, :service_point, :items_price, :shipping_price, :need_point, :weight)
+                                         :country, :postal_code, :service_point, :items_price, :shipping_price, :need_point, :weight, :fees_price)
   end
 end

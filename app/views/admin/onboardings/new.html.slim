@@ -1,0 +1,32 @@
+= turbo_frame_tag :modal do
+.bg-light.min-h-screen.pt-12.md:pt-0
+  .mx-auto.max-w-5xl.px-4.sm:px-6.lg:px-8.py-12
+    div
+      - if Current.store.stripe_account_completed? && !Current.store.active_subscription?
+        .flex.justify-between
+          .px-4.sm:px-0
+            h3.text-base.font-semibold.leading-7.text-contrast
+              | Abonnement
+            p.mt-1.max-w-2xl.text-sm.leading-6.text-midgray
+              | Maintenant que ton compte Stripe est configuré, tu peux remplir les informations de ton abonnement pour commencer à recevoir des paiements.
+        .mt-6.border-t.border-contour.pt-6
+          = simple_form_for :subscription, url: admin_subscription_path, method: :post, data: { turbo: false } do |f|
+            = f.button :submit, "Activer mon abonnement", class: "btn btn-primary mx-auto block"
+
+      - elsif Current.store.active_subscription?
+        .flex.justify-between
+          .px-4.sm:px-0
+            h3.text-base.font-semibold.leading-7.text-contrast
+              | Bravo !
+            p.mt-1.max-w-2xl.text-sm.leading-6.text-midgray
+              | Ton abonnement est actif, tu peux maintenant commencer à recevoir des paiements.
+      - else
+        .flex.justify-between
+          .px-4.sm:px-0
+            h3.text-base.font-semibold.leading-7.text-contrast
+              | Configuration
+            p.mt-1.max-w-2xl.text-sm.leading-6.text-midgray
+              | Hello, tu dois configurer ton compte Stripe pour recevoir les paiements.
+        .mt-6.border-t.border-contour.pt-6
+          = simple_form_for :onboarding, url: admin_onboarding_path, method: :post, data: { turbo: false } do |f|
+            = f.button :submit, "Configurer Stripe", class: "btn btn-primary mx-auto block"

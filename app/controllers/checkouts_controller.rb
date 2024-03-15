@@ -3,6 +3,7 @@
 class CheckoutsController < ApplicationController
   before_action :set_order_intent,
                 only: %i[shipping_method confirm_payment service_point undo_shipping_method undo_service_point]
+  skip_before_action :verify_authenticity_token, only: [:confirm_payment]
 
   def add
     manage_item_in_cart(:add)
@@ -16,12 +17,10 @@ class CheckoutsController < ApplicationController
     @total = Checkout.new(session[:checkout_items]).sum
     @items = Checkout.new(session[:checkout_items]).cart
     @order_intent = OrderIntent.new(items_price: @total)
-    StripeConfigurationService.setup
-    # authorize! :checkout TODO fix
   end
 
   def confirm_payment
-    # binding.pry
+
     @shipping_methods = session[:shipping_methods].map(&:symbolize_keys)
     @shipping_method  = find_shipping_method
     @service_points = session[:service_points].map(&:symbolize_keys) if session[:service_points]
@@ -48,6 +47,7 @@ class CheckoutsController < ApplicationController
       order_items: @items.map { |item| OrderItem.new(item: item[:item], quantity: item[:number]) },
       amount: @order_intent.items_price.to_f,
       shipping_cost: @order_intent.shipping_price.to_f,
+      fees: @order_intent.shipping_price.to_f * Current.store.rates,
       user:,
       status: 'confirmed',
       )
@@ -67,10 +67,10 @@ class CheckoutsController < ApplicationController
     else
       # Handle @order save error here
     end
-    respond_to do |format|
-      format.html { render 'checkouts/show', status: :unprocessable_entity }
-      format.turbo_stream
-    end
+    # respond_to do |format|
+    #   format.html { render 'checkouts/show', status: :unprocessable_entity }
+    #   format.turbo_stream
+    # end
   end
 
   private
@@ -84,22 +84,53 @@ class CheckoutsController < ApplicationController
   end
 
   def create_stripe_session
-    session = Stripe::Checkout::Session.create(
-      payment_method_types: ['card'],
-      customer_email: @order_intent.email,
-      line_items: [{
-        name: @order.order_items.first.item.name,
-        images: nil,
-        amount: @order.total_price_cents,
+    line_items = @order.order_items.map do |order_item|
+      {
+        price_data: {
+          currency: 'eur',
+          unit_amount: order_item.item.price_cents,
+          product_data: {
+            name: order_item.item.name,
+            description: order_item.item.name,
+            images: nil,
+          },
+        },
+        quantity: order_item.quantity
+      }
+    end
+
+    line_items << {
+      price_data: {
         currency: 'eur',
-        quantity: 1
-      }],
-      success_url: order_url(@order),
-      cancel_url: order_url(@order)
+        unit_amount: @order.shipping_cost_cents + @order.fees_cents,
+        product_data: {
+          name: 'Logistique & livraison',
+          description: 'Logistique & livraison',
+          images: nil,
+        },
+      },
+      quantity: 1
+    }
+
+    session = Stripe::Checkout::Session.create(
+      {
+        mode: 'payment',
+        customer_email: @order_intent.email,
+        line_items: line_items,
+        payment_intent_data: {
+          application_fee_amount: (@order.shipping_cost_cents + @order.fees_cents).to_i,
+        },
+        success_url: order_url(@order),
+        cancel_url: order_url(@order)
+      },
+      {stripe_account: Current.store.stripe_account_id }
     )
 
     @order.update(checkout_session_id: session.id)
+
+    redirect_to session.url, allow_other_host: true
   end
+
 
   def manage_item_in_cart(action)
     session[:checkout_items] = session[:checkout_items] || []
@@ -139,7 +170,7 @@ class CheckoutsController < ApplicationController
     return {} unless params[:order_intent]
 
     params.require(:order_intent).permit(:email, :first_name, :last_name, :address, :phone, :shipping_method, :city,
-                                         :country, :postal_code, :service_point, :items_price, :shipping_price, :need_point, :weight)
+                                         :country, :postal_code, :service_point, :items_price, :shipping_price, :need_point, :weight, :fees_price)
   end
 
   def set_virtual_stock

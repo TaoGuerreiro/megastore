@@ -16,10 +16,13 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def after_sign_in_path_for(_resource)
+  def after_sign_in_path_for(resource)
     Current.store = Store.find_by(domain: request.domain)
-
-    admin_orders_path
+    if resource.stores.first.active_subscription?
+      admin_orders_path
+    else
+      new_admin_onboarding_path
+    end
   end
 
   def set_current_store

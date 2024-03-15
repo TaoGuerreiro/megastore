@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_23_151951) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_15_113136) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -58,6 +58,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_23_151951) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["store_id"], name: "index_categories_on_store_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.text "data"
+    t.string "source"
+    t.string "processing_errors"
+    t.string "status", default: "pending"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "filterable_views", force: :cascade do |t|
@@ -138,6 +147,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_23_151951) do
     t.string "api_tracking_number"
     t.string "api_tracking_url"
     t.string "api_shipping_method_name"
+    t.integer "fees_cents", default: 0, null: false
+    t.string "fees_currency", default: "EUR", null: false
     t.index ["store_id"], name: "index_orders_on_store_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
@@ -186,7 +197,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_23_151951) do
     t.string "city"
     t.string "country"
     t.string "address"
+    t.float "rates", default: 0.2
+    t.string "stripe_account_id"
+    t.boolean "charges_enable", default: false
+    t.boolean "payouts_enable", default: false
+    t.boolean "details_submitted", default: false
+    t.string "stripe_subscription_id"
+    t.string "subscription_status", default: "pending", null: false
+    t.string "stripe_checkout_session_id"
     t.index ["admin_id"], name: "index_stores_on_admin_id"
+    t.index ["stripe_subscription_id"], name: "index_stores_on_stripe_subscription_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -202,6 +222,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_23_151951) do
     t.datetime "updated_at", null: false
     t.string "role"
     t.string "phone"
+    t.string "customer_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

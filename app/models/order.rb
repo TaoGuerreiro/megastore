@@ -13,6 +13,7 @@ class Order < ApplicationRecord
 
   monetize :amount_cents
   monetize :shipping_cost_cents
+  monetize :fees_cents
 
   STATUSES = %w[pending confirmed paid canceled refunded sent].freeze
 
@@ -25,7 +26,7 @@ class Order < ApplicationRecord
 
   def total_price
     if api_shipping_id.present?
-      amount + shipping_cost
+      amount + shipping_cost + fees
     else
       amount
     end
@@ -33,10 +34,14 @@ class Order < ApplicationRecord
 
   def total_price_cents
     if api_shipping_id.present?
-      amount_cents + shipping_cost_cents
+      amount_cents + shipping_cost_cents + fees_cents
     else
       amount_cents
     end
+  end
+
+  def logistic_and_shipping_price
+    shipping_cost + fees
   end
 
   def full_address

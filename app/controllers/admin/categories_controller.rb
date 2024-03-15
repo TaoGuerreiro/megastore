@@ -1,12 +1,9 @@
 # frozen_string_literal: true
 
 module Admin
-  class CategoriesController < ApplicationController
-    before_action :authenticate_user!
+  class CategoriesController < AdminController
     before_action :set_category, only: %i[edit update destroy]
     before_action :set_store, only: %i[new create edit update destroy]
-
-    layout 'admin'
 
     def new
       @category = Current.store.categories.build

@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   devise_for :users
   mount StripeEvent::Engine, at: '/stripe-webhooks'
 
+  post "/webhooks/:source", to: "webhooks#create"
+
   require 'sidekiq/web'
   authenticate :user, ->(user) { user.queen? } do
     mount Sidekiq::Web => '/sidekiq'
@@ -22,6 +24,8 @@ Rails.application.routes.draw do
     resource :profile, only: %i[edit update]
     namespace :admin do
       authenticate :user, ->(user) { user.queen? || user.admin? } do
+        resource :onboarding, only: %i[new create]
+        resource :subscription, only: %i[create destroy]
         resources :stores, only: %i[show edit update] do
           resources :categories, only: %i[new create edit update]
           resources :shipping_methods, only: %i[new create edit update]

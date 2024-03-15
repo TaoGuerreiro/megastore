@@ -17,10 +17,12 @@
         dd.text-sm.font-medium.text-contrast
           = number_to_currency(@order_intent.items_price, unit: '€', format: '%n %u')
       .flex.items-center.justify-between.px-6.pb-2
-        dt.text-sm.text-contrast
-          = t('shipping')
+        dt.text-sm.text-contrast.flex
+          / = raise
+          .mr-2 = t('shipping')
+          . = t('weight', weight: @order_intent.weight&.to_i&.fdiv(1000)) if @order_intent.weight.present?
         dd.text-sm.font-medium.text-contrast
-          = number_to_currency(@order_intent.shipping_price, unit: '€', format: '%n %u')
+          = number_to_currency(@order_intent.shipping_and_fees_price, unit: '€', format: '%n %u')
       .flex.items-center.justify-between.border-t.border-content.pt-6.px-6.pb-2
         dt.text-base.font-medium.text-contrast
           = t('total')
@@ -41,7 +43,7 @@
                 });
               });
         - elsif @order_intent.completed?
-          = button_tag t('confirm'), formmethod: "post", formaction: confirm_payment_checkout_path, form: "new_order_intent", class: " btn btn-primary w-full active:spinner"
+          = button_tag t('confirm'), formmethod: "post", formaction: confirm_payment_checkout_path, form: "new_order_intent", data: { turbo: false}, class: " btn btn-primary w-full active:spinner"
         - else
           div class="w-full text-center disabled btn btn-primary active:spinner"
             | En attente

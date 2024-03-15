@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 module Admin
-  class OrdersController < ApplicationController
-    layout 'admin'
+  class OrdersController < AdminController
 
     def index
       @orders = authorized_scope(Order.all)
@@ -38,7 +37,7 @@ module Admin
     def destroy
       @order = Order.find(params[:id])
       if @order.destroy && !@order.paid?
-        redirect_to admin_orders_path, notice: 'Order was successfully destroyed.'
+        redirect_to admin_orders_path, status: :see_other, notice: 'Order was successfully destroyed.'
       else
         redirect_to admin_orders_path, notice: 'Order was not destroyed.'
       end

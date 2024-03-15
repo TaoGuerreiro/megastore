@@ -17,7 +17,8 @@ class OrderIntent
                 :shipping_price,
                 :need_point,
                 :weight,
-                :street_number
+                :street_number,
+                :fees_price
 
   def initialize(attr = {})
     @email = attr[:email]
@@ -35,6 +36,7 @@ class OrderIntent
     @shipping_price = attr[:shipping_price]
     @need_point = attr[:need_point] || 'false'
     @weight = attr[:weight]
+    @fees_price = attr[:fees_price]
   end
 
   with_options on: :step_one do
@@ -79,9 +81,19 @@ class OrderIntent
   end
 
   def total_price
-    return 0 if items_price.nil? || shipping_price.nil?
+    return 0 if items_price.nil? || shipping_price.nil? || fees_price.nil?
 
-    items_price.to_f + shipping_price.to_f
+    items_price.to_f + shipping_price.to_f + fees_price.to_f
+  end
+
+  def total_price_cents
+    (total_price * 100).to_i
+  end
+
+  def shipping_and_fees_price
+    return 0 if shipping_price.nil? || fees_price.nil?
+
+    shipping_price.to_f + fees_price.to_f
   end
 
   def full_address

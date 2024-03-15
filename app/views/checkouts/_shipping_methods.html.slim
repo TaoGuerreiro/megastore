@@ -28,7 +28,7 @@ h2.text-lg.font-medium.text-contrast.align-middle
                 - else
                   | Livraison à domicile
           span#delivery-method-0-description-1.mt-6.text-sm.font-medium.text-contrast
-            = "#{number_to_currency method[:price]}"
+            = "#{number_to_currency method[:price] * 1.2}"
     .hidden.peer-checked:block.absolute.right-3.top-3
       i.fa-solid.fa-badge-check.text-xl.text-primary
     .hidden = field.submit "Select volume", formmethod: "patch", formaction: shipping_method_order_intents_path(id: field.object), data: { "autosave-target": "button" }

@@ -1,8 +1,9 @@
+.fixed.top-1.right-6.z-50 = render "shared/cart"
+
 .w-full.hidden.md:flex.bg-light.relative.cursor-default.items-center.flex-col.border-b.boder-light
-  .top-6.right-6.absolute.flex.items-center
+  .top-6.right-16.absolute.flex.items-center
     = render SocialLinks::Component.new
 
-    = render "shared/cart"
 
   = link_to root_path, class: "inline-block mx-auto" do
     = image_tag("#{Current.store.slug}/logo.png", class: "h-48")
@@ -13,7 +14,6 @@
     = link_to "Boutique", store_path, class: "btn-link"
 
 .h-36.md:hidden
-  .absolute.right-12.top-4 = render "shared/cart"
 
   = link_to root_path, class: "w-full flex items-center justify-center" do
     = image_tag("#{Current.store.slug}/logo.png", class: "h-36")

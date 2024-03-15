@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 module Admin
-  class ItemsController < ApplicationController
-    layout 'admin'
-
+  class ItemsController < AdminController
     before_action :set_shipping_methods, only: %i[new edit create update]
     before_action :set_specifications, only: %i[new edit]
 

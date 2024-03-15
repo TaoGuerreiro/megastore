@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Admin
-  class BulkEditItemsController < ApplicationController
+  class BulkEditItemsController < AdminController
     def online
       items = Item.where(id: params[:item_ids].split(','))
       items.update_all(status: :active)

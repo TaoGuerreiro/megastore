@@ -64,8 +64,8 @@
               dt.font-medium.text-contrast = t('orders.show.subtotal')
               dd.text-contrast = number_to_currency(@order.amount, format: "%n €")
             .flex.justify-between
-              dt.font-medium.text-contrast = t('orders.show.shipping')
-              dd.text-contrast = number_to_currency(@order.shipping_cost, format: "%n €")
+              dt.font-medium.text-contrast = t('orders.show.logistic_and_shipping')
+              dd.text-contrast = number_to_currency(@order.logistic_and_shipping_price, format: "%n €")
             .flex.justify-between
               dt.font-medium.text-contrast = t('orders.show.total')
               dd.text-contrast = number_to_currency(@order.total_price, format: "%n €")

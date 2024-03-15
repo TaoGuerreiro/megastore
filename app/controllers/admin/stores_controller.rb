@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 module Admin
-  class StoresController < ApplicationController
-    before_action :authenticate_user!
-    layout 'admin'
+  class StoresController < AdminController
 
     def show
       @store = Current.store

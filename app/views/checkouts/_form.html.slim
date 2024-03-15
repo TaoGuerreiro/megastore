@@ -25,6 +25,7 @@
         = field.input :need_point, label: "need_point", placeholder: "need_point"
         = field.input :weight, label: "weight", placeholder: "weight"
         = field.input :shipping_method, label: "shipping_method", placeholder: "shipping_method"
+        = field.input :fees_price, label: "fees_price", placeholder: "fees_price"
 
       = button_tag type: "submit", class: "btn btn-primary btn-block w-full", data: { "controller": "spinner", action: "click->spinner#spin" } do
         . Continuer

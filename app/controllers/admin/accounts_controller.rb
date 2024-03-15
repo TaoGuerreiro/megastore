@@ -1,11 +1,8 @@
 # frozen_string_literal: true
 
 module Admin
-  class AccountsController < ApplicationController
-    before_action :authenticate_user!
+  class AccountsController < AdminController
     before_action :set_user
-
-    layout 'admin'
 
     def show; end
 

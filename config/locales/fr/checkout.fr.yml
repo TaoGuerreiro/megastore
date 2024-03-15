@@ -2,7 +2,8 @@ fr:
   order_summary: 'Résumé de la commande'
   items_in_cart: 'Articles dans votre panier'
   subtotal: 'Sous-total'
-  shipping: 'Expédition'
+  shipping: "Logistique & Expédition"
+  weight: '(~ %{weight} kg)'
   total: 'Total'
   pay: 'Payer'
   confirm: 'Confirmer'

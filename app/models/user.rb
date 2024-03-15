@@ -22,4 +22,12 @@ class User < ApplicationRecord
   def initials
     "#{first_name&.first}#{last_name&.first}".upcase
   end
+
+  def stripe_customer_id
+    return customer_id if customer_id?
+
+    customer = Stripe::Customer.create(email: email)
+    update!(customer_id: customer.id)
+    customer.id
+  end
 end

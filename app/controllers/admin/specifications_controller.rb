@@ -1,12 +1,9 @@
 # frozen_string_literal: true
 
 module Admin
-  class SpecificationsController < ApplicationController
-    before_action :authenticate_user!
+  class SpecificationsController < AdminController
     before_action :set_specification, only: %i[edit update destroy]
     before_action :set_store, only: %i[new create edit update destroy]
-
-    layout 'admin'
 
     def new
       @specification = Current.store.specifications.build
