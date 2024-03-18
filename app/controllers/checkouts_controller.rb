@@ -35,21 +35,25 @@ class CheckoutsController < ApplicationController
 
     @order = Order.new(
       store: Current.store,
-      shipping_full_name: @order_intent.full_name,
-      shipping_address: @order_intent.address_with_number,
-      shipping_country: @order_intent.country,
-      shipping_city: @order_intent.city,
-      shipping_postal_code: @order_intent.postal_code,
-      shipping_method_carrier: @shipping_method[:carrier],
-      weight: @order_intent.weight,
-      api_shipping_id: @order_intent.shipping_method,
-      api_service_point_id: @order_intent.service_point,
       order_items: @items.map { |item| OrderItem.new(item: item[:item], quantity: item[:number]) },
       amount: @order_intent.items_price.to_f,
-      shipping_cost: @order_intent.shipping_price.to_f,
-      fees: @order_intent.shipping_price.to_f * Current.store.rates,
       user:,
       status: 'confirmed',
+      shipping: Shipping.new({
+          cost: @order_intent.shipping_price.to_f,
+          address: @order_intent.address_with_number,
+          city: @order_intent.city,
+          country: @order_intent.country,
+          postal_code: @order_intent.postal_code,
+          full_name: @order_intent.full_name,
+          method_carrier: @shipping_method[:carrier],
+          weight: @order_intent.weight,
+          api_shipping_id: @order_intent.shipping_method,
+          api_service_point_id: @order_intent.service_point
+        }),
+      fee: Fee.new({
+          amount: @order_intent.shipping_price.to_f * Current.store.rates,
+        })
       )
 
 
@@ -102,7 +106,7 @@ class CheckoutsController < ApplicationController
     line_items << {
       price_data: {
         currency: 'eur',
-        unit_amount: @order.shipping_cost_cents + @order.fees_cents,
+        unit_amount: @order.shipping.cost_cents + @order.fee.amount_cents,
         product_data: {
           name: 'Logistique & livraison',
           description: 'Logistique & livraison',
@@ -118,12 +122,14 @@ class CheckoutsController < ApplicationController
         customer_email: @order_intent.email,
         line_items: line_items,
         payment_intent_data: {
-          application_fee_amount: (@order.shipping_cost_cents + @order.fees_cents).to_i,
+          application_fee_amount: (@order.shipping.cost_cents + @order.fee.amount_cents).to_i,
         },
         success_url: order_url(@order),
         cancel_url: order_url(@order)
       },
-      {stripe_account: Current.store.stripe_account_id }
+      {
+        stripe_account: Current.store.stripe_account_id
+      }
     )
 
     @order.update(checkout_session_id: session.id)

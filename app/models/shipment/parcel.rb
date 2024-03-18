@@ -106,36 +106,36 @@ class Shipment
       url = "#{BASE_URL}/parcels?errors=verbose-carrier"
       response = HTTParty.post(url, headers:, body: body.to_json)
       response.parsed_response
-      @order.update(
+      @order.shipping.update(
         parcel_id: response['parcel']['id'],
         api_tracking_number: response['parcel']['tracking_number'],
         api_tracking_url: response['parcel']['tracking_url'],
-        api_shipping_method_name: response['parcel']['shipment']['name']
+        api_method_name: response['parcel']['shipment']['name']
       )
     end
 
     def body
       {
         "parcel": {
-          "name": @order.shipping_full_name,
-          "address": @order.shipping_address,
-          "city": @order.shipping_city,
-          "postal_code": @order.shipping_postal_code,
-          "country": @order.shipping_country,
+          "name": @order.shipping.full_name,
+          "address": @order.shipping.address,
+          "city": @order.shipping.city,
+          "postal_code": @order.shipping.postal_code,
+          "country": @order.shipping.country,
           "telephone": @user.phone,
           "request_label": true,
           "email": @user.email,
           "shipment": {
-            "id": @order.api_shipping_id,
-            "name": @order.shipping_method_carrier
+            "id": @order.shipping.api_shipping_id,
+            "name": @order.shipping.method_carrier
           },
-          "weight": @order.weight.to_i.fdiv(1000).to_s,
+          "weight": @order.shipping.weight.to_i.fdiv(1000).to_s,
           "height": '50',
           "width": '50',
           "length": '50',
           "order_number": @order.id,
           "shipping_method_checkout_name": 'Stripe',
-          "to_service_point": @order.api_service_point_id,
+          "to_service_point": @order.shipping.api_service_point_id,
           "from_name": @store.name,
           "from_company_name": @store.name,
           "from_address_1": @store.address,

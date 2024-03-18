@@ -13,7 +13,7 @@
               - if @order.label.attached?
                 = link_to @order.label, target: "_blank" do
                   i.fa-solid.fa-sheet-plastic.text-xl
-                = link_to @order.api_tracking_url, target: "_blank" do
+                = link_to @order.shipping.api_tracking_url, target: "_blank" do
                   i.fa-solid.fa-truck.text-xl.ml-3
               - else
                 i.fa-solid.fa-sheet-plastic.text-xl.text-gray-300
@@ -34,13 +34,13 @@
               dt.font-medium.text-contrast = t('orders.show.shipping_address')
               dd.mt-2.text-contrast
                 address.not-italic
-                  span.block = @order.full_address
+                  span.block = @order.shipping&.full_address
             div
               dt.font-medium.text-contrast = t('orders.show.tracking_number')
               dd.mt-2.text-contrast
                 address.not-italic
-                  = link_to @order.api_tracking_url, target: "_blank" do
-                    span.block.hover:text-primary = @order.api_tracking_number
+                  = link_to @order.shipping&.api_tracking_url, target: "_blank" do
+                    span.block.hover:text-primary = @order.shipping&.api_tracking_number
 
           h4.sr-only = t('orders.show.payment')
           dl.grid.grid-cols-2.gap-x-6.border-t.border-content.py-10.text-sm
@@ -52,9 +52,8 @@
             div
               dt.font-medium.text-contrast = t('orders.show.shipping_method')
               dd.mt-2.text-contrast
-                p = t(@order.shipping_method_carrier)
-                p.text-content.text-xs = @order.api_shipping_method_name
-                / p = @order.shipping_method.description
+                p = t(@order.shipping&.method_carrier)
+                p.text-content.text-xs = @order.shipping&.api_method_name
 
           h3.sr-only = t('orders.show.summary')
           dl.space-y-6.border-t.border-content.pt-10.text-sm
@@ -63,10 +62,10 @@
               dd.text-contrast = number_to_currency(@order.amount, format: "%n €")
             .flex.justify-between
               dt.font-medium.text-contrast = t('orders.show.shipping')
-              dd.text-contrast = number_to_currency(@order.shipping_cost, format: "%n €")
+              dd.text-contrast = number_to_currency(@order.shipping&.cost, format: "%n €")
             .flex.justify-between
               dt.font-medium.text-contrast = t('orders.show.logistic')
-              dd.text-contrast = number_to_currency(@order.fees, format: "%n €")
+              dd.text-contrast = number_to_currency(@order.fee&.amount, format: "%n €")
             .flex.justify-between.border-t.border-content/50.pt-6.text-base.font-medium
               dt.font-medium.text-contrast = t('orders.show.total')
-              dd.text-contrast = number_to_currency(@order.amount + @order.shipping_cost + @order.fees, format: "%n €")
+              dd.text-contrast = number_to_currency(@order.total_price, format: "%n €")

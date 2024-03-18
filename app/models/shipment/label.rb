@@ -11,12 +11,12 @@ class Shipment
     end
 
     def download_pdf
-      url = "#{BASE_URL}/labels/normal_printer/#{@order.parcel_id}"
+      url = "#{BASE_URL}/labels/normal_printer/#{@order.shipping.parcel_id}"
       response = HTTParty.post(url, headers:)
     end
 
     def attach_to_order
-      url = "#{BASE_URL}/labels/normal_printer/#{@order.parcel_id}"
+      url = "#{BASE_URL}/labels/normal_printer/#{@order.shipping.parcel_id}"
       tempfile = Tempfile.new('asset')
 
       URI.open(url, headers) do |f|

@@ -33,12 +33,12 @@
               dt.font-medium.text-contrast = t('orders.show.shipping_address')
               dd.mt-2.text-contrast
                 address.not-italic
-                  span.block = @order.shipping_address
+                  span.block = @order.shipping.address
             div
               dt.font-medium.text-contrast = t('orders.show.billing_address')
               dd.mt-2.text-contrast
                 address.not-italic
-                  span.block = @order.shipping_address
+                  span.block = @order.shipping.address
 
           h4.sr-only Payment
           dl.grid.grid-cols-2.gap-x-6.border-t.border-content.py-10.text-sm
@@ -50,13 +50,13 @@
             div
               dt.font-medium.text-contrast = t('orders.show.shipping_method')
               dd.mt-2.text-contrast
-                p = t(@order.shipping_method_carrier)
-              - if @order.shipping_service_point_name.present?
+                p = t(@order.shipping.method_carrier)
+              - if @order.shipping.service_point_name.present?
                 div.mt-2
                   dt.font-medium.text-contrast = t('orders.show.service_point')
                   dd.mt-2.text-contrast
-                    p = @order.shipping_service_point_name
-                    p = @order.shipping_service_point_address
+                    p = @order.shipping.service_point_name
+                    p = @order.shipping.service_point_address
 
           h3.sr-only Summary
           dl.space-y-6.border-t.border-content.pt-10.text-sm

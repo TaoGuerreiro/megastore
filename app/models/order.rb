@@ -4,16 +4,17 @@
 class Order < ApplicationRecord
   extend Enumerize
   include Presentable
+  delegate :address, to: :shipping, prefix: true, allow_nil: true
 
   belongs_to :user
   belongs_to :store
   has_many :order_items, dependent: :destroy
   has_many :items, through: :order_items
   has_one_attached :label
+  has_one :shipping, dependent: :destroy
+  has_one :fee, dependent: :destroy
 
   monetize :amount_cents
-  monetize :shipping_cost_cents
-  monetize :fees_cents
 
   STATUSES = %w[pending confirmed paid canceled refunded sent].freeze
 
@@ -21,30 +22,29 @@ class Order < ApplicationRecord
 
   validates :amount, presence: true
   validates :status, presence: true
-  validates :shipping_address, presence: true
   validates :user, presence: true
 
   def total_price
-    if api_shipping_id.present?
-      amount + shipping_cost + fees
+    if shipping&.api_shipping_id.present?
+      amount + shipping.cost + fee.amount
     else
       amount
     end
   end
 
   def total_price_cents
-    if api_shipping_id.present?
-      amount_cents + shipping_cost_cents + fees_cents
+    if shipping&.api_shipping_id.present?
+      amount_cents + shipping.cost_cents + fee.amount_cents
     else
       amount_cents
     end
   end
 
   def logistic_and_shipping_price
-    shipping_cost + fees
+    shipping.cost + fee.amount
   end
 
   def full_address
-    "#{shipping_address}, #{shipping_postal_code} #{shipping_city}, #{shipping_country}"
+    "#{shipping.address}, #{shipping.postal_code} #{shipping.city}, #{shipping.country}"
   end
 end

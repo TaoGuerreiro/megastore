@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
     return queen_users_path if resource.queen?
 
     Current.store = Store.find_by(domain: request.domain)
-    if resource.stores.first.active_subscription?
+    if resource.store.active_subscription?
       admin_orders_path
     else
       new_admin_onboarding_path

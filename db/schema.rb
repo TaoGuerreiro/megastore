@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_15_160048) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_15_211657) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -69,6 +69,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_15_160048) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "fees", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.integer "amount_cents", default: 0, null: false
+    t.string "amount_currency", default: "EUR", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_fees_on_order_id"
+  end
+
   create_table "filterable_views", force: :cascade do |t|
     t.string "title", null: false
     t.json "filters", default: [], null: false
@@ -123,30 +132,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_15_160048) do
 
   create_table "orders", force: :cascade do |t|
     t.integer "amount_cents", default: 0, null: false
-    t.string "amount_currency", default: "USD", null: false
+    t.string "amount_currency", default: "EUR", null: false
     t.string "status"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "checkout_session_id"
-    t.string "shipping_address"
-    t.integer "api_shipping_id"
-    t.integer "api_service_point_id"
-    t.integer "shipping_cost_cents", default: 0, null: false
-    t.string "shipping_cost_currency", default: "EUR", null: false
-    t.string "shipping_method_carrier"
-    t.string "shipping_service_point_address"
-    t.string "shipping_service_point_name"
-    t.string "shipping_country"
-    t.string "shipping_city"
-    t.string "shipping_postal_code"
-    t.string "weight"
     t.bigint "store_id", null: false
-    t.integer "parcel_id"
-    t.string "shipping_full_name"
-    t.string "api_tracking_number"
-    t.string "api_tracking_url"
-    t.string "api_shipping_method_name"
     t.integer "fees_cents", default: 0, null: false
     t.string "fees_currency", default: "EUR", null: false
     t.index ["store_id"], name: "index_orders_on_store_id"
@@ -162,12 +154,61 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_15_160048) do
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
 
+  create_table "shippings", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.integer "api_shipping_id"
+    t.integer "api_service_point_id"
+    t.string "api_tracking_number"
+    t.string "api_tracking_url"
+    t.string "api_method_name"
+    t.integer "parcel_id"
+    t.string "method_carrier"
+    t.string "service_point_address"
+    t.string "service_point_name"
+    t.integer "cost_cents", default: 0, null: false
+    t.string "cost_currency", default: "EUR", null: false
+    t.string "address"
+    t.string "country"
+    t.string "city"
+    t.string "postal_code"
+    t.string "weight"
+    t.string "full_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_shippings_on_order_id"
+  end
+
   create_table "specifications", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "store_id", null: false
     t.index ["store_id"], name: "index_specifications_on_store_id"
+  end
+
+  create_table "store_order_items", force: :cascade do |t|
+    t.string "orderable_type", null: false
+    t.bigint "orderable_id", null: false
+    t.integer "price_cents", default: 0, null: false
+    t.string "price_currency", default: "EUR", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "store_order_id", null: false
+    t.index ["store_order_id"], name: "index_store_order_items_on_store_order_id"
+  end
+
+  create_table "store_orders", force: :cascade do |t|
+    t.string "status"
+    t.integer "amount_cents", default: 0, null: false
+    t.string "amount_currency", default: "EUR", null: false
+    t.bigint "store_id", null: false
+    t.string "ref"
+    t.date "date"
+    t.integer "endi_id"
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["store_id"], name: "index_store_orders_on_store_id"
   end
 
   create_table "stores", force: :cascade do |t|
@@ -206,6 +247,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_15_160048) do
     t.index ["stripe_subscription_id"], name: "index_stores_on_stripe_subscription_id", unique: true
   end
 
+  create_table "subscriptions", force: :cascade do |t|
+    t.date "date"
+    t.integer "price_cents", default: 0, null: false
+    t.string "price_currency", default: "EUR", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -227,6 +276,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_15_160048) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "categories", "stores"
+  add_foreign_key "fees", "orders"
   add_foreign_key "item_specifications", "items"
   add_foreign_key "item_specifications", "specifications"
   add_foreign_key "items", "categories"
@@ -235,6 +285,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_15_160048) do
   add_foreign_key "order_items", "orders"
   add_foreign_key "orders", "stores"
   add_foreign_key "orders", "users"
+  add_foreign_key "shippings", "orders"
   add_foreign_key "specifications", "stores"
+  add_foreign_key "store_order_items", "store_orders"
+  add_foreign_key "store_orders", "stores"
   add_foreign_key "stores", "users", column: "admin_id"
 end
