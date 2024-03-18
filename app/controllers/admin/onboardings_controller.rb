@@ -35,19 +35,3 @@ module Admin
     end
   end
 end
-
-user = User.find_by(email: "hello@unsafehxc.fr")
-store = user.store
-
-account = Stripe::Account.create(
-  type: "standard",
-  country: store.country,
-  email: user.email,
-  business_type: "individual",
-  business_profile: {
-    mcc: "5734",
-    product_description: "Online marketplace",
-    name: user.full_name,
-    url: "https://www.lecheveublanc.fr",
-  }
-)
