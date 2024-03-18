@@ -100,9 +100,11 @@ class Shipment
       @order = param[:order]
       @items = @order.items
       @user = @order.user
+      @shipping = @order.shipping
     end
 
     def create_label
+      @shipping.update(api_error: nil, status: "processing")
       url = "#{BASE_URL}/parcels?errors=verbose-carrier"
       response = HTTParty.post(url, headers:, body: body.to_json)
       response.parsed_response
@@ -112,8 +114,9 @@ class Shipment
         api_tracking_url: response['parcel']['tracking_url'],
         api_method_name: response['parcel']['shipment']['name']
       )
+      @shipping.update(status: "processed")
     rescue => e
-      @order.shipping.update(api_error: e.to_s)
+      @order.shipping.update(api_error: response.to_s, status: "failed")
     end
 
     def body
@@ -152,33 +155,3 @@ class Shipment
     end
   end
 end
-
-# {
-#   "parcel": {
-#     "name": "Le Cheveu Blanc",
-#     "address": "26 bis rue aristide briand",
-#     "city": "saint sébastien sur loire",
-#     "postal_code": "44230",
-#     "country": "FR",
-#     "telephone": null,
-#     "request_label": "u003cbooleanu003e",
-#     "email": "florent.guilbaud@gmail.com",
-#     "data": {},
-#     "shipment":
-#       {
-#         "id": 4745,
-#         "name": "colisprive"
-#       },
-#     "weight": "56",
-#     "order_number": 13,
-#     "shipping_method_checkout_name": "Stripe",
-#     "sender_address": ",  , ",
-#     "to_service_point": 11181183,
-#     "from_name": "Le Cheveu Blanc",
-#     "from_company_name": "Le Cheveu Blanc",
-#     "from_address_1": "",
-#     "from_city": "",
-#     "from_postal_code": "",
-#     "from_country": "",
-#     "from_telephone": null,
-#     "from_email": null}}

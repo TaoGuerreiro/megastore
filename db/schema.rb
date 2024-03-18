@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_18_194601) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_18_203218) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -179,6 +179,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_18_194601) do
     t.string "street_number"
     t.string "address_first_line"
     t.string "address_second_line"
+    t.string "status", default: "pending"
     t.index ["order_id"], name: "index_shippings_on_order_id"
   end
 
