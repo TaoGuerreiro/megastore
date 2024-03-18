@@ -62,6 +62,14 @@ class EventJob < ApplicationJob
     Admin::OrderMailer.new_order(order).deliver_later
     Shipment::Parcel.new(store, { order: }).create_label
     Shipment::Label.new(store, { order: }).attach_to_order
+
+    # StoreOrder.new({
+    #   fees: [order.fee],
+    #   shippings: [order.shipping],
+    #   store: store,
+    #   amount: order.logistic_and_shipping_price,
+    #   date: Time.current
+    # })
   end
 
   def handle_subscription_session_completed(event)

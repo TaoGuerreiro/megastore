@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_15_211657) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_18_173656) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -198,7 +198,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_15_211657) do
   end
 
   create_table "store_orders", force: :cascade do |t|
-    t.string "status"
+    t.string "status", default: "pending"
     t.integer "amount_cents", default: 0, null: false
     t.string "amount_currency", default: "EUR", null: false
     t.bigint "store_id", null: false

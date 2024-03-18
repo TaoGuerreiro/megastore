@@ -1,8 +1,13 @@
 module Admin
   class OnboardingsController < ApplicationController
+    include Rails.application.routes.url_helpers
+
     def new; end
 
     def create
+
+      default_url_options[:host] = "https://#{Current.store.domain}"
+
       account = Stripe::Account.create(
         type: "standard",
         country: Current.store.country,
@@ -18,13 +23,12 @@ module Admin
 
       link = Stripe::AccountLink.create(
         account: account.id,
-        refresh_url: admin_store_url(Current.store),
+        refresh_url: admin_store_url(user.store),
         return_url: new_admin_onboarding_url,
         type: "account_onboarding",
         collect: "eventually_due",
       )
 
-      # current_user.update(stripe_account_id: account.id)
       Current.store.update(stripe_account_id: account.id)
 
       redirect_to link.url, allow_other_host: true
