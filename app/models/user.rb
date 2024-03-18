@@ -12,7 +12,7 @@ class User < ApplicationRecord
   enumerize :role, in: %i[admin user queen], default: :user, predicates: true
 
   has_one :store, foreign_key: :admin_id
-  validates :first_name, :last_name, presence: true
+  validates :first_name, :last_name, :phone, presence: true
   has_one_attached :avatar
 
   accepts_nested_attributes_for :store

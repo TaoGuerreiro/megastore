@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_18_173656) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_18_194601) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -175,6 +175,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_18_173656) do
     t.string "full_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "api_error"
+    t.string "street_number"
+    t.string "address_first_line"
+    t.string "address_second_line"
     t.index ["order_id"], name: "index_shippings_on_order_id"
   end
 

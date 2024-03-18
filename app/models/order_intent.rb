@@ -107,4 +107,24 @@ class OrderIntent
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def address_first_line
+    split_address[0]
+  end
+
+  def address_second_line
+    split_address[1]
+  end
+
+  private
+
+  def split_address
+    return [address, ''] if address.size <= 25
+
+    splitted_address = address.split(' ')
+    half = (splitted_address.size / 2.0).ceil
+    address_parts = splitted_address.each_slice(half).to_a
+
+    [address_parts[0].join(' '), address_parts[1]&.join(' ')]
+  end
 end

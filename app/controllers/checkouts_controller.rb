@@ -41,7 +41,9 @@ class CheckoutsController < ApplicationController
       status: 'confirmed',
       shipping: Shipping.new({
           cost: @order_intent.shipping_price.to_f,
-          address: @order_intent.address_with_number,
+          address_first_line: @order_intent.address_first_line,
+          address_second_line: @order_intent.address_second_line,
+          street_number: @order_intent.street_number,
           city: @order_intent.city,
           country: @order_intent.country,
           postal_code: @order_intent.postal_code,
@@ -71,10 +73,7 @@ class CheckoutsController < ApplicationController
     else
       # Handle @order save error here
     end
-    # respond_to do |format|
-    #   format.html { render 'checkouts/show', status: :unprocessable_entity }
-    #   format.turbo_stream
-    # end
+
   end
 
   private

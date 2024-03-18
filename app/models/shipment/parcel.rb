@@ -112,13 +112,16 @@ class Shipment
         api_tracking_url: response['parcel']['tracking_url'],
         api_method_name: response['parcel']['shipment']['name']
       )
+    rescue => e
+      @order.shipping.update(api_error: e.to_s)
     end
 
     def body
       {
         "parcel": {
           "name": @order.shipping.full_name,
-          "address": @order.shipping.address,
+          "address": @order.shipping.address_first_line,
+          "address_2": @order.shipping.address_second_line,
           "city": @order.shipping.city,
           "postal_code": @order.shipping.postal_code,
           "country": @order.shipping.country,
