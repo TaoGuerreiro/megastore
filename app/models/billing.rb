@@ -1,12 +1,11 @@
 class Billing
   include ActiveModel::Model
 
-  def initialize(store_order:, amount:)
+  def initialize(store_order:)
     @store_order = store_order
-    @amount = amount
   end
 
   def create
-    EndiServices::NewInvoice.new(@store_order, Current.store).call
+    EndiServices::NewInvoice.new(@store_order, @store_order.store).call
   end
 end

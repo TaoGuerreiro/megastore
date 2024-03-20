@@ -10,6 +10,6 @@ class StoreOrder < ApplicationRecord
   after_create_commit :create_billing
 
   def create_billing
-    Billing.create(store_order: self, amount: amount, date: date)
+    Billing.new(store_order: self).create
   end
 end

@@ -13,7 +13,6 @@ module EndiServices
     end
 
     def call
-      binding.pry
       attempts ||= 1
       response = HTTParty.post(@url, headers:, body:)
       raise "connection to endi failed" if response.code == 401
@@ -49,44 +48,23 @@ module EndiServices
     end
 
     def body
-      description = "TEST"
+      description = I18n.t("endi.#{@order_item.orderable_name}", order_id: @order_item.orderable.order.id)
 
       body = {
         order: "1",
         description:,
-        cost: @order_item.price_cents,
+        cost: @order_item.price_cents / 100.0,
         quantity: "1",
         tva: "20",
         group_id: @line,
-        product_id: "",
-        mode: "ht"
+        product_id: "10",
+        mode: "ht",
+        unity: "unité(s)",
       }
 
-      body[:unity] = Rails.env.production? ? "Unité" : "unité(s)"
+      # body[:unity] = Rails.env.production? ? "Unité" : "unité(s)"
 
       body.to_json
-    end
-
-    def type_of_item(order_item)
-      # if order_item.delivery?
-      #   "Livraison"
-      # elsif order_item.tickets_book?
-      #   "Carnet de tickets"
-      # elsif order_item.touring_book?
-      #   "Tournée"
-      # else
-      #   "Commande"
-      # end
-      "Livraison"
-    end
-
-    def date_of_item(order_item)
-      # if order_item.delivery?
-      #   order_item.orderable.drop.end_hour.to_date
-      # elsif order_item.tickets_book? || order_item.touring_book?
-      #   order_item.orderable.date_of_purchase
-      # end
-      Date.current
     end
 
     def get_line_id

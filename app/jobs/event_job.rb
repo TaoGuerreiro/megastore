@@ -52,37 +52,6 @@ class EventJob < ApplicationJob
     )
   end
 
-  def handle_session_completed(event)
-    order = Order.find_by(checkout_session_id: event.data.object.id)
-    return if order.status == "paid"
-
-    store = order.store
-    order.update(status: 'paid')
-    Admin::OrderMailer.payment_confirmation(order).deliver_later
-    Admin::OrderMailer.new_order(order).deliver_later
-    Shipment::Parcel.new(store, { order: }).create_label
-    Shipment::Label.new(store, { order: }).attach_to_order
-
-    store_order = StoreOrder.find_or_create_by(store: store, status: "pending") do |store_order|
-      store_order.fees = [order.fee]
-      store_order.shippings = [order.shipping]
-      store_order.amount = order.logistic_and_shipping_price
-      store_order.date = Time.current
-    end
-
-    if store_order.fees.exclude?(order.fee)
-      store_order.fees << order.fee
-      store_order.amount += order.fee.amount
-    end
-
-    if store_order.shippings.exclude?(order.shipping)
-      store_order.shippings << order.shipping
-      store_order.amount += order.shipping.cost
-    end
-
-    store_order.save
-  end
-
   def handle_subscription_session_completed(event)
     session = event.data.object
     store = Store.find_by(stripe_checkout_session_id: session.id)
@@ -93,6 +62,46 @@ class EventJob < ApplicationJob
       stripe_subscription_id: session.subscription
     )
   end
+
+  def handle_session_completed(event)
+    order = Order.find_by(checkout_session_id: event.data.object.id)
+    return if order.status == "paid"
+
+    order.update(status: 'paid')
+    send_emails(order)
+    create_shipment(order)
+    update_store_order(order)
+  end
+
+  private
+
+  def send_emails(order)
+    Admin::OrderMailer.payment_confirmation(order).deliver_later
+    Admin::OrderMailer.new_order(order).deliver_later
+  end
+
+  def create_shipment(order)
+    store = order.store
+    Shipment::Parcel.new(store, { order: order }).create_label
+    Shipment::Label.new(store, { order: order }).attach_to_order
+  end
+
+  def update_store_order(order)
+    store_order = StoreOrder.find_or_create_by(store: order.store, status: "pending") do |store_order|
+      store_order.store_order_items.new(orderable: order.fee, price: order.fee.amount)
+      store_order.store_order_items.new(orderable: order.shipping, price: order.shipping.cost)
+      store_order.date = Time.current
+    end
+
+    add_items_to_store_order(store_order, order)
+    store_order.save
+  end
+
+  def add_items_to_store_order(store_order, order)
+    store_order.store_order_items.new(orderable: order.fee, price: order.fee.amount) if store_order.fees.exclude?(order.fee)
+    store_order.store_order_items.new(orderable: order.shipping, price: order.shipping.cost) if store_order.shippings.exclude?(order.shipping)
+  end
+
 end
 
 # store = Store.first

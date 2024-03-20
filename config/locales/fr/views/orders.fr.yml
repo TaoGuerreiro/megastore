@@ -1,4 +1,8 @@
 fr:
+  endi:
+    Fee: "Frais de logistique pour la commande %{order_id}"
+    Shipping: "Frais de livraison pour la commande %{order_id}"
+    Subscription: "Abonnement au store"
   orders:
     show:
       addresses: "Addresses"

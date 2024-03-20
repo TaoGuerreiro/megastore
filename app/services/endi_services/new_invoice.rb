@@ -19,7 +19,7 @@ module EndiServices
       elsif response.code == 200
         @order.update!(endi_id: response["id"], status: "draft")
         EndiServices::UpdateBill.new(@order, @store).call
-        @order.update!(status: "processed")
+        @order.update!(status: "pending")
         return response&.response&.message
       else
         @order.update!(status: "failed", api_error: response.to_s)
