@@ -7,7 +7,7 @@ module EndiServices
     def initialize(order, store)
       @store = store
       @order = order
-      @url = "#{Rails.application.credentials.endi.public_send(Rails.env).endi_path}/api/v1/companies/#{Rails.application.credentials.endi.public_send(Rails.env).endi_id}/invoices/add?project_id=#{Rails.application.credentials.endi.public_send(Rails.env).project_id}"
+      @url = "#{Rails.application.credentials.endi.public_send(Rails.env).endi_path}/api/v1/companies/#{Rails.application.credentials.endi.public_send(Rails.env).endi_id}/invoices/add?company_id=#{Rails.application.credentials.endi.public_send(Rails.env).endi_id}"
     end
 
     def call
@@ -28,13 +28,13 @@ module EndiServices
 
     def body
       body = {
-        "name" => "Facture pour la commande #{@order.id}",
+        "name" => "Facture pour #{@store.name}",
         "customer_id" => @store.endi_id,
         "project_id" => Rails.application.credentials.endi.public_send(Rails.env).project_id.to_s,
         "business_type_id" => "2"
       }
 
-      body["phase_id"] = "87" if Rails.env.production?
+      # body["phase_id"] = "87" if Rails.env.production?
       body
     end
 
