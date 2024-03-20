@@ -17,7 +17,7 @@ module EndiServices
 
       form = page.form(action: "/customers/#{@id}?action=addcustomer")
 
-      folder_index = Rails.env.production? ? 2 : 1
+      folder_index = Rails.env.production? ? 2 : 2
       form.field_with(name: "project_id").options[folder_index].select
 
       form.click_button
