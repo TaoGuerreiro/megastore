@@ -57,12 +57,10 @@ module EndiServices
         quantity: "1",
         tva: "20",
         group_id: @line,
-        product_id: "10",
         mode: "ht",
-        unity: "unité(s)",
       }
 
-      # body[:unity] = Rails.env.production? ? "Unité" : "unité(s)"
+      body[:unity] = Rails.env.production? ? "Unité" : "unité(s)"
 
       body.to_json
     end
