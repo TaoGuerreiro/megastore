@@ -27,7 +27,7 @@ module EndiServices
       }
 
       invoice_body = {
-        name:	"Facture pour la commande #{@order.id}",
+        name: "Facture pour #{@store.name}",
         date:	@order.date.strftime("%Y-%m-%d"),
         payment_conditions: "À réception de la facture",
         description:	"Facturation du #{@order.date.strftime('%d/%m/%y')}",
