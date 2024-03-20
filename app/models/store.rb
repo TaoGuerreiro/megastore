@@ -22,7 +22,7 @@ class Store < ApplicationRecord
   after_create_commit :create_endi_profile
 
   def create_endi_profile
-    EndiServices::NewUser.new(self).call
+    EndiServices::NewUser.new(store).call
   end
 
   def holiday?
