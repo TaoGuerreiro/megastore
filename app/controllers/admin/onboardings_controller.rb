@@ -5,7 +5,6 @@ module Admin
     def new; end
 
     def create
-
       default_url_options[:host] = "https://#{Current.store.domain}"
 
       account = Stripe::Account.create(
@@ -35,28 +34,3 @@ module Admin
     end
   end
 end
-
-# user = User.find_by(email: "hello@unsafehxc.fr")
-# store = user.store
-
-# account = Stripe::Account.create(
-#   type: "standard",
-#   country: store.country,
-#   email: user.email,
-#   business_type: "individual",
-#   business_profile: {
-#     mcc: "5734",
-#     product_description: "Online marketplace",
-#     name: user.full_name,
-#     url: "https://www.lecheveublanc.fr",
-#   }
-# )
-
-
-# link = Stripe::AccountLink.create(
-#   account: account.id,
-#   refresh_url: admin_store_url(user.store),
-#   return_url: new_admin_onboarding_url,
-#   type: "account_onboarding",
-#   collect: "eventually_due",
-# )

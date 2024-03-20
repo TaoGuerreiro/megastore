@@ -22,6 +22,8 @@ gem 'country_select'
 gem 'httparty'
 gem 'jbuilder'
 gem 'jsbundling-rails'
+gem "mechanize"
+
 gem 'money-rails', '~> 1.13'
 gem 'pagy', '~> 6.2'
 gem 'pg', '~> 1.1'

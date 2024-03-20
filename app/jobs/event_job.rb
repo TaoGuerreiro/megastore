@@ -63,13 +63,24 @@ class EventJob < ApplicationJob
     Shipment::Parcel.new(store, { order: }).create_label
     Shipment::Label.new(store, { order: }).attach_to_order
 
-    # StoreOrder.new({
-    #   fees: [order.fee],
-    #   shippings: [order.shipping],
-    #   store: store,
-    #   amount: order.logistic_and_shipping_price,
-    #   date: Time.current
-    # })
+    store_order = StoreOrder.find_or_create_by(store: store, status: "pending") do |store_order|
+      store_order.fees = [order.fee]
+      store_order.shippings = [order.shipping]
+      store_order.amount = order.logistic_and_shipping_price
+      store_order.date = Time.current
+    end
+
+    if store_order.fees.exclude?(order.fee)
+      store_order.fees << order.fee
+      store_order.amount += order.fee.amount
+    end
+
+    if store_order.shippings.exclude?(order.shipping)
+      store_order.shippings << order.shipping
+      store_order.amount += order.shipping.cost
+    end
+
+    store_order.save
   end
 
   def handle_subscription_session_completed(event)
@@ -83,3 +94,6 @@ class EventJob < ApplicationJob
     )
   end
 end
+
+# store = Store.first
+# order = Order.last

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_18_203218) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_18_222616) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -199,6 +199,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_18_203218) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "store_order_id", null: false
+    t.integer "endi_line_id"
     t.index ["store_order_id"], name: "index_store_order_items_on_store_order_id"
   end
 
@@ -213,6 +214,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_18_203218) do
     t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "api_error"
     t.index ["store_id"], name: "index_store_orders_on_store_id"
   end
 
@@ -248,6 +250,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_18_203218) do
     t.string "stripe_subscription_id"
     t.string "subscription_status", default: "pending", null: false
     t.string "stripe_checkout_session_id"
+    t.text "endi_auth"
+    t.integer "endi_id"
     t.index ["admin_id"], name: "index_stores_on_admin_id"
     t.index ["stripe_subscription_id"], name: "index_stores_on_stripe_subscription_id", unique: true
   end

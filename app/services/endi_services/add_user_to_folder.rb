@@ -5,9 +5,9 @@ module EndiServices
     include ApplicationHelper
     include Turbo::StreamsHelper
 
-    def initialize(user, id)
+    def initialize(store, id)
       @mechanize = EndiServices::Auth.new.call
-      @user = user
+      @store = store
       @id = id
       @url = "#{Rails.application.credentials.endi.public_send(Rails.env).endi_path}/customers/#{@id}"
     end
@@ -17,14 +17,11 @@ module EndiServices
 
       form = page.form(action: "/customers/#{@id}?action=addcustomer")
 
-      form.field_with(name: "project_id").options[2].select
+      folder_index = Rails.env.production? ? 2 : 1
+      form.field_with(name: "project_id").options[folder_index].select
 
       form.click_button
       { status: true, message: "User added to folder" }
-    rescue StandardError => e
-      SlackMessageJob.perform_later(title: "⚠️ Attention ⚠️", content: "Impossible d'ajouter #{@user.email} au dossier Facture d'Endi (L'ajouter à la main)", channel: "general")
-      DiscordMessageJob.perform_later(title: "⚠️ Attention ⚠️", content: "Impossible d'ajouter #{@user.email} au dossier Facture d'Endi (L'ajouter à la main)", channel: "general")
-      { status: false, message: e }
     end
   end
 end

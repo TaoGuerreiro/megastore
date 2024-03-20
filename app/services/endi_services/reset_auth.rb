@@ -4,14 +4,14 @@ module EndiServices
   class ResetAuth
     include ApplicationHelper
 
-    def initialize(user)
-      @user = user
+    def initialize(store)
+      @store = store
     end
 
     def call
       mechanize = EndiServices::Auth.new.call
 
-      @user.update!({
+      @store.update!({
                       endi_auth: "#{mechanize.cookie_jar.cookies[0].name}=#{mechanize.cookie_jar.cookies[0].value}"
                     })
     end

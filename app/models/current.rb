@@ -2,4 +2,8 @@
 
 class Current < ActiveSupport::CurrentAttributes
   attribute :store
+
+  def endi_token
+    store&.endi_token
+  end
 end
