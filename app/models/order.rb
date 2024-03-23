@@ -4,6 +4,8 @@
 class Order < ApplicationRecord
   extend Enumerize
   include Presentable
+  include PgSearch::Model
+
   delegate :address, to: :shipping, prefix: true, allow_nil: true
 
   belongs_to :user
@@ -15,6 +17,15 @@ class Order < ApplicationRecord
   has_one :fee, dependent: :destroy
 
   monetize :amount_cents
+
+  pg_search_scope :search_by_client,
+                  associated_against: {
+                    user: %i[first_name last_name email],
+                    shipping: %i[address_first_line address_second_line postal_code city country]
+                  },
+                  using: {
+                    tsearch: { prefix: true }
+                  }
 
   STATUSES = %w[pending confirmed paid canceled refunded sent].freeze
 

@@ -5,6 +5,6 @@ class Shipping < ApplicationRecord
   monetize :cost_cents
 
   def full_address
-    "#{address}, #{postal_code} #{city}, #{country}"
+    "#{address_first_line} #{address_second_line}, #{postal_code} #{city}, #{country}"
   end
 end

@@ -7,4 +7,8 @@ export default class extends Controller {
   save() {
     this.buttonTarget.click()
   }
+
+  submit(event) {
+    this.element.requestSubmit();
+  }
 }

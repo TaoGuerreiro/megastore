@@ -9,7 +9,7 @@
             p.mt-2.text-sm.text-midgray
               | Liste de toutes les articles de votre boutique.
           .mt-4.sm:ml-16.sm:mt-0.sm:flex-none.fixed.top-10.right-10.z-50
-            = link_to "Ajouter un article", new_admin_item_path, class: "btn btn-secondary"
+            = link_to "Ajouter un article", new_admin_item_path, class: "btn btn-primary"
         .flex.items-center
             i.fas.fa-times.text-red-500.text-lg.mr-1.w-6
             .text-sm.text-midgray
@@ -24,7 +24,13 @@
               = "#{pluralize(@archived_items_count, "article")} archivé"
 
         .mt-8.flow-root
-          = filterable_form_for(Item)
+          .flex.w-full.gap-3
+            = filterable_form_for(Item)
+            = form_tag admin_items_path, method: :get, data: { turbo_stream: true, controller: :autosave }, class: "w-full" do
+              .flex.items-center
+                = text_field_tag :search, params[:search], class: "form-input w-full placeholder:text-content", placeholder: "Rechercher un article", data: { action: "keyup->autosave#submit"}
+                / = submit_tag "Rechercher", class: "btn btn-primary ml-2"
+
           .-mx-4.-my-2.overflow-x-auto.sm:-mx-6.lg:-mx-8
             .inline-block.min-w-full.py-2.align-middle.sm:px-6.lg:px-8 data-controller="bulk-edit-items"
               .hidden.z-50.rounded.fixed.px-3.py-3.bg-content.right-10.top-20 data-bulk-edit-items-target="container"
@@ -74,9 +80,5 @@
                   .w-10
                     span.sr-only
                       | Remove
-                .divide-y.divide-content
-                  - @items.order(:name).each do |item|
-                    = render "item", item: item
-
-                .w-full.flex.justify-center.pt-3
-                  == pagy_nav(@pagy)
+                #items
+                  = render "items", items: @items

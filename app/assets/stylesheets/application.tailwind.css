@@ -3,7 +3,11 @@
 @tailwind utilities;
 @import 'actiontext.css';
 
-
+@font-face {
+  font-family: "avenir_libre";
+  font-weight: bold;
+  src: font-url("avenir_libre.tff") format("tff");
+}
 
 @layer base {
 

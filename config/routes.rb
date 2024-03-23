@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  namespace :queen do
+  end
   require 'domain'
   devise_for :users
   mount StripeEvent::Engine, at: '/stripe-webhooks'
@@ -23,9 +25,14 @@ Rails.application.routes.draw do
   devise_scope :user do
     namespace :queen do
       authenticate :user, ->(user) { user.queen? } do
-        resources :users, only: %i[index show edit update destroy]
+        resources :users, only: %i[index show edit update destroy] do
+          patch :set_localhost, on: :member
+        end
+        resources :store_orders, only: %i[index show]
+
       end
     end
+
     resource :profile, only: %i[edit update]
     namespace :admin do
       authenticate :user, ->(user) { user.queen? || user.admin? } do

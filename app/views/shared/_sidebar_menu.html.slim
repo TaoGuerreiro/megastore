@@ -1,7 +1,7 @@
 - if current_user.admin? || current_user.queen?
-  ul.flex.flex-1.flex-col.gap-y-7[role="list"]
+  ul.flex.flex-1.flex-col.gap-y-7
     li
-      ul.-mx-2.space-y-1[role="list"]
+      ul.mb-4.space-y-1
         / = render MenuItem::Component.new(path: "#", icon_classes: "fa-solid fa-home", title: "Accueil")
         = render MenuItem::Component.new(path: admin_orders_path, icon_classes: "fa-solid fa-book", title: "Commandes")
         = render MenuItem::Component.new(path: admin_items_path, icon_classes: "fa-solid fa-star", title: "Mes articles")
@@ -9,10 +9,13 @@
         = render MenuItem::Component.new(path: admin_account_path, icon_classes: "fa-solid fa-gear", title: "Paramètres")
         / = render MenuItem::Component.new(path: admin_account_path, icon_classes: "fa-solid fa-envelope", title: "Emails")
 
-        - if current_user.queen?
-          .pt-6
-            h2.text-content.font-bold.mb-2 Pour la Reine
+      - if current_user.queen?
+
+        h2.text-content.font-bold Pour la Reine
+        li
+          ul.space-y-1
             = render MenuItem::Component.new(path: queen_users_path, icon_classes: "fa-solid fa-users", title: "Utilisateur.ices")
+            = render MenuItem::Component.new(path: queen_store_orders_path, icon_classes: "fa-solid fa-users", title: "Factures")
 
     li.-mx-6.mt-auto
       .flex.items-center.gap-x-4.px-6.py-3.text-sm.font-semibold.leading-6.text-light.hover:bg-contrast

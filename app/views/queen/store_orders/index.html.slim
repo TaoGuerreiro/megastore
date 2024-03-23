@@ -1,0 +1,34 @@
+.px-4.sm:px-6.lg:px-8
+  .sm:flex.sm:items-center
+    .sm:flex-auto
+      h1.text-base.font-semibold.leading-6.text-gray-900.font-anemone Orders
+      p.mt-2.text-sm.text-gray-700 A list of all the orders
+    / .mt-4.sm:ml-16.sm:mt-0.sm:flex-none
+    /   button.block.px-3.py-2.text-sm.font-semibold.text-center.text-white.bg-indigo-600.rounded-md.shadow-sm.hover:bg-indigo-500.focus-visible:outline.focus-visible:outline-2.focus-visible:outline-offset-2.focus-visible:outline-indigo-600 type="button" Add user
+  .flow-root.mt-8
+    .-mx-4.-my-2.overflow-x-auto.sm:-mx-6.lg:-mx-8
+      .inline-block.min-w-full.py-2.align-middle.sm:px-6.lg:px-8
+        table.min-w-full.divide-y.divide-gray-300
+          thead
+            tr
+              th.py-3.5.pl-4.pr-3.text-left.text-sm.font-semibold.text-gray-900.sm:pl-0 scope="col" Ref
+              th.px-3.py-3.5.text-left.text-sm.font-semibold.text-gray-900 scope="col" Store
+              th.px-3.py-3.5.text-left.text-sm.font-semibold.text-gray-900 scope="col" Montant
+              th.px-3.py-3.5.text-left.text-sm.font-semibold.text-gray-900 scope="col" Date
+              / th.relative.py-3.5.pl-3.pr-4.sm:pr-0 scope="col"
+              /   span.sr-only Edit
+              / th.relative.py-3.5.pl-3.pr-4.sm:pr-0 scope="col"
+              /   span.sr-only Remove
+          tbody.divide-y.divide-gray-200
+            - @store_orders.each do |store_order|
+              tr
+                td.py-4.pl-4.pr-3.text-sm.font-medium.text-gray-900.whitespace-nowrap.sm:pl-0 = store_order.ref
+                td.px-3.py-4.text-sm.text-gray-500.whitespace-nowrap = store_order.store.name
+                td.px-3.py-4.text-sm.text-gray-500.whitespace-nowrap = number_to_currency(store_order.amount)
+                td.px-3.py-4.text-sm.text-gray-500.whitespace-nowrap = l(store_order.date)
+                / td.relative.py-4.pl-3.pr-4.text-sm.font-medium.text-right.whitespace-nowrap.sm:pr-0
+                /   = link_to edit_queen_store_order_path(user), class: "text-indigo-600 hover:text-indigo-900" do
+                /     | Edit
+                / td.relative.py-4.pl-3.pr-4.text-sm.font-medium.text-right.whitespace-nowrap.sm:pr-0
+                /   = link_to queen_user_path(user), data: { turbo_method: :delete, turbo_confirm: "Sure?" }, class: "text-indigo-600 hover:text-indigo-900" do
+                /     i.fa.fa-trash

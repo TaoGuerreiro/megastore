@@ -18,6 +18,19 @@ module Queen
       end
     end
 
+    def destroy
+      @user = User.find(params[:id])
+      @user.destroy
+      redirect_to queen_users_path, notice: 'User was successfully destroyed.'
+    end
+
+    def set_localhost
+      @user = User.find(params[:id])
+      Store.update_all(domain: nil)
+      @user.store.update(domain: "localhost")
+      redirect_to queen_users_path, notice: 'User was successfully set as localhost.'
+    end
+
     private
 
     def user_params

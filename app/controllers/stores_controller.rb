@@ -14,7 +14,7 @@ class StoresController < ApplicationController
   private
 
   def max_price
-    params.dig(:filters, :max_price) || @store.items.maximum(:price_cents) / 100.00
+    params.dig(:filters, :max_price) || @store.items&.maximum(:price_cents)&.fdiv(100)
   end
 
   def min_price

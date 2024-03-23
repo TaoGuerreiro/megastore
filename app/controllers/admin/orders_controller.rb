@@ -5,6 +5,11 @@ module Admin
 
     def index
       @orders = authorized_scope(Order.all)
+
+      if params[:search].present?
+        @orders = @orders.search_by_client(params[:search])
+      end
+
       authorize! @orders
     end
 

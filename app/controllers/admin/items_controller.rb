@@ -12,6 +12,15 @@ module Admin
 
       @items = filterable(Item, authorized_scope(Item.includes(:photos, :category)))
       @pagy, @items = pagy(@items)
+
+      if params[:search].present?
+        @items = @items.search_by_name_and_description(params[:search])
+        @pagy, @items = pagy(@items)
+
+        respond_to { |format| format.turbo_stream }
+      end
+
+
       authorize! @items
     end
 
