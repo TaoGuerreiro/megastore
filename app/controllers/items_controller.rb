@@ -5,6 +5,13 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
+
+    if params[:collection]
+      @item = Item.find(params[:collection])
+      respond_to { |format| format.turbo_stream { render turbo_stream: turbo_stream.update("store-item-show", partial: 'items/item', locals: { item: @item }) }}
+    else
+      respond_to { |format| format.html }
+    end
   end
 
   private

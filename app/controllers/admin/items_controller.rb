@@ -10,6 +10,8 @@ module Admin
       @offline_items_count = Item.where(store: Current.store, status: :offline).count
       @archived_items_count = Item.where(store: Current.store, status: :archived).count
 
+      # @collections = Collection.all
+
       @items = filterable(Item, authorized_scope(Item.includes(:photos, :category)))
       @pagy, @items = pagy(@items)
 
@@ -19,7 +21,6 @@ module Admin
 
         respond_to { |format| format.turbo_stream }
       end
-
 
       authorize! @items
     end
@@ -139,7 +140,7 @@ module Admin
 
     def item_params
       params.require(:item).permit(:name, :description, :price, :image, :stock, :length, :width, :height, :weight,
-                                   :category_id, :active, :status, photos: [], shipping_method_ids: [], specification_ids: []).tap do |permitted_params|
+                                   :category_id, :collection_type, :collection_id, :active, :status, photos: [], shipping_method_ids: [], specification_ids: []).tap do |permitted_params|
         manage_status(permitted_params)
         manage_photos(permitted_params)
         convert_dimensions(permitted_params)

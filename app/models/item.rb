@@ -10,6 +10,7 @@ class Item < ApplicationRecord
 
   belongs_to :store
   belongs_to :category
+  belongs_to :collection, optional: true
   has_many :item_specifications, dependent: :destroy
   has_many :specifications, through: :item_specifications
   has_many :order_items, dependent: :destroy
@@ -46,7 +47,7 @@ class Item < ApplicationRecord
                   }
 
   def self.with_archived
-    unscoped.order(:status, :name)
+    unscoped.order(:name)
   end
 
   def soldout?

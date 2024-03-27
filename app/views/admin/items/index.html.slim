@@ -1,6 +1,47 @@
 .bg-light.min-h-screen.pt-12.md:pt-0
   .mx-auto.max-w-5xl
-    .bg-light.py-10
+    / .py-10
+    /   .px-4.sm:px-6.lg:px-8
+    /     .sm:flex.sm:items-center.mb-6
+    /       .sm:flex-auto
+    /         h1.text-base.font-semibold.leading-6.text-contrast
+    /           | Collections
+    /         p.mt-2.text-sm.text-midgray
+    /           | Ajoutes des collections pour organiser tes articles.
+
+    /     = simple_form_for [:admin, Collection.new], data: { turbo: false } do |field|
+    /       = field.input :name, label: "Nom", placeholder: "Nom"
+    /       = field.button :submit, "Créer", class: "btn btn-primary"
+
+    /     .mt-8.flow-root
+    /       .min-w-full.divide-y.divide-contrast
+    /         .flex.w-full
+    /           .w-12
+    /             span.sr-only
+    /               | Checkbox
+    /           .w-12
+    /             span.sr-only
+    /               | En ligne
+    /           .w-12
+    /             span.sr-only
+    /               | Image
+    /           .w-96.py-3.5.px-2.text-left.text-sm.font-semibold.text-contrast
+    /             | Nom
+    /           .w-64.px-2.py-3.5.text-left.text-sm.font-semibold.text-contrast
+    /             | Prix
+    /           .w-24.px-2.py-3.5.text-center.text-sm.font-semibold.text-contrast
+    /             | Articles
+    /           .w-24.px-2.py-3.5.text-center.text-sm.font-semibold.text-contrast
+    /             | Stock
+    /           .w-10
+    /             span.sr-only
+    /               | Remove
+    /           .w-10
+    /             span.sr-only
+    /               | Edit
+    /       = render "collections", collections: @collections
+
+    .py-10
       .px-4.sm:px-6.lg:px-8
         .sm:flex.sm:items-center.mb-6
           .sm:flex-auto
@@ -29,7 +70,7 @@
             = form_tag admin_items_path, method: :get, data: { turbo_stream: true, controller: :autosave }, class: "w-full" do
               .flex.items-center
                 = text_field_tag :search, params[:search], class: "form-input w-full placeholder:text-content", placeholder: "Rechercher un article", data: { action: "keyup->autosave#submit"}
-                / = submit_tag "Rechercher", class: "btn btn-primary ml-2"
+
 
           .-mx-4.-my-2.overflow-x-auto.sm:-mx-6.lg:-mx-8
             .inline-block.min-w-full.py-2.align-middle.sm:px-6.lg:px-8 data-controller="bulk-edit-items"
@@ -47,8 +88,8 @@
                     i.fa-solid.fa-eye-slash.mr-2
                     span
                       | Offline
-              .min-w-full.divide-y.divide-contrast
-                .flex.w-full
+              .min-w-full
+                .flex.w-full.border-b-2.border-contrast
                   .w-12
                     span.sr-only
                       | Checkbox

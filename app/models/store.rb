@@ -6,6 +6,7 @@ class Store < ApplicationRecord
   has_many :items
   has_many :specifications
   has_many :orders
+  has_many :collections, through: :items
   has_rich_text :about
 
   encrypts :stripe_publishable_key

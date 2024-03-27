@@ -1,0 +1,20 @@
+= link_to item_path(collection.items.first), class:"relative" do
+  .group.relative.flex.flex-col.overflow-hidden.rounded-lg.border.bg-contrast class="border-contour #{'disabled' if collection.items.first.soldout?}"
+    .aspect-h-4.aspect-w-3.bg-contrast.sm:aspect-none.group-hover:opacity-75.sm:h-96
+      - if collection.items.first.photos.attached?
+        = image_tag collection.items.first.photos.first, class: "h-full w-full object-cover object-center sm:h-full sm:w-full"
+    .flex.flex-1.flex-col.space-y-2.p-4.bg-contour
+      h3.text-sm.font-medium.text-contrast
+        span.absolute.inset-0[aria-hidden="true"]
+        = collection.name
+      p.text-sm.text-content
+        = collection.items.first.description
+        p.text-base.font-medium.text-contrast
+          = "#{collection.items.first.price} €"
+        - if collection.items.first.stock == 1
+          p.text-sm.font-base.text-contrast.text-red-500
+            = "Plus qu'un seul exemplaire en stock !"
+
+  - if collection.items.first.soldout?
+    .absolute.left-1/2.top-1/2.-translate-x-1/2.-translate-y-1/2.text-center.opacity-100
+      .text-3xl.text-red-500.font-bold RUPTURE DE STOCK

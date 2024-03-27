@@ -46,6 +46,7 @@ Rails.application.routes.draw do
         resources :specifications, only: [:destroy]
         resources :categories, only: [:destroy]
         resources :shipping_methods, only: [:destroy]
+        resources :collections, only: %i[create show edit destroy]
         resource :bulk_edit_items, only: [] do
           patch :online, on: :member
           patch :offline, on: :member
@@ -66,10 +67,10 @@ Rails.application.routes.draw do
 
   constraints(Domain) do
     root to: 'pages#home'
-    get '/contact', to: 'pages#contact'
-    get '/about', to: 'pages#about'
+    get '/contact',       to: 'pages#contact'
+    get '/about',         to: 'pages#about'
     post '/send_message', to: 'pages#send_message'
-    get '/store', to: 'stores#show'
+    get '/store',         to: 'stores#show'
     resource :checkout, only: [:show] do
       post :confirm_payment, on: :member
     end

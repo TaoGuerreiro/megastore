@@ -1,0 +1,32 @@
+= turbo_frame_tag dom_id(collection) do
+  div.flex.w-full
+    .w-12.flex.justify-center.items-center
+      = check_box_tag "#{collection.id}", collection.id, false, class: "w-6 h-6 rounded-md text-primary focus:ring-primary", data: { action: "change->bulk-edit-items#select" }
+    .w-12.flex.justify-center.items-center.px-2
+      - if collection.active?
+        i.fas.fa-check.text-green-500.text-lg
+      - else
+        i.fas.fa-times.text-red-500.text-lg
+    .w-12.flex.justify-center.items-center
+      - if collection.photos_attached?
+        .relative.max-w-none.w-10.h-10.rounded-md
+          = image_tag collection.cover_image.variant(resize_to_fill: [50, 50]), class: ""
+
+    .w-96.px-2.text-sm.font-medium.text-contrast.flex.items-center
+      = collection.name.size > 30 ? "#{collection.name.first(30)}..." : collection.name
+    .w-64.whitespace-nowrap.px-2.py-4.text-sm.text-contrast.text-right
+      .flex
+        = number_to_currency(collection.min_item_price, format: "%n €")
+        .px-1 à
+        = number_to_currency(collection.max_item_price, format: "%n €")
+    .w-24.whitespace-nowrap.px-2.py-4.text-sm.text-contrast.text-center
+      .min-w-10.px-2= collection.items.count
+    .w-24.whitespace-nowrap.px-2.py-4.text-sm.text-contrast.text-center
+      .min-w-10.px-2= collection.stock
+
+    .w-10.relative.py-4.text-center.text-sm.font-medium.sm:pr-0
+      = link_to edit_admin_collection_path(collection), class: "text-primary text-center hover:text-primary/90", data: { turbo: :false}  do
+        i.fas.fa-pen.text-lg
+    .w-10.relative.py-4.text-center.text-sm.font-medium.sm:pr-0
+      = link_to admin_collection_path(collection), data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer cette collection ?" }, class: "text-primary hover:text-primary/90" do
+        i.fas.fa-trash.text-lg

@@ -2,15 +2,14 @@ import { Controller } from '@hotwired/stimulus'
 import TomSelect from "tom-select";
 
 export default class extends Controller {
+  static values = { options: Object }
+
   connect() {
+    console.log(this.optionsValue);
     this.element.classList.remove("form-input")
-    new TomSelect(this.element, {
-      // options de Tom Select
-      plugins: {
-        remove_button:{
-          title:'Remove this item',
-        }
-      },
-    });
+
+    const options = { ...this.optionsValue, plugins: { ...this.optionsValue.plugins, remove_button: { title: 'Supprimer' } } };
+    console.log(options);
+    new TomSelect(this.element, options);
   }
 }

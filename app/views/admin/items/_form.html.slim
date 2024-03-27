@@ -46,6 +46,16 @@
           collection: @specifications,
           input_html: { multiple: true, data: { controller: "select"} }
 
+        h3.mb-6.text-2xl.text-contrast Collection
+        .flex.gap-3
+          = field.association :collection,
+            as: :select,
+            label: false,
+            collection: Collection.all,
+            input_html: { data: { controller: "select" }}
+
+          = field.input :collection_type, label: "Type", placeholder: "Type"
+
 
 
         .grid.grid-cols-3.mt-8

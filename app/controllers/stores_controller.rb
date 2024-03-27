@@ -9,6 +9,7 @@ class StoresController < ApplicationController
     @default_sort = default_sort
     @query = params.dig(:filters, :query)
     @items = fetch_items
+    # @collections = @store.collections.uniq
   end
 
   private
