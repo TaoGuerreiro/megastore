@@ -35,6 +35,7 @@ class Item < ApplicationRecord
   validates :price, presence: true
   validates :stock, presence: true
   validates :weight, presence: true
+  validates :format, presence: true
 
   scope :active, -> { where(status: :active) }
   scope :archived, -> { where(status: :archived) }

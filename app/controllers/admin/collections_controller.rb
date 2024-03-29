@@ -4,7 +4,8 @@ class Admin::CollectionsController < ApplicationController
     if @collection.save
       redirect_to admin_items_path, notice: 'Collection was successfully created.'
     else
-      render :new, status: :unprocessable_entity
+      @collections = Collection.all
+      render "admin/items/index", status: :unprocessable_entity
     end
   end
 

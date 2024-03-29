@@ -1,6 +1,8 @@
 class Collection < ApplicationRecord
-  has_many :items
+  has_many :items, dependent: :nullify
   has_one :store, through: :items
+
+  validates :name, presence: true
 
   def max_item_price
     return 0 unless items.any?

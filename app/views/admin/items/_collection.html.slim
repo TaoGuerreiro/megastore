@@ -25,8 +25,8 @@
       .min-w-10.px-2= collection.stock
 
     .w-10.relative.py-4.text-center.text-sm.font-medium.sm:pr-0
-      = link_to edit_admin_collection_path(collection), class: "text-primary text-center hover:text-primary/90", data: { turbo: :false}  do
+      = link_to edit_admin_collection_path(collection), class: "text-primary text-center hover:text-primary/90", data: { turbo: :false }  do
         i.fas.fa-pen.text-lg
     .w-10.relative.py-4.text-center.text-sm.font-medium.sm:pr-0
-      = link_to admin_collection_path(collection), data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer cette collection ?" }, class: "text-primary hover:text-primary/90" do
+      = button_to admin_collection_path(collection), method: :delete, confirm: "Êtes-vous sûr de vouloir supprimer cette collection ?", data: { turbo: false }, class: "text-primary hover:text-primary/90" do
         i.fas.fa-trash.text-lg

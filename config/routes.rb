@@ -50,6 +50,7 @@ Rails.application.routes.draw do
         resource :bulk_edit_items, only: [] do
           patch :online, on: :member
           patch :offline, on: :member
+          patch :add_to_collection, on: :member
         end
         resources :items, only: %i[index new create edit update destroy] do
           delete :remove_photo, on: :member

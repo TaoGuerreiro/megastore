@@ -1,45 +1,48 @@
 .bg-light.min-h-screen.pt-12.md:pt-0
-  .mx-auto.max-w-5xl
-    / .py-10
-    /   .px-4.sm:px-6.lg:px-8
-    /     .sm:flex.sm:items-center.mb-6
-    /       .sm:flex-auto
-    /         h1.text-base.font-semibold.leading-6.text-contrast
-    /           | Collections
-    /         p.mt-2.text-sm.text-midgray
-    /           | Ajoutes des collections pour organiser tes articles.
+  .mx-auto.max-w-6xl
+    .py-10
+      .px-4.sm:px-6.lg:px-8
+        .sm:flex.sm:items-center.mb-6
+          .sm:flex-auto
+            h1.text-base.font-semibold.leading-6.text-contrast
+              | Collections
+            p.mt-2.text-sm.text-midgray
+              | Ajoutes des collections pour organiser tes articles.
 
-    /     = simple_form_for [:admin, Collection.new], data: { turbo: false } do |field|
-    /       = field.input :name, label: "Nom", placeholder: "Nom"
-    /       = field.button :submit, "Créer", class: "btn btn-primary"
+        = simple_form_for [:admin, Collection.new], data: { turbo: false } do |field|
+          .mb-3= field.label :name, "Ajouter une collection"
+          .flex
+            = field.input :name, label: "Nom de la collection", placeholder: "Nom de la collection", wrapper_html: { class: "mb-0 mr-3" }
+            = button_tag type: :submit do
+              i.fa-solid.fa-circle-plus.text-2xl.text-primary
 
-    /     .mt-8.flow-root
-    /       .min-w-full.divide-y.divide-contrast
-    /         .flex.w-full
-    /           .w-12
-    /             span.sr-only
-    /               | Checkbox
-    /           .w-12
-    /             span.sr-only
-    /               | En ligne
-    /           .w-12
-    /             span.sr-only
-    /               | Image
-    /           .w-96.py-3.5.px-2.text-left.text-sm.font-semibold.text-contrast
-    /             | Nom
-    /           .w-64.px-2.py-3.5.text-left.text-sm.font-semibold.text-contrast
-    /             | Prix
-    /           .w-24.px-2.py-3.5.text-center.text-sm.font-semibold.text-contrast
-    /             | Articles
-    /           .w-24.px-2.py-3.5.text-center.text-sm.font-semibold.text-contrast
-    /             | Stock
-    /           .w-10
-    /             span.sr-only
-    /               | Remove
-    /           .w-10
-    /             span.sr-only
-    /               | Edit
-    /       = render "collections", collections: @collections
+        .mt-8.flow-root
+          .min-w-full.divide-y.divide-contrast
+            .flex.w-full
+              .w-12
+                span.sr-only
+                  | Checkbox
+              .w-12
+                span.sr-only
+                  | En ligne
+              .w-12
+                span.sr-only
+                  | Image
+              .w-96.py-3.5.px-2.text-left.text-sm.font-semibold.text-contrast
+                | Nom
+              .w-64.px-2.py-3.5.text-left.text-sm.font-semibold.text-contrast
+                | Prix
+              .w-24.px-2.py-3.5.text-center.text-sm.font-semibold.text-contrast
+                | Articles
+              .w-24.px-2.py-3.5.text-center.text-sm.font-semibold.text-contrast
+                | Stock
+              .w-10
+                span.sr-only
+                  | Remove
+              .w-10
+                span.sr-only
+                  | Edit
+          = render "admin/items/collections", collections: @collections
 
     .py-10
       .px-4.sm:px-6.lg:px-8
@@ -75,19 +78,24 @@
           .-mx-4.-my-2.overflow-x-auto.sm:-mx-6.lg:-mx-8
             .inline-block.min-w-full.py-2.align-middle.sm:px-6.lg:px-8 data-controller="bulk-edit-items"
               .hidden.z-50.rounded.fixed.px-3.py-3.bg-content.right-10.top-20 data-bulk-edit-items-target="container"
-                = form_tag online_admin_bulk_edit_items_path, method: :patch do
+                = form_tag online_admin_bulk_edit_items_path, method: :patch, data: { turbo: false } do
                   = text_field_tag :item_ids, {}, data: { "bulk-edit-items-target": "input" }, type: :hidden
                   = button_tag "Online", class: "btn btn-menu inline-block" do
                     i.fa-solid.fa-eye.mr-2
                     span
                       | Online
                 .border-b.border-primary
-                = form_tag offline_admin_bulk_edit_items_path, method: :patch do
+                = form_tag offline_admin_bulk_edit_items_path, method: :patch, data: { turbo: false } do
                   = text_field_tag :item_ids, {}, data: { "bulk-edit-items-target": "input" }, type: :hidden
                   = button_tag "Offline", class: "btn btn-menu inline-block" do
                     i.fa-solid.fa-eye-slash.mr-2
                     span
                       | Offline
+                .border-b.border-primary.mb-2
+                = form_tag add_to_collection_admin_bulk_edit_items_path, method: :patch, data: { turbo: false, controller: "autosave" } do
+                  = text_field_tag :item_ids, {}, data: { "bulk-edit-items-target": "input" }, type: :hidden
+                  = select_tag :collection_id, options_from_collection_for_select(@collections, :id, :name), include_blank: "Ajouter à une collection", class: "form-select w-full", data: { action: "change->autosave#submit" }
+
               .min-w-full
                 .flex.w-full.border-b-2.border-contrast
                   .w-12
@@ -109,6 +117,8 @@
                   .w-28.px-2.py-3.5.text-left.text-sm.font-semibold.text-contrast
                     = filterable_sort_button(Item, :category_id) do
                       | Catégories
+                  .w-20.px-2.py-3.5.text-left.text-sm.font-semibold.text-contrast.text-left
+                    | Format
                   .w-20.px-2.py-3.5.text-left.text-sm.font-semibold.text-contrast.text-right
                     = filterable_sort_button(Item, :price_cents) do
                       | Prix
@@ -122,4 +132,4 @@
                     span.sr-only
                       | Remove
                 #items
-                  = render "items", items: @items
+                  = render "admin/items/items", items: @items

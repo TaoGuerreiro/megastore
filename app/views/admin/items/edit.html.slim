@@ -18,7 +18,7 @@
                 i.fas.fa-archive.mr-2 class="!text-primary"
                 | Archiver
             = submit_tag "Modifier", form: "edit_item_#{@item.id}", class: "btn btn-primary"
-        = render "form"
+        = render "form", item: @item
 
     h2.text-3xl.mb-4
       | Prévisualisation de l'article

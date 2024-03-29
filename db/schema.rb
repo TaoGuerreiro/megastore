@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_25_191121) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_29_175920) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -123,7 +123,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_25_191121) do
     t.bigint "category_id", null: false
     t.string "status", default: "active"
     t.bigint "collection_id"
-    t.string "collection_type"
+    t.string "format"
     t.index ["category_id"], name: "index_items_on_category_id"
     t.index ["collection_id"], name: "index_items_on_collection_id"
     t.index ["store_id"], name: "index_items_on_store_id"

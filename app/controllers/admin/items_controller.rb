@@ -2,15 +2,14 @@
 
 module Admin
   class ItemsController < AdminController
-    before_action :set_shipping_methods, only: %i[new edit create update]
-    before_action :set_specifications, only: %i[new edit]
+    before_action :set_specifications, only: %i[new edit update]
 
     def index
       @active_items_count = Item.where(store: Current.store, status: :active).count
       @offline_items_count = Item.where(store: Current.store, status: :offline).count
       @archived_items_count = Item.where(store: Current.store, status: :archived).count
 
-      # @collections = Collection.all
+      @collections = Collection.all
 
       @items = filterable(Item, authorized_scope(Item.includes(:photos, :category)))
       @pagy, @items = pagy(@items)
@@ -48,15 +47,17 @@ module Admin
       @item = Item.find(params[:id])
       authorize! @item
     end
-
     def update
       @item = Item.find(params[:id])
-      authorize! @item
+
       if @item.update(item_params)
+        Rails.logger.debug "Item updated successfully"
         redirect_to admin_items_path, notice: 'Item was successfully updated.'
       else
+        Rails.logger.debug "Item update failed"
         render :edit, status: :unprocessable_entity, notice: 'Item could not be updated.'
       end
+      authorize! @item
     end
 
     def destroy
@@ -130,17 +131,13 @@ module Admin
 
     private
 
-    def set_shipping_methods
-      @shipping_methods = []
-    end
-
     def set_specifications
       @specifications = authorized_scope(Specification.all)
     end
 
     def item_params
       params.require(:item).permit(:name, :description, :price, :image, :stock, :length, :width, :height, :weight,
-                                   :category_id, :collection_type, :collection_id, :active, :status, photos: [], shipping_method_ids: [], specification_ids: []).tap do |permitted_params|
+                                   :category_id, :format, :collection_id, :active, :status, photos: [], shipping_method_ids: [], specification_ids: []).tap do |permitted_params|
         manage_status(permitted_params)
         manage_photos(permitted_params)
         convert_dimensions(permitted_params)

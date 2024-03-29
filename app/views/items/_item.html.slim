@@ -37,7 +37,7 @@
                 | Collection
               .space-y-6.text-base.text-contrast
                 = form_tag item_path(@item), method: :get, data: { turbo_stream: true, controller: "autosave"} do
-                  = select_tag "collection", options_for_select(@item.collection.items.map { |collection| [collection.collection_type, collection.id] }, @item.id), class: "form-input rounded border-content text-primary focus:ring-primary form-select", data: { action: "change->autosave#submit" }
+                  = select_tag "collection", options_for_select(@item.collection.items.map { |collection| [collection.format, collection.id] }, @item.id), class: "form-input rounded border-content text-primary focus:ring-primary form-select", data: { action: "change->autosave#submit" }
           .mt-6
             .mt-10
               - if Current.store.display_stock?
