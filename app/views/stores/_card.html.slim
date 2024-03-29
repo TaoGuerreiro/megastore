@@ -1,19 +1,19 @@
 = link_to item_path(item), class:"relative" do
-  .group.relative.flex.flex-col.overflow-hidden.rounded-lg.border.bg-contrast class="border-contour #{'disabled' if item.soldout?}"
-    .aspect-h-4.aspect-w-3.bg-contrast.sm:aspect-none.group-hover:opacity-75.sm:h-96
+  .group.relative.flex.flex-col.overflow-hidden.rounded-lg.border.shadow-sm class="hover:shadow-lg hover:scale-[1.005] transition-all  #{'disabled' if item.soldout?}"
+    .aspect-h-4.aspect-w-3.bg-contrast.sm:aspect-none.sm:h-96
       - if item.photos.attached?
         = image_tag item.photos.first, class: "h-full w-full object-cover object-center sm:h-full sm:w-full"
-    .flex.flex-1.flex-col.space-y-2.p-4.bg-contour
+    .flex.flex-1.flex-col.space-y-2.p-4.bg-contour.min-h-36
       h3.text-sm.font-medium.text-contrast
         span.absolute.inset-0[aria-hidden="true"]
         = item.name
       p.text-sm.text-content
         = item.description
-        p.text-base.font-medium.text-contrast
-          = "#{item.price} €"
-        - if item.stock == 1
-          p.text-sm.font-base.text-contrast.text-red-500
-            = "Plus qu'un seul exemplaire en stock !"
+      p.text-base.font-medium.text-contrast class="!mt-auto"
+        = "#{item.price} €"
+      - if item.stock == 1
+        p.text-sm.font-base.text-contrast.text-red-500
+          = "Plus qu'un seul exemplaire en stock !"
 
   - if item.soldout?
     .absolute.left-1/2.top-1/2.-translate-x-1/2.-translate-y-1/2.text-center.opacity-100

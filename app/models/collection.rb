@@ -4,6 +4,13 @@ class Collection < ApplicationRecord
 
   validates :name, presence: true
 
+
+  def soldout?
+    return false unless items.any?
+
+    items.all? { |item| item.stock.zero? }
+  end
+
   def max_item_price
     return 0 unless items.any?
 
