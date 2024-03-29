@@ -55,6 +55,9 @@ application.register("spinner", SpinnerController)
 import AddressAutocompleteController from "./address_autocomplete_controller"
 application.register("address-autocomplete", AddressAutocompleteController)
 
+import CardAnimateController from "./card_animate_controller"
+application.register("card-animate", CardAnimateController)
+
 // UNSAFE
 import ScrollController from "./unsafe/scroll_controller"
 application.register("scroll", ScrollController)
