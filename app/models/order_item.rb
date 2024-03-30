@@ -9,9 +9,13 @@ class OrderItem < ApplicationRecord
 
   def withdraw_stock
     item.update(stock: item.stock - quantity)
+
+    item.update(status: :offline) if item.soldout?
   end
 
   def add_stock
     item.update(stock: item.stock + quantity)
+
+    item.update(status: :active) if item.stock.positive?
   end
 end

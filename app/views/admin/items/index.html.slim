@@ -10,7 +10,10 @@
               | Ajoutes des collections pour organiser tes articles.
 
         = simple_form_for [:admin, Collection.new], data: { turbo: false } do |field|
-          .mb-3= field.label :name, "Ajouter une collection"
+          .mb-3.flex
+            = field.label :name, "Ajouter une collection"
+            = render Tooltip::Component.new(message: t("new_collection"))
+
           .flex
             = field.input :name, label: "Nom de la collection", placeholder: "Nom de la collection", wrapper_html: { class: "mb-0 mr-3" }
             = button_tag type: :submit do
@@ -44,6 +47,7 @@
               /     | Edit
           = render "admin/items/collections", collections: @collections
 
+    .border-t.border-content.mx-8
     .py-10
       .px-4.sm:px-6.lg:px-8
         .sm:flex.sm:items-center.mb-6
