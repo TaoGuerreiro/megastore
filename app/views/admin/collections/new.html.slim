@@ -1,0 +1,9 @@
+= turbo_frame_tag "new_collection" do
+  = simple_form_for [:admin, Collection.new], data: { turbo: false } do |field|
+    .mb-3.flex.w-full
+      = field.label :name, "Ajouter une collection"
+      = render Tooltip::Component.new(message: t("new_collection"))
+    .flex
+      = field.input :name, label: "Nom de la collection", placeholder: "Nom de la collection", wrapper_html: { class: "mb-0 mr-3" }, input_html: {required: true}
+      = button_tag type: :submit do
+        i.fa-solid.fa-circle-plus.text-2xl.text-primary

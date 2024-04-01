@@ -1,51 +1,6 @@
 .bg-light.min-h-screen.pt-12.md:pt-0
   .mx-auto.max-w-6xl
-    .py-10
-      .px-4.sm:px-6.lg:px-8
-        .sm:flex.sm:items-center.mb-6
-          .sm:flex-auto
-            h1.text-base.font-semibold.leading-6.text-contrast
-              | Collections
-            p.mt-2.text-sm.text-midgray
-              | Ajoutes des collections pour organiser tes articles.
-
-        = simple_form_for [:admin, Collection.new], data: { turbo: false } do |field|
-          .mb-3.flex
-            = field.label :name, "Ajouter une collection"
-            = render Tooltip::Component.new(message: t("new_collection"))
-
-          .flex
-            = field.input :name, label: "Nom de la collection", placeholder: "Nom de la collection", wrapper_html: { class: "mb-0 mr-3" }
-            = button_tag type: :submit do
-              i.fa-solid.fa-circle-plus.text-2xl.text-primary
-
-        .mt-8.flow-root
-          .min-w-full.divide-y.divide-contrast
-            .flex.w-full
-              .w-12
-                span.sr-only
-                  | Checkbox
-              .w-12
-                span.sr-only
-                  | En ligne
-              .w-12
-                span.sr-only
-                  | Image
-              .w-96.py-3.5.px-2.text-left.text-sm.font-semibold.text-contrast
-                | Nom
-              .w-64.px-2.py-3.5.text-left.text-sm.font-semibold.text-contrast
-                | Prix
-              .w-24.px-2.py-3.5.text-center.text-sm.font-semibold.text-contrast
-                | Articles
-              .w-24.px-2.py-3.5.text-center.text-sm.font-semibold.text-contrast
-                | Stock
-              .w-10
-                span.sr-only
-                  | Action
-              / .w-10
-              /   span.sr-only
-              /     | Edit
-          = render "admin/items/collections", collections: @collections
+    = turbo_frame_tag "collections", src: admin_collections_path do
 
     .border-t.border-content.mx-8
     .py-10

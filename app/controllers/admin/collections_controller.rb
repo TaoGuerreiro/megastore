@@ -1,4 +1,9 @@
-class Admin::CollectionsController < ApplicationController
+class Admin::CollectionsController < AdminController
+
+  def new
+    @collection = Collection.new
+  end
+
   def create
     @collection = Collection.new(collection_params)
     @collection.store = Current.store
@@ -15,6 +20,10 @@ class Admin::CollectionsController < ApplicationController
     @collection = Collection.find(params[:id])
     @collection.destroy
     redirect_to admin_items_path, status: :see_other, notice: 'Collection was successfully destroyed.'
+  end
+
+  def index
+    @collections = authorized_scope(Collection.all)
   end
 
   private

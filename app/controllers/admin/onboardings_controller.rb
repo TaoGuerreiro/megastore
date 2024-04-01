@@ -16,7 +16,7 @@ module Admin
           mcc: "5734",
           product_description: "Online marketplace",
           name: current_user.full_name,
-          url: "https://www.lecheveublanc.fr",
+          url: "https://www.#{Current.store.domain}",
         }
       )
 

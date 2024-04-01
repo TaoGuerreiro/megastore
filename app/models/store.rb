@@ -9,9 +9,6 @@ class Store < ApplicationRecord
   has_many :collections
   has_rich_text :about
 
-  encrypts :stripe_publishable_key
-  encrypts :stripe_secret_key
-  encrypts :stripe_webhook_secret_key
   encrypts :postmark_key
   encrypts :sendcloud_private_key
   encrypts :sendcloud_public_key
