@@ -37,11 +37,11 @@
             i.fas.fa-plus.py-1.text-xs
 
     .w-10.relative.py-4.text-center.text-sm.font-medium.sm:pr-0
-      = render List::Component.new(item: item, links:[{icon: "fas fa-pen", label: "Editer", path: admin_item_path(item)},
-                                                      {icon: "fas fa-trash", label: "Supprimer", path: edit_admin_item_path(item)},
+      = render List::Component.new(item: item, links:[{icon: "fas fa-pen", label: "Editer", path: edit_admin_item_path(item), options: { data: { turbo: false }}},
+                                                      {icon: "fas fa-trash", label: "Supprimer", path: admin_item_path(item), options: { data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer cet article ?" }}},
                                                     ])
       / = link_to edit_admin_item_path(item), class: "text-primary hover:text-primary/90", data: { turbo: :false }  do
-      /   i.fas.fa-pen.text-lg
+        i.fas.fa-pen.text-lg
     / .w-10.relative.py-4.text-center.text-sm.font-medium.sm:pr-0
     /   - if item.destroyabled?
     /     = link_to admin_item_path(item), data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer cet article ?" }, class: "text-primary hover:text-primary/90" do
