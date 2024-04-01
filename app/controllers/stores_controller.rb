@@ -9,7 +9,13 @@ class StoresController < ApplicationController
     @default_sort = default_sort
     @query = params.dig(:filters, :query)
     @items = fetch_items
-    @collections = @store.collections.uniq
+    @collections = @store.collections_with_items
+
+    if params[:filters]
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.replace('store-items', partial: 'items', locals: { items: @items, collections: @collections }) }
+      end
+    end
   end
 
   private
@@ -28,9 +34,9 @@ class StoresController < ApplicationController
 
   def fetch_items
     return @store.items.where(status: :active).order(created_at: :desc) unless params[:filters]
-    # raise
+
     items = @store.items.includes(:category).where(category: { name: selected_filters },
-                                                   status: :active).where(price_range_inputs).order(sorting_input)
+                                                  status: :active).where(price_range_inputs).order(sorting_input)
     items = items.search_by_name_and_description(@query) if @query.present? && @query != ''
     items
   end

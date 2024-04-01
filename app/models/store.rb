@@ -6,7 +6,7 @@ class Store < ApplicationRecord
   has_many :items
   has_many :specifications
   has_many :orders
-  has_many :collections, through: :items
+  has_many :collections
   has_rich_text :about
 
   encrypts :stripe_publishable_key
@@ -24,6 +24,10 @@ class Store < ApplicationRecord
 
   def create_endi_profile
     EndiServices::NewUser.new(store).call
+  end
+
+  def collections_with_items
+    collections.includes(:items).where(items: { status: :active }).order(created_at: :desc)
   end
 
   def holiday?

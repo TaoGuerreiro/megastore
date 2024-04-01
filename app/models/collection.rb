@@ -1,6 +1,6 @@
 class Collection < ApplicationRecord
   has_many :items, dependent: :nullify
-  has_one :store, through: :items
+  belongs_to :store
 
   validates :name, presence: true
 

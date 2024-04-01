@@ -1,6 +1,8 @@
 class Admin::CollectionsController < ApplicationController
   def create
     @collection = Collection.new(collection_params)
+    @collection.store = Current.store
+
     if @collection.save
       redirect_to admin_items_path, notice: 'Collection was successfully created.'
     else

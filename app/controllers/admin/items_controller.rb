@@ -9,7 +9,7 @@ module Admin
       @offline_items_count = Item.where(store: Current.store, status: :offline).count
       @archived_items_count = Item.where(store: Current.store, status: :archived).count
 
-      @collections = Collection.all
+      @collections = authorized_scope(Collection.all)
 
       @items = filterable(Item, authorized_scope(Item.includes(:photos, :category)))
       @pagy, @items = pagy(@items)

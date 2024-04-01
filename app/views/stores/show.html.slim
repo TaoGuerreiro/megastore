@@ -12,10 +12,4 @@
         - else
           h2#product-heading.sr-only
             | Products
-          .grid.grid-cols-2.gap-4.sm:grid-cols-2.sm:gap-x-6.sm:gap-y-10.lg:gap-x-8.xl:grid-cols-3 data-controller="card-animate"
-
-            - @collections.each do |collection|
-              = render "collection", collection: collection
-
-            - @items.each do |item|
-              = render "card", item:
+          = render "items", items: @items, collections: @collections

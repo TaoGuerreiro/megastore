@@ -1,5 +1,5 @@
 .max-w-5xl.mx-auto.flex.flex-col.md:flex-row.w-full.pt-36.mb-10
   .px-12.pt-6.md:pt-0 class="w-[90%]"
     = image_tag "#{Current.store.slug}/salome.jpg", class: "object-contain overflow-hidden"
-  .w-full.md:px-0.px-12.pt-6.md:pt-0.text-justify.text-sm
+  .w-full.md:px-0.px-12.pt-6.md:pt-0.text-justify.text-sm.leading-7
     == Current&.store&.about&.body&.to_html

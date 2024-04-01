@@ -6,10 +6,9 @@ module Admin
     def show
       @store = Current.store
       authorize! @store
-      @categories = Current.store.categories
-      # @shipping_methods = Current.store.shipping_methods
+      @categories = @store.categories
       @shipping_methods = []
-      @specifications = Current.store.specifications
+      @specifications = @store.specifications
     end
 
     def edit

@@ -8,7 +8,7 @@ export default class extends Controller {
     this.buttonTarget.click()
   }
 
-  submit(event) {
+  submit() {
     this.element.requestSubmit();
   }
 }

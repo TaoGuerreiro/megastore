@@ -41,7 +41,7 @@
                 | Stock
               .w-10
                 span.sr-only
-                  | Remove
+                  | Action
               / .w-10
               /   span.sr-only
               /     | Edit
@@ -131,9 +131,9 @@
                       | Stock
                   .w-10
                     span.sr-only
-                      | Edit
-                  .w-10
-                    span.sr-only
-                      | Remove
+                      | Actions
+                  / .w-10
+                  /   span.sr-only
+                  /     | Remove
                 #items
                   = render "admin/items/items", items: @items
