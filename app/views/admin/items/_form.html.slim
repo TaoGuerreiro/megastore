@@ -1,71 +1,69 @@
-.mt-8.flow-root.max-w-3xl.mx-auto
-  .
-    .inline-block.min-w-full.py-5.align-middle.sm:px-6.lg:px-8 data-controller="photo-upload"
-      = simple_form_for [:admin, item], data: { turbo: false } do |field|
-        h3.mb-6.text-2xl.text-contrast Informations
+.inline-block.min-w-full.py-5.align-middle.sm:px-6.lg:px-8 data-controller="photo-upload"
+  = simple_form_for [:admin, item], data: { turbo: false } do |field|
+    h3.mb-6.text-2xl.text-contrast Informations
 
-        = field.input :name, label: "Nom", placeholder: "Nom"
-        = field.input :description, as: :text, label: "Description", placeholder: "Description"
-        .flex.gap-4
-          = field.input :price, label: "Prix", placeholder: "Prix"
-          = field.input :stock, label: "Stock", placeholder: "Stock"
-          = field.association :category, collection: Current.store.categories.map {|category| [category.name, category.id]}, label: "Catégorie", placeholder: "Catégorie"
+    = field.input :name, label: "Nom", placeholder: "Nom"
+    = field.input :description, as: :text, label: "Description", placeholder: "Description"
+    .flex.gap-4
+      = field.input :price, label: "Prix", placeholder: "Prix"
+      = field.input :stock, label: "Stock", placeholder: "Stock"
+      = field.association :category, collection: Current.store.categories.map {|category| [category.name, category.id]}, label: "Catégorie", placeholder: "Catégorie"
 
-        h3.mb-6.text-2xl.text-contrast Spécifications
+    h3.mb-6.text-2xl.text-contrast Spécifications
 
-        .flex.gap-4
-          .relative.w-full
-            = field.input :width, as: :string, label: "Largeur", placeholder: "Largeur", input_html: { value: number_with_precision(item&.width&.fdiv(10), precision: 1) }
-            span.text-midgray.text-xs.absolute.right-3.top-3
-              | cm
+    .flex.gap-4
+      .relative.w-full
+        = field.input :width, as: :string, label: "Largeur", placeholder: "Largeur", input_html: { value: number_with_precision(item&.width&.fdiv(10), precision: 1) }
+        span.text-midgray.text-xs.absolute.right-3.top-3
+          | cm
 
-          .relative.w-full
-            = field.input :height, as: :string, label: "Hauteur", placeholder: "Hauteur", input_html: { value: number_with_precision(item&.height&.fdiv(10), precision: 1) }
-            span.text-midgray.text-xs.absolute.right-3.top-3
-              | cm
+      .relative.w-full
+        = field.input :height, as: :string, label: "Hauteur", placeholder: "Hauteur", input_html: { value: number_with_precision(item&.height&.fdiv(10), precision: 1) }
+        span.text-midgray.text-xs.absolute.right-3.top-3
+          | cm
 
-          .relative.w-full
-            = field.input :length, as: :string, label: "Longueur", placeholder: "Longueur", input_html: { value: number_with_precision(item&.length&.fdiv(10), precision: 1) }
-            span.text-midgray.text-xs.absolute.right-3.top-3
-              | cm
+      .relative.w-full
+        = field.input :length, as: :string, label: "Longueur", placeholder: "Longueur", input_html: { value: number_with_precision(item&.length&.fdiv(10), precision: 1) }
+        span.text-midgray.text-xs.absolute.right-3.top-3
+          | cm
 
-          .relative.w-full
-            = field.input :weight, as: :string, label: "Poids", placeholder: "Poids", input_html: { value: item.weight }
-            span.text-midgray.text-xs.absolute.right-3.top-3
-              | gr
+      .relative.w-full
+        = field.input :weight, as: :string, label: "Poids", placeholder: "Poids", input_html: { value: item.weight }
+        span.text-midgray.text-xs.absolute.right-3.top-3
+          | gr
 
 
-        - unless item.archived?
-          = field.input :active, label: "En ligne", as: :boolean, input_html: { checked: item.active?, class: "w-5 h-5 m-0 p-0 flex checked:!bg-primary"}, wrapper_html: {class: "flex items-center"}, label_html: {class: "-top-0.5 left-4"}
+    - unless item.archived?
+      = field.input :active, label: "En ligne", as: :boolean, input_html: { checked: item.active?, class: "w-5 h-5 m-0 p-0 flex checked:!bg-primary"}, wrapper_html: {class: "flex items-center"}, label_html: {class: "-top-0.5 left-4"}
 
-        h3.mb-6.text-2xl.text-contrast Spécifications
-        = field.association :specifications,
-          as: :select,
-          label: false,
-          collection: @specifications,
-          input_html: { multiple: true, data: { controller: "select"} }
+    h3.mb-6.text-2xl.text-contrast Spécifications
+    = field.association :specifications,
+      as: :select,
+      label: false,
+      collection: @specifications,
+      input_html: { multiple: true, data: { controller: "select"} }
 
-        h3.mb-6.text-2xl.text-contrast Collection
-        .flex.gap-3
-          = field.association :collection,
-            as: :select,
-            label: false,
-            collection: Collection.all,
-            input_html: { data: { controller: "select" }}
+    h3.mb-6.text-2xl.text-contrast Collection
+    .flex.gap-3
+      = field.association :collection,
+        as: :select,
+        label: false,
+        collection: Collection.all,
+        input_html: { data: { controller: "select" }}
 
-          = field.input :format, label: "Format", placeholder: "Format"
+      = field.input :format, label: "Format", placeholder: "Format"
 
 
-        h3.mb-6.text-2xl.text-contrast Photos
-        = field.input :photos, label: false, input_html: {value: item.photos, multiple: true, class: "hidden", data: { action: "change->photo-upload#show" }}
-        = field.label :photos do
-          .btn.btn-primary.inline Ajouter une photo
+    h3.mb-6.text-2xl.text-contrast Photos
+    = field.input :photos, label: false, input_html: {value: item.photos, multiple: true, class: "hidden", data: { action: "change->photo-upload#show" }}
+    = field.label :photos do
+      .btn.btn-primary.inline Ajouter une photo
 
-      .mt-5 data-photo-upload-target="photosContainer"
-        - if item.persisted?
-          - item.photos.each do |photo|
-            = turbo_frame_tag dom_id(photo) do
-              .inline-block.w-20.h-20.mr-4.bg-contrast.rounded-xl.relative
-                = image_tag photo, class: "w-full h-full object-cover rounded-xl"
-                = button_to remove_photo_admin_item_path(item, photo_id: photo), method: :delete, class: "absolute top-1 right-1 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-contrast hover:bg-red-600" do
-                  i.fas.fa-times
+  .mt-5 data-photo-upload-target="photosContainer"
+    - if item.persisted?
+      - item.photos.each do |photo|
+        = turbo_frame_tag dom_id(photo) do
+          .inline-block.w-20.h-20.mr-4.bg-contrast.rounded-xl.relative
+            = image_tag photo, class: "w-full h-full object-cover rounded-xl"
+            = button_to remove_photo_admin_item_path(item, photo_id: photo), method: :delete, class: "absolute top-1 right-1 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-contrast hover:bg-red-600" do
+              i.fas.fa-times

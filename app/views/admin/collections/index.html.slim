@@ -1,6 +1,9 @@
-= turbo_frame_tag "collections" do
+= render Header::Component.new do |header|
+  - header.with_tabs do
+    = render Tabs::Component.new(tabs: [{name: "Articles", path: admin_items_path},
+                                        {name: "Collections", path: admin_collections_path}])
   .py-10
-    .px-4.sm:px-6.lg:px-8
+    .px-4.sm:px-6.lg:px-0
       .sm:flex.sm:items-center.mb-6
         .sm:flex-auto
           h1.text-base.font-semibold.leading-6.text-contrast

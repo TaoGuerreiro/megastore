@@ -1,4 +1,4 @@
-= turbo_frame_tag dom_id(item), class: "hover:bg-form-input table-row text-sm text-contrast#{' disabled' if item.archived?}" do
+= turbo_frame_tag dom_id(item), class: "table-row text-sm text-contrast#{' disabled' if item.archived?}" do
   .table-cell.text-center.align-middle
     = check_box_tag "#{item.id}", item.id, false, class: "w-6 h-6 rounded-md text-primary focus:ring-primary", data: { action: "change->bulk-edit-items#select" }
 
@@ -8,7 +8,7 @@
   .table-cell.align-middle.h-16
     = render Miniature::Component.new(item: item)
 
-  .table-cell.truncate.max-w-36.px-2.align-middle
+  .table-cell.truncate.max-w-36.px-2.align-middle.text-contrast.font-bold
     = item.name
 
   .table-cell.truncate.max-w-36.px-2.align-middle

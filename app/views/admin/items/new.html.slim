@@ -1,14 +1,8 @@
-.bg-light.min-h-screen.pt-12.md:pt-0
-  .mx-auto.max-w-7xl
-    .bg-light.py-10
-      .px-4.sm:px-6.lg:px-8
-        .sm:flex.sm:items-center
-          .sm:flex-auto
-            h1.text-base.font-semibold.leading-6.text-contrast
-              | Nouvel article
-            p.mt-2.text-sm.text-midgray
-              | Vous pouvez un article çi dessous
-          .mt-4.sm:mt-0
-            = submit_tag "Ajouter", form: "new_item", class: "btn btn-primary"
+= render Header::Component.new do |header|
+  - header.with_tabs do
+    .
+  - header.with_action_link do
+    = submit_tag "Ajouter", form: "new_item", class: "btn text-contour font-bold hover:text-secondary"
 
-        = render "form", item: @item
+
+  = render "form", item: @item

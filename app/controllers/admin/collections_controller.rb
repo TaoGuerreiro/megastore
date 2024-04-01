@@ -12,7 +12,7 @@ class Admin::CollectionsController < AdminController
       redirect_to admin_items_path, notice: 'Collection was successfully created.'
     else
       @collections = Collection.all
-      render "admin/items/index", status: :unprocessable_entity
+      render :index, status: :unprocessable_entity
     end
   end
 

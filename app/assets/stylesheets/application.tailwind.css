@@ -53,6 +53,26 @@
     width: 100% !important;
     max-width: none !important;
   }
+
+  /* Toutes les cell */
+  .table-cell {
+    @apply px-2 py-3 text-sm text-left border-b text-midgray;
+  }
+
+  /* Toutes les header cells */
+  .table-header-group .table-row .table-cell {
+    @apply border-b-2 border-content bg-contour text-contrast;
+  }
+
+  /* Toutes les data rows */
+  .table-row-group .table-row {
+    @apply bg-form-input hover:bg-contour/10;
+  }
+
+  .table {
+    @apply overflow-hidden rounded-lg;
+  }
+
 }
 
 @layer components {
