@@ -8,32 +8,30 @@
           p.mt-2.text-sm.text-midgray
             | Ajoutes des collections pour organiser tes articles.
 
-      = turbo_frame_tag "new_collection", src: new_admin_collection_path do
+      .mb-6 = turbo_frame_tag "new_collection", src: new_admin_collection_path do
 
-      .mt-8.flow-root
-        .min-w-full.divide-y.divide-contrast
-          .flex.w-full
-            .w-12
+      .table.w-full.pb-12
+        .table-header-group
+          .table-row
+            .table-cell.min-w-8
               span.sr-only
                 | Checkbox
-            .w-12
+            .table-cell.min-w-8
               span.sr-only
                 | En ligne
-            .w-12
+            .table-cell.min-w-8
               span.sr-only
                 | Image
-            .w-96.py-3.5.px-2.text-left.text-sm.font-semibold.text-contrast
+            .table-cell.px-2.text-left.text-sm.font-semibold.text-contrast
               | Nom
-            .w-64.px-2.py-3.5.text-left.text-sm.font-semibold.text-contrast
+            .table-cell.px-2.text-left.text-sm.font-semibold.text-contrast
               | Prix
-            .w-24.px-2.py-3.5.text-center.text-sm.font-semibold.text-contrast
+            .table-cell.px-2.text-left.text-sm.font-semibold.text-contrast
               | Articles
-            .w-24.px-2.py-3.5.text-center.text-sm.font-semibold.text-contrast
+            .table-cell.px-2.text-center.text-sm.font-semibold.text-contrast
               | Stock
-            .w-10
+            .table-cell.min-w-8
               span.sr-only
-                | Action
-            / .w-10
-            /   span.sr-only
-            /     | Edit
+                | Actions
+
         = render "collections", collections: @collections

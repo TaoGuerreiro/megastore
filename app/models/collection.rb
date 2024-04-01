@@ -35,6 +35,10 @@ class Collection < ApplicationRecord
     items.any?(&:active?)
   end
 
+  def status
+    active? ? :active : :inactive
+  end
+
   def cover_image
     return unless items.first
 

@@ -1,4 +1,4 @@
-div.border-r.border-midgray.sticky.top-0.z-50
+div.sticky.top-0.z-50
   // MOBILE NAVBAR
   = check_box_tag :cart, nil, nil, { checked: true, class: "hidden peer"}
   div class="relative z-50 lg:hidden peer-checked:hidden" role="dialog" aria-modal="true"
@@ -21,7 +21,7 @@ div.border-r.border-midgray.sticky.top-0.z-50
 
   // DESKTOP NAVBAR
   div class="hidden lg:h-screen lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col"
-    div class="flex flex-col px-6 overflow-y-auto grow gap-y-5 bg-contrast"
+    div class="flex flex-col pl-6 pr-3 overflow-y-auto grow gap-y-5 bg-contrast"
       div class="flex items-center object-contain my-3 shrink-0"
         = image_tag "#{Current.store.slug}/logo.png", class: " w-auto"
 

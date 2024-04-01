@@ -13,13 +13,14 @@ function withOpacity(varName) {
 module.exports = {
   content: [
     './app/assets/stylesheets/safe-list.css',
+    './app/assets/stylesheets/pagy.css',
     './app/components/**/*.{rb,erb,html,slim}',
     './app/helpers/**/*.rb',
     './app/javascript/**/*.js',
     './app/views/**/*.{erb,html,slim}',
-    './public/*.html',
     './config/initializers/simple_form.rb',
     "./lib/filterable_lib/**/*.{rb,erb,html,slim}",
+    './public/*.html',
 
   ],
   theme: {

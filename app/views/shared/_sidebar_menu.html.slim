@@ -16,6 +16,31 @@
           ul.space-y-1
             = render MenuItem::Component.new(path: queen_users_path, icon_classes: "fa-solid fa-users", title: "Utilisateur.ices")
             = render MenuItem::Component.new(path: queen_store_orders_path, icon_classes: "fa-solid fa-users", title: "Factures")
+          .mt-10.border.border-white
+            .bg-primary.py-2.align-middle.text-center.text-contour
+              p.text-lg Primary + Contour
+              p.text-sm bg-primary.text-contour
+            .bg-secondary.py-2.align-middle.text-center.text-contour
+              p.text-lg Secondary + Contour
+              p.text-sm bg-secondary.text-contour
+            .bg-light.py-2.align-middle.text-center.text-contrast
+              p.text-lg Light + Contrast
+              p.text-sm bg-light.text-contrast
+            .bg-contrast.py-2.align-middle.text-center.text-contour
+              p.text-lg Contrast + Contour
+              p.text-sm bg-contrast.text-contour
+            .bg-midgray.py-2.align-middle.text-center.text-contour
+              p.text-lg Midgray + Contour
+              p.text-sm bg-midgray.text-contour
+            .bg-content.py-2.align-middle.text-center.text-contour
+              p.text-lg Content + Contour
+              p.text-sm bg-content.text-contour
+            .bg-contour.py-2.align-middle.text-center.text-midgray
+              p.text-lg Contour + Midgray
+              p.text-sm bg-contour.text-midgray
+            .bg-form-input.py-2.align-middle.text-center.text-midgray
+              p.text-lg Form input + Midgray
+              p.text-sm bg-form-input.text-midgray
 
     li.-mx-6.mt-auto
       .flex.items-center.gap-x-4.px-6.py-3.text-sm.font-semibold.leading-6.text-light.hover:bg-contrast

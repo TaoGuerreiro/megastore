@@ -1,0 +1,24 @@
+.pagy {
+  @apply flex space-x-1 text-sm font-semibold text-midgray;
+  .page {
+    a {
+      @apply block px-3 py-1 rounded-lg bg-midgray/50;
+      &:hover {
+        @apply bg-midgray/70;
+      }
+    }
+    &.active a {
+      @apply cursor-default text-form-input bg-midgray;
+    }
+    &.disabled a {
+      @apply cursor-default bg-midgray/20 text-midgray/70;
+    }
+    &.gap { }  /* if you need to customize it */
+  }
+  .pagy-combo-input, &.pagy-items-selector-js {
+    @apply inline-block whitespace-nowrap bg-midgray/50 rounded-lg px-3 py-0.5;
+    input {
+      @apply border-none rounded-md bg-midgray/20;
+    }
+  }
+}

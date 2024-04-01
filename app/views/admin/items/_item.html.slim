@@ -1,50 +1,39 @@
-= turbo_frame_tag dom_id(item) do
-  div.flex.w-full.border-b.py-2.border-content class="#{'disabled' if item.archived?}"
-    .w-12.flex.justify-center.items-center
-      = check_box_tag "#{item.id}", item.id, false, class: "w-6 h-6 rounded-md text-primary focus:ring-primary", data: { action: "change->bulk-edit-items#select" }
-    .w-12.flex.justify-center.items-center.px-2
-      - if item.active?
-        i.fas.fa-check.text-green-500.text-lg
-      - else
-        i.fas.fa-times.text-red-500.text-lg
-    .w-12.flex.justify-center.items-center
-      - if item.photos.attached?
-        .relative.max-w-none.w-10.h-10.rounded-md
-          = image_tag item.photos.first.variant(resize_to_fill: [50, 50]), class: ""
-          span.absolute.-left-2.-bottom-2.text-center.flex.items-center.justify-center
-            span.rounded-full.w-4.h-4.bg-primary/80.text-xs.text-secondary = item.photos.count
-          - if item.collection.present?
-            span.absolute.-right-2.-bottom-2.text-center.flex.items-center.justify-center
-              span.rounded-full.w-4.h-4.bg-primary/80.text-xs.text-secondary c
-    .w-48.px-2.text-sm.font-medium.text-contrast.flex.items-center
-      = item.name.size > 30 ? "#{item.name.first(30)}..." : item.name
-    .w-64.whitespace-nowrap.px-2.py-4.text-sm.text-contrast
-      = "#{item.description.first(30)}..."
-    .w-28.whitespace-nowrap.px-2.py-4.text-sm.text-contrast
-      = item.category.name
-    .w-20.whitespace-nowrap.px-3.py-4.text-sm.text-contrast.text-left
-      = item.format
-    .w-20.whitespace-nowrap.px-3.py-4.text-sm.text-contrast.text-right
-      = number_to_currency(item.price, format: "%n €")
-    .w-24.whitespace-nowrap.px-3.py-4.text-sm.text-contrast.text-center
-      div.flex
-        = link_to remove_stock_admin_item_path(item), data: { turbo_method: :patch }, class: "text-primary hover:text-primary/90" do
-          .rounded-full.bg-primary.text-content.w-5.h-5.flex.items-center.justify-center.text-center
-            i.fas.fa-minus.py-1.text-xs
-        .min-w-10.px-2= item.stock
-        = link_to add_stock_admin_item_path(item), data: { turbo_method: :patch }, class: "text-primary hover:text-primary/90" do
-          .rounded-full.bg-primary.text-content.w-5.h-5.flex.items-center.justify-center.text-center
-            i.fas.fa-plus.py-1.text-xs
+= turbo_frame_tag dom_id(item), class: "hover:bg-form-input table-row text-sm text-contrast#{' disabled' if item.archived?}" do
+  .table-cell.text-center.align-middle
+    = check_box_tag "#{item.id}", item.id, false, class: "w-6 h-6 rounded-md text-primary focus:ring-primary", data: { action: "change->bulk-edit-items#select" }
 
-    .w-10.relative.py-4.text-center.text-sm.font-medium.sm:pr-0
-      = render List::Component.new(item: item, links:[{icon: "fas fa-pen", label: "Editer", path: edit_admin_item_path(item), options: { data: { turbo: false }}},
-                                                      {icon: "fas fa-trash", label: "Supprimer", path: admin_item_path(item), options: { data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer cet article ?" }}},
-                                                    ])
-      / = link_to edit_admin_item_path(item), class: "text-primary hover:text-primary/90", data: { turbo: :false }  do
-        i.fas.fa-pen.text-lg
-    / .w-10.relative.py-4.text-center.text-sm.font-medium.sm:pr-0
-    /   - if item.destroyabled?
-    /     = link_to admin_item_path(item), data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer cet article ?" }, class: "text-primary hover:text-primary/90" do
-    /       i.fas.fa-trash.text-lg
-    /   - else
-    /     i.fas.fa-trash.text-lg.disabled
+  .table-cell.text-center.align-middle
+    = render Status::Item::Component.new(status: item.status)
+
+  .table-cell.align-middle.h-16
+    = render Miniature::Component.new(item: item)
+
+  .table-cell.truncate.max-w-36.px-2.align-middle
+    = item.name
+
+  .table-cell.truncate.max-w-36.px-2.align-middle
+    = item.description
+
+  .table-cell.px-2.align-middle
+    = item.category.name
+
+  .table-cell.px-2.align-middle
+    = item.format
+
+  .table-cell.px-2.align-middle
+    = number_to_currency(item.price, format: "%n €")
+
+  .table-cell.px-2.align-middle.text-center
+    div.flex.justify-center
+      = link_to remove_stock_admin_item_path(item), data: { turbo_method: :patch }, class: "text-primary hover:text-primary/90" do
+        .text-content.w-5.h-5.flex.items-center.justify-center.text-center
+          i.fas.fa-minus.py-1.text-xs
+      .min-w-10.text-center= item.stock
+      = link_to add_stock_admin_item_path(item), data: { turbo_method: :patch }, class: "text-primary hover:text-primary/90" do
+        .text-content.w-5.h-5.flex.items-center.justify-center.text-center
+          i.fas.fa-plus.py-1.text-xs
+
+  .table-cell.relative.px-2.align-middle.text-center
+    = render List::Component.new(item: item, links:[{icon: "fas fa-pen", label: "Editer", path: edit_admin_item_path(item), options: { data: { turbo: false }}},
+                                                    {icon: "fas fa-trash", label: "Supprimer", path: admin_item_path(item), options: { data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer cet article ?" }}},
+                                                  ])

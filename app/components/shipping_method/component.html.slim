@@ -3,7 +3,7 @@
     input[type="radio" id="shipping_method_#{shipping_method.id}" name="order_intent[shipping_method]" value=shipping_method.id data-action="change->autosave#save" class="hidden peer" multiple=true checked=(checked)]
   - else
     input[type="checkbox" id="shipping_method_#{shipping_method.id}" name="item[shipping_method_ids][]" value=shipping_method.id data-action="change->autosave#save" class="hidden peer" multiple=true checked=(checked)]
-  label[for="shipping_method_#{shipping_method.id}" class="block py-3 px-2 first:mx-0 mx-2 my-2 border rounded-md cursor-pointer text-content bg-contour peer-checked:bg-tertiary peer-checked:text-white transition-colors duration-300"]
+  label[for="shipping_method_#{shipping_method.id}" class="block px-2 py-3 mx-2 my-2 transition-colors duration-300 border rounded-md cursor-pointer first:mx-0 text-content bg-contour peer-checked:bg-tertiary peer-checked:text-white"]
     span.flex.flex-1
       span.flex.flex-col
         span#delivery-method-0-label.block.text-sm.font-medium.text-contrast

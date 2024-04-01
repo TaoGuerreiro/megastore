@@ -7,5 +7,13 @@ module MenuItem
       @title = title
       @icon_classes = icon_classes
     end
+
+    def active?
+      request.path == @path
+    end
+
+    def active_class
+      active? ? "!bg-light !text-contrast translate-x-3 rounded-none rounded-l-lg" : ""
+    end
   end
 end

@@ -5,7 +5,7 @@ module Admin
     def new; end
 
     def create
-      default_url_options[:host] = "https://#{Current.store.domain}"
+      default_url_options[:host] = "https://www.#{Current.store.domain}"
 
       account = Stripe::Account.create(
         type: "standard",
