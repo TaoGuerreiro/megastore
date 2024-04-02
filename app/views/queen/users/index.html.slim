@@ -15,6 +15,7 @@
               th.px-3.py-3.5.text-left.text-sm.font-semibold.text-gray-900 scope="col" Title
               th.px-3.py-3.5.text-left.text-sm.font-semibold.text-gray-900 scope="col" Email
               th.px-3.py-3.5.text-left.text-sm.font-semibold.text-gray-900 scope="col" Role
+              th.px-3.py-3.5.text-left.text-sm.font-semibold.text-gray-900 scope="col" Dernière connexion
               th.relative.py-3.5.pl-3.pr-4.sm:pr-0 scope="col"
                 span.sr-only Edit
               th.relative.py-3.5.pl-3.pr-4.sm:pr-0 scope="col"
@@ -29,6 +30,7 @@
                 td.px-3.py-4.text-sm.text-gray-500.whitespace-nowrap = user.store_name
                 td.px-3.py-4.text-sm.text-gray-500.whitespace-nowrap = user.email
                 td.px-3.py-4.text-sm.text-gray-500.whitespace-nowrap = t(user.role)
+                td.px-3.py-4.text-sm.text-gray-500.whitespace-nowrap = time_ago_in_words(user.last_sign_in_at) if user.last_sign_in_at
                 td.relative.py-4.pl-3.pr-4.text-sm.font-medium.text-right.whitespace-nowrap.sm:pr-0
                   = link_to edit_queen_user_path(user), class: "text-indigo-600 hover:text-indigo-900" do
                     | Edit
