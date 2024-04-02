@@ -19,7 +19,11 @@ class Admin::CollectionsController < AdminController
   def destroy
     @collection = Collection.find(params[:id])
     @collection.destroy
-    redirect_to admin_items_path, status: :see_other, notice: 'Collection was successfully destroyed.'
+
+    respond_to do |format|
+      format.html { redirect_to admin_collections_path }
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@collection) }
+    end
   end
 
   def index
