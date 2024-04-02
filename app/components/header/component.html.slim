@@ -1,6 +1,7 @@
+= helpers.turbo_frame_tag :modal do
 .min-h-screen data-controller="bulk-edit-items"
-  .bg-contour.pt-20.sticky.top-0.z-50
-    .mx-auto.max-w-6xl.flex.justify-between.px-4.md:px-8.min-h-12
+  .bg-contour.pt-20.sticky.top-0.z-40
+    .mx-auto.max-w-6xl.flex.flex-col-reverse.items-end.lg:flex-row.justify-between.px-4.md:px-8.min-h-12
       -if backlink
         .flex.items-center
           = backlink

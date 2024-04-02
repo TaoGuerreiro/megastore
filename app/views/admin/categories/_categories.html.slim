@@ -1,8 +1,4 @@
-div.min-w-full.divide-y.divide-contrast
-  ul.flex.justify-between
-    li.py-3.5.pl-4.pr-3.text-left.text-sm.font-semibold.text-contrast.sm:pl-0 Nom
-    li.relative.py-3.5.pl-3.pr-4.sm:pr-0.sr-only Edit
-  div
-    = turbo_frame_tag :categories do
-      - @categories.each do |category|
-        = render "admin/categories/category", category: category
+= turbo_frame_tag :categories, class: "table-row-group w-full relative" do
+
+  - @categories.order(:name).each do |category|
+    = render "admin/categories/category", category: category

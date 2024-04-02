@@ -13,32 +13,3 @@
             i.fa-solid.fa-pen
       .mt-6.border-t.border-contour
         = render "admin/stores/store"
-
-    .py-12.w-full
-      .w-full.mb-6.pb-6.border-b
-        .sm:flex.sm:items-center
-          .sm:flex-auto
-            h1.text-2xl.font-semibold.leading-6.text-contrast
-              | Catégories
-          .mt-4.sm:ml-16.sm:mt-0.sm:flex-none
-            = link_to "Ajouter une catégorie", new_admin_store_category_path(@store), data: { turbo_frame: "modal" }, class: "btn btn-primary"
-
-        .mt-8.flow-root
-          .-mx-4.-my-2.overflow-x-auto.sm:-mx-6.lg:-mx-8
-            .inline-block.min-w-full.py-2.align-middle.sm:px-6.lg:px-8
-              = turbo_frame_tag :new_category do
-              = render "admin/categories/categories"
-
-      .w-full.mb-12.pb-6
-        .sm:flex.sm:items-center
-          .sm:flex-auto
-            h1.text-2xl.font-semibold.leading-6.text-contrast
-              | Spécifications
-          .mt-4.sm:ml-16.sm:mt-0.sm:flex-none
-            = link_to "Ajouter une spécification", new_admin_store_specification_path(@store), data: { turbo_frame: "modal" }, class: "btn btn-primary"
-
-        .mt-8.flow-root
-          .-mx-4.-my-2.overflow-x-auto.sm:-mx-6.lg:-mx-8
-            .inline-block.min-w-full.py-2.align-middle.sm:px-6.lg:px-8
-              = turbo_frame_tag :new_specification do
-              = render "admin/specifications/specifications"

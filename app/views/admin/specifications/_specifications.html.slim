@@ -1,8 +1,4 @@
-div.min-w-full.divide-y.divide-contrast
-  ul.flex.justify-between
-    li.py-3.5.pl-4.pr-3.text-left.text-sm.font-semibold.text-contrast.sm:pl-0 Nom
-    li.relative.py-3.5.pl-3.pr-4.sm:pr-0.sr-only Edit
-  div
-    = turbo_frame_tag :specifications do
-      - @specifications.each do |specification|
-        = render "admin/specifications/specification", specification: specification
+= turbo_frame_tag :specifications, class: "table-row-group w-full relative" do
+
+  - @specifications.order(:name).each do |specification|
+    = render "admin/specifications/specification", specification: specification

@@ -31,4 +31,8 @@
                                          label: "Supprimer",
                                          path: admin_collection_path(collection),
                                          options: {data: {turbo_method: :delete,
-                                                          turbo_confirm: "Êtes-vous sûr de vouloir supprimer cette collection ?" }}}])
+                                                          turbo_confirm: "Êtes-vous sûr de vouloir supprimer cette collection ?" }}},
+                                        {icon: "fas fa-pen",
+                                         label: "Modifier",
+                                         path: edit_admin_collection_path(collection),
+                                         options: {data: {turbo_frame: :modal}}}])

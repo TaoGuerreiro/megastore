@@ -1,6 +1,6 @@
 .relative
   = label_tag "cart_#{item.id}" do
-    .relative
+    .relative.cursor-pointer
       i.fa-regular.fa-circle-ellipsis.text-2xl.text-content
   = check_box_tag "cart_#{item.id}", nil, nil, {class: "hidden peer"}
   nav class="absolute right-0 z-50 flex flex-col flex-1 hidden px-4 py-2 rounded-md shadow-xl bg-form-input top-10 peer-checked:block"

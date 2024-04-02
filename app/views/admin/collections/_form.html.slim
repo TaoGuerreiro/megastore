@@ -1,6 +1,5 @@
-= simple_form_for [:admin, @collection], data: { turbo: false } do |field|
-  .mb-3.flex.w-full
-    = field.label :name, "Ajouter une collection"
-    = render Tooltip::Component.new(message: t("new_collection"))
-  .flex
-    = field.input :name, label: "Nom de la collection", placeholder: "Nom de la collection", wrapper_html: { class: "mb-0 mr-3" }, input_html: {required: true}
+.px-4.sm:px-0
+= simple_form_for [:admin, @collection], html: { class: "flex items-center" } do |field|
+  = field.input :name, label: "Nom de la collection", placeholder: "Nom de la collection", wrapper_html: { class: "pt-[20px] mr-2" }, label_html: { class: "mt-[20px]" }
+  = button_tag type: :submit do
+    i.fa-solid.fa-check.text-2xl.text-midgray

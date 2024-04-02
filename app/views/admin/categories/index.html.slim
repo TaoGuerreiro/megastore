@@ -5,38 +5,25 @@
                                         {name: "Catégories", path: admin_categories_path},
                                         {name: "Spécifications", path: admin_specifications_path}])
   - header.with_action_link do
-    = link_to new_admin_collection_path, data: { turbo_frame: "modal" } do
-      = render Buttons::Option::Component.new(label: "Ajouter une collection", icon: "fa-solid fa-plus")
+    = link_to new_admin_category_path, data: { turbo_frame: "modal" } do
+      = render Buttons::Option::Component.new(label: "Ajouter une catégorie", icon: "fa-solid fa-plus")
   .px-4.sm:px-6.lg:px-0
     .sm:flex.sm:items-center.mb-6
       .sm:flex-auto
         h1.text-base.font-semibold.leading-6.text-contrast
-          | Collections
+          | Catégories
         p.mt-2.text-sm.text-midgray
-          | Ajoutes des collections pour organiser tes articles.
+          | Ajoutes des catégories pour organiser tes articles.
 
     .table.w-full.pb-36
       .table-header-group
         .table-row
-          .table-cell.min-w-8
-            span.sr-only
-              | Checkbox
-          .table-cell.min-w-8
-            span.sr-only
-              | En ligne
-          .table-cell.min-w-8
-            span.sr-only
-              | Image
           .table-cell.px-2.text-left.text-sm.font-semibold.text-contrast
             | Nom
           .table-cell.px-2.text-left.text-sm.font-semibold.text-contrast
-            | Prix
-          .table-cell.px-2.text-left.text-sm.font-semibold.text-contrast
             | Articles
-          .table-cell.px-2.text-center.text-sm.font-semibold.text-contrast
-            | Stock
           .table-cell.w-8
             span.sr-only
               | Actions
 
-      = render "collections", collections: @collections
+      = render "categories", categories: @categories

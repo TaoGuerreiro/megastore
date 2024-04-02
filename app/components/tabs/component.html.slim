@@ -1,4 +1,4 @@
-.flex.space-x-4 aria-label="Tabs"
+.flex aria-label="Tabs"
   - tabs.each do |tab|
-    = link_to tab[:path], class: "rounded-md px-3 py-2 text-base font-medium #{tab_classes(tab)}" do
+    = link_to tab[:path], class: "rounded-md px-3 py-2 text-xs md:text-base font-medium #{tab_classes(tab)}" do
       = tab[:name]

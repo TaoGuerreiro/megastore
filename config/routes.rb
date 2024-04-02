@@ -43,10 +43,10 @@ Rails.application.routes.draw do
           resources :shipping_methods, only: %i[new create edit update]
           resources :specifications, only: %i[new create edit update]
         end
-        resources :specifications, only: [:destroy]
-        resources :categories, only: [:destroy]
+        resources :specifications, only: [:destroy, :index, :new, :create, :edit, :update]
+        resources :categories, only: [:destroy, :index, :new, :create, :edit, :update]
         resources :shipping_methods, only: [:destroy]
-        resources :collections, only: %i[index new create show edit destroy]
+        resources :collections, only: %i[index new create show edit destroy update]
         resource :bulk_edit_items, only: [] do
           patch :online, on: :member
           patch :offline, on: :member

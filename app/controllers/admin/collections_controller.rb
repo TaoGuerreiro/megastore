@@ -4,6 +4,23 @@ class Admin::CollectionsController < AdminController
     @collection = Collection.new
   end
 
+  def edit
+    @collection = Collection.find(params[:id])
+  end
+
+  def update
+    @collection = Collection.find(params[:id])
+
+    if @collection.update(collection_params)
+      respond_to do |format|
+        format.html { redirect_to admin_collections_path, notice: 'Collection was successfully updated.' }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(@collection, partial: 'admin/collections/collection', locals: { collection: @collection }) }
+      end
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def create
     @collection = Collection.new(collection_params)
     @collection.store = Current.store

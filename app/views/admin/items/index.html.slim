@@ -1,7 +1,9 @@
 = render Header::Component.new do |header|
   - header.with_tabs do
     = render Tabs::Component.new(tabs: [{name: "Articles", path: admin_items_path},
-                                        {name: "Collections", path: admin_collections_path}])
+                                        {name: "Collections", path: admin_collections_path},
+                                        {name: "Catégories", path: admin_categories_path},
+                                        {name: "Spécifications", path: admin_specifications_path}])
   - header.with_action_link do
     = link_to new_admin_item_path do
       = render Buttons::Option::Component.new(label: "Ajouter un article", icon: "fa-solid fa-plus")
@@ -46,13 +48,13 @@
         = filterable_form_for(Item)
         = form_tag admin_items_path, method: :get, data: { turbo_stream: true, controller: :autosave }, class: "w-full" do
           .flex.items-center
-            = text_field_tag :search, params[:search], class: "form-input w-full placeholder:text-content", placeholder: "Rechercher un article", data: { action: "keyup->autosave#submit"}
+            = text_field_tag :search, params[:search], class: "form-input w-full placeholder:text-content z-30", placeholder: "Rechercher un article", data: { action: "keyup->autosave#submit"}
 
 
       .-mx-4.-my-2.overflow-x-auto.sm:-mx-6.lg:-mx-8
         .inline-block.min-w-full.py-2.align-middle.sm:px-6.lg:px-8
 
-          .table.w-full.pb-12.mt-6
+          .table.w-full.pb-36.mt-6
             .table-header-group
               .table-row
                 .table-cell.min-w-8
@@ -82,7 +84,7 @@
                 .table-cell.text-sm.font-semibold.text-contrast
                   = filterable_sort_button(Item, :stock) do
                     | Stock
-                .table-cell.min-w-12
+                .table-cell.w-8
                   span.sr-only
                     | Actions
 

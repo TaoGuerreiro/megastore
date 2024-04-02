@@ -5,6 +5,10 @@ module Admin
     before_action :set_category, only: %i[edit update destroy]
     before_action :set_store, only: %i[new create edit update destroy]
 
+    def index
+      @categories = Current.store.categories
+    end
+
     def new
       @category = Current.store.categories.build
       authorize! @category
@@ -28,9 +32,12 @@ module Admin
 
     def update
       if @category.update(category_params)
-        redirect_to admin_store_path, notice: 'Category was successfully updated.'
+        respond_to do |format|
+          format.html { redirect_to admin_store_path, notice: 'Category was successfully updated.' }
+          format.turbo_stream { render turbo_stream: turbo_stream.replace(@category, partial: 'admin/categories/category', locals: { category: @category }) }
+        end
       else
-        render :edit
+        render :edit, status: :unprocessable_entity
       end
     end
 

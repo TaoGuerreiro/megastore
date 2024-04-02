@@ -10,6 +10,10 @@ module Admin
       authorize! @specification
     end
 
+    def index
+      @specifications = Current.store.specifications
+    end
+
     def create
       @specification = Current.store.specifications.build(specification_params)
       authorize! @specification
