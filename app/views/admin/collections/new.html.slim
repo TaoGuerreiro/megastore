@@ -1,9 +1,11 @@
-= turbo_frame_tag "new_collection" do
-  = simple_form_for [:admin, Collection.new], data: { turbo: false } do |field|
-    .mb-3.flex.w-full
-      = field.label :name, "Ajouter une collection"
-      = render Tooltip::Component.new(message: t("new_collection"))
-    .flex
-      = field.input :name, label: "Nom de la collection", placeholder: "Nom de la collection", wrapper_html: { class: "mb-0 mr-3" }, input_html: {required: true}
-      = button_tag type: :submit do
-        i.fa-solid.fa-circle-plus.text-2xl.text-primary
+= render Header::Component.new do |header|
+  - header.with_tabs do
+    .
+  - header.with_backlink do
+    = link_to admin_collections_path do
+      = render Buttons::Option::Component.new(label: "Retour", icon: "fa-solid fa-arrow-left")
+  - header.with_action_link do
+    = button_tag :submit, form: "new_collection" do
+      = render Buttons::Option::Component.new(label: "Ajouter", icon: "fa-solid fa-plus")
+
+  = render "form", collection: @collection

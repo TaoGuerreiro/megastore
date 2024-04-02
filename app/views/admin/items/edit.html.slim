@@ -1,28 +1,25 @@
-.bg-light.min-h-screen.pt-12.md:pt-0
-  .mx-auto.max-w-7xl.px-8
-    .bg-light.py-10
-      .px-4.sm:px-6.lg:px-8
-        .sm:flex.sm:items-center
-          .sm:flex-auto
-            h1.text-base.font-semibold.leading-6.text-contrast
-              | Éditer l'article
-            p.mt-2.text-sm.text-midgray
-              | Vous pouvez modifier l'article çi dessous
-          .mt-4.sm:ml-16.sm:mt-0.sm:flex-none
-            - if @item.archived?
-              = link_to unarchive_admin_item_path(@item), data: { turbo_method: :patch }, class: "mr-3 text-content" do
-                i.fas.fa-archive.mr-2 class="!text-primary"
-                | Désarchiver
-            - else
-              = link_to archive_admin_item_path(@item), data: { turbo_method: :patch }, class: "mr-3 text-content" do
-                i.fas.fa-archive.mr-2 class="!text-primary"
-                | Archiver
-            = submit_tag "Modifier", form: "edit_item_#{@item.id}", class: "btn btn-primary"
-        = render "form", item: @item
+= render Header::Component.new do |header|
+  - header.with_tabs do
+    .
+  - header.with_action_link do
+    = submit_tag "Modifier", form: "edit_item_#{@item.id}", class: "btn text-contrast font-bold hover:text-secondary"
 
-    h2.text-3xl.mb-4
-      | Prévisualisation de l'article
-      i.fas.fa-eye.ml-2 class="!text-primary"
-    .border-b-2.w-full.border-content
-    div class=(Current.store.slug)
-      = render "items/item", item: @item
+  - header.with_options do
+    .mt-4.sm:ml-16.sm:mt-0.sm:flex-none.flex.items-center
+      - if @item.archived?
+        = link_to unarchive_admin_item_path(@item), data: { turbo_method: :patch }, class: "mr-3 flex text-content" do
+          i.fas.fa-archive.mr-2 class="!text-primary"
+          | Désarchiver
+      - else
+        = link_to archive_admin_item_path(@item), data: { turbo_method: :patch }, class: "mr-3 text-content" do
+          i.fas.fa-archive.mr-2 class="!text-primary"
+          | Archiver
+
+  = render "form", item: @item
+
+  h2.text-3xl.mb-4
+    | Prévisualisation de l'article
+    i.fas.fa-eye.ml-2 class="!text-primary"
+  .border-b-2.w-full.border-content
+  div class=(Current.store.slug)
+    = render "items/item", item: @item

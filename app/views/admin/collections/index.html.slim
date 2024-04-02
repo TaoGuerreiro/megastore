@@ -2,39 +2,39 @@
   - header.with_tabs do
     = render Tabs::Component.new(tabs: [{name: "Articles", path: admin_items_path},
                                         {name: "Collections", path: admin_collections_path}])
-  .py-10
-    .px-4.sm:px-6.lg:px-0
-      .sm:flex.sm:items-center.mb-6
-        .sm:flex-auto
-          h1.text-base.font-semibold.leading-6.text-contrast
-            | Collections
-          p.mt-2.text-sm.text-midgray
-            | Ajoutes des collections pour organiser tes articles.
+  - header.with_action_link do
+    = link_to new_admin_collection_path do
+      = render Buttons::Option::Component.new(label: "Ajouter une collection", icon: "fa-solid fa-plus")
+  .px-4.sm:px-6.lg:px-0
+    .sm:flex.sm:items-center.mb-6
+      .sm:flex-auto
+        h1.text-base.font-semibold.leading-6.text-contrast
+          | Collections
+        p.mt-2.text-sm.text-midgray
+          | Ajoutes des collections pour organiser tes articles.
 
-      .mb-6 = turbo_frame_tag "new_collection", src: new_admin_collection_path do
+    .table.w-full.pb-12
+      .table-header-group
+        .table-row
+          .table-cell.min-w-8
+            span.sr-only
+              | Checkbox
+          .table-cell.min-w-8
+            span.sr-only
+              | En ligne
+          .table-cell.min-w-8
+            span.sr-only
+              | Image
+          .table-cell.px-2.text-left.text-sm.font-semibold.text-contrast
+            | Nom
+          .table-cell.px-2.text-left.text-sm.font-semibold.text-contrast
+            | Prix
+          .table-cell.px-2.text-left.text-sm.font-semibold.text-contrast
+            | Articles
+          .table-cell.px-2.text-center.text-sm.font-semibold.text-contrast
+            | Stock
+          .table-cell.min-w-8
+            span.sr-only
+              | Actions
 
-      .table.w-full.pb-12
-        .table-header-group
-          .table-row
-            .table-cell.min-w-8
-              span.sr-only
-                | Checkbox
-            .table-cell.min-w-8
-              span.sr-only
-                | En ligne
-            .table-cell.min-w-8
-              span.sr-only
-                | Image
-            .table-cell.px-2.text-left.text-sm.font-semibold.text-contrast
-              | Nom
-            .table-cell.px-2.text-left.text-sm.font-semibold.text-contrast
-              | Prix
-            .table-cell.px-2.text-left.text-sm.font-semibold.text-contrast
-              | Articles
-            .table-cell.px-2.text-center.text-sm.font-semibold.text-contrast
-              | Stock
-            .table-cell.min-w-8
-              span.sr-only
-                | Actions
-
-        = render "collections", collections: @collections
+      = render "collections", collections: @collections

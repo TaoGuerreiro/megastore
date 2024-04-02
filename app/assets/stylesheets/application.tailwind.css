@@ -264,26 +264,26 @@
    /* PAGY */
 
   .pagy {
-    @apply flex space-x-1 text-sm font-semibold text-midgray;
+    @apply flex justify-center text-sm font-semibold divide-x text-content;
     .page {
       a {
-        @apply block px-3 py-1 rounded-lg bg-midgray/50;
+        @apply block px-3 py-1 bg-midgray;
         &:hover {
-          @apply bg-midgray/70;
+          @apply bg-midgray;
         }
       }
       &.active a {
-        @apply cursor-default text-form-input bg-midgray;
+        @apply cursor-default text-form-input bg-secondary;
       }
       &.disabled a {
-        @apply cursor-default bg-midgray/20 text-midgray/70;
+        @apply cursor-default bg-midgray text-contour;
       }
-      &.gap { }  /* if you need to customize it */
+      &.gap { }
     }
     .pagy-combo-input, &.pagy-items-selector-js {
-      @apply inline-block whitespace-nowrap bg-midgray/50 rounded-lg px-3 py-0.5;
+      @apply inline-block whitespace-nowrap bg-midgray rounded-lg px-3 py-0.5;
       input {
-        @apply border-none rounded-md bg-midgray/20;
+        @apply border-none rounded-md bg-midgray;
       }
     }
   }

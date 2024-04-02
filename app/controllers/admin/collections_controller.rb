@@ -9,7 +9,7 @@ class Admin::CollectionsController < AdminController
     @collection.store = Current.store
 
     if @collection.save
-      redirect_to admin_items_path, notice: 'Collection was successfully created.'
+      redirect_to admin_collections_path, notice: 'Collection was successfully created.'
     else
       @collections = Collection.all
       render :index, status: :unprocessable_entity

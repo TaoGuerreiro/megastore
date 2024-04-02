@@ -3,91 +3,90 @@
     = render Tabs::Component.new(tabs: [{name: "Articles", path: admin_items_path},
                                         {name: "Collections", path: admin_collections_path}])
   - header.with_action_link do
-    = link_to "Ajouter un article", new_admin_item_path, class: "btn text-contour font-bold hover:text-secondary"
-  .py-10
-    .px-4.sm:px-6.lg:px-0
-      .sm:flex.sm:items-center.mb-6
-        .sm:flex-auto
-          h1.text-base.font-semibold.leading-6.text-contrast
-            | Articles
-          p.mt-2.text-sm.text-midgray
-            | Liste de toutes les articles de votre boutique.
-
-      .flex.items-center
-          i.fas.fa-times.text-red-500.text-lg.mr-1.w-6
-          .text-sm.text-midgray
-            = "#{pluralize(@offline_items_count, "article")} hors ligne"
-      .flex.items-center
-          i.fas.fa-check.text-green-500.text-lg.mr-1.w-6
-          .text-sm.text-midgray
-            = "#{pluralize(@active_items_count, "article")} en ligne"
-      .flex.items-center
-          i.fas.fa-archive.text-gray-500.text-lg.mr-1.w-6
-          .text-sm.text-midgray
-            = "#{pluralize(@archived_items_count, "article")} archivé"
-
-      .mt-8.flow-root
-        .flex.w-full.gap-3
-          = filterable_form_for(Item)
-          = form_tag admin_items_path, method: :get, data: { turbo_stream: true, controller: :autosave }, class: "w-full" do
-            .flex.items-center
-              = text_field_tag :search, params[:search], class: "form-input w-full placeholder:text-content", placeholder: "Rechercher un article", data: { action: "keyup->autosave#submit"}
+    = link_to new_admin_item_path do
+      = render Buttons::Option::Component.new(label: "Ajouter un article", icon: "fa-solid fa-plus")
+  - header.with_options do |option|
+    .hidden.z-50.flex.gap-1.items-center data-bulk-edit-items-target="container"
+      = form_tag online_admin_bulk_edit_items_path, method: :patch, data: { turbo_stream: true } do
+        = text_field_tag :item_ids, {}, data: { "bulk-edit-items-target": "input" }, type: :hidden
+        = button_tag "Online", class: "" do
+          = render Buttons::Option::Component.new(icon: "fa-solid fa-eye", label: "Online")
+      = form_tag offline_admin_bulk_edit_items_path, method: :patch, data: { turbo_stream: true } do
+        = text_field_tag :item_ids, {}, data: { "bulk-edit-items-target": "input" }, type: :hidden
+        = button_tag "Offline", class: "" do
+          = render Buttons::Option::Component.new(icon: "fa-solid fa-eye-slash", label: "Offline")
+      = form_tag add_to_collection_admin_bulk_edit_items_path, method: :patch, data: { turbo: false, controller: "autosave" } do
+        = text_field_tag :item_ids, {}, data: { "bulk-edit-items-target": "input" }, type: :hidden
+        = select_tag :collection_id, options_from_collection_for_select(@collections, :id, :name), include_blank: "Ajouter à une collection", class: "rounded box-border border-content h-8 text-sm py-0.5", data: { action: "change->autosave#submit" }
 
 
-        .-mx-4.-my-2.overflow-x-auto.sm:-mx-6.lg:-mx-8
-          .inline-block.min-w-full.py-2.align-middle.sm:px-6.lg:px-8 data-controller="bulk-edit-items"
-            .hidden.z-50.rounded.fixed.px-3.py-3.bg-content.right-10.top-20 data-bulk-edit-items-target="container"
-              = form_tag online_admin_bulk_edit_items_path, method: :patch, data: { turbo: false } do
-                = text_field_tag :item_ids, {}, data: { "bulk-edit-items-target": "input" }, type: :hidden
-                = button_tag "Online", class: "btn btn-menu inline-block" do
-                  i.fa-solid.fa-eye.mr-2
-                  span
-                    | Online
-              .border-b.border-primary
-              = form_tag offline_admin_bulk_edit_items_path, method: :patch, data: { turbo: false } do
-                = text_field_tag :item_ids, {}, data: { "bulk-edit-items-target": "input" }, type: :hidden
-                = button_tag "Offline", class: "btn btn-menu inline-block" do
-                  i.fa-solid.fa-eye-slash.mr-2
-                  span
-                    | Offline
-              .border-b.border-primary.mb-2
-              = form_tag add_to_collection_admin_bulk_edit_items_path, method: :patch, data: { turbo: false, controller: "autosave" } do
-                = text_field_tag :item_ids, {}, data: { "bulk-edit-items-target": "input" }, type: :hidden
-                = select_tag :collection_id, options_from_collection_for_select(@collections, :id, :name), include_blank: "Ajouter à une collection", class: "form-select w-full", data: { action: "change->autosave#submit" }
+  .px-4.sm:px-6.lg:px-0
+    .sm:flex.sm:items-center.mb-6
+      .sm:flex-auto
+        h1.text-base.font-semibold.leading-6.text-contrast
+          | Articles
+        p.mt-2.text-sm.text-midgray
+          | Liste de toutes les articles de votre boutique.
 
-            .table.w-full.pb-12.mt-6
-              .table-header-group
-                .table-row
-                  .table-cell.min-w-8
-                    span.sr-only
-                      | Checkbox
-                  .table-cell.min-w-8
-                    span.sr-only
-                      | En ligne
-                  .table-cell.min-w-12
-                    span.sr-only
-                      | Image
+    .flex.items-center
+        i.fas.fa-times.text-red-500.text-lg.mr-1.w-6
+        .text-sm.text-midgray
+          = "#{pluralize(@offline_items_count, "article")} hors ligne"
+    .flex.items-center
+        i.fas.fa-check.text-green-500.text-lg.mr-1.w-6
+        .text-sm.text-midgray
+          = "#{pluralize(@active_items_count, "article")} en ligne"
+    .flex.items-center
+        i.fas.fa-archive.text-gray-500.text-lg.mr-1.w-6
+        .text-sm.text-midgray
+          = "#{pluralize(@archived_items_count, "article")} archivé"
 
-                  .table-cell.text-sm.font-semibold.text-contrast
-                    = filterable_sort_button(Item, :name) do
-                      | Nom
-                  .table-cell.text-sm.font-semibold.text-contrast
-                    = filterable_sort_button(Item, :description) do
-                      | Description
-                  .table-cell.text-sm.font-semibold.text-contrast
-                    = filterable_sort_button(Item, :category_id) do
-                      | Catégories
-                  .table-cell.text-sm.font-semibold.text-contrast
-                    | Format
-                  .table-cell.text-sm.font-semibold.text-contrast.text-right
-                    = filterable_sort_button(Item, :price_cents) do
-                      | Prix
-                  .table-cell.text-sm.font-semibold.text-contrast
-                    = filterable_sort_button(Item, :stock) do
-                      | Stock
-                  .table-cell.min-w-12
-                    span.sr-only
-                      | Actions
+    .mt-8.flow-root
+      .flex.w-full.gap-3
+        = filterable_form_for(Item)
+        = form_tag admin_items_path, method: :get, data: { turbo_stream: true, controller: :autosave }, class: "w-full" do
+          .flex.items-center
+            = text_field_tag :search, params[:search], class: "form-input w-full placeholder:text-content", placeholder: "Rechercher un article", data: { action: "keyup->autosave#submit"}
 
 
-              = render "admin/items/items", items: @items
+      .-mx-4.-my-2.overflow-x-auto.sm:-mx-6.lg:-mx-8
+        .inline-block.min-w-full.py-2.align-middle.sm:px-6.lg:px-8
+
+          .table.w-full.pb-12.mt-6
+            .table-header-group
+              .table-row
+                .table-cell.min-w-8
+                  span.sr-only
+                    | Checkbox
+                .table-cell.min-w-8
+                  span.sr-only
+                    | En ligne
+                .table-cell.min-w-12
+                  span.sr-only
+                    | Image
+
+                .table-cell.text-sm.font-semibold.text-contrast
+                  = filterable_sort_button(Item, :name) do
+                    | Nom
+                .table-cell.text-sm.font-semibold.text-contrast
+                  = filterable_sort_button(Item, :description) do
+                    | Description
+                .table-cell.text-sm.font-semibold.text-contrast
+                  = filterable_sort_button(Item, :category_id) do
+                    | Catégories
+                .table-cell.text-sm.font-semibold.text-contrast
+                  | Format
+                .table-cell.text-sm.font-semibold.text-contrast.text-right
+                  = filterable_sort_button(Item, :price_cents) do
+                    | Prix
+                .table-cell.text-sm.font-semibold.text-contrast
+                  = filterable_sort_button(Item, :stock) do
+                    | Stock
+                .table-cell.min-w-12
+                  span.sr-only
+                    | Actions
+
+
+            = render "admin/items/items", items: @items
+            - header.with_pagination do
+              == pagy_nav(@pagy)

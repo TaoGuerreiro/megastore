@@ -23,7 +23,7 @@ module Tabs
     end
 
     def inactive_tab_classes
-      "text-contour hover:text-primary hover:bg-light hover:rounded-none hover:rounded-t-lg"
+      "text-contrast hover:text-primary hover:bg-light hover:rounded-none hover:rounded-t-lg"
     end
   end
 end

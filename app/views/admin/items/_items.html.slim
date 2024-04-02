@@ -1,6 +1,3 @@
 = turbo_frame_tag :items, class: "table-row-group w-full relative" do
   - items.order(:name).each do |item|
     = render "admin/items/item", item: item
-
-  .absolute.-bottom-10.right-0.flex.items-center.justify-center.left-0
-    == pagy_nav(@pagy)
