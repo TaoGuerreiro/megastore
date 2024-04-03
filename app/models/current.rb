@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class Current < ActiveSupport::CurrentAttributes
-  attribute :store
+  attribute :store, :endi_auth
 
-  def endi_token
-    store&.endi_token
+  def endi_auth
+    store&.endi_auth
   end
 end

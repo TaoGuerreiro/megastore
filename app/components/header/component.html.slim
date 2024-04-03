@@ -1,18 +1,21 @@
 = helpers.turbo_frame_tag :modal do
 .min-h-screen data-controller="bulk-edit-items"
   .bg-contour.pt-20.sticky.top-0.z-40
-    .mx-auto.max-w-6xl.flex.flex-col-reverse.items-end.lg:flex-row.justify-between.px-4.md:px-8.min-h-12
-      -if backlink
-        .flex.items-center
-          = backlink
-      -if tabs
-        .flex.items-end
+    .mx-auto.max-w-6xl.flex.flex-col-reverse.items-start.lg:items-end.md:flex-row.justify-between.px-4.md:px-8.min-h-12
+      - if backlink
+        .flex.items-center.pb-3
+
+      - if tabs
+        .flex.items-end.self-start.md:self-end
           = tabs
-      .flex.items-end.pb-3.gap-4
-        = options
-        = action_link
-  .bg-light.py-12.md:pt-0
-    .mx-auto.max-w-6xl.bg-light.px-4.md:px-8.py-10
+      .flex.justify-between.items-end.pb-3.gap-4.w-full
+        div
+          = backlink
+        .flex.gap-2
+          = options
+          = action_link
+  .bg-light.py-4sm:py-12.md:pt-0
+    .mx-auto.max-w-6xl.bg-light.px-4.md:px-8.py-2.sm:py-8
       = content
     .mx-auto.max-w-6xl.sticky.bottom-10
       = pagination

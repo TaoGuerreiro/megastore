@@ -1,19 +1,19 @@
 = render Header::Component.new do |header|
-  - header.with_tabs do
-    .
+  - header.with_backlink do
+    = link_to admin_items_path do
+      = render Buttons::Option::Component.new(label: "Retour", icon: "fa-solid fa-arrow-left")
   - header.with_action_link do
-    = submit_tag "Modifier", form: "edit_item_#{@item.id}", class: "btn text-contrast font-bold hover:text-secondary"
+    = button_tag :submit, form: "edit_item_#{@item.id}" do
+      = render Buttons::Option::Component.new(label: "Ajouter", icon: "fa-solid fa-plus")
 
   - header.with_options do
     .mt-4.sm:ml-16.sm:mt-0.sm:flex-none.flex.items-center
       - if @item.archived?
-        = link_to unarchive_admin_item_path(@item), data: { turbo_method: :patch }, class: "mr-3 flex text-content" do
-          i.fas.fa-archive.mr-2 class="!text-primary"
-          | Désarchiver
+        = button_to unarchive_admin_item_path(@item), method: :patch, data: { turbo: false } do
+          = render Buttons::Option::Component.new(label: "Désarchiver", icon: "fas fa-archive")
       - else
-        = link_to archive_admin_item_path(@item), data: { turbo_method: :patch }, class: "mr-3 text-content" do
-          i.fas.fa-archive.mr-2 class="!text-primary"
-          | Archiver
+        = button_to archive_admin_item_path(@item), method: :patch, data: { turbo: false } do
+          = render Buttons::Option::Component.new(label: "Archiver", icon: "fas fa-archive")
 
   = render "form", item: @item
 

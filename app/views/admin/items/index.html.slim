@@ -19,7 +19,7 @@
           = render Buttons::Option::Component.new(icon: "fa-solid fa-eye-slash", label: "Offline")
       = form_tag add_to_collection_admin_bulk_edit_items_path, method: :patch, data: { turbo: false, controller: "autosave" } do
         = text_field_tag :item_ids, {}, data: { "bulk-edit-items-target": "input" }, type: :hidden
-        = select_tag :collection_id, options_from_collection_for_select(@collections, :id, :name), include_blank: "Ajouter à une collection", class: "rounded box-border border-content h-8 text-sm py-0.5", data: { action: "change->autosave#submit" }
+        = select_tag :collection_id, options_from_collection_for_select(@collections, :id, :name), include_blank: "Collection", class: "rounded box-border border-content h-8 text-sm py-0.5", data: { action: "change->autosave#submit" }
 
 
   .px-4.sm:px-6.lg:px-0

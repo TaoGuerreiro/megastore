@@ -118,6 +118,7 @@ module Admin
       authorize! @item
 
       @item.archive!
+
       redirect_to admin_items_path, notice: 'Item was successfully archived.'
     end
 
@@ -126,6 +127,7 @@ module Admin
       authorize! @item
 
       @item.update(status: :offline)
+
       redirect_to admin_items_path, notice: 'Item was successfully unarchived.'
     end
 
