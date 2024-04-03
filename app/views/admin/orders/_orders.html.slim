@@ -1,1 +1,3 @@
-= render "order"
+= turbo_frame_tag :orders, class: "table-row-group w-full relative" do
+  - orders.order(:name).each do |order|
+    = render "admin/orders/order", order: order

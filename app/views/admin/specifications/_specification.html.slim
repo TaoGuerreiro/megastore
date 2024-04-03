@@ -2,7 +2,7 @@
   .table-cell.truncate.max-w-36.px-2.align-middle
     = specification.name
 
-  .table-cell.relative.px-2.align-middle.text-center
+  .table-cell
     = render List::Component.new(item: specification,
                                  links:[{icon: "fas fa-trash",
                                          label: "Supprimer",

@@ -8,22 +8,22 @@
   .table-cell.align-middle.h-16
     = render Miniature::Component.new(item: item)
 
-  .table-cell.truncate.max-w-36.px-2.align-middle.text-contrast.font-bold
+  .table-cell.max-w-36.align-middle.text-contrast.font-bold title=item.name
     = item.name
 
-  .table-cell.truncate.max-w-36.px-2.align-middle
+  .table-cell.max-w-36.align-middle title=item.description
     = item.description
 
-  .table-cell.px-2.align-middle
+  .table-cell.align-middle
     = item.category.name
 
-  .table-cell.px-2.align-middle
+  .table-cell.align-middle
     = item.format
 
-  .table-cell.px-2.align-middle
+  .table-cell.align-middle
     = number_to_currency(item.price, format: "%n €")
 
-  .table-cell.px-2.align-middle.text-center
+  .table-cell.align-middle.text-center
     div.flex.justify-center
       = link_to remove_stock_admin_item_path(item), data: { turbo_method: :patch }, class: "text-primary hover:text-primary/90" do
         .text-content.w-5.h-5.flex.items-center.justify-center.text-center
@@ -33,7 +33,7 @@
         .text-content.w-5.h-5.flex.items-center.justify-center.text-center
           i.fas.fa-plus.py-1.text-xs
 
-  .table-cell.relative.px-2.align-middle.text-center
+  .table-cell
     = render List::Component.new(item: item, links:[{icon: "fas fa-pen", label: "Editer", path: edit_admin_item_path(item), options: { data: { turbo: false }}},
                                                     {icon: "fas fa-trash", label: "Supprimer", path: admin_item_path(item), options: { data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer cet article ?" }}},
                                                   ])

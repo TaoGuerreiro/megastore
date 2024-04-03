@@ -56,7 +56,7 @@
 
   /* Toutes les cell */
   .table-cell {
-    @apply px-2 py-3 text-sm text-left border-b text-midgray;
+    @apply px-2 py-3 text-sm text-left truncate align-middle border-b last:overflow-visible text-midgray;
   }
 
   /* Toutes les header cells */

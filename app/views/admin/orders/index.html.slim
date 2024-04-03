@@ -1,45 +1,54 @@
-.bg-light.min-h-screen.pt-12.md:pt-0
-  = turbo_frame_tag :modal do
-  .mx-auto.max-w-5xl
-    .bg-light.py-10
-      .px-4.sm:px-6.lg:px-8
-        .sm:flex.sm:items-center
-          .sm:flex-auto
-            h1.text-base.font-semibold.leading-6.text-contrast
-              | Commandes
-            p.mt-2.text-sm.text-midgray
-              | Liste de toutes les commandes de votre boutique.
+= render Header::Component.new do |header|
+  / - header.with_tabs do
+  /   = render Tabs::Component.new(tabs: [{name: "Articles", path: admin_items_path},
+  /                                       {name: "Collections", path: admin_collections_path},
+  /                                       {name: "Catégories", path: admin_categories_path},
+  /                                       {name: "Spécifications", path: admin_specifications_path}])
+  / - header.with_action_link do
+  /   = link_to new_admin_item_path do
+  /     = render Buttons::Option::Component.new(label: "Ajouter un article", icon: "fa-solid fa-plus")
+  .px-4.sm:px-6.lg:px-0
+    .sm:flex.sm:items-center.mb-6
+      .sm:flex-auto
+        h1.text-base.font-semibold.leading-6.text-contrast
+          | Commandes
+        p.mt-2.text-sm.text-midgray
+          | Liste de toutes les commandes de votre boutique.
+    .mt-8.flow-root
+      = form_tag admin_orders_path, method: :get, class: "mt-6"
+        .flex.flex-row.items-center
+          .flex-auto
+            = text_field_tag :search, params[:search],
+                              placeholder: "Rechercher une commande, adresse, client, mail, etc.",
+                              class: "form-input placeholder:text-content"
 
-        = form_tag admin_orders_path, method: :get, class: "mt-6"
-          .flex.flex-row.items-center
-            .flex-auto
-              = text_field_tag :search, params[:search],
-                                placeholder: "Rechercher une commande, adresse, client, mail, etc.",
-                                class: "form-input placeholder:text-content"
-            .ml-4
-              = submit_tag "Rechercher", class: "btn btn-primary"
-        .mt-8.flow-root
-          .-mx-4.-my-2.overflow-x-auto.sm:-mx-6.lg:-mx-8
-            .inline-block.min-w-full.py-2.align-middle.sm:px-6.lg:px-8
-              .flex-container.min-w-full.divide-y.divide-contrast
-                .flex.flex-row.text-left.text-sm.font-semibold.text-contrast.py-3.5
-                  .basis-8
-                    | Ref.
-                  .basis-1/6
-                    | Client
-                  .basis-1/6
-                    | Mail
-                  .basis-1/3
-                    | Adresse
-                  .basis-1/12
-                    | Prix
-                  .basis-1/6
-                    | Statut
-                  .basis-8
-                    span.sr-only
-                      | Show
-                  .basis-8
-                    span.sr-only
-                      | Edit
-                .divide-y.divide-content
-                  = render @orders
+
+
+      .-mx-4.-my-2.overflow-x-auto.sm:-mx-6.lg:-mx-8
+        .inline-block.min-w-full.py-2.align-middle.sm:px-6.lg:px-8
+
+          .table.w-full.pb-36.mt-6
+            .table-header-group
+              .table-row
+                .table-cell
+                  | Ref.
+                .table-cell
+                  | Client
+                .table-cell
+                  | Mail
+                .table-cell
+                  | Adresse
+                .table-cell
+                  | Prix
+                .table-cell
+                  | Statut
+                .table-cell
+                  | Livraison
+                .table-cell.w-8
+                  span.sr-only
+                    | Actions
+
+
+            = render "admin/orders/orders", orders: @orders
+            - header.with_pagination do
+              / == pagy_nav(@pagy)
