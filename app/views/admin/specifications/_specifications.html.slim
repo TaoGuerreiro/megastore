@@ -1,4 +1,6 @@
 = turbo_frame_tag :specifications, class: "table-row-group w-full relative" do
 
+  = render EmptyFolder::Component.new(title: t("specifications.empty_folder.title"), subtitle: t("specifications.empty_folder.subtitle"))
+
   - @specifications.order(:name).each do |specification|
     = render "admin/specifications/specification", specification: specification

@@ -1,0 +1,5 @@
+fr:
+  categories:
+    empty_folder:
+      title: "Ce dossier est vide"
+      subtitle: "Ajoutez des catégories pour les retrouver ici."

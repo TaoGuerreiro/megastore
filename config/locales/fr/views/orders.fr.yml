@@ -4,6 +4,9 @@ fr:
     Shipping: "Frais de livraison pour la commande %{order_id}"
     Subscription: "Abonnement au store"
   orders:
+    empty_folder:
+      title: "Ce dossier est vide"
+      subtitle: "Aucune commande dans ce dossier."
     show:
       addresses: "Addresses"
       billing_address: "Adresse de facturation"

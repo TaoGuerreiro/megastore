@@ -1,4 +1,6 @@
 = turbo_frame_tag :categories, class: "table-row-group w-full relative" do
 
+  = render EmptyFolder::Component.new(title: t("categories.empty_folder.title"), subtitle: t("categories.empty_folder.subtitle"))
+
   - @categories.order(:name).each do |category|
     = render "admin/categories/category", category: category

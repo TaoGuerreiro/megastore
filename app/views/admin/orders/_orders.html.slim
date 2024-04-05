@@ -1,3 +1,6 @@
 = turbo_frame_tag :orders, class: "table-row-group w-full relative" do
+
+  = render EmptyFolder::Component.new(title: t("orders.empty_folder.title"), subtitle: t("orders.empty_folder.subtitle"))
+
   - orders.order(:name).each do |order|
     = render "admin/orders/order", order: order
