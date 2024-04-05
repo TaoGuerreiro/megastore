@@ -26,10 +26,12 @@ class Admin::CollectionsController < AdminController
     @collection.store = Current.store
 
     if @collection.save
-      redirect_to admin_collections_path, notice: 'Collection was successfully created.'
+      respond_to do |format|
+        format.html { redirect_to admin_collections_path, notice: 'Collection was successfully created.' }
+        format.turbo_stream { render turbo_stream: turbo_stream.append('collections', partial: 'admin/collections/collection', locals: { collection: @collection }) }
+      end
     else
-      @collections = Collection.all
-      render :index, status: :unprocessable_entity
+      render :new, status: :unprocessable_entity
     end
   end
 

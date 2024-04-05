@@ -5,6 +5,8 @@ class Category < ApplicationRecord
   belongs_to :store
   has_many :items
 
+  validates :name, presence: true
+
   def can_destroy?
     self.class.reflect_on_all_associations.all? do |assoc|
       ((%i[restrict_with_error restrict_with_exception].exclude? assoc.options[:dependent]) ||
