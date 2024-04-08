@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   devise_scope :user do
     namespace :queen do
       authenticate :user, ->(user) { user.queen? } do
-        resources :users, only: %i[index show edit update destroy] do
+        resources :users, only: %i[index show edit update destroy new create] do
           patch :set_localhost, on: :member
         end
         resources :store_orders, only: %i[index show]
@@ -72,6 +72,7 @@ Rails.application.routes.draw do
     get '/about',         to: 'pages#about'
     post '/send_message', to: 'pages#send_message'
     get '/store',         to: 'stores#show'
+    get '/portfolio',     to: 'pages#portfolio'
     resource :checkout, only: [:show] do
       post :confirm_payment, on: :member
     end

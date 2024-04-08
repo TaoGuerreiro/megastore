@@ -33,6 +33,10 @@ class PagesController < ApplicationController
     render template: "#{Current.store.slug}/about"
   end
 
+  def portfolio
+    render template: "#{Current.store.slug}/portfolio"
+  end
+
   private
 
   def contact_params

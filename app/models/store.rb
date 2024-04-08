@@ -20,7 +20,7 @@ class Store < ApplicationRecord
   after_create_commit :create_endi_profile
 
   def create_endi_profile
-    EndiServices::NewUser.new(store).call
+    EndiServices::NewUser.new(self).call
   end
 
   def collections_with_items

@@ -1,0 +1,33 @@
+.fixed.top-1.right-6.z-40 = render "shared/cart"
+
+.w-full.hidden.md:flex.bg-light.relative.cursor-default.justify-between.w-full.pl-12.py-6.pr-20
+  = link_to root_path, class: "" do
+    = image_tag("#{Current.store.slug}/logo.png")
+  .flex.flex-col.gap-1
+    = link_to "PORTRAIT", about_path, class: "btn-link"
+    = link_to "GALERIE", portfolio_path, class: "btn-link"
+    / = link_to "Contact", contact_path, class: "btn-link"
+    = link_to "BOUTIQUE", store_path, class: "btn-link"
+
+.h-36.md:hidden
+
+  = link_to root_path, class: "w-full flex items-center justify-center" do
+    = image_tag("#{Current.store.slug}/logo.png", class: "h-36")
+
+  = label_tag :phonenav, class: "fixed shadow-xl z-40 top-4 left-4 rounded-full" do
+    .w-16.h-16.bg-secondary.flex.items-center.justify-center.rounded-full.p-3
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+      </svg>
+  = check_box_tag :phonenav, nil, nil, {class: "hidden peer"}
+  .z-50.fixed.hidden.peer-checked:block.top-0.left-0.right-0.bottom-0.bg-secondary/90
+    = label_tag :phonenav, class: "absolute top-10 right-10" do
+      .w-16.h-16.flex.items-center.justify-center.rounded-full.p-3.text-light
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+    .flex.flex-col.justify-around.items-start.py-12.px-12
+      = link_to "PORTRAIT", about_path, class: "tracking-widest text-5xl text-light mb-8"
+      = link_to "GALERIE", portfolio_path, class: "tracking-widest text-5xl text-light mb-8"
+      / = link_to "Contact", contact_path, class: "tracking-widest text-5xl text-light mb-8"
+      = link_to "BOUTIQUE", store_path, class: "tracking-widest text-5xl text-light mb-8"

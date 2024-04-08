@@ -1,5 +1,5 @@
-= turbo_frame_tag user do
-  = simple_form_for [:queen, user] do |f|
+= turbo_frame_tag dom_id(user, "form") do
+  = simple_form_for [:queen, user], data: { turbo: false } do |f|
     h2 class="text-base font-semibold leading-7 text-gray-900" Profile
     p class="mt-1 mb-8 text-sm leading-6 text-gray-600" Modifier les informations du profil
     .flex.flex-col.gap-3.sm:flex-row
@@ -25,9 +25,14 @@
             = store.input :postal_code, label: t('store.edit.postal_code'), placeholder: t('store.edit.postal_code_placeholder')
           .basis-3/4
             = store.input :country, label: t('store.edit.country'), placeholder: t('store.edit.country_placeholder')
+        .flex.flex-col.gap-3.sm:flex-row
+          = store.input :domain, label: t('user.edit.domain'), placeholder: t('user.edit.domain_placeholder')
+          = store.input :slug, label: t('user.edit.slug'), placeholder: t('user.edit.slug_placeholder')
+
         .my-5.control data-controller="trix"
           = store.rich_text_area :about, label: t('store.edit.about_text'), placeholder: t('store.edit.about_text_placeholder'), data: { trix_target: 'editor' }
           p class="mt-1 mb-8 text-sm leading-6 text-gray-600" Modifier le texte de la page à propos
+
 
         = store.input :mail_body, as: :text, label: t('store.edit.mail_text'), placeholder: t('store.edit.mail_text_placeholder'), input_html: { rows: 5 }, wrapper_html: {class: "mb-0"}
         p class="mt-1 mb-8 text-sm leading-6 text-gray-600" Modifier le texte en tête des mails

@@ -49,6 +49,17 @@
     --color-form-input: 255, 255, 255;
   }
 
+  .kenjosset {
+    --color-primary: 135, 140, 115; /* #878C73 */
+    --color-secondary: 72, 61, 63;
+    --color-light: 240, 241, 238; /* #F0F1EE */
+    --color-contrast: 47, 47, 47;
+    --color-midgray: 121, 121, 121;
+    --color-content: 200, 200, 200;
+    --color-contour: 238, 238, 238;
+    --color-form-input: 255, 255, 255;
+  }
+
   .mapboxgl-ctrl-geocoder {
     width: 100% !important;
     max-width: none !important;
@@ -104,6 +115,10 @@
 
   .btn-link {
     @apply text-xl tracking-wider transition-all text-contrast hover:text-primary;
+  }
+
+  .kenjosset .btn-link {
+    @apply text-xl tracking-wider hover:pl-0 hover:pr-4 px-2 relative transition-all text-primary after:content-[''] after:block after:w-full after:h-[0.2rem] after:bg-primary after:transition-all after:duration-200 after:right-0 after:absolute after:bottom-0;
   }
 
   /* Floating Label CSS */

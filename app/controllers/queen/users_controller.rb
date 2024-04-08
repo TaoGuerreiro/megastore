@@ -18,6 +18,24 @@ module Queen
       end
     end
 
+    def new
+      @user = User.new
+      @user.build_store
+    end
+
+    def create
+      @user = User.new(user_params)
+      @user.password = Devise.friendly_token.first(8)
+      @user.store.admin = @user
+      @user.store.stripe_subscription_id = "DEV____" + SecureRandom.uuid
+
+      if @user.save
+        redirect_to queen_users_path, notice: 'User was successfully created.'
+      else
+        render :new, status: :unprocessable_entity
+      end
+    end
+
     def destroy
       @user = User.find(params[:id])
       @user.destroy
@@ -47,6 +65,8 @@ module Queen
         :city,
         :postal_code,
         :country,
+        :domain,
+        :slug,
         :about,
         :mail_body,
         :holiday,
