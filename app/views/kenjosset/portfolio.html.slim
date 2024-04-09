@@ -1,31 +1,4 @@
-.px-64.grid.grid-cols-5.gap-6.pt-12
-  .w-full
-    = image_tag "kenjosset/home.png", class: "object-cover h-48"
-  .w-full.h-48
-    = image_tag "kenjosset/home.png", class: "object-cover h-48"
-  .w-full.h-48
-    = image_tag "kenjosset/home.png", class: "object-cover h-48"
-  .w-full.h-48
-    = image_tag "kenjosset/home.png", class: "object-cover h-48"
-  .w-full.h-48
-    = image_tag "kenjosset/home.png", class: "object-cover h-48"
-  .w-full.h-48
-    = image_tag "kenjosset/home.png", class: "object-cover h-48"
-  .w-full.h-48
-    = image_tag "kenjosset/home.png", class: "object-cover h-48"
-  .w-full.h-48
-    = image_tag "kenjosset/home.png", class: "object-cover h-48"
-  .w-full.h-48
-    = image_tag "kenjosset/home.png", class: "object-cover h-48"
-  .w-full.h-48
-    = image_tag "kenjosset/home.png", class: "object-cover h-48"
-  .w-full.h-48
-    = image_tag "kenjosset/home.png", class: "object-cover h-48"
-  .w-full.h-48
-    = image_tag "kenjosset/home.png", class: "object-cover h-48"
-  .w-full.h-48
-    = image_tag "kenjosset/home.png", class: "object-cover h-48"
-  .w-full.h-48
-    = image_tag "kenjosset/home.png", class: "object-cover h-48"
-  .w-full.h-48
-    = image_tag "kenjosset/home.png", class: "object-cover h-48"
+.max-w-7xl.mx-auto.px-6.md:px-12.grid.grid-cols-1.md:grid-cols-3.lg:grid-cols-5.gap-6.pt-12
+  - images = images_from_directory("portfolio")
+  - images.each do |image|
+    = image_tag image, class: "w-full h-64 md:h-48 object-cover object-center"
