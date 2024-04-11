@@ -29,7 +29,7 @@ module.exports = {
         // sans: ['Inter var', ...defaultTheme.fontFamily.sans],
         unsafe: ["'Noto Sans'", ...defaultTheme.fontFamily.sans],
         // anemone: ['Montserrat', ...defaultTheme.fontFamily.sans],
-        kenjosset: ["'Scandia Medium'", "Comic Sans MS", 'sans-serif'],
+        kenjosset: ["Scandia Regular", "Comic Sans MS", 'sans-serif'],
       },
       colors:{
         primary: withOpacity('--color-primary'),

@@ -4,7 +4,7 @@ html
     = render "shared/head"
     #modal.z-50.fixed.hidden
 
-  body.bg-light class="#{Current.store.slug}" data-controller="scroll" data-action="scroll@window->scroll#scroll"
+  body.bg-light class="#{Current.store.slug} font-#{Current.store.slug}" data-controller="scroll" data-action="scroll@window->scroll#scroll"
     = render "#{Current.store.slug}/common/navbar"
     . class="min-h-[calc(100vh-500px)]"
       = yield
