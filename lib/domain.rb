@@ -2,6 +2,6 @@
 
 class Domain
   def self.matches?(request)
-    request.domain.in?(["localhost", "lecheveublanc.fr", "ngrok.io", "unsafehxc.fr", "studioanemone.fr", "kenjosset.com"])
+    request.domain.in?(["localhost", "chalky.fr", "lecheveublanc.fr", "ngrok.io", "unsafehxc.fr", "studioanemone.fr", "kenjosset.com"])
   end
 end

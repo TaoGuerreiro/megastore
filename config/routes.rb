@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     end
   end
 
+  root to: 'pages#landing'
+
   devise_scope :user do
     namespace :queen do
       authenticate :user, ->(user) { user.queen? } do
