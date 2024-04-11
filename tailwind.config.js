@@ -27,8 +27,8 @@ module.exports = {
     extend: {
       fontFamily: {
         unsafe: ["'Noto Sans'", ...defaultTheme.fontFamily.sans],
-        anemone: ['Montserrat', ...defaultTheme.fontFamily.sans],
-        kenjosset: ["Scandia", 'sans-serif'],
+        anemone: ["Avenir", ...defaultTheme.fontFamily.sans],
+        kenjosset: ["Scandia", ...defaultTheme.fontFamily.sans],
       },
       colors:{
         primary: withOpacity('--color-primary'),
