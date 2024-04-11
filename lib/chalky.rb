@@ -2,6 +2,6 @@
 
 class Chalky
   def self.matches?(request)
-    request.domain == "chalky.fr"
+    request.domain.in?(["chalky.fr", "localhost"])
   end
 end
