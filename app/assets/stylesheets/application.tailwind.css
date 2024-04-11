@@ -8,7 +8,6 @@
   @font-face {
     font-family: Scandia Regular;
     font-weight: normal;
-    font-style: normal;
     src: font-url("scandia/Scandia-Regular.otf") format("otf");
     font-display: swap;
   }
