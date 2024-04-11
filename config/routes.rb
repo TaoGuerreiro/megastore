@@ -69,9 +69,6 @@ Rails.application.routes.draw do
     end
   end
 
-  constraints(Chalky) do
-    get "/coucou_ju", to: 'pages#landing'
-  end
 
   constraints(Domain) do
     root to: 'pages#home'
