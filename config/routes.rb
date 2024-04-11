@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     end
   end
 
-  root to: 'pages#landing'
+
 
   devise_scope :user do
     namespace :queen do
@@ -66,6 +66,10 @@ Rails.application.routes.draw do
         resource :account, only: %i[show edit update]
       end
     end
+  end
+
+  constraints(Chalky) do
+    root to: 'pages#landing'
   end
 
   constraints(Domain) do
