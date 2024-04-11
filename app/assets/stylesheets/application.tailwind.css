@@ -3,8 +3,22 @@
 @tailwind utilities;
 @import 'actiontext.css';
 
-
 @layer base {
+
+  @font-face {
+    font-family: Scandia Regular;
+    font-weight: normal;
+    font-style: normal;
+    src: font-url("scandia/Scandia-Regular.otf") format("otf");
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: Scandia Medium;
+    font-weight: bold;
+    src: font-url("scandia/Scandia-Medium.otf") format("otf");
+    font-display: swap;
+  }
 
   :root {
     --color-primary: 8, 75, 131; /* #084B83 */

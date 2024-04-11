@@ -11,6 +11,7 @@ Bundler.require(*Rails.groups)
 module Megastore
   class Application < Rails::Application
     config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
+
     Rails.application.config.active_record.encryption.primary_key = Rails.application.credentials.active_record_encryption[:primary_key]
     config.load_defaults 7.0
 
