@@ -69,7 +69,6 @@ Rails.application.routes.draw do
     end
   end
 
-
   constraints(Domain) do
     root to: 'pages#home'
     get '/contact',       to: 'pages#contact'
