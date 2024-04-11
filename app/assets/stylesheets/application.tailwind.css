@@ -6,16 +6,12 @@
 @layer base {
   @font-face {
     font-family: Scandia Regular;
-    font-weight: 300;
     src: font-url("scandia/Scandia-Regular.otf") format("otf");
-    font-display: swap;
   }
 
   @font-face {
     font-family: Scandia Medium;
-    font-weight: 700;
     src: font-url("scandia/Scandia-Medium.otf") format("otf");
-    font-display: swap;
   }
 
   :root {
