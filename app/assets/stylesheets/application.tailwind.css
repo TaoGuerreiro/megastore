@@ -4,10 +4,9 @@
 @import 'actiontext.css';
 
 @layer base {
-
   @font-face {
     font-family: Scandia Regular;
-    font-weight: normal;
+    font-weight: bold;
     src: font-url("scandia/Scandia-Regular.otf") format("otf");
     font-display: swap;
   }
