@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  namespace :queen do
-  end
   require 'domain'
-  require 'chalky'
   devise_for :users
   mount StripeEvent::Engine, at: '/stripe-webhooks'
 

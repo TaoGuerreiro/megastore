@@ -14,4 +14,5 @@ class Contact
   validates :email, presence: true
   validates :content, presence: true
   validates :full_name, presence: true
+  validates :nickname, absence: true
 end

@@ -433,7 +433,7 @@
   }
 
   .kenjosset .btn-link {
-    @apply text-xl tracking-wider hover:pl-0 hover:pr-4 px-2 relative transition-all text-primary after:content-[''] after:block after:w-full after:h-[0.2rem] after:bg-primary after:transition-all after:duration-200 after:right-0 after:absolute after:bottom-0;
+    @apply text-xl tracking-wider hover:text-contrast px-2 relative transition-all text-primary after:content-[''] after:block after:w-full after:h-[0.2rem] after:bg-primary hover:after:bg-contrast after:transition-all after:duration-200 after:right-0 after:absolute after:bottom-0;
   }
 
   /* Floating Label CSS */
