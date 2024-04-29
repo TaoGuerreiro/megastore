@@ -20,13 +20,8 @@ class PagesController < ApplicationController
     @contact = Contact.new(contact_params)
 
     if @contact.valid?
-      begin
-        ContactMailer.with(contact: @contact).new_message_from_store.deliver_now
-        redirect_to root_path, notice: 'Message bien envoyé', status: :see_other
-      rescue StandardError => e
-        flash[:error] = "Une erreur est survenue lors de l'envoi du message. Veuillez réessayer."
-        render "#{Current.store.slug}/contact", status: :unprocessable_entity
-      end
+        ContactMailer.with(contact: @contact, store: Current.store).new_message_from_store.deliver_now
+        redirect_to root_path, status: :see_other, success: 'Message bien envoyé'
     else
       render "#{Current.store.slug}/contact", status: :unprocessable_entity
     end
@@ -43,6 +38,6 @@ class PagesController < ApplicationController
   private
 
   def contact_params
-    params.require(:contact).permit(:email, :full_name, :content)
+    params.require(:contact).permit(:email, :full_name, :content, :nickname)
   end
 end

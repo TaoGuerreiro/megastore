@@ -33,7 +33,7 @@ class StoresController < ApplicationController
   end
 
   def fetch_items
-    return @store.items.where(status: :active).order(created_at: :desc) unless params[:filters]
+    return @store.items.where(status: :active, collection_id: nil).order(created_at: :desc) unless params[:filters]
 
     items = @store.items.includes(:category).where(category: { name: selected_filters },
                                                   status: :active).where(price_range_inputs).order(sorting_input)

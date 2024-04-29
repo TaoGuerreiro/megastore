@@ -9,10 +9,12 @@ class Contact
     @email = attr[:email]
     @full_name = attr[:full_name]
     @content = attr[:content]
+    @nickname = attr[:nickname]
   end
 
   validates :email, presence: true
   validates :content, presence: true
   validates :full_name, presence: true
+  # "nickname" is a honeypot to prevent spam
   validates :nickname, absence: true
 end

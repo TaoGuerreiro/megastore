@@ -21,9 +21,9 @@ export default class extends Controller {
     const secondProjectObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.style.transform = "scale(1)";
+          // entry.target.style.transform = "scale(1)";
         } else {
-          entry.target.style.transform = "scale(1.1)";
+          // entry.target.style.transform = "scale(1.01)";
         }
       });
     },

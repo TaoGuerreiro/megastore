@@ -7,17 +7,15 @@ module Admin
       items = @order.items.map do |item|
         {
           "description": item.name,
-          "amount": item.price_cents / 100.00,
-          "currency": t(item.price_currency),
+          "amount": number_to_currency(item.price_cents / 100.00, unit: I18n.t(item.price_currency))
         }
       end
-      client = Postmark::ApiClient.new(@order.store.postmark_key)
-      currency = t(@order.amount_currency)
+      client = Postmark::ApiClient.new(Rails.application.credentials.postmark_api_token.send(Rails.env))
 
       client.deliver_with_template({
-                                     from: @order.store.admin.email,
+                                     from: "transaction@chalky.fr",
                                      to: @order.user.email,
-                                     template_alias: 'receipt',
+                                     template_alias: 'chalky_receipt',
                                      template_model: {
                                        'product_url' => @order.store.domain,
                                        'product_name' => @order.store.name,
@@ -26,10 +24,9 @@ module Admin
                                        'order_id' => @order.id,
                                        'date' => @order.created_at.strftime('%d/%m/%Y'),
                                        'receipt_details' => items,
-                                       'total' => @order.amount_cents / 100.00,
+                                       'total' => number_to_currency(@order.amount_cents / 100.00, unit: I18n.t(@order.amount_currency)),
                                        'store_username' => @order.store.name,
                                        'company_name' => @order.store.name,
-                                       'currency' => currency,
                                      }
                                    })
     end

@@ -9,6 +9,9 @@
         = render MenuItem::Component.new(path: admin_account_path, icon_classes: "fa-solid fa-gear", title: "Paramètres")
         / = render MenuItem::Component.new(path: admin_account_path, icon_classes: "fa-solid fa-envelope", title: "Emails")
 
+      - if Current.store.slug == "unsafe"
+        = render MenuItem::Component.new(path: admin_instagram_path, icon_classes: "fa-brands fa-instagram", title: "Insta")
+
       - if current_user.queen?
 
         h2.text-content.font-bold Pour la Reine

@@ -15,7 +15,6 @@ gem 'devise_invitable'
 gem 'enumerize'
 gem 'image_processing', '~> 1.2'
 gem 'mini_magick'
-
 gem 'action_policy'
 gem 'activerecord-session_store'
 gem 'country_select'
@@ -23,7 +22,6 @@ gem 'httparty'
 gem 'jbuilder'
 gem 'jsbundling-rails'
 gem "mechanize"
-
 gem 'money-rails', '~> 1.13'
 gem 'pagy', '~> 7.0'
 gem 'pg', '~> 1.1'

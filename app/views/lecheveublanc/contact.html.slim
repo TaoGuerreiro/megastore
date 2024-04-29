@@ -4,7 +4,7 @@
       | Une idée de projet ? Contactez-moi !
 
 
-    = simple_form_for @contact, url: send_message_path, method: :post do |field|
+    = simple_form_for @contact, url: send_message_path, method: :post, data: { turbo_stream: false } do |field|
       .text-input.mb-3
         = field.input :full_name, label: "Nom & Prénom", placeholder: "Nom & Prénom"
       .text-input.mb-3
