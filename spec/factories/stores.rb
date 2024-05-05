@@ -1,6 +1,23 @@
 # spec/factories/stores.rb
 FactoryBot.define do
   factory :store do
+    transient do
+      endi_profile { false }
+    end
+
+    after(:build) do |instance, evaluator|
+      unless evaluator.endi_profile
+        instance.class.set_callback(:create, :after, :create_endi_profile)
+        instance.class.skip_callback(:create, :after, :create_endi_profile)
+      end
+    end
+
+    after(:create) do |instance, evaluator|
+      unless evaluator.endi_profile
+        instance.class.set_callback(:create, :after, :create_endi_profile)
+      end
+    end
+
     name { "My Store" }
     domain { "example.com" }
     slug { "lecheveublanc" }
@@ -12,7 +29,7 @@ FactoryBot.define do
     meta_image { "http:://example.com/logo.png" }
     instagram_url { "https://instagram.com/mystore" }
     facebook_url { "https://facebook.com/mystore" }
-    about_text { "Je suis Clémence, illustratrice indépendante officiant à Nantes sous le pseudonyme Le Cheveu Blanc." }
+    about { "Je suis Clémence, illustratrice indépendante officiant à Nantes sous le pseudonyme Le Cheveu Blanc." }
     holiday { false }
     holiday_sentence { "Boutique en vacances" }
     display_stock { false }
@@ -40,7 +57,7 @@ FactoryBot.define do
         items_count { 3 }
       end
       after(:create) do |store, evaluator|
-        create_list(:item, evaluator.items_count, store: store)
+        create_list(:item, evaluator.items_count, store:)
       end
     end
   end

@@ -54,10 +54,12 @@ group :development do
 end
 
 group :test do
+  gem 'capybara-screenshot'
   gem "capybara"
+  gem 'database_cleaner'
   gem "rspec-rails"
-  gem "shoulda-matchers"
   gem "selenium-webdriver"
+  gem "shoulda-matchers"
   gem "simplecov", require: false
   gem "webdrivers"
 end

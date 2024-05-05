@@ -6,6 +6,29 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 require "capybara/rspec"
+require 'support/database_cleaner'
+
+# screenshot with capybara
+require 'capybara-screenshot/rspec'
+Capybara::Screenshot.prune_strategy = { keep: 20 }
+Capybara.register_driver :selenium_chrome_headless do |app|
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+    loggingPrefs: { browser: 'ALL' },
+    chromeOptions: {
+      args: %w[headless disable-gpu no-sandbox disable-dev-shm-usage disable-infobars disable-extensions window-size=1600,3200]
+    }
+  )
+  service = Selenium::WebDriver::Service.chrome
+  Capybara::Selenium::Driver.new(
+    app,
+    browser: :chrome,
+    desired_capabilities: capabilities,
+    service: service
+  )
+end
+Capybara.javascript_driver = :selenium_chrome_headless
+Capybara.asset_host = 'http://localhost:3000'
+
 # Add additional requires below this line. Rails is not loaded until this point!
 
 
@@ -40,7 +63,9 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = true
+  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  config.use_transactional_fixtures = false
+
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
