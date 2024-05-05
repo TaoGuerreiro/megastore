@@ -3,6 +3,7 @@
 require_relative 'boot'
 
 require 'rails/all'
+require 'factory_bot_rails'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -18,6 +19,8 @@ module Megastore
     config.generators do |generate|
       generate.helper false
       generate.template_engine :slim
+      generate.test_framework :rspec, fixture: true
+      generate.fixture_replacement :factory_bot, dir: 'spec/factories'
     end
 
     config.autoload_paths << Rails.root.join('app/services/*.rb')

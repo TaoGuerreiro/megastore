@@ -7,7 +7,7 @@
 
   = link_to root_path, class: "inline-block mx-auto" do
     = image_tag("#{Current.store.slug}/logo.png", class: "h-48")
-  .flex.justify-around.items-center.pb-12.w-full
+  #desktop.flex.justify-around.items-center.pb-12.w-full
     = link_to "Portfolio", root_path, class: "btn-link"
     = link_to "À propos", about_path, class: "btn-link"
     = link_to "Contact", contact_path, class: "btn-link"
