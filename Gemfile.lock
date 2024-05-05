@@ -249,6 +249,8 @@ GEM
     nkf (0.2.0)
     nokogiri (1.16.4-arm64-darwin)
       racc (~> 1.4)
+    nokogiri (1.16.4-x86_64-linux)
+      racc (~> 1.4)
     orm_adapter (0.5.0)
     pagy (7.0.11)
     parallel (1.24.0)
@@ -447,6 +449,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-21
+  x86_64-linux
 
 DEPENDENCIES
   action_policy
