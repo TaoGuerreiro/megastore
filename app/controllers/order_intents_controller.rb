@@ -19,7 +19,7 @@ class OrderIntentsController < ApplicationController
 
     respond_to do |format|
       if @order_intent.valid?(:step_one)
-        format.html { redirect_to checkout_path, notice: 'Order intent was successfully created.' }
+        format.html { redirect_to checkout_path, notice: "Order intent was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -33,7 +33,7 @@ class OrderIntentsController < ApplicationController
     @order_intent.shipping_price = @shipping_method[:price].to_f * 1.2
     @order_intent.fees_price = @order_intent.shipping_price * Current.store.rates
 
-    if @shipping_method[:service_point_input] == 'required'
+    if @shipping_method[:service_point_input] == "required"
       @order_intent.need_point = true
       @service_points = Shipment::ServicePoint.new(Current.store,
                                                    {
@@ -49,7 +49,7 @@ class OrderIntentsController < ApplicationController
       if @order_intent.valid?(:shipping_method)
         format.html { redirect_to checkout_path, notice: "Shipping method was successfully added." }
       else
-        format.html { render 'checkouts/show', status: :unprocessable_entity }
+        format.html { render "checkouts/show", status: :unprocessable_entity }
       end
       format.turbo_stream
     end
@@ -57,7 +57,7 @@ class OrderIntentsController < ApplicationController
 
   def service_point
     respond_to do |format|
-      format.html { redirect_to checkout_path, notice: 'Shipping method was successfully added.' }
+      format.html { redirect_to checkout_path, notice: "Shipping method was successfully added." }
       format.turbo_stream
     end
   end

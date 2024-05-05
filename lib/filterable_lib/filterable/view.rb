@@ -2,7 +2,7 @@
 
 module Filterable
   class View < ApplicationRecord
-    self.table_name = 'filterable_views'
+    self.table_name = "filterable_views"
 
     belongs_to :owner, polymorphic: true
 
@@ -29,7 +29,7 @@ module Filterable
     def query=(value)
       return if value.blank?
 
-      value.with_defaults!(conjonction: 'and', sort: {}, filters: [])
+      value.with_defaults!(conjonction: "and", sort: {}, filters: [])
 
       assign_attributes(value.slice(:conjonction, :sort, :filters))
     end

@@ -15,26 +15,24 @@ module EndiServices
       response = HTTParty.post(@url, body: body.to_json, headers:)
       if response.code == 401
         EndiServices::ResetAuth.new(@store).call
-        response = HTTParty.post(@url, body: body.to_json, headers:)
+        HTTParty.post(@url, body: body.to_json, headers:)
       elsif response.code == 200
         @order.update!(endi_id: response["id"], status: "draft")
         EndiServices::UpdateBill.new(@order, @store).call
         @order.update!(status: "pending")
-        return response&.response&.message
+        response&.response&.message
       else
         @order.update!(status: "failed", api_error: response.to_s)
       end
     end
 
     def body
-      body = {
+      {
         "name" => "Facture pour #{@store.name}",
         "customer_id" => @store.endi_id,
         "project_id" => Rails.application.credentials.endi.public_send(Rails.env).project_id.to_s,
         "business_type_id" => "2"
       }
-
-      body
     end
 
     def headers

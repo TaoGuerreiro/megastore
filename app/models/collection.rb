@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 class Collection < ApplicationRecord
   has_many :items, dependent: :nullify
   belongs_to :store
 
   validates :name, presence: true
-
 
   def soldout?
     return false unless items.any?

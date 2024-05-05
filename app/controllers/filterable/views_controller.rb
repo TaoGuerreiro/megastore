@@ -19,9 +19,9 @@ module Filterable
     private
 
     def fitlerable_view_params
-      params.require(:filterable_view)
-            .permit(:title, :model, :owner_type, :owner_id, :context_name)
-            .merge(query: filterable_params)
+      params.require(:filterable_view).
+        permit(:title, :model, :owner_type, :owner_id, :context_name).
+        merge(query: filterable_params)
     end
   end
 end

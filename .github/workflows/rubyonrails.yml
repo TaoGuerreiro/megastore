@@ -1,0 +1,96 @@
+# This workflow uses actions that are not certified by GitHub.  They are
+# provided by a third-party and are governed by separate terms of service,
+# privacy policy, and support documentation.
+#
+# This workflow will install a prebuilt Ruby version, install dependencies, and
+# run tests and linters.
+name: "Ruby on Rails CI"
+on:
+  push:
+    branches: [ "master", "dev" ]
+  pull_request:
+    branches: [ "master", "dev" ]
+jobs:
+  lint:
+    name: "Linter 👮"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install FreeTDS
+        run: sudo apt-get install -y freetds-dev
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      # Add or replace any other lints here
+      - name: Security audit dependencies
+        run: bundle exec bundle-audit --update
+      - name: Security audit application code
+        run: bundle exec brakeman -q -w3
+      - name: Lint Ruby files
+        run: bundle exec rubocop --parallel
+
+  test:
+    name: "Test 🧪"
+    needs:
+      - lint
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: timescale/timescaledb-ha:pg14-latest
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_DB: rails_test
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: password
+    env:
+      CI: true
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+      CREDENTIALS_ENV: github_ci
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      # Add or replace dependency steps here
+      - name: Install FreeTDS
+        run: sudo apt-get install -y freetds-dev
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      # Add or replace database setup steps here
+      - name: Precompile assets
+        run: bin/rails assets:precompile
+      - name: Set up database schema
+        run: bin/rails db:migrate
+      # Add or replace test runners here
+      - name: Run tests
+        run: bundle exec rspec
+      # simplecov
+      - uses: joshmfrankel/simplecov-check-action@main
+        with:
+          minimum_suite_coverage: 80
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+  deploy:
+    name: "Deploy 🚀"
+    needs:
+      - test
+      - lint
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Deploy
+        uses: 47ng/actions-clever-cloud@v1.3.1
+        with:
+          appID: ${{ secrets.CLEVER_APP_ID_STAGING }}
+        env:
+          CLEVER_TOKEN: ${{ secrets.CLEVER_TOKEN }}
+          CLEVER_SECRET: ${{ secrets.CLEVER_SECRET }}

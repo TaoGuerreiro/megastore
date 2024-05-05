@@ -16,25 +16,25 @@ module Notifications
 
     def icon_class
       case @type
-      when 'success'
-        'fa-check-square'
-      when 'error' || 'alert'
-        'fa-exclamation-square'
+      when "success"
+        "fa-check-square"
+      when "error" || "alert"
+        "fa-exclamation-square"
       else
-        'fa-info-square'
+        "fa-info-square"
       end
     end
 
     def icon_color_class
       case @type
-      when 'success'
-        'text-green-400'
-      when 'error'
-        'text-red-800'
-      when 'alert'
-        'text-red-400'
+      when "success"
+        "text-green-400"
+      when "error"
+        "text-red-800"
+      when "alert"
+        "text-red-400"
       else
-        'text-content'
+        "text-content"
       end
     end
 

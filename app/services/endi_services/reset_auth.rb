@@ -12,8 +12,8 @@ module EndiServices
       mechanize = EndiServices::Auth.new.call
 
       @store.update!({
-                      endi_auth: "#{mechanize.cookie_jar.cookies[0].name}=#{mechanize.cookie_jar.cookies[0].value}"
-                    })
+                       endi_auth: "#{mechanize.cookie_jar.cookies[0].name}=#{mechanize.cookie_jar.cookies[0].value}"
+                     })
     end
   end
 end

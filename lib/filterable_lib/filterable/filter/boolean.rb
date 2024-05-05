@@ -3,7 +3,7 @@
 module Filterable
   class Filter
     class Boolean < Filter
-      operator('equal') { arel_column.eq(value_for_sql) }
+      operator("equal") { arel_column.eq(value_for_sql) }
 
       def select_options
         [true, false].map! do |boolean|

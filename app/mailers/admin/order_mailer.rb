@@ -6,8 +6,8 @@ module Admin
       @order = order
       items = @order.items.map do |item|
         {
-          "description": item.name,
-          "amount": number_to_currency(item.price_cents / 100.00, unit: I18n.t(item.price_currency))
+          description: item.name,
+          amount: number_to_currency(item.price_cents / 100.00, unit: I18n.t(item.price_currency))
         }
       end
       client = Postmark::ApiClient.new(Rails.application.credentials.postmark_api_token.send(Rails.env))
@@ -15,18 +15,19 @@ module Admin
       client.deliver_with_template({
                                      from: "transaction@chalky.fr",
                                      to: @order.user.email,
-                                     template_alias: 'chalky_receipt',
+                                     template_alias: "chalky_receipt",
                                      template_model: {
-                                       'product_url' => @order.store.domain,
-                                       'product_name' => @order.store.name,
-                                       'name' => @order.user.email,
-                                       'user_body_mail' => @order.store.mail_body,
-                                       'order_id' => @order.id,
-                                       'date' => @order.created_at.strftime('%d/%m/%Y'),
-                                       'receipt_details' => items,
-                                       'total' => number_to_currency(@order.amount_cents / 100.00, unit: I18n.t(@order.amount_currency)),
-                                       'store_username' => @order.store.name,
-                                       'company_name' => @order.store.name,
+                                       "product_url" => @order.store.domain,
+                                       "product_name" => @order.store.name,
+                                       "name" => @order.user.email,
+                                       "user_body_mail" => @order.store.mail_body,
+                                       "order_id" => @order.id,
+                                       "date" => @order.created_at.strftime("%d/%m/%Y"),
+                                       "receipt_details" => items,
+                                       "total" => number_to_currency(@order.amount_cents / 100.00,
+                                                                     unit: I18n.t(@order.amount_currency)),
+                                       "store_username" => @order.store.name,
+                                       "company_name" => @order.store.name
                                      }
                                    })
     end
@@ -35,7 +36,7 @@ module Admin
       @order = order
       @store = @order.items.first.store
       email = @store.admin.email
-      mail to: email, subject: 'Nouvelle commande'
+      mail to: email, subject: "Nouvelle commande"
     end
   end
 end

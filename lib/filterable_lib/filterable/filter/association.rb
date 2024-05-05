@@ -3,10 +3,10 @@
 module Filterable
   class Filter
     class Association < Filter
-      operator('equal') { arel_column.eq(value) }
-      operator('not_equal') { arel_column.not_eq(value) }
-      operator('empty') { arel_column.eq(nil) }
-      operator('not_empty') { arel_column.not_eq(nil) }
+      operator("equal") { arel_column.eq(value) }
+      operator("not_equal") { arel_column.not_eq(value) }
+      operator("empty") { arel_column.eq(nil) }
+      operator("not_empty") { arel_column.not_eq(nil) }
 
       def arel_column
         klass = column.association_class

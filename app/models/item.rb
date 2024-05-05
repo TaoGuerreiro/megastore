@@ -56,11 +56,11 @@ class Item < ApplicationRecord
   end
 
   def active?
-    status == 'active'
+    status == "active"
   end
 
   def archived?
-    status == 'archived'
+    status == "archived"
   end
 
   def archive!

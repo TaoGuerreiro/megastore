@@ -2,6 +2,19 @@
 
 module Filterable
   class FiltersController < ApplicationController
+    def show
+      model = filterable_context.model
+      @filters = Filter.parse(model, filterable_params.fetch(:filters, []))
+
+      column_update_trigger if trigger?("column_update")
+
+      respond_to do |format|
+        format.turbo_stream do
+          render Components::ShowTurboStreamComponent.new(filters: @filters, filterable_context:)
+        end
+      end
+    end
+
     def create
       model = filterable_context.model
       filters = Filter.parse(model, filterable_params.fetch(:filters, []))
@@ -10,19 +23,6 @@ module Filterable
       render html: render_to_string(
         Components::FiltersFormComponent.new(filters:, filterable_context:)
       )
-    end
-
-    def show
-      model = filterable_context.model
-      @filters = Filter.parse(model, filterable_params.fetch(:filters, []))
-
-      column_update_trigger if trigger?('column_update')
-
-      respond_to do |format|
-        format.turbo_stream do
-          render Components::ShowTurboStreamComponent.new(filters: @filters, filterable_context:)
-        end
-      end
     end
 
     private

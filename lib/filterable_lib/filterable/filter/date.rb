@@ -3,9 +3,9 @@
 module Filterable
   class Filter
     class Date < Filter
-      INPUT_LESS_OPERATORS = (Filter::INPUT_LESS_OPERATORS + ['lteq_end_of_month']).freeze
+      INPUT_LESS_OPERATORS = (Filter::INPUT_LESS_OPERATORS + ["lteq_end_of_month"]).freeze
 
-      operator('equal') do
+      operator("equal") do
         if datetime_column?
           all_day = cast_value
           arel_column.gteq(all_day.begin).and(arel_column.lteq(all_day.end))
@@ -14,7 +14,7 @@ module Filterable
         end
       end
 
-      operator('not_equal') do
+      operator("not_equal") do
         if datetime_column?
           all_day = cast_value
           arel_column.lt(all_day.begin).or(arel_column.gt(all_day.end))
@@ -23,13 +23,13 @@ module Filterable
         end
       end
 
-      operator('gt') { arel_column.gt(cast_value) }
-      operator('gteq') { arel_column.gteq(cast_value) }
-      operator('lt') { arel_column.lt(cast_value) }
-      operator('lteq') { arel_column.lteq(cast_value) }
-      operator('empty') { arel_column.eq(nil) }
-      operator('not_empty') { arel_column.not_eq(nil) }
-      operator('lteq_end_of_month') { arel_column.lteq(end_of_current_month) }
+      operator("gt") { arel_column.gt(cast_value) }
+      operator("gteq") { arel_column.gteq(cast_value) }
+      operator("lt") { arel_column.lt(cast_value) }
+      operator("lteq") { arel_column.lteq(cast_value) }
+      operator("empty") { arel_column.eq(nil) }
+      operator("not_empty") { arel_column.not_eq(nil) }
+      operator("lteq_end_of_month") { arel_column.lteq(end_of_current_month) }
 
       private
 
@@ -46,9 +46,9 @@ module Filterable
       # when filtering with a whole date, without time
       def adjust_datetime_value(datetime)
         case operator
-        when 'gt', 'lteq' then datetime.end_of_day
-        when 'lt', 'gteq' then datetime.beginning_of_day
-        when 'equal', 'not_equal' then datetime.all_day
+        when "gt", "lteq" then datetime.end_of_day
+        when "lt", "gteq" then datetime.beginning_of_day
+        when "equal", "not_equal" then datetime.all_day
         else
           datetime
         end

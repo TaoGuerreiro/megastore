@@ -29,11 +29,10 @@ class Order < ApplicationRecord
 
   STATUSES = %w[pending confirmed paid canceled refunded sent].freeze
 
-  enumerize :status, in: STATUSES, default: 'pending', predicates: true
+  enumerize :status, in: STATUSES, default: "pending", predicates: true
 
   validates :amount, presence: true
   validates :status, presence: true
-  validates :user, presence: true
 
   def total_price
     if shipping&.api_shipping_id.present?

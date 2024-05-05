@@ -4,15 +4,17 @@ module Admin
   class AccountsController < AdminController
     before_action :set_user
 
-    def show; end
+    def show
+    end
 
-    def edit; end
+    def edit
+    end
 
     def update
       if @user.update(user_params)
-        redirect_to admin_account_path, notice: 'Account updated successfully'
+        redirect_to admin_account_path, notice: "Account updated successfully"
       else
-        render :edit, status: :unprocessable_entity, notice: 'Account could not be updated'
+        render :edit, status: :unprocessable_entity, notice: "Account could not be updated"
       end
     end
 

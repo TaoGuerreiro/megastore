@@ -2,7 +2,7 @@
 
 module SocialLinks
   class Component < ViewComponent::Base
-    def initialize(color: 'text-constrast')
+    def initialize(color: "text-constrast")
       @color = color
     end
   end

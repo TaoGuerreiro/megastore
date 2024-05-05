@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PagesController < ApplicationController
-  layout 'application'
+  layout "application"
 
   def landing
   end
@@ -20,8 +20,8 @@ class PagesController < ApplicationController
     @contact = Contact.new(contact_params)
 
     if @contact.valid?
-        ContactMailer.with(contact: @contact, store: Current.store).new_message_from_store.deliver_now
-        redirect_to root_path, status: :see_other, success: 'Message bien envoyé'
+      ContactMailer.with(contact: @contact, store: Current.store).new_message_from_store.deliver_now
+      redirect_to root_path, status: :see_other, success: "Message bien envoyé"
     else
       render "#{Current.store.slug}/contact", status: :unprocessable_entity
     end
