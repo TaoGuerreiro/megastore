@@ -14,13 +14,16 @@ module Admin
       authorize! @category
     end
 
+    def edit
+    end
+
     def create
       @category = Current.store.categories.build(category_params)
       authorize! @category
 
       if @category.save
         respond_to do |format|
-          format.html { redirect_to admin_store_path, notice: 'Category was successfully created.' }
+          format.html { redirect_to admin_store_path, notice: "Category was successfully created." }
           format.turbo_stream
         end
       else
@@ -28,13 +31,14 @@ module Admin
       end
     end
 
-    def edit; end
-
     def update
       if @category.update(category_params)
         respond_to do |format|
-          format.html { redirect_to admin_store_path, notice: 'Category was successfully updated.' }
-          format.turbo_stream { render turbo_stream: turbo_stream.replace(@category, partial: 'admin/categories/category', locals: { category: @category }) }
+          format.html { redirect_to admin_store_path, notice: "Category was successfully updated." }
+          format.turbo_stream do
+            render turbo_stream: turbo_stream.replace(@category, partial: "admin/categories/category",
+                                                                 locals: { category: @category })
+          end
         end
       else
         render :edit, status: :unprocessable_entity

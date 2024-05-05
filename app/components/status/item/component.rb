@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Status
   module Item
     class Component < ViewComponent::Base

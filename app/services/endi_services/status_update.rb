@@ -23,7 +23,7 @@ module EndiServices
       @order.update(endi_price_cents: (response["ht"] * 100).to_i)
       @order.update(billing_date: response["date"].to_date)
 
-      if response.dig("status_history").any? { |hash| hash["status"] == "resulted" }
+      if response["status_history"].any? { |hash| hash["status"] == "resulted" }
         @order.paid!(mail: true)
         @order.update(bill_ref: response["official_number"],
                       payment_date: response.dig("status_history", 0, "datetime").to_date)

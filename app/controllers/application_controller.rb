@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :set_current_store, :clean_checkout_cart
 
   def default_url_options
-    { host: Current.store.domain || 'localhost:3000' }
+    { host: Current.store.domain || "localhost:3000" }
   end
 
   rescue_from ActionPolicy::Unauthorized do |exception|
@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
   def clean_checkout_cart
     return if current_user
 
-    return unless Item.where(id: session[:checkout_items]).blank?
+    return if Item.where(id: session[:checkout_items]).present?
 
     session.clear
     session[:checkout_items] = []

@@ -29,6 +29,11 @@ module Admin
       authorize! @item
     end
 
+    def edit
+      @item = Item.find(params[:id])
+      authorize! @item
+    end
+
     def create
       @item = Item.new(item_params.except(:photos))
       authorize! @item
@@ -37,25 +42,21 @@ module Admin
 
       if @item.save
         manage_photos(item_params)
-        redirect_to admin_items_path, notice: 'Item was successfully created.'
+        redirect_to admin_items_path, notice: "Item was successfully created."
       else
-        render :new, status: :unprocessable_entity, notice: 'Item could not be created.'
+        render :new, status: :unprocessable_entity, notice: "Item could not be created."
       end
     end
 
-    def edit
-      @item = Item.find(params[:id])
-      authorize! @item
-    end
     def update
       @item = Item.find(params[:id])
 
       if @item.update(item_params)
         Rails.logger.debug "Item updated successfully"
-        redirect_to admin_items_path, notice: 'Item was successfully updated.'
+        redirect_to admin_items_path, notice: "Item was successfully updated."
       else
         Rails.logger.debug "Item update failed"
-        render :edit, status: :unprocessable_entity, notice: 'Item could not be updated.'
+        render :edit, status: :unprocessable_entity, notice: "Item could not be updated."
       end
       authorize! @item
     end
@@ -66,12 +67,12 @@ module Admin
 
       if @item.destroy
         respond_to do |format|
-          format.html { redirect_to admin_items_path, notice: 'Item was successfully destroyed.' }
+          format.html { redirect_to admin_items_path, notice: "Item was successfully destroyed." }
           format.turbo_stream
         end
       else
         respond_to do |format|
-          format.html { redirect_to admin_items_path, notice: 'Item could not be destroyed.' }
+          format.html { redirect_to admin_items_path, notice: "Item could not be destroyed." }
           format.turbo_stream
         end
       end
@@ -83,7 +84,7 @@ module Admin
       @item.stock += 1
       @item.save
       respond_to do |format|
-        format.html { redirect_to admin_items_path, notice: 'Stock was successfully increased.' }
+        format.html { redirect_to admin_items_path, notice: "Stock was successfully increased." }
         format.turbo_stream
       end
     end
@@ -94,7 +95,7 @@ module Admin
       @item.stock -= 1
       @item.save
       respond_to do |format|
-        format.html { redirect_to admin_items_path, notice: 'Stock was successfully decreased.' }
+        format.html { redirect_to admin_items_path, notice: "Stock was successfully decreased." }
         format.turbo_stream
       end
     end
@@ -108,7 +109,7 @@ module Admin
       @photo.purge
 
       respond_to do |format|
-        format.html { redirect_to edit_admin_item_path(@item), notice: 'Photo was successfully removed.' }
+        format.html { redirect_to edit_admin_item_path(@item), notice: "Photo was successfully removed." }
         format.turbo_stream
       end
     end
@@ -119,7 +120,7 @@ module Admin
 
       @item.archive!
 
-      redirect_to admin_items_path, notice: 'Item was successfully archived.'
+      redirect_to admin_items_path, notice: "Item was successfully archived."
     end
 
     def unarchive
@@ -128,7 +129,7 @@ module Admin
 
       @item.update(status: :offline)
 
-      redirect_to admin_items_path, notice: 'Item was successfully unarchived.'
+      redirect_to admin_items_path, notice: "Item was successfully unarchived."
     end
 
     private
@@ -149,16 +150,16 @@ module Admin
     def manage_status(permitted_params)
       return if permitted_params[:active].nil? || @item&.archived?
 
-      permitted_params[:status] = permitted_params[:active] == '1' ? :active : :offline
+      permitted_params[:status] = permitted_params[:active] == "1" ? :active : :offline
     end
 
     def manage_photos(permitted_params)
       permitted_params[:photos]&.each do |photo|
         if @item
           if @item.persisted?
-            @item.photos.attach(photo) unless photo.blank?
-          else
-            @item.photos.build(photo) unless photo.blank?
+            @item.photos.attach(photo) if photo.present?
+          elsif photo.present?
+            @item.photos.build(photo)
           end
         end
       end
@@ -168,7 +169,7 @@ module Admin
     def convert_dimensions(permitted_params)
       %i[length width height].each do |dimension|
         if permitted_params[dimension].present?
-          permitted_params[dimension] = permitted_params[dimension].gsub(',', '.').to_f * 10
+          permitted_params[dimension] = permitted_params[dimension].gsub(",", ".").to_f * 10
         end
       end
     end

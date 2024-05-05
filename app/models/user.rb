@@ -28,7 +28,7 @@ class User < ApplicationRecord
   def stripe_customer_id
     return customer_id if customer_id?
 
-    customer = Stripe::Customer.create(email: email)
+    customer = Stripe::Customer.create(email:)
     update!(customer_id: customer.id)
     customer.id
   end

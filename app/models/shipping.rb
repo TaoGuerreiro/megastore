@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Shipping < ApplicationRecord
   belongs_to :order
   has_many :store_order_items, as: :orderable

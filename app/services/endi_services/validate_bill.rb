@@ -11,7 +11,6 @@ module EndiServices
     end
 
     def call
-
       invoice_headers = {
         "Accept" => "application/json, text/javascript, */*; q=0.01",
         "Content-Type" => "application/json",

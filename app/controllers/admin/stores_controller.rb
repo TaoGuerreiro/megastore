@@ -2,7 +2,6 @@
 
 module Admin
   class StoresController < AdminController
-
     def show
       @store = Current.store
       authorize! @store
@@ -21,7 +20,7 @@ module Admin
       authorize! @store
       if @store.update(store_params)
         respond_to do |format|
-          format.html { redirect_to admin_store_path(@store), notice: 'Store was successfully updated.' }
+          format.html { redirect_to admin_store_path(@store), notice: "Store was successfully updated." }
           format.turbo_stream
         end
       else

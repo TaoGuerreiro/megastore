@@ -29,7 +29,7 @@ module EndiServices
         "Connection" => "keep-alive",
         "Sec-Fetch-Dest" => "empty",
         "Sec-Fetch-Mode" => "cors",
-        "Sec-Fetch-Site" => "same-origin",
+        "Sec-Fetch-Site" => "same-origin"
       }
 
       body = {

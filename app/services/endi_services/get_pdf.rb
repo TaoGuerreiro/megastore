@@ -31,7 +31,7 @@ module EndiServices
       return unless response.code == 401
 
       EndiServices::ResetAuth.new(@user).call
-      response = HTTParty.patch(@url, headers: invoice_headers)
+      HTTParty.patch(@url, headers: invoice_headers)
     end
   end
 end

@@ -1,17 +1,20 @@
+# frozen_string_literal: true
+
 class EventJob < ApplicationJob
   queue_as :default
 
   def perform(event)
     event.update(status: "processing")
-    if event.source == "stripe"
+    case event.source
+    when "stripe"
       handle_stripe_event(event)
-    elsif event.source == "stripe_subscription"
+    when "stripe_subscription"
       handle_stripe_subscription_event(event)
-    elsif event.source == "sendcloud"
+    when "sendcloud"
       handle_sendcloud_event(event)
     end
     event.update(status: :processed)
-  rescue => e
+  rescue StandardError => e
     event.update(processing_errors: e.to_s, status: :failed)
   end
 
@@ -81,7 +84,7 @@ class EventJob < ApplicationJob
     order = Order.find_by(checkout_session_id: event.data.object.id)
     return if order.status == "paid"
 
-    order.update(status: 'paid')
+    order.update(status: "paid")
     send_emails(order)
     create_shipment(order)
     update_store_order(order)
@@ -96,8 +99,8 @@ class EventJob < ApplicationJob
 
   def create_shipment(order)
     store = order.store
-    Shipment::Parcel.new(store, { order: order }).create_label
-    Shipment::Label.new(store, { order: order }).attach_to_order
+    Shipment::Parcel.new(store, { order: }).create_label
+    Shipment::Label.new(store, { order: }).attach_to_order
   end
 
   def update_store_order(order)
@@ -112,15 +115,19 @@ class EventJob < ApplicationJob
   end
 
   def add_items_to_store_order(store_order, order)
-    store_order.store_order_items.new(orderable: order.fee, price: order.fee.amount) if store_order.fees.exclude?(order.fee)
-    store_order.store_order_items.new(orderable: order.shipping, price: order.shipping.cost) if store_order.shippings.exclude?(order.shipping)
-  end
+    if store_order.fees.exclude?(order.fee)
+      store_order.store_order_items.new(orderable: order.fee,
+                                        price: order.fee.amount)
+    end
+    return unless store_order.shippings.exclude?(order.shipping)
 
+    store_order.store_order_items.new(orderable: order.shipping,
+                                      price: order.shipping.cost)
+  end
 end
 
 # store = Store.first
 # order = Order.last
-
 
 # {"action"=>"parcel_status_changed",
 #  "parcel"=>
@@ -190,7 +197,6 @@ end
 #    "extra_data"=>{}},
 #  "timestamp"=>1712163088943,
 #  "carrier_status_change_timestamp"=>1712163088908}
-
 
 # {"action"=>"parcel_status_changed",
 #  "parcel"=>

@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 module Admin
   class OnboardingsController < ApplicationController
     include Rails.application.routes.url_helpers
 
-    def new; end
+    def new
+    end
 
     def create
       default_url_options[:host] = "https://www.#{Current.store.domain}"
@@ -16,7 +19,7 @@ module Admin
           mcc: "5734",
           product_description: "Online marketplace",
           name: current_user.full_name,
-          url: "https://www.#{Current.store.domain}",
+          url: "https://www.#{Current.store.domain}"
         }
       )
 
@@ -25,7 +28,7 @@ module Admin
         refresh_url: admin_store_url(Current.store),
         return_url: new_admin_onboarding_url,
         type: "account_onboarding",
-        collect: "eventually_due",
+        collect: "eventually_due"
       )
 
       Current.store.update(stripe_account_id: account.id)

@@ -26,9 +26,9 @@ module Filterable
 
       def label_text
         return selected_view.title if selected_view
-        return I18n.t('filterable.filter') unless filterable_active_filters?
+        return I18n.t("filterable.filter") unless filterable_active_filters?
 
-        I18n.t('filterable.active_filters', count: filterable_params[:filters].length)
+        I18n.t("filterable.active_filters", count: filterable_params[:filters].length)
       end
 
       def views
@@ -44,7 +44,7 @@ module Filterable
       end
 
       def wrapper_classes
-        ['h-full', Filterable.btn_classes]
+        ["h-full", Filterable.btn_classes]
       end
 
       def filters_btn_classes
@@ -52,7 +52,7 @@ module Filterable
           "px-3 py-2 cursor-pointer rounded-l-md \
           max-w-[16rem] whitespace-nowrap overflow-hidden text-ellipsis \
           hover:bg-gray-50",
-          ('rounded-r-md' unless can_use_views? && views.present?),
+          ("rounded-r-md" unless can_use_views? && views.present?),
           (Filterable.btn_active_classes if filterable_active_filters?)
         ]
       end

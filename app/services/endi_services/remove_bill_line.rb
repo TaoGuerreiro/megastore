@@ -60,9 +60,9 @@ module EndiServices
       response = HTTParty.get(url, headers:)
       if response.code == 401
         EndiServices::ResetAuth.new(@user).call
-        response = HTTParty.get(url, headers:)
+        HTTParty.get(url, headers:)
       else
-        line_id = response[0]["id"]
+        response[0]["id"]
       end
     end
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Admin
   class SubscriptionsController < AdminController
     def create
@@ -5,21 +7,21 @@ module Admin
 
       session = Stripe::Checkout::Session.create(
         customer: current_user.stripe_customer_id,
-        mode: 'subscription',
+        mode: "subscription",
         line_items: [
           quantity: 1,
           price_data: {
-            currency: 'eur',
+            currency: "eur",
             unit_amount: 2000,
             product_data: {
-              name: 'Abonnement mensuel',
+              name: "Abonnement mensuel"
             },
             recurring: {
-              interval: 'month'
-            },
+              interval: "month"
+            }
           }
         ],
-        success_url: admin_store_url(@store) + '?session_id={CHECKOUT_SESSION_ID}',
+        success_url: "#{admin_store_url(@store)}?session_id={CHECKOUT_SESSION_ID}",
         cancel_url: new_admin_onboarding_url
       )
 
@@ -32,9 +34,9 @@ module Admin
       @store = Current.store
 
       customer_portal = Stripe::BillingPortal::Session.create({
-        customer: current_user.stripe_customer_id,
-        return_url: admin_store_url(@store)
-      })
+                                                                customer: current_user.stripe_customer_id,
+                                                                return_url: admin_store_url(@store)
+                                                              })
 
       redirect_to customer_portal.url, allow_other_host: true
     end

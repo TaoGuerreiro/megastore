@@ -20,7 +20,7 @@ module ShippingMethod
     end
 
     def js_controller
-      'autosave' if @item.is_a?(OrderIntent)
+      "autosave" if @item.is_a?(OrderIntent)
     end
   end
 end

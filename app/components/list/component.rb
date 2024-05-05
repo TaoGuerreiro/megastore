@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module List
   class Component < ViewComponent::Base
     attr_accessor :links, :item

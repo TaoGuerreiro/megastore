@@ -34,7 +34,7 @@ class OrderIntent
     @service_point = attr[:service_point]
     @items_price = attr[:items_price]
     @shipping_price = attr[:shipping_price]
-    @need_point = attr[:need_point] || 'false'
+    @need_point = attr[:need_point] || "false"
     @weight = attr[:weight]
     @fees_price = attr[:fees_price]
   end
@@ -48,12 +48,12 @@ class OrderIntent
     validates :country, presence: true
     validates :postal_code, presence: true
     validates :city, presence: true
-    validates :need_point, inclusion: { in: [false, 'false'] }
+    validates :need_point, inclusion: { in: [false, "false"] }
   end
 
   with_options on: :step_two do
     validates :shipping_method, presence: true
-    validates :need_point, inclusion: { in: [true, 'true'] }
+    validates :need_point, inclusion: { in: [true, "true"] }
   end
 
   with_options on: :finalize_order do
@@ -119,12 +119,12 @@ class OrderIntent
   private
 
   def split_address
-    return [address, ''] if address.size <= 25
+    return [address, ""] if address.size <= 25
 
-    splitted_address = address.split(' ')
+    splitted_address = address.split
     half = (splitted_address.size / 2.0).ceil
     address_parts = splitted_address.each_slice(half).to_a
 
-    [address_parts[0].join(' '), address_parts[1]&.join(' ')]
+    [address_parts[0].join(" "), address_parts[1]&.join(" ")]
   end
 end

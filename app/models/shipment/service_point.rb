@@ -22,17 +22,17 @@ class Shipment
       response.map.with_index do |service_point, index|
         {
           index: index + 1,
-          id: service_point['id'],
-          name: service_point['name'],
-          street: service_point['street'],
-          house_number: service_point['house_number'],
-          postal_code: service_point['postal_code'],
-          city: service_point['city'],
-          country: service_point['country'],
-          longitude: service_point['longitude'].to_f,
-          latitude: service_point['latitude'].to_f,
-          distance: service_point['distance'],
-          info_window_html: ac.render_to_string(partial: 'checkouts/info_window',
+          id: service_point["id"],
+          name: service_point["name"],
+          street: service_point["street"],
+          house_number: service_point["house_number"],
+          postal_code: service_point["postal_code"],
+          city: service_point["city"],
+          country: service_point["country"],
+          longitude: service_point["longitude"].to_f,
+          latitude: service_point["latitude"].to_f,
+          distance: service_point["distance"],
+          info_window_html: ac.render_to_string(partial: "checkouts/info_window",
                                                 locals: { service_point: })
         }
       end

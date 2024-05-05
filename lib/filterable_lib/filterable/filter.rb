@@ -70,7 +70,7 @@ module Filterable
     end
 
     def self.input_less_operators
-      const_get('INPUT_LESS_OPERATORS')
+      const_get("INPUT_LESS_OPERATORS")
     end
 
     private

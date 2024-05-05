@@ -1,0 +1,56 @@
+inherit_from: .rubocop_todo.yml
+
+require: rubocop-rails
+
+AllCops:
+  NewCops: enable
+  SuggestExtensions: false
+  Exclude:
+  - "bin/**/*"
+  - "db/**/*"
+  - "tmp/**/*"
+  - "test/**/*"
+  - "spec/**/*"
+  - "vendor/**/*"
+  - "config/environments/*"
+  - "config/initializers/pagy.rb"
+  - "config/initializers/simple_form_tailwind.rb"
+
+Bundler/OrderedGems:
+  Enabled: false
+
+Layout/DotPosition:
+  EnforcedStyle: trailing
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+Layout/SpaceInLambdaLiteral:
+  EnforcedStyle: require_space
+
+Metrics/AbcSize:
+  CountRepeatedAttributes: false
+Metrics/ClassLength:
+  CountAsOne: ['array', 'hash', 'heredoc']
+Metrics/MethodLength:
+  CountAsOne: ['array', 'hash', 'heredoc']
+Metrics/ModuleLength:
+  CountAsOne: ['array', 'hash', 'heredoc']
+
+Rails/BulkChangeTable:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+Style/SymbolArray:
+  Enabled: false
+
+Rails/SquishedSQLHeredocs:
+  Enabled: false
+
+Style/HashSyntax:
+  Severity: info
+Naming/BlockForwarding:
+  Severity: info

@@ -20,14 +20,13 @@ class CheckoutsController < ApplicationController
   end
 
   def confirm_payment
-
     @shipping_methods = session[:shipping_methods].map(&:symbolize_keys)
     @shipping_method  = find_shipping_method
     @service_points = session[:service_points].map(&:symbolize_keys) if session[:service_points]
 
     unless @order_intent.valid?(:finalize_order)
       respond_to do |format|
-        format.html { render 'checkouts/show', status: :unprocessable_entity }
+        format.html { render "checkouts/show", status: :unprocessable_entity }
         format.turbo_stream
       end
       return
@@ -38,26 +37,25 @@ class CheckoutsController < ApplicationController
       order_items: @items.map { |item| OrderItem.new(item: item[:item], quantity: item[:number]) },
       amount: @order_intent.items_price.to_f,
       user:,
-      status: 'confirmed',
+      status: "confirmed",
       shipping: Shipping.new({
-          cost: @order_intent.shipping_price.to_f,
-          address_first_line: @order_intent.address_first_line,
-          address_second_line: @order_intent.address_second_line,
-          street_number: @order_intent.street_number,
-          city: @order_intent.city,
-          country: @order_intent.country,
-          postal_code: @order_intent.postal_code,
-          full_name: @order_intent.full_name,
-          method_carrier: @shipping_method[:carrier],
-          weight: @order_intent.weight,
-          api_shipping_id: @order_intent.shipping_method,
-          api_service_point_id: @order_intent.service_point
-        }),
+                               cost: @order_intent.shipping_price.to_f,
+                               address_first_line: @order_intent.address_first_line,
+                               address_second_line: @order_intent.address_second_line,
+                               street_number: @order_intent.street_number,
+                               city: @order_intent.city,
+                               country: @order_intent.country,
+                               postal_code: @order_intent.postal_code,
+                               full_name: @order_intent.full_name,
+                               method_carrier: @shipping_method[:carrier],
+                               weight: @order_intent.weight,
+                               api_shipping_id: @order_intent.shipping_method,
+                               api_service_point_id: @order_intent.service_point
+                             }),
       fee: Fee.new({
-          amount: @order_intent.shipping_price.to_f * Current.store.rates,
-        })
-      )
-
+                     amount: @order_intent.shipping_price.to_f * Current.store.rates
+                   })
+    )
 
     if @order_intent.need_point?
       service_point = @service_points.find { |service_point| service_point[:id] == @order_intent.service_point.to_i }
@@ -73,7 +71,6 @@ class CheckoutsController < ApplicationController
     else
       # Handle @order save error here
     end
-
   end
 
   private
@@ -90,13 +87,13 @@ class CheckoutsController < ApplicationController
     line_items = @order.order_items.map do |order_item|
       {
         price_data: {
-          currency: 'eur',
+          currency: "eur",
           unit_amount: order_item.item.price_cents,
           product_data: {
             name: order_item.item.name,
             description: order_item.item.name,
-            images: nil,
-          },
+            images: nil
+          }
         },
         quantity: order_item.quantity
       }
@@ -104,24 +101,24 @@ class CheckoutsController < ApplicationController
 
     line_items << {
       price_data: {
-        currency: 'eur',
+        currency: "eur",
         unit_amount: @order.shipping.cost_cents + @order.fee.amount_cents,
         product_data: {
-          name: 'Logistique & livraison',
-          description: 'Logistique & livraison',
-          images: nil,
-        },
+          name: "Logistique & livraison",
+          description: "Logistique & livraison",
+          images: nil
+        }
       },
       quantity: 1
     }
 
     session = Stripe::Checkout::Session.create(
       {
-        mode: 'payment',
+        mode: "payment",
         customer_email: @order_intent.email,
-        line_items: line_items,
+        line_items:,
         payment_intent_data: {
-          application_fee_amount: (@order.shipping.cost_cents + @order.fee.amount_cents).to_i,
+          application_fee_amount: (@order.shipping.cost_cents + @order.fee.amount_cents).to_i
         },
         success_url: order_url(@order),
         cancel_url: order_url(@order)
@@ -135,7 +132,6 @@ class CheckoutsController < ApplicationController
 
     redirect_to session.url, allow_other_host: true
   end
-
 
   def manage_item_in_cart(action)
     session[:checkout_items] = session[:checkout_items] || []

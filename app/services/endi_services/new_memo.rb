@@ -27,8 +27,8 @@ module EndiServices
       {
         "label" => @title,
         "comment" => @content,
-        "pinned": "true",
-        "visibility" =>"public"
+        pinned: "true",
+        "visibility" => "public"
       }
     end
 

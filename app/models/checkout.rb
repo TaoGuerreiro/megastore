@@ -10,7 +10,7 @@ class Checkout
 
     unique_ids = @ids.uniq
     cart = unique_ids.map do |id|
-      next unless Item.where(id:).present?
+      next if Item.where(id:).blank?
 
       {
         item: Item.find(id),
