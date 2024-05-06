@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.1.2"
+ruby "3.2.2"
 gem "rails", "~> 7.0.8"
 
 gem "action_policy"
@@ -55,10 +55,12 @@ group :development do
 end
 
 group :test do
+  gem 'capybara-screenshot'
   gem "capybara"
+  gem 'database_cleaner'
   gem "rspec-rails"
-  gem "shoulda-matchers"
   gem "selenium-webdriver"
+  gem "shoulda-matchers"
   gem "simplecov", require: false
   gem "webdrivers"
 end

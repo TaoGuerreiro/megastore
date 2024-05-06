@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Visiting le cheveu blanc", type: :system do
   before :each do
-    store = create(:store)
+    store = create(:store, :with_items)
   end
 
   it "show all links on the home page" do

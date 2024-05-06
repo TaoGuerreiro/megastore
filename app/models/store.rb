@@ -17,7 +17,7 @@ class Store < ApplicationRecord
   validates :holiday_sentence, presence: true, if: :holiday?
   validates :postal_code, :city, :country, :address, :name, :domain, :slug, presence: true
 
-  after_create_commit :create_endi_profile
+  after_create :create_endi_profile
 
   def create_endi_profile
     EndiServices::NewUser.new(self).call

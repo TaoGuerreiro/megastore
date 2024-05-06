@@ -1,6 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Store, type: :model do
+
+  it "has an endi_id" do
+    store = create(:store, endi_profile: true)
+    expect(store.endi_id).to be_present
+    expect(store.endi_id).to be_a(Integer)
+  end
+
   it 'has a valid factory' do
     expect(build(:store)).to be_valid
   end
