@@ -42,7 +42,7 @@ jobs:
         run: bin/rails db:schema:load
       # Add or replace test runners here
       - name: compile CSS
-        run: yarn build:css
+        run: bundle exec rake assets:precompile
       - name: Run tests
         run: bundle exec rspec
 
