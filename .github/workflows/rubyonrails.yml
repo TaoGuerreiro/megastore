@@ -41,6 +41,8 @@ jobs:
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: bin/rails db:schema:load
       # Add or replace test runners here
+      - name: compile CSS
+        run: yarn build:css
       - name: Run tests
         run: bundle exec rspec
 
