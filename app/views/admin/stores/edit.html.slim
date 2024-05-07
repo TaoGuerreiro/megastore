@@ -1,33 +1,33 @@
-= render TurboModal::Component.new(title: t('store.edit.title')) do
+= render TurboModal::Component.new(title: t('.title')) do
   = simple_form_for [:admin, @store] do |field|
-    = field.input :name, label: t('store.edit.name'), placeholder: t('store.edit.name_placeholder')
-    = field.input :meta_title, label: t('store.edit.meta_title'), placeholder: t('store.edit.meta_title_placeholder')
-    = field.input :meta_description, as: :text, label: t('store.edit.meta_description'), placeholder: t('store.edit.meta_description_placeholder')
-    = field.input :instagram_url, label: t('store.edit.instagram_url'), placeholder: t('store.edit.instagram_url_placeholder')
-    = field.input :facebook_url, label: t('store.edit.facebook_url'), placeholder: t('store.edit.facebook_url_placeholder')
+    = field.input :name, label: t('.name'), placeholder: t('.name_placeholder')
+    = field.input :meta_title, label: t('.meta_title'), placeholder: t('.meta_title_placeholder')
+    = field.input :meta_description, as: :text, label: t('.meta_description'), placeholder: t('.meta_description_placeholder')
+    = field.input :instagram_url, label: t('.instagram_url'), placeholder: t('.instagram_url_placeholder')
+    = field.input :facebook_url, label: t('.facebook_url'), placeholder: t('.facebook_url_placeholder')
 
     .flex.gap-4
       .basis-2/3
-        = field.input :address, label: t('store.edit.address'), placeholder: t('store.edit.address_placeholder')
+        = field.input :address, label: t('.address'), placeholder: t('.address_placeholder')
       .basis-1/3
-        = field.input :city, label: t('store.edit.city'), placeholder: t('store.edit.city_placeholder')
+        = field.input :city, label: t('.city'), placeholder: t('.city_placeholder')
     .flex.gap-4
       .basis-1/4
-        = field.input :postal_code, label: t('store.edit.postal_code'), placeholder: t('store.edit.postal_code_placeholder')
+        = field.input :postal_code, label: t('.postal_code'), placeholder: t('.postal_code_placeholder')
       .basis-3/4
-        = field.input :country, label: t('store.edit.country'), placeholder: t('store.edit.country_placeholder')
+        = field.input :country, label: t('.country'), placeholder: t('.country_placeholder')
 
     .md:flex.items-center
-      = field.input :holiday, label: t('store.edit.holiday'), as: :boolean, input_html: { checked: @store.holiday?, class: "w-5 h-5 m-0 p-0 flex checked:!bg-primary"}, wrapper_html: {class: "flex items-center basis-1/4"}, label_html: {class: "-top-0.5 left-4"}
-      = field.input :holiday_sentence, label: t('store.edit.holiday_message'), placeholder: t('store.edit.holiday_message_placeholder'), input_html: { class: "w-full" }, wrapper_html: {class: "basis-3/4"}
+      = field.input :holiday, label: t('.holiday'), as: :boolean, input_html: { checked: @store.holiday?, class: "w-5 h-5 m-0 p-0 flex checked:!bg-primary"}, wrapper_html: {class: "flex items-center basis-1/4"}, label_html: {class: "-top-0.5 left-4"}
+      = field.input :holiday_sentence, label: t('.holiday_message'), placeholder: t('.holiday_message_placeholder'), input_html: { class: "w-full" }, wrapper_html: {class: "basis-3/4"}
 
     .mb-5.control data-controller="trix"
-      = field.rich_text_area :about, label: t('store.edit.about_text'), placeholder: t('store.edit.about_text_placeholder'), data: { trix_target: 'editor' }
-    = field.input :mail_body, as: :text, label: t('store.edit.mail_text'), placeholder: t('store.edit.mail_text_placeholder'), input_html: { rows: 5 }
+      = field.rich_text_area :about, label: t('.about_text'), placeholder: t('.about_text_placeholder'), data: { trix_target: 'editor' }
+    = field.input :mail_body, as: :text, label: t('.mail_text'), placeholder: t('.mail_text_placeholder'), input_html: { rows: 5 }
     - if current_user.queen?
-      = field.input :postmark_key, as: :string, label: t('store.edit.postmark_key'), placeholder: t('store.edit.postmark_key_placeholder')
-      = field.input :sendcloud_public_key, as: :string, label: t('store.edit.sendcloud_public_key'), placeholder: t('store.edit.sendcloud_public_key_placeholder')
-      = field.input :sendcloud_private_key, as: :string, label: t('store.edit.sendcloud_private_key'), placeholder: t('store.edit.sendcloud_private_key_placeholder')
+      = field.input :postmark_key, as: :string, label: t('.postmark_key'), placeholder: t('.postmark_key_placeholder')
+      = field.input :sendcloud_public_key, as: :string, label: t('.sendcloud_public_key'), placeholder: t('.sendcloud_public_key_placeholder')
+      = field.input :sendcloud_private_key, as: :string, label: t('.sendcloud_private_key'), placeholder: t('.sendcloud_private_key_placeholder')
     .flex.items-center
-      = field.button :submit, t('store.edit.submit'), class: "btn btn-primary"
+      = field.button :submit, t('.submit'), class: "btn btn-primary"
   .absolute.right-6.bottom-8 = button_to "Annuler mon abonnement", admin_subscription_path, method: :delete, data: { turbo: false }, class: "ml-auto block mt-4 text-decoration-underlined text-secondary hover:text-red-600"

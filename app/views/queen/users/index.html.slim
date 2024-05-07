@@ -30,7 +30,7 @@
                 td.py-4.pl-4.pr-3.text-sm.font-medium.text-gray-900.whitespace-nowrap.sm:pl-0 = user.full_name
                 td.px-3.py-4.text-sm.text-gray-500.whitespace-nowrap = user.store_name
                 td.px-3.py-4.text-sm.text-gray-500.whitespace-nowrap = user.email
-                td.px-3.py-4.text-sm.text-gray-500.whitespace-nowrap = t(user.role)
+                td.px-3.py-4.text-sm.text-gray-500.whitespace-nowrap = t(".#{user.role}")
                 td.px-3.py-4.text-sm.text-gray-500.whitespace-nowrap = time_ago_in_words(user.last_sign_in_at) if user.last_sign_in_at
                 td.relative.py-4.pl-3.pr-4.text-sm.font-medium.text-right.whitespace-nowrap.sm:pr-0
                   = link_to edit_queen_user_path(user), class: "text-indigo-600 hover:text-indigo-900" do

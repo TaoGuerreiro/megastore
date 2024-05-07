@@ -6,7 +6,6 @@ module Queen
       @store_orders = StoreOrder.all
     end
 
-    def show
-    end
+    def show; end
   end
 end

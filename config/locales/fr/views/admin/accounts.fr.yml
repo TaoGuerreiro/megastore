@@ -1,0 +1,6 @@
+fr:
+  admin:
+    accounts:
+      update:
+        success: Compte mis a jour
+        error: Une erreur est survenue

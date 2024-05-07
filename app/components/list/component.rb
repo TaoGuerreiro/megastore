@@ -5,6 +5,7 @@ module List
     attr_accessor :links, :item
 
     def initialize(item:, links:)
+      super
       @item = item
       @links = links
     end

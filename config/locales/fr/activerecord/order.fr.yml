@@ -1,7 +1,10 @@
 fr:
   activerecord:
     models:
-      order: Commande
+      order:
+        zero: Commande
+        one: Commande
+        other: Commandes
     attributes:
       order:
         status: État

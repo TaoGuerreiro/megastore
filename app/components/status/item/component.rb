@@ -4,6 +4,7 @@ module Status
   module Item
     class Component < ViewComponent::Base
       def initialize(status:)
+        super
         @status = status
       end
 

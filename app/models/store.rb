@@ -2,11 +2,11 @@
 
 class Store < ApplicationRecord
   belongs_to :admin, class_name: "User"
-  has_many :categories
-  has_many :items
-  has_many :specifications
-  has_many :orders
-  has_many :collections
+  has_many :categories, dependent: :destroy
+  has_many :items, dependent: :destroy
+  has_many :specifications, dependent: :destroy
+  has_many :orders, dependent: :destroy
+  has_many :collections, dependent: :destroy
   has_rich_text :about
 
   encrypts :postmark_key

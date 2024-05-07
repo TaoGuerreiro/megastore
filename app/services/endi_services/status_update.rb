@@ -1,46 +1,67 @@
 # frozen_string_literal: true
 
-module EndiServices
-  class StatusUpdate
+class EndiServices
+  class StatusUpdate < EndiServices
     include ApplicationHelper
 
-    def initialize(order, user)
+    def initialize(order)
+      super
       @order = order
-      @user = user
     end
 
     def call
       return if @order.endi_id.nil?
 
-      response = EndiServices::GetInvoice.new(@order, @user).call
+      response = EndiServices::GetInvoice.new(@order).call
+      handle_response(response)
+    end
 
+    private
+
+    def handle_response(response)
       if response.code == 401
-        EndiServices::ResetAuth.new(@user).call
-        response = EndiServices::GetInvoice.new(@order, @user).call
+        handle_unauthorized
+      else
+        update_order_from_response(response)
+        update_order_status(response)
       end
+    end
 
-      @order.update(bill_ref: response["internal_number"]) if response["official_number"].blank?
-      @order.update(endi_price_cents: (response["ht"] * 100).to_i)
-      @order.update(billing_date: response["date"].to_date)
+    def handle_unauthorized
+      EndiServices::ResetAuth.new.call
+      response = EndiServices::GetInvoice.new(@order).call
+      handle_response(response)
+    end
 
-      if response["status_history"].any? { |hash| hash["status"] == "resulted" }
-        @order.paid!(mail: true)
-        @order.update(bill_ref: response["official_number"],
-                      payment_date: response.dig("status_history", 0, "datetime").to_date)
-      end
-      case response.dig("status_history", 0, "status")
+    def update_order_from_response(response)
+      @order.update(
+        bill_ref: response["internal_number"].presence || response["official_number"],
+        endi_price_cents: (response["ht"] * 100).to_i,
+        billing_date: response["date"].to_date
+      )
+    end
+
+    def update_order_status(response)
+      status = response.dig("status_history", 0, "status")
+      case status
       when "resulted"
-        @order.paid!(mail: true)
-        @order.update(bill_ref: response["official_number"],
-                      payment_date: response.dig("status_history", 0, "datetime").to_date)
+        update_resulted_status(response)
       when "wait"
         @order.draft!
       when "valid"
-        @order.update(bill_ref: response["official_number"])
-        @order.billed! unless @order.already_sent? || @order.paid?
-      else
-        @order.update(bill_ref: response["official_number"] || response["internal_number"])
+        update_valid_status
       end
+    end
+
+    def update_resulted_status(response)
+      @order.paid!(mail: true)
+      @order.update(payment_date: response.dig("status_history", 0, "datetime").to_date)
+    end
+
+    def update_valid_status
+      return if @order.already_sent? || @order.paid?
+
+      @order.billed!
     end
   end
 end

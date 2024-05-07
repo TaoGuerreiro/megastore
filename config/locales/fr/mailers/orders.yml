@@ -1,0 +1,4 @@
+fr:
+  mailers:
+    orders:
+      subject: Nouvelle commande

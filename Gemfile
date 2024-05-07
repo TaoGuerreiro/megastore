@@ -55,9 +55,9 @@ group :development do
 end
 
 group :test do
-  gem 'capybara-screenshot'
+  gem "capybara-screenshot"
   gem "capybara"
-  gem 'database_cleaner'
+  gem "database_cleaner"
   gem "rspec-rails"
   gem "selenium-webdriver"
   gem "shoulda-matchers"

@@ -51,15 +51,16 @@ Rails.application.routes.draw do
           patch :offline, on: :member
           patch :add_to_collection, on: :member
         end
-        resources :items, only: %i[index new create edit update destroy] do
-          delete :remove_photo, on: :member
-          patch :archive, on: :member
-          patch :unarchive, on: :member
-          patch :add_stock, on: :member
-          patch :remove_stock, on: :member
-        end
-        resources :orders, only: %i[index show edit update destroy]
 
+        resources :items, only: %i[index new create edit update destroy] do
+          delete :remove_photo, on: :member, controller: :photos
+          patch :archive, on: :member, controller: :archives
+          patch :unarchive, on: :member, controller: :archives
+          patch :add_stock, on: :member, controller: :stocks
+          patch :remove_stock, on: :member, controller: :stocks
+        end
+
+        resources :orders, only: %i[index show destroy]
         resource :account, only: %i[show edit update]
       end
     end
@@ -77,8 +78,8 @@ Rails.application.routes.draw do
     end
     resources :items, only: [:show] do
       resource :checkout, only: [] do
-        post :add, on: :member
-        post :remove, on: :member
+        post :add, on: :member, controller: :carts
+        post :remove, on: :member, controller: :carts
       end
     end
     resources :orders, only: [:show]

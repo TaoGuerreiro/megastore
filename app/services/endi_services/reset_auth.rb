@@ -1,19 +1,15 @@
 # frozen_string_literal: true
 
-module EndiServices
-  class ResetAuth
+class EndiServices
+  class ResetAuth < EndiServices
     include ApplicationHelper
 
-    def initialize(store)
-      @store = store
-    end
-
     def call
-      mechanize = EndiServices::Auth.new.call
-
-      @store.update!({
-                       endi_auth: "#{mechanize.cookie_jar.cookies[0].name}=#{mechanize.cookie_jar.cookies[0].value}"
-                     })
+      cookie = mechanize.cookie_jar.cookies[0].value
+      name = mechanize.cookie_jar.cookies[0].name
+      Current.store.update!({
+                              endi_auth: "#{name}=#{cookie}"
+                            })
     end
   end
 end

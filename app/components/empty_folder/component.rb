@@ -5,6 +5,7 @@ module EmptyFolder
     attr_reader :title, :subtitle
 
     def initialize(title:, subtitle:)
+      super
       @title = title
       @subtitle = subtitle
     end

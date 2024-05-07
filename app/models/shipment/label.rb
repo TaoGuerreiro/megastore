@@ -16,14 +16,16 @@ class Shipment
     end
 
     def attach_to_order
-      url = "#{BASE_URL}/labels/normal_printer/#{@order.shipping.parcel_id}"
+      url = "#{BASE_URL}/labels/normal_printer/#{@order&.shipping&.parcel_id}"
       tempfile = Tempfile.new("asset")
 
-      URI.open(url, headers) do |f|
-        File.binwrite(tempfile.path, f.read)
+      Net::HTTP.start(URI(url).host, URI(url).port, use_ssl: true) do |http|
+        request = Net::HTTP::Get.new(url)
+        response = http.request(request)
+        File.binwrite(tempfile.path, response.body)
       end
 
-      @order.label.attach(io: tempfile, filename: "label.png", content_type: "image/png")
+      @order&.label&.attach(io: tempfile, filename: "label.png", content_type: "image/png")
     end
 
     private

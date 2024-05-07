@@ -1,0 +1,5 @@
+fr:
+  services:
+    endi_services:
+      validate_bill:
+        comment: "Cette facture est générée directement par notre application, si il y a le moindre soucis n'hésitez pas à me contacter (Florent) au 0781116670 😊"

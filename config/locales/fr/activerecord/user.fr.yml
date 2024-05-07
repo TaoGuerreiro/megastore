@@ -1,0 +1,21 @@
+
+fr:
+  activerecord:
+    models:
+      user:
+        zero: Utilisateur
+        one: Utilisateur
+        other: Utilisateurs
+    attributes:
+      user:
+        email: Email
+        first_name: Prénom
+        full_name: Nom
+        last_name: Nom
+        role: Rôle
+  enumerize:
+    user:
+      role:
+        admin: Administrateur
+        queen: Mainteneur
+        user: Utilisateur

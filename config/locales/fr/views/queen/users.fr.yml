@@ -1,0 +1,15 @@
+fr:
+  queen:
+    users:
+      create:
+        success: Utilisateur enregisté
+        error: Une erreur est survenue
+      update:
+        success: Utilisateur mis à jour
+        error: Une erreur est survenue
+      destroy:
+        success: Utilisateur supprimé
+        error: Une erreur est survenue
+      set_localhost:
+        success: Localhost mis à jour
+        error: Une erreur est survenue

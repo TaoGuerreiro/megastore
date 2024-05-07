@@ -20,7 +20,7 @@ module Admin
       authorize! @store
       if @store.update(store_params)
         respond_to do |format|
-          format.html { redirect_to admin_store_path(@store), notice: "Store was successfully updated." }
+          format.html { redirect_to admin_store_path(@store), notice: t(".success") }
           format.turbo_stream
         end
       else
@@ -32,7 +32,9 @@ module Admin
 
     def store_params
       params.require(:store).permit(:name, :meta_title, :meta_description, :about, :facebook_url, :instagram_url,
-                                    :stripe_webhook_secret_key, :stripe_secret_key, :stripe_publishable_key, :holiday, :holiday_sentence, :postmark_key, :mail_body, :city, :postal_code, :address, :country, :sendcloud_private_key, :sendcloud_public_key)
+                                    :stripe_webhook_secret_key, :stripe_secret_key, :stripe_publishable_key, :holiday,
+                                    :holiday_sentence, :postmark_key, :mail_body, :city, :postal_code, :address,
+                                    :country, :sendcloud_private_key, :sendcloud_public_key)
     end
   end
 end

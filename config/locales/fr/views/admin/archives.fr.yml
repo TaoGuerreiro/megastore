@@ -1,0 +1,11 @@
+fr:
+  admin:
+    archives:
+      unarchive:
+        title: Archivage
+        success: Article dé-archivé
+        error: Une erreur est survenue
+      archive:
+        title: Archivage
+        success: Article archivé
+        error: Une erreur est survenue

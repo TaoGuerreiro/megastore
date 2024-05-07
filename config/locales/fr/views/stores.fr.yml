@@ -1,0 +1,4 @@
+fr:
+  stores:
+    collection:
+      price_range: "de %{min} à %{max}"

@@ -5,6 +5,7 @@ module Miniature
     attr_accessor :item
 
     def initialize(item:)
+      super
       @item = item
     end
   end

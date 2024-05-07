@@ -2,7 +2,7 @@
 
 class Checkout
   def initialize(ids)
-    set_ids(ids)
+    compute(ids)
   end
 
   def cart
@@ -55,7 +55,7 @@ class Checkout
 
   private
 
-  def set_ids(ids)
+  def compute(ids)
     @ids = if ids.is_a?(Array)
              ids
            elsif ids.nil?

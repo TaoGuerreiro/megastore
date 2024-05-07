@@ -4,17 +4,15 @@ module Admin
   class AccountsController < AdminController
     before_action :set_user
 
-    def show
-    end
+    def show; end
 
-    def edit
-    end
+    def edit; end
 
     def update
       if @user.update(user_params)
-        redirect_to admin_account_path, notice: "Account updated successfully"
+        redirect_to admin_account_path, notice: t(".success")
       else
-        render :edit, status: :unprocessable_entity, notice: "Account could not be updated"
+        render :edit, status: :unprocessable_entity, notice: t(".error")
       end
     end
 
@@ -27,25 +25,10 @@ module Admin
 
     def user_params
       if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
-        params.require(:user).permit(
-          :first_name,
-          :last_name,
-          :username,
-          :email,
-          :avatar,
-          :phone
-        )
+        params.require(:user).permit(:first_name, :last_name, :username, :email, :avatar, :phone)
       else
-        params.require(:user).permit(
-          :first_name,
-          :last_name,
-          :username,
-          :email,
-          :avatar,
-          :password,
-          :password_confirmation,
-          :phone
-        )
+        params.require(:user).permit(:first_name, :last_name, :username, :email,
+                                     :avatar, :password, :password_confirmation, :phone)
       end
     end
   end

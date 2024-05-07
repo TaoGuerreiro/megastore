@@ -1,0 +1,9 @@
+fr:
+  admin:
+    orders:
+      update:
+        success: Commande mise à jour
+        error: Une erreur est survenue
+      destroy:
+        success: Commande supprimée
+        error: Une erreur est survenue

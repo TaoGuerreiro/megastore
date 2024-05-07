@@ -20,14 +20,11 @@ module Admin
 
       if @collection.save
         respond_to do |format|
-          format.html { redirect_to admin_collections_path, notice: "Collection was successfully created." }
-          format.turbo_stream do
-            render turbo_stream: turbo_stream.append("collections", partial: "admin/collections/collection",
-                                                                    locals: { collection: @collection })
-          end
+          format.html { redirect_to admin_collections_path, notice: t(".success") }
+          format.turbo_stream
         end
       else
-        render :new, status: :unprocessable_entity
+        render :new, status: :unprocessable_entity, notice: t(".error")
       end
     end
 
@@ -36,14 +33,11 @@ module Admin
 
       if @collection.update(collection_params)
         respond_to do |format|
-          format.html { redirect_to admin_collections_path, notice: "Collection was successfully updated." }
-          format.turbo_stream do
-            render turbo_stream: turbo_stream.replace(@collection, partial: "admin/collections/collection",
-                                                                   locals: { collection: @collection })
-          end
+          format.html { redirect_to admin_collections_path, notice: t(".success") }
+          format.turbo_stream
         end
       else
-        render :edit, status: :unprocessable_entity
+        render :edit, status: :unprocessable_entity, notice: t(".error")
       end
     end
 
@@ -53,7 +47,7 @@ module Admin
 
       respond_to do |format|
         format.html { redirect_to admin_collections_path }
-        format.turbo_stream { render turbo_stream: turbo_stream.remove(@collection) }
+        format.turbo_stream
       end
     end
 

@@ -3,40 +3,13 @@
 class OrderIntent
   include ActiveModel::Model
 
-  attr_accessor :email,
-                :first_name,
-                :last_name,
-                :address,
-                :postal_code,
-                :city,
-                :country,
-                :phone,
-                :shipping_method,
-                :service_point,
-                :items_price,
-                :shipping_price,
-                :need_point,
-                :weight,
-                :street_number,
-                :fees_price
+  attr_accessor :email, :first_name, :last_name, :address, :postal_code, :city, :country,
+                :phone, :shipping_method, :service_point, :items_price, :shipping_price,
+                :need_point, :weight, :street_number, :fees_price
 
   def initialize(attr = {})
-    @email = attr[:email]
-    @first_name = attr[:first_name]
-    @last_name = attr[:last_name]
-    @street_number = attr[:street_number]
-    @address = attr[:address]
-    @postal_code = attr[:postal_code]
-    @city = attr[:city]
-    @country = attr[:country]
-    @phone = attr[:phone]
-    @shipping_method = attr[:shipping_method]
-    @service_point = attr[:service_point]
-    @items_price = attr[:items_price]
-    @shipping_price = attr[:shipping_price]
-    @need_point = attr[:need_point] || "false"
-    @weight = attr[:weight]
-    @fees_price = attr[:fees_price]
+    super
+    @need_point = @need_point == true
   end
 
   with_options on: :step_one do
@@ -71,9 +44,13 @@ class OrderIntent
     validates :service_point, presence: true, if: :need_point?
   end
 
-  def need_point?
-    need_point == true
-  end
+  def total_price_cents = (total_price * 100).to_i
+  def need_point? = need_point == true
+  def full_address = "#{address}, #{postal_code} #{city}, #{country}"
+  def address_with_number = "#{street_number} #{address}"
+  def full_name = "#{first_name} #{last_name}"
+  def address_first_line = split_address[0]
+  def address_second_line = split_address[1]
 
   def completed?
     (need_point? && service_point.present?) ||
@@ -86,34 +63,10 @@ class OrderIntent
     items_price.to_f + shipping_price.to_f + fees_price.to_f
   end
 
-  def total_price_cents
-    (total_price * 100).to_i
-  end
-
   def shipping_and_fees_price
     return 0 if shipping_price.nil? || fees_price.nil?
 
     shipping_price.to_f + fees_price.to_f
-  end
-
-  def full_address
-    "#{address}, #{postal_code} #{city}, #{country}"
-  end
-
-  def address_with_number
-    "#{street_number} #{address}"
-  end
-
-  def full_name
-    "#{first_name} #{last_name}"
-  end
-
-  def address_first_line
-    split_address[0]
-  end
-
-  def address_second_line
-    split_address[1]
   end
 
   private

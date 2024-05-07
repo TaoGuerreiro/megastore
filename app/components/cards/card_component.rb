@@ -5,6 +5,7 @@ module Cards
     attr_accessor :images, :link, :title
 
     def initialize(data = {})
+      super
       @images = data[:images]
       @link = data[:link] || nil
       @title = data[:title] || nil

@@ -1,0 +1,7 @@
+fr:
+  admin:
+    photos:
+      remove_photo:
+        title: Suppression
+        success: Photo supprimée
+        error: Une erreur est survenue

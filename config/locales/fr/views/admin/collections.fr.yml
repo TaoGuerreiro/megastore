@@ -1,0 +1,12 @@
+fr:
+  admin:
+    collections:
+      create:
+        title: Effectué
+        success: Collection créée avec succès
+      update:
+        title: Effectuée
+        success: Collection mise à jour avec succès
+      destroy:
+        title: Effectuée
+        success: Collection supprimée

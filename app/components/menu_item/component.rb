@@ -3,6 +3,7 @@
 module MenuItem
   class Component < ViewComponent::Base
     def initialize(path:, title:, icon_classes:)
+      super
       @path = path
       @title = title
       @icon_classes = icon_classes
