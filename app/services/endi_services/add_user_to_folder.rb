@@ -6,7 +6,7 @@ class EndiServices
     include Turbo::StreamsHelper
 
     def initialize(store, id)
-      super
+      super()
       @store = store
       @id = id
       @url = "#{ENDI_PATH}/customers/#{@id}"
@@ -20,6 +20,7 @@ class EndiServices
       form.field_with(name: "project_id").options[1].select
 
       form.click_button
+
       { status: true, message: "User added to folder" }
     end
   end

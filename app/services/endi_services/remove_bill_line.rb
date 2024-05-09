@@ -20,7 +20,7 @@ class EndiServices
 
     def build_url
       line_id = fetch_line_id
-      <<-TXT
+      <<-TXT.squish!
         #{ENDI_PATH}/api/v1/invoices/#{@order.endi_id}/task_line_groups/
         #{line_id}/task_lines/#{@order_item.endi_line_id}
       TXT

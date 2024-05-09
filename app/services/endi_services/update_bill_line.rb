@@ -9,7 +9,7 @@ class EndiServices
       @order = order_item.order
       @order_item = order_item
       @line = line_id
-      @url = <<-TXT
+      @url = <<-TXT.squish!
         #{ENDI_PATH}/api/v1/invoices/#{@order.endi_id}
         /task_line_groups/#{@line}/task_lines/#{@order_item.endi_line_id}
       TXT

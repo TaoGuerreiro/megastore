@@ -71,7 +71,7 @@ class EndiServices
     def handle_retry(attempts)
       if (attempts + 1) < 5
         EndiServices::ResetAuth.new.call
-        retry
+        # retry
       else
         @order.update(status: "error")
       end

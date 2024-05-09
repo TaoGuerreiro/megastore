@@ -5,21 +5,20 @@ class EndiServices
     include ApplicationHelper
 
     def initialize(store)
-      super
+      super()
       @store = store
       @url = "#{ENDI_PATH}/api/v1/companies/#{ENDI_ID}/customers"
+      @headers = EndiServices.new.headers.merge("Referer" => "#{ENDI_PATH}/companies/#{ENDI_ID}/customers/add")
+      @token = EndiServices::GetCsrfToken.new.call
     end
 
     def call
-      @token = EndiServices::GetCsrfToken.new.call
-
-      headers = headers.merge("Referer" => "#{ENDI_PATH}/companies/#{ENDI_ID}/customers/add")
-
-      response = HTTParty.post(@url, body:, headers:)
+      response = HTTParty.post(@url, body:, headers: @headers)
 
       if response.code == 401
+        @headers = EndiServices.new.headers.merge("Referer" => "#{ENDI_PATH}/companies/#{ENDI_ID}/customers/add")
         EndiServices::ResetAuth.new.call
-        response = HTTParty.post(@url, body:, headers:)
+        response = HTTParty.post(@url, body:, headers: @headers)
       end
 
       @store.update(endi_id: response["id"])

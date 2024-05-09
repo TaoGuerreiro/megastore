@@ -21,7 +21,7 @@ FactoryBot.define do
     name { "My Store" }
     domain { "example.com" }
     slug { "lecheveublanc" }
-    association :admin, factory: :user # Assurez-vous que vous avez une factory :user définie
+    association :admin, factory: :user
     created_at { Time.now }
     updated_at { Time.now }
     meta_title { "My Store Meta Title" }
@@ -42,13 +42,13 @@ FactoryBot.define do
     country { "My Country" }
     address { "123 My Street" }
     rates { 0.2 }
-    stripe_account_id { "acct_1Example" }
     charges_enable { false }
     payouts_enable { false }
     details_submitted { false }
-    stripe_subscription_id { "sub_1Example" }
+    stripe_account_id { Faker::Alphanumeric.alphanumeric(number: 10) }
+    stripe_subscription_id { Faker::Alphanumeric.alphanumeric(number: 10) }
+    stripe_checkout_session_id { Faker::Alphanumeric.alphanumeric(number: 10) }
     subscription_status { "pending" }
-    stripe_checkout_session_id { "cs_test_example" }
     endi_auth { "auth_token" }
     endi_id { 1 }
 
@@ -60,5 +60,19 @@ FactoryBot.define do
         create_list(:item, evaluator.items_count, store:)
       end
     end
+  end
+
+  factory :chalky, parent: :store do
+    name { "My Second Store" }
+    domain { "chalky.com" }
+    slug { "chalky" }
+    association :admin, factory: :queen
+  end
+
+  factory :random_store, parent: :store do
+    name { Faker::Company.bs }
+    domain { Faker::Internet.domain_name }
+    slug { Faker::Alphanumeric.alphanumeric(number: 10) }
+    association :admin, factory: :user
   end
 end

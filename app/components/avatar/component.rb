@@ -2,7 +2,7 @@
 
 module Avatar
   class Component < ViewComponent::Base
-    AVATAR_CLASSES = <<-TXT.squish
+    AVATAR_CLASSES = <<-TXT
       rounded-full overflow-hidden
       bg-black-200 border-2 border-primary
       flex items-center justify-center w-12 h-12

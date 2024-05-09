@@ -8,11 +8,11 @@ class EndiServices
       super
       @url = build_url
       @referer = build_referer
+      @headers = EndiServices.new.headers.merge("Referer" => @referer)
     end
 
     def call
-      headers = headers.merge("Referer" => @referer)
-      perform_get_request(@url, headers)
+      perform_get_request
     end
 
     private
@@ -25,12 +25,13 @@ class EndiServices
       "#{ENDI_PATH}/companies/#{ENDI_ID}/customers/add"
     end
 
-    def perform_get_request(url, headers)
-      response = HTTParty.get(url, headers:)
+    def perform_get_request
+      response = HTTParty.get(@url, headers: @headers)
 
       if response.code == 401
         EndiServices::ResetAuth.new.call
-        response = HTTParty.get(url, headers:)
+        @headers = EndiServices.new.headers.merge("Referer" => @referer)
+        response = HTTParty.get(@url, headers: @headers)
       end
 
       extract_csrf_token(response)
