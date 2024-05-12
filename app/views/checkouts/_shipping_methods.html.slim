@@ -13,7 +13,7 @@ h2.text-lg.font-medium.text-contrast.align-middle
   .relative.mt-4 data-controller="autosave"
     = field.radio_button :shipping_method, method[:id], id: "shipping_method_#{method[:id]}", class: "hidden peer", data: { action: "change->autosave#save" }
     = field.label :shipping_method, for: "shipping_method_#{method[:id]}", class: "block py-3 px-3 first:mx-0 my-2 border rounded-md cursor-pointer text-content bg-contour peer-checked:bg-tertiary peer-checked:text-contrast transition-colors duration-300 peer-checked:border peer-checked:border-primary" do
-      span.flex.flex-1
+      span.flex.flex-1 id=(method[:carrier])
         span.flex.justify-between.w-full
           .flex
             span.mr-2

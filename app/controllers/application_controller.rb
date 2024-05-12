@@ -28,7 +28,9 @@ class ApplicationController < ActionController::Base
   end
 
   def set_current_store
-    Current.store = Store.find_by(domain: request.domain)
+    @domain = "#{request.host}:#{request.port}" if Rails.env == "test"
+
+    Current.store = Store.find_by(domain: @domain || request.domain)
   end
 
   def clean_checkout_cart

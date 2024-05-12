@@ -55,12 +55,8 @@ group :development do
 end
 
 group :test do
-  gem "capybara-screenshot"
   gem "capybara"
-  gem "database_cleaner"
   gem "rspec-rails"
-  gem "selenium-webdriver"
-  gem "shoulda-matchers"
-  gem "simplecov", require: false
-  gem "webdrivers"
+  gem 'cuprite'
+  gem "database_cleaner-active_record"
 end
