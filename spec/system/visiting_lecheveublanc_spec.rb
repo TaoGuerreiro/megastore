@@ -5,7 +5,7 @@ RSpec.describe "Visiting le cheveu blanc", type: :system do
     store = create(:store, :with_items)
   end
 
-  it "show all links on the home page" do
+  it "show all links on the home page", js: true do
     visit root_path
     expect(page).to have_text("Portfolio")
     expect(page).to have_text("Contact")
@@ -45,4 +45,36 @@ RSpec.describe "Visiting le cheveu blanc", type: :system do
       expect(page).to have_text("My Item Description")
     end
 
+    scenario "it can acces to the show page of an item", js: true do
+      visit store_path
+
+      expect(page).to have_text("My Item Description")
+
+      first(:link, "My Item").click
+      expect(page).to have_text("Ajouter au panier")
+
+      click_on "Ajouter au panier"
+      expect(page).to have_css("#cart-counter", text: "1")
+
+      # clicker sur la div #cart-counter pour afficher le panier
+      find('#cart-counter').click
+
+      expect(page).to have_text("Payement")
+
+      click_on "Payement"
+      expect(page).to have_text("Informations complémentaires")
+
+      fill_in "order_intent_email", with: "QKqXh@example.com"
+      fill_in "Nom", with: "Florent"
+      fill_in "Prénom", with: "Guilbaud"
+      fill_in "Adresse", with: "4 rue des fleurs"
+      fill_in "Ville", with: "Nantes"
+      fill_in "Code postal", with: "44000"
+      select 'France', from: 'Pays'
+      fill_in "Téléphone", with: "0674236080"
+
+      click_on "Continuer"
+
+      expect(page).to have_text("Methode de livraison")
+    end
 end

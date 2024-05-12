@@ -4,6 +4,7 @@ class OrderIntentsController < ApplicationController
   before_action :set_order_intent, only: %i[shipping_method service_point undo_service_point]
   before_action :shipping_methods_from_session, only: %i[shipping_method undo_service_point]
   before_action :set_shipping_method, only: %i[shipping_method]
+
   def create
     @order_intent = OrderIntent.new(order_intent_params)
     set_shipping_methods

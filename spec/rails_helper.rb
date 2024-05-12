@@ -14,6 +14,7 @@ require 'support/database_cleaner'
 # screenshot with capybara
 require 'capybara-screenshot/rspec'
 Capybara::Screenshot.prune_strategy = { keep: 20 }
+
 Capybara.register_driver :selenium_chrome_headless do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
     loggingPrefs: { browser: 'ALL' },
