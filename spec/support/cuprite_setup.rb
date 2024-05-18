@@ -36,7 +36,7 @@ RSpec.configure do |config|
       inspector: ENV['INSPECTOR'],
       # Allow running Chrome in a headful mode by setting HEADLESS env
       # var to a falsey value
-      headless: false
+      headless: !ENV['HEADLESS'].in?(%w[n 0 no false])
     }
   end
 end
