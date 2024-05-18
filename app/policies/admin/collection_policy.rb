@@ -3,7 +3,6 @@
 module Admin
   class CollectionPolicy < ApplicationPolicy
     relation_scope do |relation|
-      # raise
       relation.where(store: Current.store)
     end
 

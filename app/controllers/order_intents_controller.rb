@@ -75,12 +75,12 @@ class OrderIntentsController < ApplicationController
 
   def fetch_service_points
     Shipments::ServicePoint.new(Current.store,
-                               {
-                                 country: @order_intent.country,
-                                 postal_code: @order_intent.postal_code,
-                                 radius: 3000,
-                                 carrier: @shipping_method[:carrier]
-                               }).all
+                                {
+                                  country: @order_intent.country,
+                                  postal_code: @order_intent.postal_code,
+                                  radius: 3000,
+                                  carrier: @shipping_method[:carrier]
+                                }).all
   end
 
   def set_shipping_methods
@@ -100,10 +100,10 @@ class OrderIntentsController < ApplicationController
 
   def find_shipping_method
     Shipments::ShippingMethod.new(Current.store,
-                                 {
-                                   country: @order_intent.country,
-                                   postal_code: @order_intent.postal_code
-                                 }).find(params[:order_intent][:shipping_method])
+                                  {
+                                    country: @order_intent.country,
+                                    postal_code: @order_intent.postal_code
+                                  }).find(params[:order_intent][:shipping_method])
   end
 
   def set_order_intent

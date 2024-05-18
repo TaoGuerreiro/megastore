@@ -73,7 +73,6 @@ class StoresController < ApplicationController
   end
 
   def selected_filters
-    # raise
     session[:filters].select { |_k, v| v == 1 }.keys
   end
 end

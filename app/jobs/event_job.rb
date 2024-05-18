@@ -96,8 +96,8 @@ class EventJob < ApplicationJob
 
   def create_shipment(order)
     store = order.store
-    Shipment::Parcel.new(store, { order: }).create_label
-    Shipment::Label.new(store, { order: }).attach_to_order
+    Shipments::Parcel.new(store, { order: }).create_label
+    Shipments::Label.new(store, { order: }).attach_to_order
   end
 
   def update_store_order(order)

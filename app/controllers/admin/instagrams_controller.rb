@@ -8,8 +8,6 @@ module Admin
       agent.log = Logger.new "mech.log"
 
       agent.get("https://www.instagram.com/accounts/login/?force_classic_login")
-
-      # raise
     end
   end
 end

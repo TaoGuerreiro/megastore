@@ -4,15 +4,8 @@ class CheckoutsController < ApplicationController
   before_action :set_order_intent, only: %i[confirm_payment]
   before_action :set_service_points, only: %i[confirm_payment]
   before_action :set_shipping_methods, only: %i[confirm_payment]
+  before_action :set_store, only: %i[confirm_payment]
   skip_before_action :verify_authenticity_token, only: [:confirm_payment]
-
-  def add
-    manage_item_in_cart(:add)
-  end
-
-  def remove
-    manage_item_in_cart(:remove)
-  end
 
   def show
     @total = Checkout.new(session[:checkout_items]).sum
@@ -34,6 +27,10 @@ class CheckoutsController < ApplicationController
   end
 
   private
+
+  def set_store
+    @store = Current.store
+  end
 
   def finalize_order
     @order = create_order
@@ -64,7 +61,7 @@ class CheckoutsController < ApplicationController
       fee:,
       user:,
       shipping:,
-      store: Current.store,
+      store: @store,
       order_items: @items.map { |item| OrderItem.new(item: item[:item], quantity: item[:number]) },
       amount: @order_intent.items_price.to_f,
       status: "confirmed"
@@ -73,16 +70,16 @@ class CheckoutsController < ApplicationController
 
   def fee
     Fee.new({
-              amount: @order_intent.shipping_price.to_f * Current.store.rates
+              amount: @order_intent.shipping_price.to_f * @store.rates
             })
   end
 
   def find_shipping_method
-    Shipments::ShippingMethod.new(Current.store,
-                                 {
-                                   country: @order_intent.country,
-                                   postal_code: @order_intent.postal_code
-                                 }).find(params[:order_intent][:shipping_method])
+    Shipments::ShippingMethod.new(@store,
+                                  {
+                                    country: @order_intent.country,
+                                    postal_code: @order_intent.postal_code
+                                  }).find(params[:order_intent][:shipping_method])
   end
 
   def shipping
@@ -140,14 +137,15 @@ class CheckoutsController < ApplicationController
         mode: "payment",
         customer_email: @order_intent.email,
         line_items: @line_items,
-        payment_intent_data: {
+        payment_intent_data:
+        {
           application_fee_amount: (@order.shipping.cost_cents + @order.fee.amount_cents).to_i
         },
         success_url: order_url(@order),
         cancel_url: order_url(@order)
       },
       {
-        stripe_account: Current.store.stripe_account_id
+        stripe_account: @store.stripe_account_id
       }
     )
   end

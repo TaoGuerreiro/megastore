@@ -18,7 +18,6 @@
           = number_to_currency(@order_intent.items_price, unit: '€', format: '%n %u')
       .flex.items-center.justify-between.px-6.pb-2
         dt.text-sm.text-contrast.flex
-          / = raise
           .mr-2 = t('shipping')
           . = t('weight', weight: @order_intent.weight&.to_i&.fdiv(1000)) if @order_intent.weight.present?
         dd.text-sm.font-medium.text-contrast
