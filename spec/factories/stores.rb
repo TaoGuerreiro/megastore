@@ -35,8 +35,8 @@ FactoryBot.define do
     display_stock { false }
     postmark_key { "postmark-key" }
     mail_body { "mail body text" }
-    sendcloud_private_key { YAML.load_file('db/keys.yml')['sendcloud_private_key'] }
-    sendcloud_public_key { YAML.load_file('db/keys.yml')['sendcloud_public_key'] }
+    # sendcloud_private_key { YAML.load_file('db/keys.yml')['sendcloud_private_key'] }
+    # sendcloud_public_key { YAML.load_file('db/keys.yml')['sendcloud_public_key'] }
     postal_code { "12345" }
     city { "My City" }
     country { "My Country" }
