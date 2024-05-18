@@ -76,6 +76,7 @@ RSpec.describe "Visiting le cheveu blanc", type: :system do
 
     click_on "Continuer"
 
+    sleep 3
     @store= Store.first
 
     expect(page).to have_text("Methode de livraison")
