@@ -89,7 +89,7 @@ RSpec.describe "Visiting le cheveu blanc", type: :system do
 
     click_on "Confirmer"
 
-    expect(page).to have_text("Payer par carte")
+    expect(page).to have_text("Pay with card")
 
     find("#cardNumber").set("4242424242424242") #cardNumber
     find("#cardExpiry").set("12/24")
@@ -99,7 +99,7 @@ RSpec.describe "Visiting le cheveu blanc", type: :system do
     @request_body = StripeHelpers.construct_webhook_response("stripe_checkout_session", "checkout.session.completed", Order.last.checkout_session_id)
     post("http://0.0.0.0:3000/webhooks/stripe", params: @request_body.to_json)
 
-    click_on "Payer"
+    click_on "Pay"
 
     sleep 20
     expect(page).to have_text("Je m'en occupe au plus vite !")
