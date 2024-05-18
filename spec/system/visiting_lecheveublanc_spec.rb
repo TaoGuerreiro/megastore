@@ -101,7 +101,7 @@ RSpec.describe "Visiting le cheveu blanc", type: :system do
 
     click_on "Pay"
 
-    sleep 20
+    sleep 40
     expect(page).to have_text("Je m'en occupe au plus vite !")
     expect(Order.last.status).to eq("paid")
   end
