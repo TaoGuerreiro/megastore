@@ -2,6 +2,8 @@
 
 module Admin
   class OrderMailer < ApplicationMailer
+    include ActionView::Helpers::NumberHelper
+
     def payment_confirmation(order)
       @order = order
       @items = @order.items.map do |item|

@@ -76,7 +76,6 @@ RSpec.describe "Visiting le cheveu blanc", type: :system do
 
     click_on "Continuer"
 
-    sleep 3
     @store= Store.first
 
     expect(page).to have_text("Methode de livraison")
@@ -95,7 +94,6 @@ RSpec.describe "Visiting le cheveu blanc", type: :system do
     find("#cardExpiry").set("12/24")
     find("#cardCvc").set("123")
     find("#billingName").set("Florent Guilbaud")
-
     @request_body = StripeHelpers.construct_webhook_response("stripe_checkout_session", "checkout.session.completed", Order.last.checkout_session_id)
     post("http://0.0.0.0:3000/webhooks/stripe", params: @request_body.to_json)
 

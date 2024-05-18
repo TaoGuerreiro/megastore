@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Shipment
+module Shipments
   class ShippingMethod < Shipment
     def initialize(store, param)
       super(store)

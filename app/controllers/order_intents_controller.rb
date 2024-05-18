@@ -74,7 +74,7 @@ class OrderIntentsController < ApplicationController
   end
 
   def fetch_service_points
-    Shipment::ServicePoint.new(Current.store,
+    Shipments::ServicePoint.new(Current.store,
                                {
                                  country: @order_intent.country,
                                  postal_code: @order_intent.postal_code,
@@ -86,7 +86,7 @@ class OrderIntentsController < ApplicationController
   def set_shipping_methods
     @weight = Checkout.new(session[:checkout_items]).weight
     @order_intent.weight = @weight
-    @shipping_methods = Shipment::ShippingMethod.new(Current.store, body).all
+    @shipping_methods = Shipments::ShippingMethod.new(Current.store, body).all
     session[:shipping_methods] = @shipping_methods
   end
 
@@ -99,7 +99,7 @@ class OrderIntentsController < ApplicationController
   end
 
   def find_shipping_method
-    Shipment::ShippingMethod.new(Current.store,
+    Shipments::ShippingMethod.new(Current.store,
                                  {
                                    country: @order_intent.country,
                                    postal_code: @order_intent.postal_code

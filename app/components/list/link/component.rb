@@ -14,7 +14,7 @@ module List
       end
 
       def options_with_classes
-        @options[:class] = <<-TXT.squish!
+        @options[:class] = <<-TXT
           flex items-center p-2 text-sm font-semibold leading-6
           rounded-md text-contrast hover:text-primary hover:bg-light group gap-x-3
         TXT

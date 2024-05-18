@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Shipment
+module Shipments
   class Parcel < Shipment
     include ActiveModel::Model
 
@@ -34,7 +34,7 @@ class Shipment
 
     def create_label_request
       url = "#{BASE_URL}/parcels?errors=verbose-carrier"
-      response = HTTParty.post(url, headers: {}, body: body.to_json)
+      response = HTTParty.post(url, headers:, body: body.to_json)
       response.parsed_response
     end
 

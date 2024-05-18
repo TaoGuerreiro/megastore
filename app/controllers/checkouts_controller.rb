@@ -78,7 +78,7 @@ class CheckoutsController < ApplicationController
   end
 
   def find_shipping_method
-    Shipment::ShippingMethod.new(Current.store,
+    Shipments::ShippingMethod.new(Current.store,
                                  {
                                    country: @order_intent.country,
                                    postal_code: @order_intent.postal_code

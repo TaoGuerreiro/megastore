@@ -11,7 +11,7 @@ class Order < ApplicationRecord
   belongs_to :user
   belongs_to :store
   has_many :order_items, dependent: :destroy
-  has_many :items, through: :order_items
+  has_many :items, through: :order_items, class_name: "Item", source: :item
   has_one_attached :label
   has_one :shipping, dependent: :destroy
   has_one :fee, dependent: :destroy

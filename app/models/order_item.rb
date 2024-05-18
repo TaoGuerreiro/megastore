@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class OrderItem < ApplicationRecord
-  belongs_to :item
-  belongs_to :order
+  belongs_to :item, class_name: "Item", foreign_key: "item_id"
+  belongs_to :order, class_name: "Order", foreign_key: "order_id"
 
   after_create :withdraw_stock
   after_destroy :add_stock
