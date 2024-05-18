@@ -11,6 +11,8 @@ class EndiServices
       @url = "#{ENDI_PATH}/api/v1/companies/#{ENDI_ID}/invoices/add?company_id=#{ENDI_ID}"
     end
 
+    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/MethodLength
     def call
       header.merge("Referer" => @url)
 
@@ -28,6 +30,8 @@ class EndiServices
         @order.update!(status: "failed", api_error: response.to_s)
       end
     end
+    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/MethodLength
 
     def body
       {

@@ -57,6 +57,8 @@ end
 group :test do
   gem "capybara"
   gem "rspec-rails"
-  gem 'cuprite'
+  gem "cuprite"
   gem "database_cleaner-active_record"
+  gem "vcr"
+  gem "webmock"
 end

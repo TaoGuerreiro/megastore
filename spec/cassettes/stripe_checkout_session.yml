@@ -1,0 +1,186 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.stripe.com/v1/checkout/sessions
+    body:
+      encoding: UTF-8
+      string: mode=payment&customer_email=mail%40mail.fr&line_items[0][price_data][currency]=eur&line_items[0][price_data][unit_amount]=666&line_items[0][price_data][product_data][name]=Name+test&line_items[0][price_data][product_data][description]=Description+test&line_items[0][quantity]=1&payment_intent_data[application_fee_amount]=666&success_url=http%3A%2F%2Fwww.example.com%2Forders%2F1&cancel_url=http%3A%2F%2Fwww.example.com%2Forders%2F1
+    headers:
+      User-Agent:
+      - Stripe/v1 RubyBindings/11.3.0
+      Authorization:
+      - Bearer sk_test_51Oj6ehK6k0HoTq4wgaqab9mUFR4W1Doo41Ph5LgGd0jbGMLx48vk2Zhyv9rPdk6sXSvjAfKS8fhGWn8qgtouBnPt007vuGYOZq
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Stripe-Version:
+      - '2024-04-10'
+      X-Stripe-Client-User-Agent:
+      - '{"bindings_version":"11.3.0","lang":"ruby","lang_version":"3.2.2 p53 (2023-03-30)","platform":"arm64-darwin22","engine":"ruby","publisher":"stripe","uname":"Darwin
+        macbookm1tao.home 23.1.0 Darwin Kernel Version 23.1.0: Mon Oct  9 21:27:24
+        PDT 2023; root:xnu-10002.41.9~6/RELEASE_ARM64_T6000 arm64","hostname":"macbookm1tao.home"}'
+      Stripe-Account:
+      - acct_1OuibPGd8WG5acSE
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Wed, 15 May 2024 15:51:25 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '2739'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET,HEAD,PUT,PATCH,POST,DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Request-Id, Stripe-Manage-Version, Stripe-Should-Retry, X-Stripe-External-Auth-Required,
+        X-Stripe-Privileged-Session-Required
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Content-Security-Policy:
+      - report-uri https://q.stripe.com/csp-report?p=v1%2Fcheckout%2Fsessions; block-all-mixed-content;
+        default-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none';
+        img-src 'self'; script-src 'self' 'report-sample'; style-src 'self'
+      Cross-Origin-Opener-Policy-Report-Only:
+      - same-origin; report-to="coop"
+      Idempotency-Key:
+      - caba764f-9242-4b1a-bc2e-c0a40cb125a4
+      Original-Request:
+      - req_6MeWqZsG3LOnLN
+      Report-To:
+      - '{"group":"coop","max_age":8640,"endpoints":[{"url":"https://q.stripe.com/coop-report?s=mono-bapi-srv"}],"include_subdomains":true}'
+      Reporting-Endpoints:
+      - coop="https://q.stripe.com/coop-report?s=mono-bapi-srv"
+      Request-Id:
+      - req_6MeWqZsG3LOnLN
+      Stripe-Account:
+      - acct_1OuibPGd8WG5acSE
+      Stripe-Should-Retry:
+      - 'false'
+      Stripe-Version:
+      - '2024-04-10'
+      Vary:
+      - Origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Stripe-Routing-Context-Priority-Tier:
+      - api-testmode
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "id": "stripe_checkout_session_empty",
+          "object": "checkout.session",
+          "after_expiration": null,
+          "allow_promotion_codes": null,
+          "amount_subtotal": 666,
+          "amount_total": 666,
+          "automatic_tax": {
+            "enabled": false,
+            "liability": null,
+            "status": null
+          },
+          "billing_address_collection": null,
+          "cancel_url": "http://www.example.com/orders/1",
+          "client_reference_id": null,
+          "client_secret": null,
+          "consent": null,
+          "consent_collection": null,
+          "created": 1715788285,
+          "currency": "eur",
+          "currency_conversion": null,
+          "custom_fields": [],
+          "custom_text": {
+            "after_submit": null,
+            "shipping_address": null,
+            "submit": null,
+            "terms_of_service_acceptance": null
+          },
+          "customer": null,
+          "customer_creation": "if_required",
+          "customer_details": {
+            "address": null,
+            "email": "mail@mail.fr",
+            "name": null,
+            "phone": null,
+            "tax_exempt": "none",
+            "tax_ids": null
+          },
+          "customer_email": "mail@mail.fr",
+          "expires_at": 1715874685,
+          "invoice": null,
+          "invoice_creation": {
+            "enabled": false,
+            "invoice_data": {
+              "account_tax_ids": null,
+              "custom_fields": null,
+              "description": null,
+              "footer": null,
+              "issuer": null,
+              "metadata": {},
+              "rendering_options": null
+            }
+          },
+          "livemode": false,
+          "locale": null,
+          "metadata": {},
+          "mode": "payment",
+          "payment_intent": null,
+          "payment_link": null,
+          "payment_method_collection": "if_required",
+          "payment_method_configuration_details": {
+            "id": "pmc_1OuibYGd8WG5acSEuW2EKmn9",
+            "parent": "pmc_1OlTpbK6k0HoTq4w42hkWuwC"
+          },
+          "payment_method_options": {
+            "card": {
+              "request_three_d_secure": "automatic"
+            }
+          },
+          "payment_method_types": [
+            "card",
+            "link"
+          ],
+          "payment_status": "unpaid",
+          "phone_number_collection": {
+            "enabled": false
+          },
+          "recovered_from": null,
+          "saved_payment_method_options": null,
+          "setup_intent": null,
+          "shipping_address_collection": null,
+          "shipping_cost": null,
+          "shipping_details": null,
+          "shipping_options": [],
+          "status": "open",
+          "submit_type": null,
+          "subscription": null,
+          "success_url": "http://www.example.com/orders/1",
+          "total_details": {
+            "amount_discount": 0,
+            "amount_shipping": 0,
+            "amount_tax": 0
+          },
+          "ui_mode": "hosted",
+          "url": "https://checkout.stripe.com/c/pay/cs_test_a1YIsfzhMj6lyJx5Kx5d3c1RJ4ENsOW9oUHqr5IRDHDs4RJ72HRDo8jpSH#fid2cXdsdWBEZmZqcGtxJz8nZGZmcVo0SnBsZ1VCYT1SQjBkZlZAJyknZHVsTmB8Jz8ndW5acWB2cVowNEpvM2BtTjNuNU1qUXQxcjVzSl9DVV9TfGBVTn1wdmlEVkNDMmpyUmd2NWdTb1VRd3xhRFM2TUBjVDZpf2NwR2BTZ0Z1QlMwNUlpf2JiaWFPVHFNYz1HazU1cmZQcjBPbTUnKSdjd2poVmB3c2B3Jz9xd3BgKSdpZHxqcHFRfHVgJz8ndmxrYmlgWmxxYGgnKSdga2RnaWBVaWRmYG1qaWFgd3YnP3F3cGB4JSUl"
+        }
+  recorded_at: Wed, 15 May 2024 15:51:25 GMT
+recorded_with: VCR 6.2.0

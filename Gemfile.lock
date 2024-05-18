@@ -119,6 +119,9 @@ GEM
       unaccent (~> 0.3)
     country_select (9.0.0)
       countries (> 5.0, < 7.0)
+    crack (1.0.0)
+      bigdecimal
+      rexml
     crass (1.0.6)
     cssbundling-rails (1.4.0)
       railties (>= 6.0.0)
@@ -165,6 +168,7 @@ GEM
     ffi (1.16.3)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    hashdiff (1.1.0)
     http-cookie (1.0.5)
       domain_name (~> 0.5)
     httparty (0.22.0)
@@ -407,6 +411,7 @@ GEM
       concurrent-ruby (~> 1.0)
     unaccent (0.4.0)
     unicode-display_width (2.5.0)
+    vcr (6.2.0)
     view_component (3.4.0)
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
@@ -418,6 +423,10 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
+    webmock (3.23.0)
+      addressable (>= 2.8.0)
+      crack (>= 0.3.2)
+      hashdiff (>= 0.4.0, < 2.0.0)
     webrick (1.8.1)
     webrobots (0.1.2)
     websocket-driver (0.7.6)
@@ -477,8 +486,10 @@ DEPENDENCIES
   stripe_event
   turbo-rails
   tzinfo-data
+  vcr
   view_component (~> 3.4.0)
   web-console
+  webmock
 
 RUBY VERSION
    ruby 3.2.2p53

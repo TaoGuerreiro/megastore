@@ -1,23 +1,23 @@
 # frozen_string_literal: true
 
-unless File.read('Gemfile').match?(/gem ['"]cuprite/)
-  gem 'cuprite', group: 'test'
+unless File.read("Gemfile").match?(/gem ['"]cuprite/)
+  gem "cuprite", group: "test"
 
   Bundler.with_unbundled_env do
-    run 'bundle install'
+    run "bundle install"
   end
 end
 
-unless File.read('Gemfile').match?(/gem ['"]rspec-rails/)
-  gem 'rspec-rails', groups: %w[development test]
-  rails_command 'generate rspec:install'
+unless File.read("Gemfile").match?(/gem ['"]rspec-rails/)
+  gem "rspec-rails", groups: %w[development test]
+  rails_command "generate rspec:install"
 
   Bundler.with_unbundled_env do
-    run 'bundle install'
+    run "bundle install"
   end
 end
 
-create_file 'spec/system/support/better_rails_system_tests.rb' do
+create_file "spec/system/support/better_rails_system_tests.rb" do
   <<~'RUBY'
     # frozen_string_literal: true
 
@@ -53,8 +53,8 @@ create_file 'spec/system/support/better_rails_system_tests.rb' do
   RUBY
 end
 
-create_file 'spec/system/support/capybara_setup.rb' do
-  <<~'RUBY'
+create_file "spec/system/support/capybara_setup.rb" do
+  <<~RUBY
     # frozen_string_literal: true
 
     # Usually, especially when using Selenium, developers tend to increase the max wait time.
@@ -90,8 +90,8 @@ create_file 'spec/system/support/capybara_setup.rb' do
   RUBY
 end
 
-create_file 'spec/system/support/cuprite_setup.rb' do
-  <<~'RUBY'
+create_file "spec/system/support/cuprite_setup.rb" do
+  <<~RUBY
     # frozen_string_literal: true
 
     # First, load Cuprite Capybara integration
@@ -137,7 +137,7 @@ create_file 'spec/system/support/cuprite_setup.rb' do
   RUBY
 end
 
-create_file 'spec/system/support/precompile_assets.rb' do
+create_file "spec/system/support/precompile_assets.rb" do
   <<~"RUBY"
     # frozen_string_literal: true
 
@@ -161,8 +161,8 @@ create_file 'spec/system/support/precompile_assets.rb' do
   RUBY
 end
 
-create_file 'spec/system_helper.rb' do
-  <<~'RUBY'
+create_file "spec/system_helper.rb" do
+  <<~RUBY
     # frozen_string_literal: true
 
     # https://evilmartians.com/chronicles/system-of-a-test-setting-up-end-to-end-rails-testing
@@ -175,8 +175,8 @@ create_file 'spec/system_helper.rb' do
   RUBY
 end
 
-create_file 'spec/system/cuprite_driver_spec.rb' do
-  <<~'RUBY'
+create_file "spec/system/cuprite_driver_spec.rb" do
+  <<~RUBY
     require 'system_helper'
 
     RSpec.describe 'Cuprite driver', type: :system do
@@ -191,9 +191,9 @@ create_file 'spec/system/cuprite_driver_spec.rb' do
   RUBY
 end
 
-run 'HEADLESS=false bundle exec rspec spec/system/cuprite_driver_spec.rb'
+run "HEADLESS=false bundle exec rspec spec/system/cuprite_driver_spec.rb"
 
-run 'rm -f spec/system/cuprite_driver_spec.rb' if yes?(
-  'We used spec/system/cuprite_driver_spec.rb just for testing the new setup. '\
-  'Would you like to delete it?'
+run "rm -f spec/system/cuprite_driver_spec.rb" if yes?(
+  "We used spec/system/cuprite_driver_spec.rb just for testing the new setup. " \
+  "Would you like to delete it?"
 )

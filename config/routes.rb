@@ -3,7 +3,7 @@
 Rails.application.routes.draw do
   require "domain"
   devise_for :users
-  mount StripeEvent::Engine, at: "/stripe-webhooks"
+  # mount StripeEvent::Engine, at: "/stripe-webhooks"
 
   post "/webhooks/:source", to: "webhooks#create"
 

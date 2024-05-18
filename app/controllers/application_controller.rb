@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_current_store
-    @domain = "#{request.host}:#{request.port}" if Rails.env == "test"
+    @domain = "#{request.host}:#{request.port}" if Rails.env.test?
 
     Current.store = Store.find_by(domain: @domain || request.domain)
   end

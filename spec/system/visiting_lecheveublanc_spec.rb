@@ -76,6 +76,8 @@ RSpec.describe "Visiting le cheveu blanc", type: :system do
 
     click_on "Continuer"
 
+    @store= Store.first
+
     expect(page).to have_text("Methode de livraison")
     expect(page).to have_text("Colissimo")
     expect(page).to have_text("Chronopost")
@@ -85,6 +87,7 @@ RSpec.describe "Visiting le cheveu blanc", type: :system do
     expect(page).to have_text("Confirmer")
 
     click_on "Confirmer"
+
     expect(page).to have_text("Payer par carte")
 
     find("#cardNumber").set("4242424242424242") #cardNumber
@@ -92,8 +95,13 @@ RSpec.describe "Visiting le cheveu blanc", type: :system do
     find("#cardCvc").set("123")
     find("#billingName").set("Florent Guilbaud")
 
+    @request_body = StripeHelpers.construct_webhook_response("stripe_checkout_session", "checkout.session.completed", Order.last.checkout_session_id)
+    post("http://0.0.0.0:3000/webhooks/stripe", params: @request_body.to_json)
+
     click_on "Payer"
 
     sleep 20
+    expect(page).to have_text("Je m'en occupe au plus vite !")
+    expect(Order.last.status).to eq("paid")
   end
 end
