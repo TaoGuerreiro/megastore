@@ -1,0 +1,5 @@
+fr:
+  pages:
+    send_message:
+      success: Message envoyé
+      error: Une erreur est survenue

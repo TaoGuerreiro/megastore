@@ -3,3 +3,20 @@
     = Current&.store&.about&.body&.to_html&.html_safe
   .pt-6.md:pt-0.w-full
     = image_tag "#{Current.store.slug}/portrait.jpeg", class: "object-contain overflow-hidden"
+
+.max-w-7xl.mx-auto.flex.flex-col.items-center.md:flex-row.w-full.pt-12.mb-10.px-6
+  .w-full
+    .text-2xl.font-bold.mb-6
+      | Une idée de projet ? Contactez-moi !
+
+
+    = simple_form_for @contact, url: send_message_path, method: :post, data: { turbo_stream: false }, html: { class: "w-full"} do |field|
+      .text-input.mb-3
+        = field.input :full_name, label: "Nom & Prénom", placeholder: "Nom & Prénom"
+      .text-input.mb-3
+        = field.input :email, label: "Email", placeholder: "Email"
+      .text-input.mb-3.hidden
+        = field.input :nickname
+      .text-input.mb-3
+        = field.input :content, as: :text, label: "Détails", placeholder: "Détails", input_html: { rows: 5 }
+      = field.submit "Envoyer", class: "btn btn-primary ml-auto block"

@@ -20,13 +20,15 @@ class PagesController < ApplicationController
 
     if @contact.valid?
       ContactMailer.with(contact: @contact, store: Current.store).new_message_from_store.deliver_now
-      redirect_to root_path, status: :see_other, success: "Message bien envoyé"
+      redirect_to root_path, status: :see_other, notice: t(".success")
     else
-      render "#{Current.store.slug}/contact", status: :unprocessable_entity
+      render "#{Current.store.slug}/contact", status: :unprocessable_entity, notice: t(".error")
     end
   end
 
   def about
+    @contact = Contact.new
+
     render template: "#{Current.store.slug}/about"
   end
 

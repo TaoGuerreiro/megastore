@@ -26,6 +26,6 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
     .flex.flex-col.justify-around.items-start.py-12.px-12.space-y-3
-      = link_to "PORTRAIT", about_path, class: "btn-link !text-3xl !font-extrabold #{'!text-contrast after:!bg-contrast' if action_name == 'about'}"
-      = link_to "GALERIE", portfolio_path, class: "btn-link !text-3xl !font-extrabold #{'!text-contrast after:!bg-contrast' if action_name == 'portfolio'}"
-      = link_to "BOUTIQUE", store_path, class: "btn-link !text-3xl !font-extrabold #{'!text-contrast after:!bg-contrast' if controller_name == 'stores'}"
+      = link_to "PORTRAIT", about_path, class: "btn-mobile-link !text-3xl !font-extrabold #{'!text-contrast after:!bg-contrast' if action_name == 'about'}"
+      = link_to "GALERIE", portfolio_path, class: "btn-mobile-link !text-3xl !font-extrabold #{'!text-contrast after:!bg-contrast' if action_name == 'portfolio'}"
+      = link_to "BOUTIQUE", store_path, class: "btn-mobile-link !text-3xl !font-extrabold #{'!text-contrast after:!bg-contrast' if controller_name == 'stores'}"

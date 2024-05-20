@@ -436,6 +436,10 @@
     @apply text-xl tracking-wider hover:text-contrast px-2 relative transition-all text-primary after:content-[''] after:block after:w-full after:h-[0.2rem] after:bg-primary hover:after:bg-contrast after:transition-all after:duration-200 after:right-0 after:absolute after:bottom-0;
   }
 
+  .kenjosset .btn-mobile-link {
+    @apply text-xl tracking-wider hover:text-contrast px-2 relative transition-all text-primary after:content-[''] after:block after:w-full after:h-[0.3rem] after:bg-primary hover:after:bg-contrast after:transition-all after:duration-200 after:right-0 after:absolute after:-bottom-1;
+  }
+
   /* Floating Label CSS */
   .form-group {
     @apply relative w-full mb-5;
