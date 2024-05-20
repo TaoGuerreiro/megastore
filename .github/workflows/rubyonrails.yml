@@ -40,13 +40,14 @@ jobs:
           RAILS_ENV: test
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: bin/rails db:schema:load
+        
       # Add or replace test runners here
       - name: compile CSS
         run: bundle exec rake assets:precompile
       - name: Run tests
         run: bundle exec rspec
-
-
+      - name: Install libvips
+        run: sudo apt-get install -y libvips libvips-dev
   rubocop:
     runs-on: ubuntu-latest
     steps:
