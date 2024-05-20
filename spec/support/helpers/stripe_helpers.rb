@@ -2,7 +2,7 @@ require 'yaml'
 require 'json'
 
 module StripeHelpers
-  def self.construct_webhook_response(vcr_file_name, event_name, checkout_session_id)
+  def self.construct_webhook_response(vcr_file_name, event_name, checkout_session_id = nil)
     current_time = Time.now.to_i
     pulled_data = YAML.load_stream(File.read("spec/cassettes/#{vcr_file_name}.yml"))
     body = JSON.parse(pulled_data[0]['http_interactions'][0]['response']['body']['string'])
