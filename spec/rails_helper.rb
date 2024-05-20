@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start
+
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
@@ -6,6 +9,8 @@ require 'rspec/rails'
 require './spec/support/helpers/stripe_helpers'
 
 Rails.root.glob('spec/support/**/*.rb').sort.each { |f| require f }
+
+
 
 begin
   ActiveRecord::Migration.maintain_test_schema!

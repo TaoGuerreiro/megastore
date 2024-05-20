@@ -61,4 +61,5 @@ group :test do
   gem "database_cleaner-active_record"
   gem "vcr"
   gem "webmock"
+  gem 'simplecov'
 end
