@@ -4,7 +4,7 @@ module Admin
   class StocksController < AdminController
     def add_stock
       @item = Item.find(params[:id])
-      authorize! @item
+      authorize! @item, with: StockPolicy
       @item.stock += 1
       @item.save
       respond_to do |format|
@@ -15,7 +15,7 @@ module Admin
 
     def remove_stock
       @item = Item.find(params[:id])
-      authorize! @item
+      authorize! @item, with: StockPolicy
       @item.stock -= 1
       @item.save
       respond_to do |format|
