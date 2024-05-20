@@ -8,6 +8,6 @@ class Billing
   end
 
   def create
-    # EndiServices::NewInvoice.new(@store_order, @store_order.store).call
+    EndiServices::NewInvoice.new(@store_order, @store_order.store).call
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class EndiServices
-  class NewMemo < EndiServices
+module EndiServices
+  class NewMemo < EndiService
     include ApplicationHelper
 
     def initialize(order, title, content)

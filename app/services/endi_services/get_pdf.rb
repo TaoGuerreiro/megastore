@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class EndiServices
-  class GetPdf < EndiServices
+module EndiServices
+  class GetPdf < EndiService
     include ApplicationHelper
 
     def initialize(order)

@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-class EndiServices
-  class AddBillLine < EndiServices
+module EndiServices
+  class AddBillLine < EndiService
     include ApplicationHelper
 
     def initialize(order_item, store)
-      super
+      super()
       @order = order_item.store_order
       @order_item = order_item
       @store = store
@@ -29,14 +29,14 @@ class EndiServices
     end
 
     def send_request(headers)
-      attempts = 1
+      @attempts ||= 1
       response = HTTParty.post(@url, headers:, body:)
       raise "Connection to endi failed" if response.code == 401
 
       @order_item.update(endi_line_id: response["id"])
       response
     rescue StandardError
-      handle_retry(attempts)
+      handle_retry
     end
 
     def body
@@ -47,6 +47,7 @@ class EndiServices
         description:,
         cost: @order_item.price_cents / 100.0,
         quantity: "1",
+        product_id: "",
         tva: "20",
         group_id: @line,
         mode: "ht",
@@ -62,16 +63,17 @@ class EndiServices
 
       if response.code == 401
         EndiServices::ResetAuth.new.call
-        HTTParty.get(url, headers:)
-      else
-        response[0]["id"]
+        @headers = EndiService.new.headers
+        response = HTTParty.get(url, headers: @headers )
       end
+      response[0]["id"]
     end
 
-    def handle_retry(attempts)
-      if (attempts + 1) < 5
+    def handle_retry
+      if (@attempts += 1) < 5
         EndiServices::ResetAuth.new.call
-        # retry
+        @headers = EndiService.new.headers
+        send_request(@headers)
       else
         @order.update(status: "error")
       end

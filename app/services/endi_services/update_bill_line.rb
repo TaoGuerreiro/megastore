@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class EndiServices
-  class UpdateBillLine < EndiServices
+module EndiServices
+  class UpdateBillLine < EndiService
     include ApplicationHelper
 
     def initialize(order_item)

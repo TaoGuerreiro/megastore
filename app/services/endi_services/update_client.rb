@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class EndiServices
-  class UpdateClient < EndiServices
+module EndiServices
+  class UpdateClient < EndiService
     include ApplicationHelper
 
     def initialize(user)

@@ -50,7 +50,7 @@ FactoryBot.define do
     stripe_checkout_session_id { Faker::Alphanumeric.alphanumeric(number: 10) }
     subscription_status { "pending" }
     endi_auth { "auth_token" }
-    endi_id { 1 }
+    endi_id { 181693 }
 
     trait :with_items do
       transient do

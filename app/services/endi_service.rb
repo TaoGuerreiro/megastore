@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class EndiServices
+class EndiService
   ENDI_PATH = Rails.application.credentials.endi.public_send(Rails.env).endi_path
   ENDI_ID = Rails.application.credentials.endi.public_send(Rails.env).endi_id
   ENDI_HOST = Rails.application.credentials.endi.public_send(Rails.env).endi_host

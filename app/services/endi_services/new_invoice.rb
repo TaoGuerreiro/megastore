@@ -1,27 +1,31 @@
 # frozen_string_literal: true
 
-class EndiServices
-  class NewInvoice < EndiServices
+module EndiServices
+  class NewInvoice < EndiService
     include ApplicationHelper
 
     def initialize(order, store)
-      super
+      super()
       @store = store
       @order = order
       @url = "#{ENDI_PATH}/api/v1/companies/#{ENDI_ID}/invoices/add?company_id=#{ENDI_ID}"
+      @headers = EndiService.new.headers
     end
 
     # rubocop:disable Metrics/AbcSize
     # rubocop:disable Metrics/MethodLength
     def call
-      header.merge("Referer" => @url)
+      @headers.merge("Referer" => @url)
 
       @order.update(status: "processing", api_error: nil)
-      response = HTTParty.post(@url, body:, headers:)
+      response = HTTParty.post(@url, body:, headers: @headers)
       if response.code == 401
         EndiServices::ResetAuth.new.call
-        HTTParty.post(@url, body:, headers:)
-      elsif response.code == 200
+        @headers = EndiService.new.headers
+        response = HTTParty.post(@url, body:, headers: @headers)
+      end
+
+      if response.code == 200
         @order.update!(endi_id: response["id"], status: "draft")
         EndiServices::UpdateBill.new(@order, @store).call
         @order.update!(status: "pending")

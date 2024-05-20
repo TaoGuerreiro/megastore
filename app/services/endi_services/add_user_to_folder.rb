@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class EndiServices
-  class AddUserToFolder < EndiServices
+module EndiServices
+  class AddUserToFolder < EndiService
     include ApplicationHelper
     include Turbo::StreamsHelper
 

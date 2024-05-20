@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class EndiServices
-  class StatusUpdate < EndiServices
+module EndiServices
+  class StatusUpdate < EndiService
     include ApplicationHelper
 
     def initialize(order)

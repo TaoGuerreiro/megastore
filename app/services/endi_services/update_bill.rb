@@ -1,23 +1,25 @@
 # frozen_string_literal: true
 
-class EndiServices
-  class UpdateBill < EndiServices
+module EndiServices
+  class UpdateBill < EndiService
     include ApplicationHelper
 
     def initialize(order, store)
-      super
+      super()
       @order = order
       @store = store
       @url = "#{ENDI_PATH}/api/v1/invoices/#{@order.endi_id}"
+      @headers = EndiService.new.headers
     end
 
     def call
-      headers = headers.merge("Referer" => @url)
+      @headers = @headers.merge("Referer" => @url)
 
-      response = HTTParty.patch(@url, headers:, body:)
+      response = HTTParty.patch(@url, headers: @headers, body:)
       if response.code == 401
         EndiServices::ResetAuth.new.call
-        response = HTTParty.patch(@url, headers:, body:)
+        @headers = EndiService.new.headers
+        response = HTTParty.patch(@url, headers: @headers, body:)
       end
 
       response

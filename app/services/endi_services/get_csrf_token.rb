@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-class EndiServices
-  class GetCsrfToken < EndiServices
+module EndiServices
+  class GetCsrfToken < EndiService
     include ApplicationHelper
 
     def initialize
       super
       @url = build_url
       @referer = build_referer
-      @headers = EndiServices.new.headers.merge("Referer" => @referer)
+      @headers = EndiService.new.headers.merge("Referer" => @referer)
     end
 
     def call
@@ -30,7 +30,7 @@ class EndiServices
 
       if response.code == 401
         EndiServices::ResetAuth.new.call
-        @headers = EndiServices.new.headers.merge("Referer" => @referer)
+        @headers = EndiService.new.headers.merge("Referer" => @referer)
         response = HTTParty.get(@url, headers: @headers)
       end
 

@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-class EndiServices
-  class NewUser < EndiServices
+module EndiServices
+  class NewUser < EndiService
     include ApplicationHelper
 
     def initialize(store)
       super()
       @store = store
       @url = "#{ENDI_PATH}/api/v1/companies/#{ENDI_ID}/customers"
-      @headers = EndiServices.new.headers.merge("Referer" => "#{ENDI_PATH}/companies/#{ENDI_ID}/customers/add")
+      @headers = EndiService.new.headers.merge("Referer" => "#{ENDI_PATH}/companies/#{ENDI_ID}/customers/add")
       @token = EndiServices::GetCsrfToken.new.call
     end
 
@@ -16,7 +16,7 @@ class EndiServices
       response = HTTParty.post(@url, body:, headers: @headers)
 
       if response.code == 401
-        @headers = EndiServices.new.headers.merge("Referer" => "#{ENDI_PATH}/companies/#{ENDI_ID}/customers/add")
+        @headers = EndiService.new.headers.merge("Referer" => "#{ENDI_PATH}/companies/#{ENDI_ID}/customers/add")
         EndiServices::ResetAuth.new.call
         response = HTTParty.post(@url, body:, headers: @headers)
       end

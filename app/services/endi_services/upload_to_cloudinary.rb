@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class EndiServices
-  class UploadToCloudinary < EndiServices
+module EndiServices
+  class UploadToCloudinary < EndiService
     include ApplicationHelper
 
     def initialize(order)

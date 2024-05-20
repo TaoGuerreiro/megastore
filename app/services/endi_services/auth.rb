@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class EndiServices
-  class Auth < EndiServices
+module EndiServices
+  class Auth < EndiService
     include ApplicationHelper
 
     def call

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class EndiServices
-  class RemoveBill < EndiServices
+module EndiServices
+  class RemoveBill < EndiService
     include ApplicationHelper
 
     def initialize(order)

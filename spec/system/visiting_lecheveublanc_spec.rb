@@ -46,7 +46,7 @@ RSpec.describe "Visiting le cheveu blanc", type: :system do
     expect(page).to have_text("My Item Description")
   end
 
-  scenario "it can acces to the show page of an item" do
+  scenario "it buy an item, full process" do
     visit store_path
 
     expect(page).to have_text("My Item Description")
@@ -105,10 +105,18 @@ RSpec.describe "Visiting le cheveu blanc", type: :system do
     # sleep 40
 
     @request_body = StripeHelpers.construct_webhook_response("stripe_checkout_session_completed", "checkout.session.completed", Order.last.checkout_session_id)
-    post("http://0.0.0.0:3000/webhooks/stripe", params: @request_body.to_json)
+    post("http://0.0.0.0:3030/webhooks/stripe", params: @request_body.to_json)
 
-    visit(order_path(Order.last))
+    @order = Order.last
+    visit(order_path(@order))
     expect(page).to have_text("Je m'en occupe au plus vite !")
-    expect(Order.last.status).to eq("paid")
+    expect(@order.status).to eq("paid")
+    expect(@order.shipping).to be_present
+    expect(@order.fee).to be_present
+
+    @store_order = StoreOrder.last
+    expect(@store_order.store).to eq(@store)
+    expect(@store_order.endi_id).to be_present
+    expect(@store_order.api_error).to be_nil
   end
 end
