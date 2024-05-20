@@ -93,7 +93,7 @@ RSpec.describe "Visiting le cheveu blanc", type: :system do
     VCR.eject_cassette(name: "find_shipping_method")
     VCR.eject_cassette(name: "stripe_checkout_session")
 
-    expect(page).to have_text("This link has expired")
+    expect(page).to have_text("The specified Checkout Session could not be found")
 
     # when we don't use cassettes we can use this, but it's not working in the CI, when we click on "Pay" (processing not ended)
     # expect(page).to have_text("Pay with card")
