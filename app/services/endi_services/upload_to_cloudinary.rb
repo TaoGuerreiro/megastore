@@ -1,20 +1,23 @@
 # frozen_string_literal: true
 
 module EndiServices
-  class UploadToCloudinary
+  class UploadToCloudinary < EndiService
     include ApplicationHelper
 
-    def initialize(order, user)
+    def initialize(order)
+      super()
       @order = order
-      @user = user
-      @url = "#{Rails.application.credentials.endi.public_send(Rails.env).endi_path}/invoices/#{@order.endi_id}.pdf"
+      @url = "#{ENDI_PATH}/invoices/#{order.endi_id}.pdf"
     end
 
     def call
       tempfile = Tempfile.new("asset")
 
-      URI.open(@url, "Cookie" => @user.endi_auth) do |f|
-        File.binwrite(tempfile.path, f.read)
+      Net::HTTP.start(@url.host, @url.port, use_ssl: true) do |http|
+        request = Net::HTTP::Get.new(@url)
+        request["Cookie"] = Current.endi_auth
+        response = http.request(request)
+        File.binwrite(tempfile.path, response.body)
       end
 
       @order.bill.attach(io: tempfile, filename: "nes.png", content_type: "image/png")

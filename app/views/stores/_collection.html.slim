@@ -10,7 +10,7 @@
       p.text-sm.text-content
         = collection.items.first.description
       p.text-base.font-medium.text-contrast class="!mt-auto"
-        = t("store.price_range", min: number_to_currency(collection.min_item_price), max: number_to_currency(collection.max_item_price))
+        = t(".price_range", min: number_to_currency(collection.min_item_price), max: number_to_currency(collection.max_item_price))
       - if collection.stock == 1
         p.text-sm.font-base.text-contrast.text-red-500
           = "Plus qu'un seul exemplaire en stock !"

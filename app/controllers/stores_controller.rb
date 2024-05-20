@@ -14,10 +14,7 @@ class StoresController < ApplicationController
     return unless params[:filters]
 
     respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: turbo_stream.replace("store-items", partial: "items",
-                                                                 locals: { items: @items, collections: @collections })
-      end
+      format.turbo_stream
     end
   end
 
@@ -76,7 +73,6 @@ class StoresController < ApplicationController
   end
 
   def selected_filters
-    # raise
     session[:filters].select { |_k, v| v == 1 }.keys
   end
 end

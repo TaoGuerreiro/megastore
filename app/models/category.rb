@@ -3,7 +3,7 @@
 # app/models/category.rb
 class Category < ApplicationRecord
   belongs_to :store
-  has_many :items
+  has_many :items, dependent: :restrict_with_exception
 
   validates :name, presence: true
 

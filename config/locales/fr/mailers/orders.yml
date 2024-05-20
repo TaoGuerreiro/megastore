@@ -1,0 +1,8 @@
+fr:
+  mailers:
+    orders:
+      subject: Nouvelle commande
+  admin:
+    order_mailer:
+      new_order:
+        subject: Nouvelle commande

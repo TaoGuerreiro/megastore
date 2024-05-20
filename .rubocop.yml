@@ -1,19 +1,24 @@
-inherit_from: .rubocop_todo.yml
 require: rubocop-rails
 
 AllCops:
   NewCops: enable
   SuggestExtensions: false
   Exclude:
+  - "_local/**/*"
+  - "app/components/common/**/*"
   - "bin/**/*"
-  - "db/**/*"
-  - "tmp/**/*"
-  - "test/**/*"
-  - "spec/**/*"
-  - "vendor/**/*"
   - "config/environments/*"
-  - "config/initializers/pagy.rb"
+  - "config/initializers/devise.rb"
   - "config/initializers/simple_form_tailwind.rb"
+  - "config/initializers/simple_form.rb"
+  - "config/puma.rb"
+  - "db/**/*"
+  - "lib/nordex_opc_xml_da_client/**/*"
+  - "lib/tasks/metrics.rake"
+  - "spec/**/*"
+  - "test/**/*"
+  - "tmp/**/*"
+  - "vendor/**/*"
 
 Bundler/OrderedGems:
   Enabled: false
@@ -27,6 +32,9 @@ Layout/SpaceInLambdaLiteral:
 
 Metrics/AbcSize:
   CountRepeatedAttributes: false
+Metrics/BlockLength:
+  Exclude:
+    - "config/routes.rb"
 Metrics/ClassLength:
   CountAsOne: ['array', 'hash', 'heredoc']
 Metrics/MethodLength:
@@ -34,22 +42,22 @@ Metrics/MethodLength:
 Metrics/ModuleLength:
   CountAsOne: ['array', 'hash', 'heredoc']
 
-Rails/BulkChangeTable:
+Style/AccessModifierDeclarations:
   Enabled: false
-
 Style/Documentation:
   Enabled: false
 Style/EmptyMethod:
-  EnforcedStyle: expanded
+  EnforcedStyle: compact
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 Style/SymbolArray:
   Enabled: false
 
+Rails/BulkChangeTable:
+  Enabled: false
+Rails/HasAndBelongsToMany:
+  Enabled: false
+Rails/SkipsModelValidations:
+  Enabled: false
 Rails/SquishedSQLHeredocs:
   Enabled: false
-
-Style/HashSyntax:
-  Severity: info
-Naming/BlockForwarding:
-  Severity: info

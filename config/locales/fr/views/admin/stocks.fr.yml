@@ -1,0 +1,11 @@
+fr:
+  admin:
+    stocks:
+      add_stock:
+        title: 📈
+        success: Stock mis à jour
+        error: Une erreur est survenue
+      remove_stock:
+        title: 📉
+        success: Stock mis à jour
+        error: Une erreur est survenue

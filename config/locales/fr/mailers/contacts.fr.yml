@@ -1,0 +1,4 @@
+fr:
+  mailers:
+    contacts:
+      subject: "Nouveau message depuis le site"

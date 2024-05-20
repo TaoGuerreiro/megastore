@@ -8,11 +8,7 @@ class ItemsController < ApplicationController
 
     if params[:collection]
       @item = Item.find(params[:collection])
-      respond_to do |format|
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.update("store-item-show", partial: "items/item", locals: { item: @item })
-        end
-      end
+      respond_to { |format| format.turbo_stream }
     else
       respond_to { |format| format.html }
     end

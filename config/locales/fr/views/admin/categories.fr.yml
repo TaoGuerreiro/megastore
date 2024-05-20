@@ -1,0 +1,12 @@
+fr:
+  admin:
+    categories:
+      create:
+        success: "Catégorie ajoutée"
+        error: "Une erreur est survenue"
+      update:
+        success: "Catégorie mise a jour"
+        error: "Une erreur est survenue"
+      destroy:
+        success: "Catégorie supprimée"
+        error: "Une erreur est survenue"

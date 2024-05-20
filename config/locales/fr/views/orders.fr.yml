@@ -8,7 +8,7 @@ fr:
       title: "Ce dossier est vide"
       subtitle: "Aucune commande dans ce dossier."
     show:
-      addresses: "Addresses"
+      addresses: "Adresses"
       billing_address: "Adresse de facturation"
       error_subtitle: "Vous pouvez réessayer ou me contacter."
       error_title: "Une erreur s'est produite lors du paiement."

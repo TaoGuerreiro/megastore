@@ -6,6 +6,7 @@ module List
       attr_accessor :icon, :label, :path, :options
 
       def initialize(label:, path:, icon: nil, options: {})
+        super
         @icon = icon
         @label = label
         @path = path
@@ -13,8 +14,10 @@ module List
       end
 
       def options_with_classes
-        @options[:class] =
-          "flex items-center p-2 text-sm font-semibold leading-6 rounded-md text-contrast hover:text-primary hover:bg-light group gap-x-3"
+        @options[:class] = <<-TXT
+          flex items-center p-2 text-sm font-semibold leading-6
+          rounded-md text-contrast hover:text-primary hover:bg-light group gap-x-3
+        TXT
         @options
       end
     end

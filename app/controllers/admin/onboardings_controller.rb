@@ -4,8 +4,7 @@ module Admin
   class OnboardingsController < ApplicationController
     include Rails.application.routes.url_helpers
 
-    def new
-    end
+    def new; end
 
     def create
       default_url_options[:host] = "https://www.#{Current.store.domain}"

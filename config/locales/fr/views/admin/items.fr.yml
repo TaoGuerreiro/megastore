@@ -1,0 +1,32 @@
+fr:
+  admin:
+    items:
+      create:
+        success: Article ajoute
+        error: Une erreur est survenue
+      update:
+        success: Article mis à jour
+        error: Une erreur est survenue
+      destroy:
+        title: Suppression
+        success: Article supprimé
+        error: Une erreur est survenue
+      add_stock:
+        title: Stock
+        success: Stock mis à jour
+        error: Une erreur est survenue
+      remove_stock:
+        success: Stock mis à jour
+        error: Une erreur est survenue
+      unarchive:
+        title: Archivage
+        success: Article dé-archivé
+        error: Une erreur est survenue
+      archive:
+        title: Archivage
+        success: Article archivé
+        error: Une erreur est survenue
+      remove_photo:
+        title: Suppression
+        success: Photo supprimée
+        error: Une erreur est survenue

@@ -6,12 +6,9 @@ class EventJob < ApplicationJob
   def perform(event)
     event.update(status: "processing")
     case event.source
-    when "stripe"
-      handle_stripe_event(event)
-    when "stripe_subscription"
-      handle_stripe_subscription_event(event)
-    when "sendcloud"
-      handle_sendcloud_event(event)
+    when "stripe" then handle_stripe_event(event)
+    when "stripe_subscription" then handle_stripe_subscription_event(event)
+    when "sendcloud" then handle_sendcloud_event(event)
     end
     event.update(status: :processed)
   rescue StandardError => e
@@ -99,19 +96,19 @@ class EventJob < ApplicationJob
 
   def create_shipment(order)
     store = order.store
-    Shipment::Parcel.new(store, { order: }).create_label
-    Shipment::Label.new(store, { order: }).attach_to_order
+    Shipments::Parcel.new(store, { order: }).create_label
+    Shipments::Label.new(store, { order: }).attach_to_order
   end
 
   def update_store_order(order)
-    store_order = StoreOrder.find_or_create_by(store: order.store, status: "pending") do |store_order|
+    new_store_order = StoreOrder.find_or_create_by(store: order.store, status: "pending") do |store_order|
       store_order.store_order_items.new(orderable: order.fee, price: order.fee.amount)
       store_order.store_order_items.new(orderable: order.shipping, price: order.shipping.cost)
       store_order.date = Time.current
     end
 
-    add_items_to_store_order(store_order, order)
-    store_order.save
+    add_items_to_store_order(new_store_order, order)
+    new_store_order.save
   end
 
   def add_items_to_store_order(store_order, order)
@@ -125,144 +122,3 @@ class EventJob < ApplicationJob
                                       price: order.shipping.cost)
   end
 end
-
-# store = Store.first
-# order = Order.last
-
-# {"action"=>"parcel_status_changed",
-#  "parcel"=>
-#   {"id"=>364069982,
-#    "address"=>"26 bis rue",
-#    "contract"=>nil,
-#    "address_2"=>"aristide briand",
-#    "address_divided"=>{"street"=>"bis rue", "house_number"=>"26"},
-#    "city"=>"saint sébastien sur loire",
-#    "company_name"=>"",
-#    "country"=>{"iso_2"=>"FR", "iso_3"=>"FRA", "name"=>"France"},
-#    "data"=>{},
-#    "date_created"=>"03-04-2024 16:51:28",
-#    "email"=>"zd.guilbaud@gmail.com",
-#    "name"=>"GUILBAUD Florent",
-#    "postal_code"=>"44230",
-#    "reference"=>"0",
-#    "shipment"=>{"id"=>1345, "name"=>"Chrono 18 0-2kg"},
-#    "status"=>{"id"=>1001, "message"=>"Being announced"},
-#    "to_service_point"=>nil,
-#    "telephone"=>"+33674236080",
-#    "tracking_number"=>"",
-#    "weight"=>"0.143",
-#    "label"=>{"normal_printer"=>nil, "label_printer"=>nil},
-#    "customs_declaration"=>{},
-#    "order_number"=>"10",
-#    "insured_value"=>0.0,
-#    "total_insured_value"=>0.0,
-#    "to_state"=>nil,
-#    "customs_invoice_nr"=>"",
-#    "customs_shipment_type"=>nil,
-#    "parcel_items"=>[],
-#    "documents"=>[],
-#    "type"=>nil,
-#    "shipment_uuid"=>nil,
-#    "shipping_method"=>1345,
-#    "shipping_method_checkout_name"=>"Stripe",
-#    "external_order_id"=>"364069982",
-#    "external_shipment_id"=>"",
-#    "external_reference"=>nil,
-#    "is_return"=>false,
-#    "note"=>"",
-#    "to_post_number"=>"",
-#    "total_order_value"=>nil,
-#    "total_order_value_currency"=>nil,
-#    "carrier"=>{"code"=>"chronopost", "name"=>"Chronopost", "servicepoints_carrier_code"=>"chronopost"},
-#    "tracking_url"=>nil,
-#    "date_updated"=>"03-04-2024 16:51:28",
-#    "date_announced"=>nil,
-#    "colli_tracking_number"=>nil,
-#    "colli_uuid"=>"30c857c1-d679-4a93-9041-7265cb098925",
-#    "collo_nr"=>0,
-#    "collo_count"=>1,
-#    "awb_tracking_number"=>nil,
-#    "box_number"=>nil,
-#    "length"=>"50.00",
-#    "width"=>"50.00",
-#    "height"=>"50.00",
-#    "track_trace_notifications"=>true,
-#    "from_country"=>{"iso_2"=>"FR", "iso_3"=>"FRA", "name"=>"France"},
-#    "from_postal_code"=>"44230",
-#    "date_shipped"=>nil,
-#    "house_number"=>"26",
-#    "suppressed_statuses"=>[],
-#    "should_send_feedback"=>true,
-#    "source"=>"api_v2:bucket",
-#    "extra_data"=>{}},
-#  "timestamp"=>1712163088943,
-#  "carrier_status_change_timestamp"=>1712163088908}
-
-# {"action"=>"parcel_status_changed",
-#  "parcel"=>
-#   {"id"=>364069982,
-#    "address"=>"26 bis rue",
-#    "contract"=>nil,
-#    "address_2"=>"aristide briand",
-#    "address_divided"=>{"street"=>"bis rue", "house_number"=>"26"},
-#    "city"=>"saint sébastien sur loire",
-#    "company_name"=>"",
-#    "country"=>{"iso_2"=>"FR", "iso_3"=>"FRA", "name"=>"France"},
-#    "data"=>{},
-#    "date_created"=>"03-04-2024 16:51:28",
-#    "email"=>"zd.guilbaud@gmail.com",
-#    "name"=>"GUILBAUD Florent",
-#    "postal_code"=>"44230",
-#    "reference"=>"0",
-#    "shipment"=>{"id"=>1345, "name"=>"Chrono 18 0-2kg"},
-#    "status"=>{"id"=>1001, "message"=>"Being announced"},
-#    "to_service_point"=>nil,
-#    "telephone"=>"+33674236080",
-#    "tracking_number"=>"",
-#    "weight"=>"0.143",
-#    "label"=>{"normal_printer"=>nil, "label_printer"=>nil},
-#    "customs_declaration"=>{},
-#    "order_number"=>"10",
-#    "insured_value"=>0.0,
-#    "total_insured_value"=>0.0,
-#    "to_state"=>nil,
-#    "customs_invoice_nr"=>"",
-#    "customs_shipment_type"=>nil,
-#    "parcel_items"=>[],
-#    "documents"=>[],
-#    "type"=>nil,
-#    "shipment_uuid"=>nil,
-#    "shipping_method"=>1345,
-#    "shipping_method_checkout_name"=>"Stripe",
-#    "external_order_id"=>"364069982",
-#    "external_shipment_id"=>"",
-#    "external_reference"=>nil,
-#    "is_return"=>false,
-#    "note"=>"",
-#    "to_post_number"=>"",
-#    "total_order_value"=>nil,
-#    "total_order_value_currency"=>nil,
-#    "carrier"=>{"code"=>"chronopost", "name"=>"Chronopost", "servicepoints_carrier_code"=>"chronopost"},
-#    "tracking_url"=>nil,
-#    "date_updated"=>"03-04-2024 16:51:28",
-#    "date_announced"=>nil,
-#    "colli_tracking_number"=>nil,
-#    "colli_uuid"=>"30c857c1-d679-4a93-9041-7265cb098925",
-#    "collo_nr"=>0,
-#    "collo_count"=>1,
-#    "awb_tracking_number"=>nil,
-#    "box_number"=>nil,
-#    "length"=>"50.00",
-#    "width"=>"50.00",
-#    "height"=>"50.00",
-#    "track_trace_notifications"=>true,
-#    "from_country"=>{"iso_2"=>"FR", "iso_3"=>"FRA", "name"=>"France"},
-#    "from_postal_code"=>"44230",
-#    "date_shipped"=>nil,
-#    "house_number"=>"26",
-#    "suppressed_statuses"=>[],
-#    "should_send_feedback"=>true,
-#    "source"=>"api_v2:bucket",
-#    "extra_data"=>{}},
-#  "timestamp"=>1712163088943,
-#  "carrier_status_change_timestamp"=>1712163088908}

@@ -14,8 +14,7 @@ module Admin
       authorize! @category
     end
 
-    def edit
-    end
+    def edit; end
 
     def create
       @category = Current.store.categories.build(category_params)
@@ -23,25 +22,25 @@ module Admin
 
       if @category.save
         respond_to do |format|
-          format.html { redirect_to admin_store_path, notice: "Category was successfully created." }
+          format.html { redirect_to admin_store_path, notice: t(".success") }
           format.turbo_stream
         end
       else
-        render :new
+        render :new, status: :unprocessable_entity, notice: t(".error")
       end
     end
 
     def update
       if @category.update(category_params)
         respond_to do |format|
-          format.html { redirect_to admin_store_path, notice: "Category was successfully updated." }
+          format.html { redirect_to admin_store_path, notice: t(".success") }
           format.turbo_stream do
             render turbo_stream: turbo_stream.replace(@category, partial: "admin/categories/category",
                                                                  locals: { category: @category })
           end
         end
       else
-        render :edit, status: :unprocessable_entity
+        render :edit, status: :unprocessable_entity, notice: t(".error")
       end
     end
 
@@ -49,10 +48,11 @@ module Admin
       begin
         @category.destroy!
       rescue StandardError
+        redirect_to admin_store_path, status: :see_other, alert: t(".error")
       end
 
       respond_to do |format|
-        format.html { redirect_to admin_store_path, status: :see_othet }
+        format.html { redirect_to admin_store_path, status: :see_other, notice: t(".success") }
         format.turbo_stream
       end
     end

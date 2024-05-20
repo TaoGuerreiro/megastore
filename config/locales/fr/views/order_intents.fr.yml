@@ -1,0 +1,11 @@
+fr:
+  order_intents:
+    create:
+      success: Commande en cours de création
+      error: Une erreur est survenue
+    shipping_method:
+      success: Commande en cours de création
+      error: Une erreur est survenue
+    service_point:
+      success: Point relai sélectionné
+      error: Une erreur est survenue

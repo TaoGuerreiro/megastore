@@ -1,0 +1,66 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://panel.sendcloud.sc/api/v2/shipping_methods/1345?from_postal_code=12345&to_country=FR&to_postal_code=44000
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Authorization:
+      - Basic ZTdlYTUxNzMtNDNhOS00MDU2LWFjZTQtMzNhMTVlMzE3YzAzOmU1NWZlYjkwZThmYzQwOGM5MmRjZGQ1ZmMxMGMzMmFl
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '406'
+      Connection:
+      - keep-alive
+      Server:
+      - envoy
+      Date:
+      - Sun, 19 May 2024 17:28:02 GMT
+      Allow:
+      - GET, HEAD, OPTIONS
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains; preload
+      - max-age=31536000
+      X-Content-Type-Options:
+      - nosniff
+      Referrer-Policy:
+      - same-origin
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      X-Frame-Options:
+      - DENY
+      Vary:
+      - Origin
+      - Origin, Cookie
+      X-Envoy-Upstream-Service-Time:
+      - '76'
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 64ca9347ad04534b1e47b07966197f28.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - CDG50-P1
+      X-Amz-Cf-Id:
+      - A14UYfdXO14aQnMYONSVXEZQs1h2QHYtspUBodkWhcyBIXKceFQvvg==
+    body:
+      encoding: UTF-8
+      string: '{"shipping_method":{"id":1345,"name":"Chrono 18 0-2kg","carrier":"chronopost","min_weight":"0.001","max_weight":"2.001","service_point_input":"none","price":0,"countries":[{"id":8,"name":"France","price":13.6,"iso_2":"FR","iso_3":"FRA","lead_time_hours":48,"price_breakdown":[{"type":"price_without_insurance","label":"Label","value":11.5},{"type":"fuel","label":"Fuel
+        surcharge (18.25%)","value":2.1}]}]}}'
+  recorded_at: Sun, 19 May 2024 17:28:02 GMT
+recorded_with: VCR 6.2.0

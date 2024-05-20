@@ -3,6 +3,7 @@
 module Tabs
   class Component < ApplicationComponent
     def initialize(tabs:)
+      super
       @tabs = tabs
     end
 

@@ -10,6 +10,6 @@ html
       = yield
     = render "#{Current.store.slug}/common/footer"
 
-    . id="notifications" class="fixed z-50 cursor-pointer right-10 top-10 w-96"
+    . id="notifications" class="fixed z-50 cursor-pointer left-10 bottom-10 w-96"
       - flash.each do |type, data|
         = render Notifications::Component.new(type: type, data: data)

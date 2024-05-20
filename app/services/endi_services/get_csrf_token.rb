@@ -1,37 +1,45 @@
 # frozen_string_literal: true
 
 module EndiServices
-  class GetCsrfToken
+  class GetCsrfToken < EndiService
     include ApplicationHelper
 
-    def initialize(user)
-      @user = user
-      @url = "#{Rails.application.credentials.endi.public_send(Rails.env).endi_path}/api/v1/companies/#{Rails.application.credentials.endi.public_send(Rails.env).endi_id}/customers?form_config=1"
+    def initialize
+      super
+      @url = build_url
+      @referer = build_referer
+      @headers = EndiService.new.headers.merge("Referer" => @referer)
     end
 
     def call
-      invoice_headers = {
-        "Accept" => "application/json, text/javascript, */*; q=0.01",
-        "Content-Type" => "application/json",
-        "Origin" => Rails.application.credentials.endi.public_send(Rails.env).endi_path.to_s,
-        "Accept-Language" => "fr-fr",
-        "Cache-Control" => "no-cache",
-        "Cookie" => @user.endi_auth,
-        "Host" => Rails.application.credentials.endi.public_send(Rails.env).endi_host.to_s,
-        "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1.2 Safari/605.1.15",
-        "Referer" => "#{Rails.application.credentials.endi.public_send(Rails.env).endi_path}/companies/#{Rails.application.credentials.endi.public_send(Rails.env).endi_id}/customers/add",
-        "X-CSRFToken" => "undefined",
-        "X-Requested-With" => "XMLHttpRequest",
-        "Connection" => "keep-alive"
-      }
+      perform_get_request
+    end
 
-      response = HTTParty.get(@url, headers: invoice_headers)
+    private
+
+    def build_url
+      "#{ENDI_PATH}/api/v1/companies/#{ENDI_ID}/customers?form_config=1"
+    end
+
+    def build_referer
+      "#{ENDI_PATH}/companies/#{ENDI_ID}/customers/add"
+    end
+
+    def perform_get_request
+      response = HTTParty.get(@url, headers: @headers)
+
       if response.code == 401
-        EndiServices::ResetAuth.new(@user).call
-        response = HTTParty.get(@url, headers: invoice_headers)
+        EndiServices::ResetAuth.new.call
+        @headers = EndiService.new.headers.merge("Referer" => @referer)
+        response = HTTParty.get(@url, headers: @headers)
       end
 
-      response.parsed_response.fetch("schemas").fetch("individual").fetch("properties").fetch("csrf_token").fetch("default")
+      extract_csrf_token(response)
+    end
+
+    def extract_csrf_token(response)
+      response_body = response.parsed_response
+      response_body.dig("schemas", "individual", "properties", "csrf_token", "default")
     end
   end
 end

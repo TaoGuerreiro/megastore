@@ -3,6 +3,7 @@
 module ShippingMethod
   class Component < ViewComponent::Base
     def initialize(field:, shipping_method:)
+      super
       @field = field
       @shipping_method = shipping_method
       @item = field.object

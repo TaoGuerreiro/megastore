@@ -14,8 +14,7 @@ module Admin
       authorize! @specification
     end
 
-    def edit
-    end
+    def edit; end
 
     def create
       @specification = Current.store.specifications.build(specification_params)
@@ -23,34 +22,33 @@ module Admin
 
       if @specification.save
         respond_to do |format|
-          format.html { redirect_to admin_store_path, notice: "Shipping method was successfully created." }
+          format.html { redirect_to admin_store_path, notice: t(".success") }
           format.turbo_stream
         end
       else
-        render :new
+        render :new, status: :unprocessable_entity, notice: t(".error")
       end
     end
 
     def update
       if @specification.update(specification_params)
         respond_to do |format|
-          format.html { redirect_to admin_store_path, notice: "Shipping method was successfully updated." }
+          format.html { redirect_to admin_store_path, notice: t(".success") }
           format.turbo_stream
         end
       else
-        render :edit
+        render :edit, status: :unprocessable_entity, notice: t(".error")
       end
     end
 
     def destroy
       if @specification.destroy
-        flash[:notice] = "Shipping method was successfully destroyed."
         respond_to do |format|
-          format.html { redirect_to admin_store_path, notice: "Shipping method was successfully destroyed." }
+          format.html { redirect_to admin_store_path, notice: t(".success") }
           format.turbo_stream
         end
       else
-        redirect_to admin_store_path, alert: "Shipping method was not destroyed."
+        redirect_to admin_store_path, alert: t(".error")
       end
     end
 

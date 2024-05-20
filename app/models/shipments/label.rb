@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Shipment
+module Shipments
   class Label < Shipment
     include ActiveModel::Model
 
@@ -16,11 +16,14 @@ class Shipment
     end
 
     def attach_to_order
-      url = "#{BASE_URL}/labels/normal_printer/#{@order.shipping.parcel_id}"
-      tempfile = Tempfile.new("asset")
+      url = URI("#{BASE_URL}/labels/normal_printer/#{@order.shipping.parcel_id}")
+      tempfile = Tempfile.new(["label", ".png"])
 
-      URI.open(url, headers) do |f|
-        File.binwrite(tempfile.path, f.read)
+      Net::HTTP.start(url.host, url.port, use_ssl: url.scheme == "https") do |http|
+        request = Net::HTTP::Get.new(url, headers)
+        response = http.request(request)
+
+        File.binwrite(tempfile.path, response.body)
       end
 
       @order.label.attach(io: tempfile, filename: "label.png", content_type: "image/png")

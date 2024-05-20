@@ -19,9 +19,9 @@ FactoryBot.define do
     end
 
     name { "My Store" }
-    domain { "example.com" }
+    domain { "0.0.0.0:3030" }
     slug { "lecheveublanc" }
-    association :admin, factory: :user # Assurez-vous que vous avez une factory :user définie
+    association :admin, factory: :user
     created_at { Time.now }
     updated_at { Time.now }
     meta_title { "My Store Meta Title" }
@@ -35,22 +35,22 @@ FactoryBot.define do
     display_stock { false }
     postmark_key { "postmark-key" }
     mail_body { "mail body text" }
-    sendcloud_private_key { "sendcloud-private-key" }
-    sendcloud_public_key { "sendcloud-public-key" }
+    sendcloud_private_key { Rails.application.credentials.sendcloud.private_key }
+    sendcloud_public_key { Rails.application.credentials.sendcloud.public_key }
     postal_code { "12345" }
     city { "My City" }
     country { "My Country" }
     address { "123 My Street" }
     rates { 0.2 }
-    stripe_account_id { "acct_1Example" }
     charges_enable { false }
     payouts_enable { false }
     details_submitted { false }
-    stripe_subscription_id { "sub_1Example" }
+    stripe_account_id { "acct_1OuibPGd8WG5acSE" }
+    stripe_subscription_id { Faker::Alphanumeric.alphanumeric(number: 10) }
+    stripe_checkout_session_id { Faker::Alphanumeric.alphanumeric(number: 10) }
     subscription_status { "pending" }
-    stripe_checkout_session_id { "cs_test_example" }
     endi_auth { "auth_token" }
-    endi_id { 1 }
+    endi_id { 181693 }
 
     trait :with_items do
       transient do
@@ -60,5 +60,19 @@ FactoryBot.define do
         create_list(:item, evaluator.items_count, store:)
       end
     end
+  end
+
+  factory :chalky, parent: :store do
+    name { "My Second Store" }
+    domain { "chalky.com" }
+    slug { "chalky" }
+    association :admin, factory: :queen
+  end
+
+  factory :random_store, parent: :store do
+    name { Faker::Company.bs }
+    domain { Faker::Internet.domain_name }
+    slug { Faker::Alphanumeric.alphanumeric(number: 10) }
+    association :admin, factory: :user
   end
 end

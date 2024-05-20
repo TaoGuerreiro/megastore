@@ -11,7 +11,7 @@ class User < ApplicationRecord
 
   enumerize :role, in: %i[admin user queen], default: :user, predicates: true
 
-  has_one :store, foreign_key: :admin_id
+  has_one :store, foreign_key: :admin_id, inverse_of: :admin, dependent: :nullify
   validates :first_name, :last_name, :phone, presence: true
   has_one_attached :avatar
 

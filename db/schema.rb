@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_02_205858) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_07_202817) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -264,6 +264,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_02_205858) do
     t.text "endi_auth"
     t.integer "endi_id"
     t.index ["admin_id"], name: "index_stores_on_admin_id"
+    t.index ["slug"], name: "index_stores_on_slug", unique: true
     t.index ["stripe_subscription_id"], name: "index_stores_on_stripe_subscription_id", unique: true
   end
 

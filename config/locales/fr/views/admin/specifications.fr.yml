@@ -1,0 +1,12 @@
+fr:
+  admin:
+    specifications:
+      create:
+        success: Spécification ajoutée
+        error: Une erreur est survenue
+      update:
+        success: Spécification mise à jour
+        error: Une erreur est survenue
+      destroy:
+        success: Spécification supprimée
+        error: Une erreur est survenue
