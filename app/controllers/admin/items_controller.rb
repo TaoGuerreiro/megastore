@@ -80,7 +80,7 @@ module Admin
     end
 
     def search_items
-      @items = @items.search_by_name_and_description(params[:search])
+      @items = Item.where(store: Current.store).search_by_name_and_description(params[:search])
       @pagy, @items = pagy(@items)
     end
 

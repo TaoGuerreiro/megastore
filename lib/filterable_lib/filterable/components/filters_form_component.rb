@@ -29,7 +29,7 @@ module Filterable
       end
 
       def filterable_input_classes
-        <<-TXT.squish!
+        <<-TXT
           w-full min-w-fit block shadow-sm border-gray-300 rounded-md
           focus:ring-primary-500 focus:border-primary-500
           sm:text-sm
