@@ -1,7 +1,7 @@
 - if @item.persisted?
   = turbo_stream.prepend "notifications" do
     = render(Notifications::Component.new(type: "error", data: {title: t(".title"), body: t(".error")}))
--else
+- else
   = turbo_stream.prepend "notifications" do
     = render(Notifications::Component.new(type: "success", data: {title: t(".title"), body: t(".success")}))
   = turbo_stream.remove dom_id(@item)

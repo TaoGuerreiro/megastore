@@ -48,7 +48,7 @@ FactoryBot.define do
     stripe_account_id { "acct_1OuibPGd8WG5acSE" }
     stripe_subscription_id { Faker::Alphanumeric.alphanumeric(number: 10) }
     stripe_checkout_session_id { Faker::Alphanumeric.alphanumeric(number: 10) }
-    subscription_status { "pending" }
+    subscription_status { "active" }
     endi_auth { "auth_token" }
     endi_id { 181693 }
 

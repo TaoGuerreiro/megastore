@@ -18,4 +18,13 @@ FactoryBot.define do
       item.photos.attach(io: File.open(Rails.root.join('app/assets/images/lecheveublanc/acab/1.webp')), filename: 'image.jpg')
     end
   end
+
+  factory :inactive_item, parent: :item do
+    status { "offline" }
+  end
+
+  factory :the_item, parent: :item do
+    name { "The Item" }
+    status { "offline" }
+  end
 end

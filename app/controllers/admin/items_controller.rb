@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 module Admin
   class ItemsController < AdminController
     before_action :set_specifications, only: %i[new edit update]
@@ -7,7 +8,6 @@ module Admin
     before_action lambda {
       resize_before_save(item_params[:photos], 300, 300)
     }, only: [:create]
-
 
     def index
       set_counts
@@ -53,18 +53,21 @@ module Admin
       end
     end
 
+    # rubocop:disable Metrics/MethodLength
     def destroy
       if @item.destroy
         respond_to do |format|
           format.html { redirect_to admin_items_path, notice: t(".success") }
+          format.turbo_stream
         end
       else
         respond_to do |format|
           format.html { redirect_to admin_items_path, notice: t(".error") }
+          format.turbo_stream
         end
       end
-      format.turbo_stream
     end
+    # rubocop:enable Metrics/MethodLength
 
     private
 
@@ -72,17 +75,16 @@ module Admin
       return unless image_param
 
       begin
-        ImageProcessing::MiniMagick
-          .source(image_param)
-          .resize_to_fit(width, height)
-          .call(destination: image_param.tempfile.path)
+        ImageProcessing::MiniMagick.
+          source(image_param).
+          resize_to_fit(width, height).
+          call(destination: image_param.tempfile.path)
       rescue StandardError => _e
         # Do nothing. If this is catching, it probably means the
         # file type is incorrect, which can be caught later by
         # model validations.
       end
     end
-
 
     def set_item
       @item = Item.find(params[:id])
@@ -142,3 +144,4 @@ module Admin
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

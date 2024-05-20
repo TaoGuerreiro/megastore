@@ -20,7 +20,7 @@ module Admin
 
     def set_item
       @item = Item.find(params[:id])
-      authorize! @item
+      authorize! @item, with: ArchivePolicy
     end
   end
 end
