@@ -4,7 +4,7 @@
       = render Buttons::Option::Component.new(label: "Retour", icon: "fa-solid fa-arrow-left")
   - header.with_action_link do
     = button_tag :submit, form: "edit_item_#{@item.id}" do
-      = render Buttons::Option::Component.new(label: "Ajouter", icon: "fa-solid fa-plus")
+      = render Buttons::Option::Component.new(label: "Modifier", icon: "fa-solid fa-pen-to-square")
 
   - header.with_options do
     .mt-4.sm:ml-16.sm:mt-0.sm:flex-none.flex.items-center

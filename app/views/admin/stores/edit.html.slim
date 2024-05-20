@@ -24,10 +24,6 @@
     .mb-5.control data-controller="trix"
       = field.rich_text_area :about, label: t('.about_text'), placeholder: t('.about_text_placeholder'), data: { trix_target: 'editor' }
     = field.input :mail_body, as: :text, label: t('.mail_text'), placeholder: t('.mail_text_placeholder'), input_html: { rows: 5 }
-    - if current_user.queen?
-      = field.input :postmark_key, as: :string, label: t('.postmark_key'), placeholder: t('.postmark_key_placeholder')
-      = field.input :sendcloud_public_key, as: :string, label: t('.sendcloud_public_key'), placeholder: t('.sendcloud_public_key_placeholder')
-      = field.input :sendcloud_private_key, as: :string, label: t('.sendcloud_private_key'), placeholder: t('.sendcloud_private_key_placeholder')
     .flex.items-center
       = field.button :submit, t('.submit'), class: "btn btn-primary"
   .absolute.right-6.bottom-8 = button_to "Annuler mon abonnement", admin_subscription_path, method: :delete, data: { turbo: false }, class: "ml-auto block mt-4 text-decoration-underlined text-secondary hover:text-red-600"

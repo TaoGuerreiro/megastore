@@ -73,6 +73,6 @@
       - item.photos.each do |photo|
         = turbo_frame_tag dom_id(photo) do
           .inline-block.w-20.h-20.mr-4.bg-contrast.rounded-xl.relative
-            = image_tag photo, class: "w-full h-full object-cover rounded-xl"
+            = image_tag photo.variant(resize_to_fill: [50, 50]), class: "w-full h-full object-cover rounded-xl"
             = button_to remove_photo_admin_item_path(item, photo_id: photo), method: :delete, class: "absolute top-1 right-1 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-contrast hover:bg-red-600" do
               i.fas.fa-times

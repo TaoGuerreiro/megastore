@@ -2,7 +2,7 @@
   .group.relative.flex.flex-col.overflow-hidden.rounded-lg.border.shadow-sm class="hover:shadow-lg hover:scale-[1.005] transition-all  #{'disabled' if item.soldout?}" data-card-animate-target="card"
     .aspect-h-4.aspect-w-3.bg-contrast.sm:aspect-none.sm:h-96
       - if item.photos.attached?
-        = image_tag item.photos.first, class: "h-full w-full object-cover object-center sm:h-full sm:w-full"
+        = image_tag item.photos.first.variant(resize_to_fill: [600, 600]), class: "h-full w-full object-cover object-center sm:h-full sm:w-full"
     .flex.flex-1.flex-col.space-y-2.p-4.bg-contour.min-h-36
       h3.text-sm.font-medium.text-contrast
         span.absolute.inset-0[aria-hidden="true"]

@@ -4,6 +4,10 @@ module Admin
   class ItemsController < AdminController
     before_action :set_specifications, only: %i[new edit update]
     before_action :set_item, only: %i[edit update destroy]
+    before_action lambda {
+      resize_before_save(item_params[:photos], 300, 300)
+    }, only: [:create]
+
 
     def index
       set_counts
@@ -63,6 +67,22 @@ module Admin
     end
 
     private
+
+    def resize_before_save(image_param, width, height)
+      return unless image_param
+
+      begin
+        ImageProcessing::MiniMagick
+          .source(image_param)
+          .resize_to_fit(width, height)
+          .call(destination: image_param.tempfile.path)
+      rescue StandardError => _e
+        # Do nothing. If this is catching, it probably means the
+        # file type is incorrect, which can be caught later by
+        # model validations.
+      end
+    end
+
 
     def set_item
       @item = Item.find(params[:id])
