@@ -64,7 +64,7 @@ module EndiServices
       if response.code == 401
         EndiServices::ResetAuth.new.call
         @headers = EndiService.new.headers
-        response = HTTParty.get(url, headers: @headers )
+        response = HTTParty.get(url, headers: @headers)
       end
       response[0]["id"]
     end
