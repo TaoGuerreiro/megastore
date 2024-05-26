@@ -19,7 +19,7 @@ module Shipments
       update_shipping_status("processing")
 
       response = create_label_request
-      update_shipping_details(response)
+      update_shipping_details(response) unless @order.shipping.method_carrier == "poste"
 
       update_shipping_status("processed")
     rescue StandardError => e
@@ -33,9 +33,13 @@ module Shipments
     end
 
     def create_label_request
-      url = "#{BASE_URL}/parcels?errors=verbose-carrier"
-      response = HTTParty.post(url, headers:, body: body.to_json)
-      response.parsed_response
+      case @order.shipping.method_carrier
+      when "poste" then postale_label
+      else
+        url = "#{BASE_URL}/parcels?errors=verbose-carrier"
+        response = HTTParty.post(url, headers:, body: body.to_json)
+        response.parsed_response
+      end
     end
 
     def update_shipping_details(response)
@@ -100,5 +104,106 @@ module Shipments
       }
     end
     # rubocop:enable Naming/VariableNumber
+
+    # POSTALE SERVICES
+
+    def postale_headers
+      {
+        "Content-Type" => "application/json",
+        "Authorization" => "Bearer #{postale_token}",
+        "Accept-Encoding" => "gzip"
+      }
+    end
+
+    # rubocop:disable Metrics/AbcSize
+    def postale_body
+      {
+        order: {
+          custPurchaseOrderNumber: @order.id,
+          invoicing: {
+            contractNumber: Rails.application.credentials.postale.contract_number,
+            custAccNumber: "46",
+            custInvoice: "46"
+          },
+          offer: {
+            masterOutputOptions: {
+              firstVignettePosition: 1,
+              visualFormatCode: "rollA"
+            },
+            offerCode: "3125",
+            products: [
+              {
+                productCode: "K7",
+                productOptions: {
+                  clientReference: {
+                    cref1: "AK",
+                    cref2: "FX187VA"
+                  },
+                  deliveryTrackingFlag: true,
+                  weight: @order.shipping.weight.to_i
+                },
+                receiver: {
+                  address: {
+                    name1: @order.shipping.full_name,
+                    add2: "",
+                    add4: @order.shipping.street,
+                    zipcode: @order.shipping.postal_code,
+                    town: @order.shipping.city,
+                    countryCode: "250"
+                  },
+                  email: @user.email,
+                  phone: @user.phone
+                },
+                sender: {
+                  address: {
+                    name1: @store.name,
+                    add4: @store.address,
+                    zipcode: @store.postal_code,
+                    town: @store.city,
+                    countryCode: "250"
+                  },
+                  email: @store.admin.email,
+                  phone: @store.admin.phone
+                }
+              }
+            ]
+          }
+        }
+      }
+    end
+    # rubocop:enable Metrics/AbcSize
+
+    def postale_label
+      url = "https://apim-gw-acc.net.extra.laposte.fr/postageExternal/v1/orders"
+
+      response = HTTParty.post(url, body: postale_body.to_json, headers: postale_headers)
+
+      base_64_label = response["order"]["offer"]["visualOutput"]
+
+      attach_to_order(base_64_label)
+    end
+
+    def attach_to_order(base_64_label)
+      tempfile = Tempfile.new(["label", ".png"])
+
+      File.binwrite(tempfile.path, Base64.decode64(base_64_label))
+
+      @order.label.attach(io: tempfile, filename: "label.png", content_type: "image/png")
+    end
+
+    def postale_token
+      url = "https://apim-gw-acc.net.extra.laposte.fr/token"
+
+      headers = {
+        "Content-Type" => "application/x-www-form-urlencoded"
+      }
+      body = {
+        grant_type: "client_credentials",
+        client_id: Rails.application.credentials.postale.client_id,
+        client_secret: Rails.application.credentials.postale.client_secret
+      }
+      response = HTTParty.post(url, body:, headers:)
+      response["access_token"]
+    end
   end
 end
