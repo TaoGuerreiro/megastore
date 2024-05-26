@@ -16,4 +16,8 @@ class Shipping < ApplicationRecord
   def full_address
     "#{address_first_line} #{address_second_line}, #{postal_code} #{city}, #{country}"
   end
+
+  def street
+    "#{address_first_line} #{address_second_line}"
+  end
 end
