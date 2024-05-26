@@ -49,6 +49,20 @@ class Checkout
     weight
   end
 
+  def height
+    return if @ids.nil?
+
+    items = Item.where(id: @ids.uniq)
+    height = 0
+    @ids.each do |id|
+      item = items.find { |i| i.id == id }
+      next unless item
+
+      height += item.height
+    end
+    height
+  end
+
   def all
     Item.where(id: @ids)
   end

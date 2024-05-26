@@ -6,7 +6,8 @@ module Shipments
       super(store)
       @country = param[:country]
       @postal_code = param[:postal_code]
-      @weight = param[:weight]&.fdiv(1000) # en gramme
+      @weight = param[:weight] # in gramme
+      @height = param[:height] # in mm
       @url_params = "?from_postal_code=#{@from}&to_postal_code=#{@postal_code}&to_country=#{@country}"
     end
 
