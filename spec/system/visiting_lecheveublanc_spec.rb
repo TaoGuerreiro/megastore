@@ -76,7 +76,7 @@ RSpec.describe "Visiting le cheveu blanc", type: :system do
 
     click_on "Continuer"
 
-    @store= Store.first
+    @store = Store.first
 
     expect(page).to have_text("Methode de livraison")
     expect(page).to have_text("Colissimo")
@@ -104,18 +104,31 @@ RSpec.describe "Visiting le cheveu blanc", type: :system do
     # click_on "Pay"
     # sleep 40
 
+    VCR.insert_cassette("create_parcel")
+    VCR.insert_cassette("download_label")
+    VCR.insert_cassette("create_invoice")
+    VCR.insert_cassette("get_task_line_groups")
+    VCR.insert_cassette("add_invoice_line")
+
     @request_body = StripeHelpers.construct_webhook_response("stripe_checkout_session_completed", "checkout.session.completed", Order.last.checkout_session_id)
     post("http://0.0.0.0:3030/webhooks/stripe", params: @request_body.to_json)
+
+    VCR.eject_cassette(name: "download_label")
+    VCR.eject_cassette(name: "create_parcel")
+    VCR.eject_cassette(name: "create_invoice")
+    VCR.eject_cassette(name: "get_task_line_groups")
+    VCR.eject_cassette(name: "add_invoice_line")
 
     @order = Order.last
     visit(order_path(@order))
     expect(page).to have_text("Je m'en occupe au plus vite !")
     expect(@order.status).to eq("paid")
     expect(@order.shipping).to be_present
+    expect(@order.label).to be_an_instance_of(ActiveStorage::Attached::One)
     expect(@order.fee).to be_present
 
     @store_order = StoreOrder.last
-    expect(@store_order.store).to eq(@store)
+    expect(@store_order.store).to eq(Store.first)
     expect(@store_order.endi_id).to be_present
     expect(@store_order.api_error).to be_nil
   end

@@ -1,0 +1,449 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://demo.endi.coop/api/v1/invoices/181964/task_line_groups
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Referer:
+      - https://demo.endi.coop/api/v1/invoices/181964/task_line_groups
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Server:
+      - nginx/1.18.0
+      Date:
+      - Tue, 28 May 2024 16:20:30 GMT
+      Content-Type:
+      - text/html; charset=UTF-8
+      Content-Length:
+      - '357'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - beaker.session.id=1b2d1a3b745b3ddfdc1626932c707858334f073d6d61b47187a5462db6e3ddbcd8c52fc2;
+        Path=/; SameSite=Lax
+    body:
+      encoding: UTF-8
+      string: |-
+        <html>
+         <head>
+          <title>401 Unauthorized</title>
+         </head>
+         <body>
+          <h1>401 Unauthorized</h1>
+          This server could not verify that you are authorized to access the document you requested.  Either you supplied the wrong credentials (e.g., bad password), or your browser does not understand how to supply the credentials required.<br/><br/>
+
+
+
+         </body>
+        </html>
+  recorded_at: Tue, 28 May 2024 16:20:30 GMT
+- request:
+    method: get
+    uri: https://demo.endi.coop/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip, deflate, br
+      Accept:
+      - text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+      User-Agent:
+      - Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/114.0
+      Accept-Charset:
+      - ISO-8859-1,utf-8;q=0.7,*;q=0.7
+      Accept-Language:
+      - fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+      Host:
+      - demo.endi.coop
+      Referer:
+      - https://demo.endi.coop
+      Connection:
+      - keep-alive
+      Upgrade-Insecure-Requests:
+      - '1'
+      Sec-Fetch-Dest:
+      - document
+      Sec-Fetch-Mode:
+      - navigate
+      Sec-Fetch-Site:
+      - same-origin
+  response:
+    status:
+      code: 302
+      message: Found
+    headers:
+      Server:
+      - nginx/1.18.0
+      Date:
+      - Tue, 28 May 2024 16:20:30 GMT
+      Content-Type:
+      - text/html; charset=UTF-8
+      Content-Length:
+      - '209'
+      Connection:
+      - keep-alive
+      Location:
+      - https://demo.endi.coop/login?nextpage=%2F
+      Set-Cookie:
+      - beaker.session.id=cb786bce37b7f8957da30e9b1a83d157be38248da96db6292f6b42dcb96925000e40bb8e;
+        Path=/; SameSite=Lax
+    body:
+      encoding: UTF-8
+      string: |-
+        <html>
+         <head>
+          <title>302 Found</title>
+         </head>
+         <body>
+          <h1>302 Found</h1>
+          The resource was found at https://demo.endi.coop/login?nextpage=%2F; you should be redirected automatically.
+
+
+         </body>
+        </html>
+  recorded_at: Tue, 28 May 2024 16:20:30 GMT
+- request:
+    method: get
+    uri: https://demo.endi.coop/login?nextpage=/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip, deflate, br
+      Accept:
+      - text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+      User-Agent:
+      - Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/114.0
+      Accept-Charset:
+      - ISO-8859-1,utf-8;q=0.7,*;q=0.7
+      Accept-Language:
+      - fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+      Cookie:
+      - beaker.session.id=cb786bce37b7f8957da30e9b1a83d157be38248da96db6292f6b42dcb96925000e40bb8e
+      Host:
+      - demo.endi.coop
+      Referer:
+      - https://demo.endi.coop
+      Connection:
+      - keep-alive
+      Upgrade-Insecure-Requests:
+      - '1'
+      Sec-Fetch-Dest:
+      - document
+      Sec-Fetch-Mode:
+      - navigate
+      Sec-Fetch-Site:
+      - same-origin
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.18.0
+      Date:
+      - Tue, 28 May 2024 16:20:30 GMT
+      Content-Type:
+      - text/html; charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        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
+  recorded_at: Tue, 28 May 2024 16:20:30 GMT
+- request:
+    method: post
+    uri: https://demo.endi.coop/login?nextpage=/
+    body:
+      encoding: ASCII-8BIT
+      string: "--oFRmvmTJdsMcRjKAJVqr\r\nContent-Disposition: form-data; name=\"_charset_\"\r\n\r\n\r\n--oFRmvmTJdsMcRjKAJVqr\r\nContent-Disposition:
+        form-data; name=\"__formid__\"\r\n\r\nauthentication\r\n--oFRmvmTJdsMcRjKAJVqr\r\nContent-Disposition:
+        form-data; name=\"login\"\r\n\r\nadmin1\r\n--oFRmvmTJdsMcRjKAJVqr\r\nContent-Disposition:
+        form-data; name=\"password\"\r\n\r\nadmin1\r\n--oFRmvmTJdsMcRjKAJVqr\r\nContent-Disposition:
+        form-data; name=\"nextpage\"\r\n\r\n/\r\n--oFRmvmTJdsMcRjKAJVqr\r\nContent-Disposition:
+        form-data; name=\"submit\"\r\n\r\nsubmit\r\n--oFRmvmTJdsMcRjKAJVqr--\r\n"
+    headers:
+      Accept-Encoding:
+      - gzip, deflate, br
+      Accept:
+      - text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+      User-Agent:
+      - Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/114.0
+      Accept-Charset:
+      - ISO-8859-1,utf-8;q=0.7,*;q=0.7
+      Accept-Language:
+      - fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+      Cookie:
+      - beaker.session.id=cb786bce37b7f8957da30e9b1a83d157be38248da96db6292f6b42dcb96925000e40bb8e
+      Host:
+      - demo.endi.coop
+      Referer:
+      - https://demo.endi.coop
+      Connection:
+      - keep-alive
+      Upgrade-Insecure-Requests:
+      - '1'
+      Sec-Fetch-Dest:
+      - document
+      Sec-Fetch-Mode:
+      - navigate
+      Sec-Fetch-Site:
+      - same-origin
+      Content-Type:
+      - multipart/form-data; boundary=oFRmvmTJdsMcRjKAJVqr
+      Content-Length:
+      - '519'
+  response:
+    status:
+      code: 302
+      message: Found
+    headers:
+      Server:
+      - nginx/1.18.0
+      Date:
+      - Tue, 28 May 2024 16:20:30 GMT
+      Content-Type:
+      - text/html; charset=UTF-8
+      Content-Length:
+      - '3814'
+      Connection:
+      - keep-alive
+      Location:
+      - https://demo.endi.coop/
+    body:
+      encoding: UTF-8
+      string: |-
+        <html>
+         <head>
+          <title>302 Found</title>
+         <link rel="stylesheet" type="text/css" href="/fanstatic/select2/:version:2022-03-30T13:11:18.59/css/select2.min.css" />
+        <link rel="stylesheet" type="text/css" href="/fanstatic/fanstatic/:version:6.7.7/css/main.css" />
+        <link rel="stylesheet" type="text/css" href="/fanstatic/fanstatic/:version:6.7.7/css/login.css" />
+        <link rel="stylesheet" type="text/css" href="/fanstatic/fanstatic/:version:6.7.7/css/opa.css" />
+        <script type="text/javascript" src="/fanstatic/jquery/:version:2022-03-30T13:11:17.73/jquery.min.js"></script>
+        <script type="text/javascript" src="/fanstatic/jquery_form/:version:2022-03-30T13:11:18.95/jquery.form.min.js"></script>
+        <script type="text/javascript" src="/fanstatic/jqueryui/:version:2022-03-30T13:11:18.73/ui/minified/jquery.ui.core.min.js"></script>
+        <script type="text/javascript" src="/fanstatic/jqueryui/:version:2022-03-30T13:11:18.73/ui/minified/jquery.ui.position.min.js"></script>
+        <script type="text/javascript" src="/fanstatic/jqueryui/:version:2022-03-30T13:11:18.73/ui/minified/jquery.ui.widget.min.js"></script>
+        <script type="text/javascript" src="/fanstatic/jqueryui/:version:2022-03-30T13:11:18.73/ui/minified/jquery.ui.datepicker.min.js"></script>
+        <script type="text/javascript" src="/fanstatic/jqueryui/:version:2022-03-30T13:11:18.73/ui/minified/jquery.ui.dialog.min.js"></script>
+        <script type="text/javascript" src="/fanstatic/jqueryui/:version:2022-03-30T13:11:18.73/ui/minified/jquery.ui.mouse.min.js"></script>
+        <script type="text/javascript" src="/fanstatic/jqueryui/:version:2022-03-30T13:11:18.73/ui/i18n/jquery.ui.datepicker-fr.min.js"></script>
+        <script type="text/javascript" src="/fanstatic/jqueryui/:version:2022-03-30T13:11:18.73/ui/minified/jquery.ui.slider.min.js"></script>
+        <script type="text/javascript" src="/fanstatic/jqueryui/:version:2022-03-30T13:11:18.73/ui/minified/jquery.ui.sortable.min.js"></script>
+        <script type="text/javascript" src="/fanstatic/select2/:version:2022-03-30T13:11:18.59/js/select2.full.min.js"></script>
+        <script type="text/javascript" src="/fanstatic/select2/:version:2022-03-30T13:11:18.59/js/select2.min.js"></script>
+        <script type="text/javascript" src="/fanstatic/select2/:version:2022-03-30T13:11:18.59/js/i18n/fr.js"></script>
+        <script type="text/javascript" src="/fanstatic/jquery-timepicker-addon/:version:2022-03-30T13:11:19.50/jquery-ui-timepicker-addon.min.js"></script>
+        <script type="text/javascript" src="/fanstatic/jquery-timepicker-addon/:version:2022-03-30T13:11:19.50/jquery-ui-sliderAccess.min.js"></script>
+        <script type="text/javascript" src="/fanstatic/fanstatic/:version:6.7.7/js/date.js"></script>
+        <script type="text/javascript" src="/fanstatic/fanstatic/:version:6.7.7/js/math.js"></script>
+        <script type="text/javascript" src="/fanstatic/fanstatic/:version:6.7.7/js/utils.js"></script>
+        <script type="text/javascript" src="/fanstatic/fanstatic/:version:6.7.7/js/vendors/svgxuse.min.js"></script>
+        <script type="text/javascript" src="/fanstatic/fanstatic/:version:6.7.7/js/vendors/underscore-min.js"></script>
+        <script type="text/javascript" src="/fanstatic/fanstatic/:version:6.7.7/js/default_layout.js"></script>
+        <script type="text/javascript" src="/fanstatic/fanstatic/:version:6.7.7/js/dom.js"></script>
+        <script type="text/javascript" src="/fanstatic/fanstatic/:version:6.7.7/js/main.js"></script></head>
+         <body>
+          <h1>302 Found</h1>
+          The resource was found at /; you should be redirected automatically.
+
+
+         <script type="text/javascript" src="/fanstatic/bootstrap/:version:2022-03-30T13:11:19.01/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/fanstatic/fanstatic/:version:6.7.7/js/build/vendor-vue.min.js"></script>
+        <script type="text/javascript" src="/fanstatic/fanstatic/:version:6.7.7/js/build/notification.min.js"></script></body>
+        </html>
+  recorded_at: Tue, 28 May 2024 16:20:30 GMT
+- request:
+    method: get
+    uri: https://demo.endi.coop/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip, deflate, br
+      Accept:
+      - text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+      User-Agent:
+      - Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/114.0
+      Accept-Charset:
+      - ISO-8859-1,utf-8;q=0.7,*;q=0.7
+      Accept-Language:
+      - fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+      Cookie:
+      - beaker.session.id=cb786bce37b7f8957da30e9b1a83d157be38248da96db6292f6b42dcb96925000e40bb8e
+      Host:
+      - demo.endi.coop
+      Referer:
+      - https://demo.endi.coop
+      Connection:
+      - keep-alive
+      Upgrade-Insecure-Requests:
+      - '1'
+      Sec-Fetch-Dest:
+      - document
+      Sec-Fetch-Mode:
+      - navigate
+      Sec-Fetch-Site:
+      - same-origin
+  response:
+    status:
+      code: 302
+      message: Found
+    headers:
+      Server:
+      - nginx/1.18.0
+      Date:
+      - Tue, 28 May 2024 16:20:30 GMT
+      Content-Type:
+      - text/html; charset=UTF-8
+      Content-Length:
+      - '175'
+      Connection:
+      - keep-alive
+      Location:
+      - https://demo.endi.coop/manage
+    body:
+      encoding: UTF-8
+      string: |-
+        <html>
+         <head>
+          <title>302 Found</title>
+         </head>
+         <body>
+          <h1>302 Found</h1>
+          The resource was found at /manage; you should be redirected automatically.
+
+
+         </body>
+        </html>
+  recorded_at: Tue, 28 May 2024 16:20:30 GMT
+- request:
+    method: get
+    uri: https://demo.endi.coop/manage
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip, deflate, br
+      Accept:
+      - text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+      User-Agent:
+      - Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/114.0
+      Accept-Charset:
+      - ISO-8859-1,utf-8;q=0.7,*;q=0.7
+      Accept-Language:
+      - fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+      Cookie:
+      - beaker.session.id=cb786bce37b7f8957da30e9b1a83d157be38248da96db6292f6b42dcb96925000e40bb8e
+      Host:
+      - demo.endi.coop
+      Referer:
+      - https://demo.endi.coop
+      Connection:
+      - keep-alive
+      Upgrade-Insecure-Requests:
+      - '1'
+      Sec-Fetch-Dest:
+      - document
+      Sec-Fetch-Mode:
+      - navigate
+      Sec-Fetch-Site:
+      - same-origin
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.18.0
+      Date:
+      - Tue, 28 May 2024 16:20:31 GMT
+      Content-Type:
+      - text/html; charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        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
+  recorded_at: Tue, 28 May 2024 16:20:31 GMT
+- request:
+    method: get
+    uri: https://demo.endi.coop/api/v1/invoices/181964/task_line_groups
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json, text/javascript, */*; q=0.01
+      Content-Type:
+      - application/json
+      Origin:
+      - https://demo.endi.coop
+      Accept-Language:
+      - fr-fr
+      Cache-Control:
+      - no-cache
+      Cookie:
+      - beaker.session.id=cb786bce37b7f8957da30e9b1a83d157be38248da96db6292f6b42dcb96925000e40bb8e
+      Host:
+      - demo.endi.coop
+      User-Agent:
+      - Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/605.1.15 (KHTML,
+        like Gecko) Version/12.1.2 Safari/605.1.15
+      X-Csrftoken:
+      - undefined
+      X-Requested-With:
+      - XMLHttpRequest
+      Connection:
+      - keep-alive
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.18.0
+      Date:
+      - Tue, 28 May 2024 16:20:31 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '165'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '[{"id": 85618, "title": "", "description": "", "task_id": 181964, "order":
+        0, "lines": [], "mode": "ht", "display_details": true, "total_ht": 0.0, "total_ttc":
+        0.0}]'
+  recorded_at: Tue, 28 May 2024 16:20:31 GMT
+recorded_with: VCR 6.2.0

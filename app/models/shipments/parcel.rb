@@ -22,6 +22,7 @@ module Shipments
       update_shipping_details(response) unless @order.shipping.method_carrier == "poste"
 
       update_shipping_status("processed")
+      response
     rescue StandardError => e
       handle_error(e)
     end

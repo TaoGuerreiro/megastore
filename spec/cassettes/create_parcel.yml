@@ -1,0 +1,70 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://panel.sendcloud.sc/api/v2/parcels?errors=verbose-carrier
+    body:
+      encoding: UTF-8
+      string: '{"parcel":{"shipment":{"id":1345,"name":"chronopost"},"weight":"0.006","height":"50","width":"50","length":"50","order_number":1,"shipping_method_checkout_name":"Stripe","to_service_point":null,"from_name":"My
+        Store","from_company_name":"My Store","from_address_1":"Route de Paris","from_city":"Nantes","from_postal_code":"12345","from_country":"FR","from_telephone":"0674236080","from_email":"reuben@reilly.test","name":"GUILBAUD
+        Florent","address":"26 bis rue","address_2":"aristide briand","city":"saint
+        sébastien sur loire","postal_code":"44230","country":"FR","telephone":"0674236080","request_label":true,"email":"xavier@satterfield.test"}}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Authorization:
+      - Basic ZTdlYTUxNzMtNDNhOS00MDU2LWFjZTQtMzNhMTVlMzE3YzAzOmU1NWZlYjkwZThmYzQwOGM5MmRjZGQ1ZmMxMGMzMmFl
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Vary:
+      - Accept-Encoding
+      - Origin
+      - Origin, Cookie
+      Server:
+      - envoy
+      Date:
+      - Sun, 26 May 2024 20:23:42 GMT
+      Allow:
+      - GET, POST, PUT, HEAD, OPTIONS
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains; preload
+      - max-age=31536000
+      X-Content-Type-Options:
+      - nosniff
+      Referrer-Policy:
+      - same-origin
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      X-Frame-Options:
+      - DENY
+      X-Envoy-Upstream-Service-Time:
+      - '786'
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 21879fd9ec7fd789ca6f874ab2556230.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - CDG50-P1
+      X-Amz-Cf-Id:
+      - WGAvilIPoYgac8MkI5TOZkETMFa086H7IWCzs2eLTlxYTRrhiGEsjQ==
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJwYXJjZWwiOnsiaWQiOjM3OTU5Njc4MCwicmVmZXJlbmNlIjoiMCIsInN0YXR1cyI6eyJpZCI6MTAwMCwibWVzc2FnZSI6IlJlYWR5IHRvIHNlbmQifSwidHJhY2tpbmdfbnVtYmVyIjoiWFc3MjIyMzc3OTNKQiIsIndlaWdodCI6IjAuMDA2Iiwib3JkZXJfbnVtYmVyIjoiMSIsInRvdGFsX2luc3VyZWRfdmFsdWUiOjAsInBhcmNlbF9pdGVtcyI6W10sImRvY3VtZW50cyI6W3sidHlwZSI6ImxhYmVsIiwic2l6ZSI6ImE2IiwibGluayI6Imh0dHBzOi8vcGFuZWwuc2VuZGNsb3VkLnNjL2FwaS92Mi9wYXJjZWxzLzM3OTU5Njc4MC9kb2N1bWVudHMvbGFiZWwifV0sImV4dGVybmFsX3JlZmVyZW5jZSI6bnVsbCwiaXNfcmV0dXJuIjpmYWxzZSwibm90ZSI6IiIsInRvdGFsX29yZGVyX3ZhbHVlIjpudWxsLCJ0b3RhbF9vcmRlcl92YWx1ZV9jdXJyZW5jeSI6bnVsbCwibGVuZ3RoIjoiNTAuMDAiLCJ3aWR0aCI6IjUwLjAwIiwiaGVpZ2h0IjoiNTAuMDAiLCJjb250cmFjdCI6MzE3MiwiYWRkcmVzc19kaXZpZGVkIjp7InN0cmVldCI6ImJpcyBydWUiLCJob3VzZV9udW1iZXIiOiIyNiJ9LCJzaGlwbWVudCI6eyJpZCI6MTM0NSwibmFtZSI6IkNocm9ubyAxOCAwLTJrZyJ9LCJzaGlwcGluZ19tZXRob2QiOjEzNDUsInNoaXBwaW5nX21ldGhvZF9jaGVja291dF9uYW1lIjoiU3RyaXBlIiwiaW5zdXJlZF92YWx1ZSI6MCwic2hpcG1lbnRfdXVpZCI6bnVsbCwiZGF0YSI6e30sInR5cGUiOiJwYXJjZWwiLCJleHRlcm5hbF9vcmRlcl9pZCI6IjM3OTU5Njc4MCIsImV4dGVybmFsX3NoaXBtZW50X2lkIjoiIiwiY29sbGlfdXVpZCI6IjBlMjJiZjk3LWU2MGYtNGUxNy1hZTljLWVmYTJmMmU1NTg1MCIsImNvbGxvX25yIjowLCJjb2xsb19jb3VudCI6MSwibGFiZWwiOnsibm9ybWFsX3ByaW50ZXIiOlsiaHR0cHM6Ly9wYW5lbC5zZW5kY2xvdWQuc2MvYXBpL3YyL2xhYmVscy9ub3JtYWxfcHJpbnRlci8zNzk1OTY3ODA/c3RhcnRfZnJvbT0wIiwiaHR0cHM6Ly9wYW5lbC5zZW5kY2xvdWQuc2MvYXBpL3YyL2xhYmVscy9ub3JtYWxfcHJpbnRlci8zNzk1OTY3ODA/c3RhcnRfZnJvbT0xIiwiaHR0cHM6Ly9wYW5lbC5zZW5kY2xvdWQuc2MvYXBpL3YyL2xhYmVscy9ub3JtYWxfcHJpbnRlci8zNzk1OTY3ODA/c3RhcnRfZnJvbT0yIiwiaHR0cHM6Ly9wYW5lbC5zZW5kY2xvdWQuc2MvYXBpL3YyL2xhYmVscy9ub3JtYWxfcHJpbnRlci8zNzk1OTY3ODA/c3RhcnRfZnJvbT0zIl0sImxhYmVsX3ByaW50ZXIiOiJodHRwczovL3BhbmVsLnNlbmRjbG91ZC5zYy9hcGkvdjIvbGFiZWxzL2xhYmVsX3ByaW50ZXIvMzc5NTk2NzgwIn0sImN1c3RvbXNfZGVjbGFyYXRpb24iOnt9LCJ0b19zdGF0ZSI6bnVsbCwiZGF0ZV9jcmVhdGVkIjoiMjYtMDUtMjAyNCAyMDoyMzo0MiIsImRhdGVfYW5ub3VuY2VkIjoiMjYtMDUtMjAyNCAyMDoyMzo0MiIsImRhdGVfdXBkYXRlZCI6IjI2LTA1LTIwMjQgMjA6MjM6NDIiLCJhd2JfdHJhY2tpbmdfbnVtYmVyIjpudWxsLCJib3hfbnVtYmVyIjpudWxsLCJjdXN0b21zX2ludm9pY2VfbnIiOiIiLCJjdXN0b21zX3NoaXBtZW50X3R5cGUiOm51bGwsImFkZHJlc3MiOiIyNiBiaXMgcnVlIiwiYWRkcmVzc18yIjoiYXJpc3RpZGUgYnJpYW5kIiwiY2l0eSI6InNhaW50IHPDqWJhc3RpZW4gc3VyIGxvaXJlIiwiY29tcGFueV9uYW1lIjoiIiwiY291bnRyeSI6eyJpc29fMiI6IkZSIiwiaXNvXzMiOiJGUkEiLCJuYW1lIjoiRnJhbmNlIn0sImVtYWlsIjoieGF2aWVyQHNhdHRlcmZpZWxkLnRlc3QiLCJuYW1lIjoiR1VJTEJBVUQgRmxvcmVudCIsInBvc3RhbF9jb2RlIjoiNDQyMzAiLCJ0ZWxlcGhvbmUiOiIrMzM2NzQyMzYwODAiLCJ0b19wb3N0X251bWJlciI6IiIsInRvX3NlcnZpY2VfcG9pbnQiOm51bGwsImVycm9ycyI6e30sImNhcnJpZXIiOnsiY29kZSI6ImNocm9ub3Bvc3QifSwidHJhY2tpbmdfdXJsIjoiaHR0cHM6Ly90cmFja2luZy5ldS1jZW50cmFsLTEtMC5zZW5kY2xvdWQuc2MvZm9yd2FyZD9jYXJyaWVyPWNocm9ub3Bvc3QmY29kZT1YVzcyMjIzNzc5M0pCJmRlc3RpbmF0aW9uPUZSJmxhbmc9ZnItZnImc291cmNlPUZSJnR5cGU9cGFyY2VsJnZlcmlmaWNhdGlvbj00NDIzMCZzZXJ2aWNlcG9pbnRfdmVyaWZpY2F0aW9uPSZjcmVhdGVkX2F0PTIwMjQtMDUtMjYifX0=
+  recorded_at: Sun, 26 May 2024 20:23:42 GMT
+recorded_with: VCR 6.2.0

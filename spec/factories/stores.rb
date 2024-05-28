@@ -38,9 +38,9 @@ FactoryBot.define do
     sendcloud_private_key { Rails.application.credentials.sendcloud.private_key }
     sendcloud_public_key { Rails.application.credentials.sendcloud.public_key }
     postal_code { "12345" }
-    city { "My City" }
-    country { "My Country" }
-    address { "123 My Street" }
+    city { "Nantes" }
+    country { "FR" }
+    address { "Route de Paris" }
     rates { 0.2 }
     charges_enable { false }
     payouts_enable { false }
