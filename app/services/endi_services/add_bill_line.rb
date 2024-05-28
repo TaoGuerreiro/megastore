@@ -15,9 +15,7 @@ module EndiServices
 
     def call
       headers = build_headers
-      response = send_request(headers)
-
-      response
+      send_request(headers)
     end
 
     private

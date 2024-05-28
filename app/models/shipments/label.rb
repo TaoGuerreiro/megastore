@@ -17,13 +17,13 @@ module Shipments
 
     def attach_to_order
       return true if @order.shipping.method_carrier == "poste"
+
       @order.label.attach(io: tempfile, filename: "label.pdf", content_type: "image/png")
     end
 
     private
 
     def tempfile
-
       url = URI("#{BASE_URL}/labels/normal_printer/#{@order.shipping.parcel_id}")
       @temporary_file = Tempfile.new(["label", ".png"])
 

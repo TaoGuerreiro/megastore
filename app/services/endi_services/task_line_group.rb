@@ -4,7 +4,7 @@ module EndiServices
   class TaskLineGroup < EndiService
     include ApplicationHelper
 
-    def initialize(order, store)
+    def initialize(order, _store)
       super()
       @order = order
       @url = "#{ENDI_PATH}/api/v1/invoices/#{@order.endi_id}/task_line_groups"
