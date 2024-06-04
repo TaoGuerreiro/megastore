@@ -1,9 +1,10 @@
 .w-screen.h-screen.bg-cover.bg-center style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.2)), url('#{image_path "unsafe/home.jpg", class: "w-full h-screen object-cover"}')"
 
-.w-full.flex.cursor-default.items-center.flex-col.top-0.pt-12.absolute
-  = link_to root_path, class: "flex flex-col items-center text-center transition duration-500 w-full", data: { "scroll-target": "head" } do
-    = image_tag("#{Current.store.slug}/logo_white.png", class: "mb-6 h-20 md:h-48")
-    p.text-contrast.text-base.md:text-3xl.font-unsafe.text-primary METAL HARDCORE FROM NANTES
+.w-full.flex.items-center.flex-col.top-0.pt-12.absolute
+  . class="flex flex-col items-center w-full text-center transition duration-500"
+    = link_to root_path, class: "", data: { "scroll-target": "head" } do
+      = image_tag("#{Current.store.slug}/logo_white.png", class: "mb-6 h-20 md:h-48")
+      p.text-contrast.text-base.md:text-3xl.font-unsafe.text-primary METAL HARDCORE FROM NANTES
 
 main.mx-auto.max-w-2xl.px-4.pt-12.lg:max-w-7xl.lg:px-8
   section.mt-6.lg:col-span-2.lg:mt-0.xl:col-span-3[aria-labelledby="product-heading"]
