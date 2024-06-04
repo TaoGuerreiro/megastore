@@ -1,7 +1,7 @@
 
 = turbo_frame_tag :cart_frame, class: "ml-6" do
   = label_tag :cart do
-    .relative
+    .relative.cursor-pointer
       - if File.exist?("app/assets/images/#{Current.store.slug}/basket.svg")
         = image_tag "#{Current.store.slug}/basket.svg", class: "h-8 w-8"
       - else
@@ -22,9 +22,9 @@
                   h2#slide-over-title.text-lg.font-medium.text-contrast
                     | Panier
                   .ml-3.flex.h-7.items-center
-                    = label_tag :cart, class: "" do
+                    = label_tag :cart do
                       .w-16.h-16.flex.items-center.justify-center.rounded-full.p-3
-                        i.fa-solid.fa-xmark.ml-6.text-2xl.text-contrast
+                        i.fa-solid.fa-xmark.ml-6.text-2xl.text-contrast.cursor-pointer
                 .mt-8
                   .flow-root
                     ul.-my-6.divide-y.divide-content[role="list"]

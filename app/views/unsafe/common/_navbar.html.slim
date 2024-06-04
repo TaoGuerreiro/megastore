@@ -1,3 +1,5 @@
+.fixed.top-1.right-6.z-40 = render "shared/cart"
+
 .hidden.md:block
   .justify-around.px-24.items-center.w-full.transition.fixed.top-0.py-6.z-40.bg-contour.flex class=("hidden" if home?(params)) data-scroll-target="links"
     .absolute.left-6
@@ -7,10 +9,9 @@
     = link_to "About", about_path, class: "btn-link uppercase font-unsafe"
     = link_to "Booking", contact_path, class: "btn-link  uppercase font-unsafe"
     = link_to "Merch", store_path, class: "btn-link  uppercase font-unsafe"
-    .absolute.top-0.right-10 = render "shared/cart"
 
-.md:hidden
-  = label_tag :phonenav, class: "fixed shadow-xl z-40 bottom-10 right-10 rounded-full" do
+.h-36.md:hidden
+  = label_tag :phonenav, class: "fixed shadow-xl z-40 top-4 left-4 rounded-full" do
     .w-16.h-16.bg-secondary.flex.items-center.justify-center.rounded-full.p-3
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
@@ -18,7 +19,7 @@
   = check_box_tag :phonenav, nil, nil, {class: "hidden peer"}
   .z-50.fixed.hidden.peer-checked:block.top-0.left-0.right-0.bottom-0.bg-secondary/90
     = label_tag :phonenav, class: "absolute top-10 right-10" do
-      .w-16.h-16.flex.items-center.justify-center.rounded-full.p-3.text-contrast
+      .w-16.h-16.flex.items-center.justify-center.rounded-full.p-3.text-light
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12">
           <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
