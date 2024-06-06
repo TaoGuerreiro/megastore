@@ -15,8 +15,11 @@ class Item < ApplicationRecord
   has_many :specifications, through: :item_specifications
   has_many :order_items, dependent: :destroy
   has_many :orders, through: :order_items
+  has_many :item_authors, dependent: :destroy
+  has_many :authors, through: :item_authors
   has_many_attached :photos
   has_one_attached :cover
+
 
   STATUSES = %w[active archived offline].freeze
   enumerize :status, in: STATUSES, default: :active, predicates: true

@@ -22,10 +22,9 @@
       = field.input :holiday_sentence, label: t('.holiday_message'), placeholder: t('.holiday_message_placeholder'), input_html: { class: "w-full" }, wrapper_html: {class: "basis-3/4"}
 
     = field.input :mail_body, as: :text, label: t('.mail_text'), placeholder: t('.mail_text_placeholder'), input_html: { rows: 5 }
-
+    = field.input :filters, label: t('.filters'), as: :boolean, input_html: { checked: @store.filters, class: "w-5 h-5 m-0 p-0 flex checked:!bg-primary"}, wrapper_html: {class: "flex items-center basis-1/4"}, label_html: {class: "-top-0.5 left-4"}
 
     h3.mb-6.text-2xl.text-contrast Page "À propos"
-
     .mb-5.control data-controller="trix"
       = field.rich_text_area :about, label: t('.about_text'), placeholder: t('.about_text_placeholder'), data: { trix_target: 'editor' }
     div.flex.w-full.justify-between.mb-5

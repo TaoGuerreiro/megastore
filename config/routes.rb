@@ -77,6 +77,9 @@ Rails.application.routes.draw do
     post "/send_message", to: "pages#send_message"
     get "/store",         to: "stores#show"
     get "/portfolio",     to: "pages#portfolio"
+    get "/authors",       to: "pages#authors"
+    get "/authors/:id",   to: "pages#author", as: :author
+
     resource :checkout, only: [:show] do
       post :confirm_payment, on: :member
     end

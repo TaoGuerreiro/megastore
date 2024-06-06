@@ -375,6 +375,17 @@
     --color-form-input: 255, 255, 255;
   }
 
+  .ttt {
+    --color-primary: 255, 77, 196; /* #FF4DC4 */
+    --color-secondary: 48, 115, 81; /* #307351 */
+    --color-light: 232, 235, 247; /* #E8EBEF */
+    --color-contrast: 2, 2, 2; /* #020202 */
+    --color-midgray: 113, 124, 137; /* #717 */
+    --color-content: 187, 214, 134; /* #BBD686 */
+    --color-contour: 238, 238, 238;
+    --color-form-input: 255, 255, 255;
+  }
+
   .mapboxgl-ctrl-geocoder {
     width: 100% !important;
     max-width: none !important;
@@ -403,7 +414,6 @@
 
 @layer components {
 
-  /* Custom CSS */
   .disabled {
     @apply opacity-50;
   }
@@ -411,7 +421,7 @@
   .trix-content {
     @apply bg-form-input;
   }
-  /* Btn CSS */
+
   .btn {
     @apply px-3 py-2 cursor-pointer;
   }
@@ -436,6 +446,7 @@
     @apply rounded-md bg-form-input px-2.5 py-1.5 text-sm font-semibold text-contrast shadow-sm ring-1 ring-inset ring-midgray hover:bg-light
   }
 
+  /* ______________________________KENJOSSET______________________________ */
   .kenjosset .btn-link {
     @apply text-xl tracking-wider hover:text-contrast px-2 relative transition-all text-primary after:content-[''] after:block after:w-full after:h-[0.2rem] after:bg-primary hover:after:bg-contrast after:transition-all after:duration-200 after:right-0 after:absolute after:bottom-0;
   }
@@ -443,6 +454,27 @@
   .kenjosset .btn-mobile-link {
     @apply text-xl tracking-wider hover:text-contrast px-2 relative transition-all text-primary after:content-[''] after:block after:w-full after:h-[0.3rem] after:bg-primary hover:after:bg-contrast after:transition-all after:duration-200 after:right-0 after:absolute after:-bottom-1;
   }
+
+  /* ______________________________TTT______________________________ */
+
+  .ttt .btn-primary {
+    @apply font-bold transition-all rounded-md cursor-pointer bg-primary text-light hover:scale-95;
+  }
+
+  .ttt .btn-link {
+    @apply relative px-6 py-2 text-lg tracking-wide uppercase transition-all border border-midgray text-contour hover:text-primary;
+  }
+
+  .ttt .btn-mobile-link {
+    @apply relative px-2 text-xl tracking-wider transition-all hover:text-contrast text-primary;
+  }
+
+  .ttt .btn-sublink {
+    @apply tracking-wider uppercase transition-all text-contour hover:text-contrast hover:translate-x-3;
+  }
+
+  /* ______________________________TTT______________________________ */
+
 
   /* Floating Label CSS */
   .form-group {

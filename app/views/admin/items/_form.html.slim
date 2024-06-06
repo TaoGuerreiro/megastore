@@ -9,6 +9,14 @@
       = field.input :stock, label: "Stock", placeholder: "Stock"
       = field.association :category, collection: Current.store.categories.map {|category| [category.name, category.id]}, label: "Catégorie", placeholder: "Catégorie"
 
+    - if Current.store.slug == "ttt"
+      h3.mb-6.text-2xl.text-contrast Auteur.i.ces
+      = field.association :authors,
+        as: :select,
+        label: false,
+        collection: Author.all.map {|author| [author.nickname, author.id]},
+        input_html: { multiple: true, data: { controller: "select"} }
+
     h3.mb-6.text-2xl.text-contrast Dimensions
 
     .grid.grid-cols-2.sm:grid-cols-4.gap-4.mb-6

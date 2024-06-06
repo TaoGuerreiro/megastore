@@ -34,6 +34,20 @@ class PagesController < ApplicationController
     render template: "#{Current.store.slug}/about"
   end
 
+  def authors
+    @authors = Author.order(:nickname)
+    render "#{Current.store.slug}/authors"
+  end
+
+  def author
+    @author = Author.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream { render turbo_stream: turbo_stream.update("modale", partial: "ttt/author") }
+    end
+  end
+
   def portfolio
     render template: "#{Current.store.slug}/portfolio"
   end
