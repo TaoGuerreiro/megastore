@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_07_202817) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_06_154015) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,6 +50,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_07_202817) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "authors", force: :cascade do |t|
+    t.string "nickname"
+    t.string "bio"
+    t.string "website"
+    t.bigint "store_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["store_id"], name: "index_authors_on_store_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -98,6 +108,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_07_202817) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["owner_type", "owner_id"], name: "index_filterable_views_on_owner"
+  end
+
+  create_table "item_authors", force: :cascade do |t|
+    t.bigint "item_id", null: false
+    t.bigint "author_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_item_authors_on_author_id"
+    t.index ["item_id"], name: "index_item_authors_on_item_id"
   end
 
   create_table "item_specifications", force: :cascade do |t|
@@ -263,6 +282,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_07_202817) do
     t.string "stripe_checkout_session_id"
     t.text "endi_auth"
     t.integer "endi_id"
+    t.boolean "filters", default: true
     t.index ["admin_id"], name: "index_stores_on_admin_id"
     t.index ["slug"], name: "index_stores_on_slug", unique: true
     t.index ["stripe_subscription_id"], name: "index_stores_on_stripe_subscription_id", unique: true
@@ -301,9 +321,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_07_202817) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "authors", "stores"
   add_foreign_key "categories", "stores"
   add_foreign_key "collections", "stores"
   add_foreign_key "fees", "orders"
+  add_foreign_key "item_authors", "authors"
+  add_foreign_key "item_authors", "items"
   add_foreign_key "item_specifications", "items"
   add_foreign_key "item_specifications", "specifications"
   add_foreign_key "items", "categories"

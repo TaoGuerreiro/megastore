@@ -1,0 +1,9 @@
+.max-w-5xl.mx-auto.flex.flex-col.items-center.pt-36
+  .grid.grid-cols-4
+    - @authors.each do |author|
+      = link_to author_path(author), data: { turbo_stream: true } do
+        div.flex.flex-col.items-center.pb-8
+          p.uppercase.mb-2 = author.nickname
+          = image_tag author.avatar.variant(resize_to_fill: [200, 200])
+
+= turbo_frame_tag :modale do
