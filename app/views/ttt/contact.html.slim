@@ -1,0 +1,20 @@
+/ .max-w-5xl.mx-auto.flex.w-full.pt-10.md:pt-36.min-h-screen
+/   .w-full.px-12.md:px-0
+
+/     / = simple_form_for @contact, url: send_message_path, method: :post do |field|
+/     /   .text-input.mb-3
+/     /     = field.input :full_name, label: "Nom & Prénom", placeholder: "Nom & Prénom"
+/     /   .text-input.mb-3
+/     /     = field.input :email, label: "Email", placeholder: "Email"
+/     /   .text-input.mb-3.hidden
+/     /     = field.input :nickname
+/     /   .text-input.mb-3
+/     /     = field.input :content, as: :text, label: "Message", placeholder: "Message", input_html: { rows: 5 }
+/     /   = field.submit "Envoyer", class: "btn btn-primary"
+/     .flex.flex-col.text-center
+/       .border-b.pb-8.inline-block.mb-8.font-bold.mx-auto Studio Anémone
+/       . Actuellement en résidence au BREF
+/       . 8 rue du commerce
+/       . 56000, Vannes
+/       .border-b.pb-8.inline-block.mb-8.mx-auto Visite sur rendez-vous
+/       . hello@studioanemone.fr
