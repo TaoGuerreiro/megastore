@@ -3,6 +3,7 @@
 module Admin
   class OrdersController < AdminController
     before_action :set_order, only: %i[show destroy]
+
     def index
       @orders = authorized_scope(Order.all)
       @orders = @orders.search_by_client(params[:search]) if params[:search].present?
@@ -13,10 +14,11 @@ module Admin
     def show; end
 
     def destroy
-      if @order.destroy && !@order.paid?
+      if !@order.paid? && @order.destroy
         redirect_to admin_orders_path, status: :see_other, notice: t(".success")
       else
-        redirect_to admin_orders_path, notice: t(".error")
+        flash.now[:notice] = t(".error")
+        render :show, status: :unprocessable_entity
       end
     end
 
@@ -24,11 +26,7 @@ module Admin
 
     def set_order
       @order = Order.find(params[:id])
-      authorize! @order
-    end
-
-    def order_params
-      params.require(:order).permit(:status)
+      authorize! @order, with: Admin::OrderPolicy
     end
   end
 end

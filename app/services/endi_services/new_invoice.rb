@@ -33,6 +33,7 @@ module EndiServices
       else
         @order.update!(status: "failed", api_error: response.to_s)
       end
+      response
     end
     # rubocop:enable Metrics/AbcSize
     # rubocop:enable Metrics/MethodLength

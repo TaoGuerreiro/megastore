@@ -2,5 +2,5 @@
 
   = render EmptyFolder::Component.new(title: t("orders.empty_folder.title"), subtitle: t("orders.empty_folder.subtitle"))
 
-  - orders.order(:name).each do |order|
+  - orders.order(id: :desc).each do |order|
     = render "admin/orders/order", order: order

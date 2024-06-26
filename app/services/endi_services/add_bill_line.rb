@@ -9,15 +9,13 @@ module EndiServices
       @order = order_item.store_order
       @order_item = order_item
       @store = store
-      @line = line_id
+      @line = EndiServices::TaskLineGroup.new(@order, @store).call
       @url = "#{ENDI_PATH}/api/v1/invoices/#{@order.endi_id}/task_line_groups/#{@line}/task_lines"
     end
 
     def call
       headers = build_headers
-      response = send_request(headers)
-
-      handle_response(response)
+      send_request(headers)
     end
 
     private
@@ -55,20 +53,6 @@ module EndiServices
       }.to_json
     end
 
-    def line_id
-      url = "#{ENDI_PATH}/api/v1/invoices/#{@order.endi_id}/task_line_groups"
-      headers = { "Referer" => url }
-
-      response = HTTParty.get(url, headers:)
-
-      if response.code == 401
-        EndiServices::ResetAuth.new.call
-        @headers = EndiService.new.headers
-        response = HTTParty.get(url, headers: @headers)
-      end
-      response[0]["id"]
-    end
-
     def handle_retry
       if (@attempts += 1) < 5
         EndiServices::ResetAuth.new.call
@@ -77,10 +61,6 @@ module EndiServices
       else
         @order.update(status: "error")
       end
-    end
-
-    def handle_response(response)
-      response&.response&.message
     end
   end
 end

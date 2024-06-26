@@ -3,10 +3,9 @@
 module Admin
   class OrderPolicy < ApplicationPolicy
     # See https://actionpolicy.evilmartians.io/#/writing_policies
-    #
 
     relation_scope do |relation|
-      relation.includes(:order_items, :items).where(items: { store: Current.store })
+      relation.includes(:order_items, :items).where(store: Current.store)
     end
 
     def index?
@@ -14,6 +13,10 @@ module Admin
     end
 
     def show?
+      queen_or_admin?
+    end
+
+    def destroy?
       queen_or_admin?
     end
   end

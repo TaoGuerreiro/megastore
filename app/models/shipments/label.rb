@@ -12,24 +12,29 @@ module Shipments
 
     def download_pdf
       url = "#{BASE_URL}/labels/normal_printer/#{@order.shipping.parcel_id}"
-      HTTParty.post(url, headers:)
+      HTTParty.get(url, headers:)
     end
 
     def attach_to_order
+      return true if @order.shipping.method_carrier == "poste"
+
+      @order.label.attach(io: tempfile, filename: "label.pdf", content_type: "image/png")
+    end
+
+    private
+
+    def tempfile
       url = URI("#{BASE_URL}/labels/normal_printer/#{@order.shipping.parcel_id}")
-      tempfile = Tempfile.new(["label", ".png"])
+      @temporary_file = Tempfile.new(["label", ".png"])
 
       Net::HTTP.start(url.host, url.port, use_ssl: url.scheme == "https") do |http|
         request = Net::HTTP::Get.new(url, headers)
         response = http.request(request)
 
-        File.binwrite(tempfile.path, response.body)
+        File.binwrite(@temporary_file.path, response.body)
       end
-
-      @order.label.attach(io: tempfile, filename: "label.png", content_type: "image/png")
+      @temporary_file
     end
-
-    private
 
     def headers
       {

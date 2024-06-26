@@ -1,0 +1,62 @@
+[
+  {
+    "id": "Pa1",
+    "name": "Poste",
+    "carrier": "poste",
+    "min_weight": 0,
+    "max_weight": 20,
+    "service_point_input": "none",
+    "price": 1.29,
+    "lead_time_hours": 72
+  },
+  {
+    "id": "Pb2",
+    "name": "Poste",
+    "carrier": "poste",
+    "min_weight": 20,
+    "max_weight": 100,
+    "service_point_input": "none",
+    "price": 2.58,
+    "lead_time_hours": 72
+  },
+  {
+    "id": "Pc3",
+    "name": "Poste",
+    "carrier": "poste",
+    "min_weight": 100,
+    "max_weight": 250,
+    "service_point_input": "none",
+    "price": 4.30,
+    "lead_time_hours": 72
+  },
+  {
+    "id": "Pd4",
+    "name": "Poste",
+    "carrier": "poste",
+    "min_weight": 250,
+    "max_weight": 500,
+    "service_point_input": "none",
+    "price": 6.30,
+    "lead_time_hours": 72
+  },
+  {
+    "id": "Pe5",
+    "name": "Poste",
+    "carrier": "poste",
+    "min_weight": 500,
+    "max_weight": 1000,
+    "service_point_input": "none",
+    "price": 7.70,
+    "lead_time_hours": 72
+  },
+  {
+    "id": "Pf6",
+    "name": "Poste",
+    "carrier": "poste",
+    "min_weight": 1000,
+    "max_weight": 2000,
+    "service_point_input": "none",
+    "price": 9.29,
+    "lead_time_hours": 72
+  }
+]

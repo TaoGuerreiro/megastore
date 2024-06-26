@@ -82,6 +82,7 @@ class EventJob < ApplicationJob
     return if order.status == "paid"
 
     order.update(status: "paid")
+
     send_emails(order)
     create_shipment(order)
     update_store_order(order)
@@ -101,6 +102,8 @@ class EventJob < ApplicationJob
   end
 
   def update_store_order(order)
+    # binding.pry
+
     new_store_order = StoreOrder.find_or_create_by(store: order.store, status: "pending") do |store_order|
       store_order.store_order_items.new(orderable: order.fee, price: order.fee.amount)
       store_order.store_order_items.new(orderable: order.shipping, price: order.shipping.cost)

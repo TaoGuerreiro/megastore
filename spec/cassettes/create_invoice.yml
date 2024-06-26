@@ -1,0 +1,133 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://demo.endi.coop/api/v1/companies/181413/invoices/add?company_id=181413
+    body:
+      encoding: UTF-8
+      string: '{"name":"Facture pour My Store","customer_id":181693,"project_id":"181417","business_type_id":"2"}'
+    headers:
+      Accept:
+      - application/json, text/javascript, */*; q=0.01
+      Content-Type:
+      - application/json
+      Origin:
+      - https://demo.endi.coop
+      Accept-Language:
+      - fr-fr
+      Cache-Control:
+      - no-cache
+      Cookie:
+      - beaker.session.id=533f82d749fe000d32d98836186562c425a584d664476c4ae772472a89f966a94fbe82f4
+      Host:
+      - demo.endi.coop
+      User-Agent:
+      - Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/605.1.15 (KHTML,
+        like Gecko) Version/12.1.2 Safari/605.1.15
+      X-Csrftoken:
+      - undefined
+      X-Requested-With:
+      - XMLHttpRequest
+      Connection:
+      - keep-alive
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.18.0
+      Date:
+      - Tue, 28 May 2024 16:20:29 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '974'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"id": 181964, "name": "Facture pour My Store", "type_": "invoice",
+        "created_at": "2024-05-28T18:20:29.836020", "updated_at": "2024-05-28T18:20:29.840076",
+        "phase_id": null, "business_type_id": 2, "status": "draft", "status_comment":
+        "", "status_user_id": 6, "date": "2024-05-28", "owner_id": 6, "description":
+        null, "mode": "ht", "ht": 0.0, "tva": 0.0, "ttc": 0.0, "company_id": 181413,
+        "project_id": 181417, "customer_id": 181693, "project_index": 119, "company_index":
+        119, "official_number": null, "internal_number": "Test MegaStore 2024-05 F119",
+        "display_units": 1, "display_ttc": 0, "expenses_ht": 0.0, "address": "My Store\nGuilbaud
+        Admin\n123 My Street\n12345 My City", "workplace": null, "payment_conditions":
+        null, "notes": null, "first_visit": null, "start_date": null, "end_date":
+        null, "status_history": [], "mentions": [], "insurance_id": null, "input_mode":
+        "classic", "price_study_id": null, "financial_year": 2024, "exported": false,
+        "estimation_id": null}'
+  recorded_at: Tue, 28 May 2024 16:20:29 GMT
+- request:
+    method: patch
+    uri: https://demo.endi.coop/api/v1/invoices/181964
+    body:
+      encoding: UTF-8
+      string: '{"name":"Facture pour My Store","date":"2024-05-28","payment_conditions":"À
+        réception de la facture","description":"Facturation du 28/05/24","start_date":"2024-05-01","end_date":"31/05/24","workplace":"Worlwide","display_units":"1","display_ttc":"0"}'
+    headers:
+      Accept:
+      - application/json, text/javascript, */*; q=0.01
+      Content-Type:
+      - application/json
+      Origin:
+      - https://demo.endi.coop
+      Accept-Language:
+      - fr-fr
+      Cache-Control:
+      - no-cache
+      Cookie:
+      - beaker.session.id=533f82d749fe000d32d98836186562c425a584d664476c4ae772472a89f966a94fbe82f4
+      Host:
+      - demo.endi.coop
+      User-Agent:
+      - Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/605.1.15 (KHTML,
+        like Gecko) Version/12.1.2 Safari/605.1.15
+      X-Csrftoken:
+      - undefined
+      X-Requested-With:
+      - XMLHttpRequest
+      Connection:
+      - keep-alive
+      Referer:
+      - https://demo.endi.coop/api/v1/invoices/181964
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.18.0
+      Date:
+      - Tue, 28 May 2024 16:20:30 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '1028'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"id": 181964, "name": "Facture pour My Store", "type_": "invoice",
+        "created_at": "2024-05-28T18:20:29", "updated_at": "2024-05-28T18:20:29",
+        "phase_id": null, "business_type_id": 2, "status": "draft", "status_comment":
+        "", "status_user_id": 6, "date": "2024-05-28", "owner_id": 6, "description":
+        "Facturation du 28/05/24", "mode": "ht", "ht": 0.0, "tva": 0.0, "ttc": 0.0,
+        "company_id": 181413, "project_id": 181417, "customer_id": 181693, "project_index":
+        119, "company_index": 119, "official_number": null, "internal_number": "Test
+        MegaStore 2024-05 F119", "display_units": 1, "display_ttc": 0, "expenses_ht":
+        0.0, "address": "My Store\nGuilbaud Admin\n123 My Street\n12345 My City",
+        "workplace": "Worlwide", "payment_conditions": "\u00c0 r\u00e9ception de la
+        facture", "notes": null, "first_visit": null, "start_date": "2024-05-01",
+        "end_date": null, "status_history": [], "mentions": [], "insurance_id": null,
+        "input_mode": "classic", "price_study_id": null, "financial_year": 2024, "exported":
+        false, "estimation_id": null}'
+  recorded_at: Tue, 28 May 2024 16:20:30 GMT
+recorded_with: VCR 6.2.0
