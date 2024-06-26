@@ -37,7 +37,7 @@ module Shipments
       postage_data = JSON.parse(File.read(file_path), symbolize_names: true)
 
       postage_data.find do |postage|
-        postage[:min_weight] <= @weight && @weight < postage[:max_weight]
+        postage[:min_weight] <= @weight && @weight <= postage[:max_weight]
       end
     end
 
