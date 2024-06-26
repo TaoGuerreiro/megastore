@@ -123,7 +123,7 @@ module Shipments
           custPurchaseOrderNumber: @order.id,
           invoicing: {
             contractNumber: Rails.application.credentials.postale.send("#{Rails.env}").contract_number,
-            custAccNumber: "46",
+            custAccNumber: "671775",
             custInvoice: "46"
           },
           offer: {
@@ -147,7 +147,7 @@ module Shipments
                   address: {
                     name1: @order.shipping.full_name,
                     add2: "",
-                    add4: @order.shipping.street,
+                    add4: @order.shipping.street[0...38],
                     zipcode: @order.shipping.postal_code,
                     town: @order.shipping.city,
                     countryCode: "250"
