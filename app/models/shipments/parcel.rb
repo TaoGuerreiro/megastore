@@ -122,7 +122,7 @@ module Shipments
         order: {
           custPurchaseOrderNumber: @order.id,
           invoicing: {
-            contractNumber: Rails.application.credentials.postale.send("#{Rails.env}").contract_number,
+            contractNumber: Rails.application.credentials.postale.send(Rails.env.to_s).contract_number,
             custAccNumber: "671775",
             custInvoice: "46"
           },
@@ -175,7 +175,7 @@ module Shipments
     # rubocop:enable Metrics/AbcSize
 
     def postale_label
-      url = Rails.application.credentials.postale.send("#{Rails.env}").postage_url
+      url = Rails.application.credentials.postale.send(Rails.env.to_s).postage_url
 
       response = HTTParty.post(url, body: postale_body.to_json, headers: postale_headers)
 
@@ -193,15 +193,15 @@ module Shipments
     end
 
     def postale_token
-      url = Rails.application.credentials.postale.send("#{Rails.env}").token_url
+      url = Rails.application.credentials.postale.send(Rails.env.to_s).token_url
 
       headers = {
         "Content-Type" => "application/x-www-form-urlencoded"
       }
       body = {
         grant_type: "client_credentials",
-        client_id: Rails.application.credentials.postale.send("#{Rails.env}").client_id,
-        client_secret: Rails.application.credentials.postale.send("#{Rails.env}").client_secret
+        client_id: Rails.application.credentials.postale.send(Rails.env.to_s).client_id,
+        client_secret: Rails.application.credentials.postale.send(Rails.env.to_s).client_secret
       }
       response = HTTParty.post(url, body:, headers:)
       response["access_token"]
