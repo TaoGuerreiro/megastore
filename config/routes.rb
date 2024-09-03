@@ -35,7 +35,7 @@ Rails.application.routes.draw do
     namespace :admin do
       authenticate :user, -> (user) { user.queen? || user.admin? } do
         resource :instagram, only: [:show]
-
+        resources :authors
         resource :onboarding, only: %i[new create]
         resource :subscription, only: %i[create destroy]
         resources :stores, only: %i[show edit update] do

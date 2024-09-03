@@ -1,0 +1,174 @@
+# Logfile created on 2024-09-03 16:50:11 +0200 by logger.rb/v1.5.3
+I, [2024-09-03T16:50:11.492204 #58514]  INFO -- : Net::HTTP::Get: /accounts/login/?force_classic_login
+D, [2024-09-03T16:50:11.492230 #58514] DEBUG -- : request-header: accept-encoding => gzip,deflate,identity
+D, [2024-09-03T16:50:11.492242 #58514] DEBUG -- : request-header: accept => */*
+D, [2024-09-03T16:50:11.492251 #58514] DEBUG -- : request-header: user-agent => Mozilla/5.0 (Macintosh; Intel Mac OS X 14_2_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2 Safari/605.1.15
+D, [2024-09-03T16:50:11.492259 #58514] DEBUG -- : request-header: accept-charset => ISO-8859-1,utf-8;q=0.7,*;q=0.7
+D, [2024-09-03T16:50:11.492267 #58514] DEBUG -- : request-header: accept-language => en-us,en;q=0.5
+D, [2024-09-03T16:50:11.492275 #58514] DEBUG -- : request-header: host => www.instagram.com
+I, [2024-09-03T16:50:12.320094 #58514]  INFO -- : status: Net::HTTPOK 1.1 200 OK
+D, [2024-09-03T16:50:12.321778 #58514] DEBUG -- : response-header: vary => Accept-Encoding
+D, [2024-09-03T16:50:12.321838 #58514] DEBUG -- : response-header: content-encoding => gzip
+D, [2024-09-03T16:50:12.321866 #58514] DEBUG -- : response-header: set-cookie => csrftoken=CAbYEaTu3OPdG4mf8BcGfg; expires=Tue, 02-Sep-2025 14:50:11 GMT; Max-Age=31449600; path=/; domain=.instagram.com; secure
+D, [2024-09-03T16:50:12.321891 #58514] DEBUG -- : response-header: accept-ch-lifetime => 4838400
+D, [2024-09-03T16:50:12.322143 #58514] DEBUG -- : response-header: accept-ch => viewport-width,dpr,Sec-CH-Prefers-Color-Scheme,Sec-CH-UA-Full-Version-List,Sec-CH-UA-Platform-Version,Sec-CH-UA-Model
+D, [2024-09-03T16:50:12.322168 #58514] DEBUG -- : response-header: reporting-endpoints => coop_report="https://www.facebook.com/browser_reporting/coop/?minimize=0", default="https://www.instagram.com/error/ig_web_error_reports/?device_level=unknown", permissions_policy="https://www.instagram.com/error/ig_web_error_reports/"
+D, [2024-09-03T16:50:12.322196 #58514] DEBUG -- : response-header: report-to => {"max_age":2592000,"endpoints":[{"url":"https:\/\/www.facebook.com\/browser_reporting\/coop\/?minimize=0"}],"group":"coop_report","include_subdomains":true}, {"max_age":259200,"endpoints":[{"url":"https:\/\/www.instagram.com\/error\/ig_web_error_reports\/?device_level=unknown"}]}, {"max_age":21600,"endpoints":[{"url":"https:\/\/www.instagram.com\/error\/ig_web_error_reports\/"}],"group":"permissions_policy"}
+D, [2024-09-03T16:50:12.322315 #58514] DEBUG -- : response-header: content-security-policy-report-only => default-src *.facebook.com *.fbcdn.net *.instagram.com data: blob:;script-src *.instagram.com static.cdninstagram.com *.facebook.com *.fbcdn.net *.facebook.net 'unsafe-inline' 'unsafe-eval' blob: data: 'self' https://accounts.google.com;style-src *.instagram.com static.cdninstagram.com data: blob: 'unsafe-inline' *.fbcdn.net *.facebook.com;connect-src *.instagram.com wss://edge-chat.instagram.com connect.facebook.net *.facebook.com facebook.com *.fbcdn.net *.facebook.net wss://*.facebook.com:* blob: *.cdninstagram.com wss://*.instagram.com:* 'self' https://meta.privacy-gateway.cloudflare.com/relay;font-src *.instagram.com static.cdninstagram.com data: *.fbcdn.net *.intern.facebook.com *.facebook.com;img-src *.instagram.com *.facebook.com *.fbcdn.net data: *.cdninstagram.com *.whatsapp.net blob: *.fbsbx.com android-webview-video-poster: *.oculuscdn.com;media-src *.facebook.com *.fbcdn.net *.instagram.com *.cdninstagram.com cdn.fbsbx.com data: blob:;frame-src *.instagram.com *.facebook.com *.fbsbx.com fbsbx.com data:;block-all-mixed-content;upgrade-insecure-requests;report-uri https://www.facebook.com/csp/reporting/?m=c&minimize=0;
+D, [2024-09-03T16:50:12.322341 #58514] DEBUG -- : response-header: content-security-policy => default-src *.facebook.com *.fbcdn.net *.instagram.com data: blob:;script-src *.instagram.com static.cdninstagram.com *.facebook.com *.fbcdn.net *.facebook.net 'unsafe-inline' 'unsafe-eval' blob: data: 'self' https://accounts.google.com;style-src *.instagram.com static.cdninstagram.com data: blob: 'unsafe-inline' *.fbcdn.net *.facebook.com;connect-src *.instagram.com wss://edge-chat.instagram.com connect.facebook.net *.facebook.com facebook.com *.fbcdn.net *.facebook.net wss://*.facebook.com:* blob: *.cdninstagram.com wss://*.instagram.com:* 'self' https://meta.privacy-gateway.cloudflare.com/relay;font-src *.instagram.com static.cdninstagram.com data: *.fbcdn.net *.intern.facebook.com *.facebook.com;img-src *.instagram.com *.facebook.com *.fbcdn.net data: *.cdninstagram.com *.whatsapp.net blob: *.fbsbx.com android-webview-video-poster: *.oculuscdn.com;media-src *.facebook.com *.fbcdn.net *.instagram.com *.cdninstagram.com cdn.fbsbx.com data: blob:;frame-src *.instagram.com *.facebook.com *.fbsbx.com fbsbx.com data:;block-all-mixed-content;upgrade-insecure-requests;report-uri https://www.facebook.com/csp/reporting/?m=c&minimize=0;
+D, [2024-09-03T16:50:12.325285 #58514] DEBUG -- : response-header: document-policy => force-load-at-top
+D, [2024-09-03T16:50:12.325502 #58514] DEBUG -- : response-header: permissions-policy => accelerometer=(self), attribution-reporting=(), autoplay=(), bluetooth=(), camera=(self), ch-device-memory=(), ch-downlink=(), ch-dpr=(), ch-ect=(), ch-rtt=(), ch-save-data=(), ch-ua-arch=(), ch-ua-bitness=(), ch-viewport-height=(), ch-viewport-width=(), ch-width=(), clipboard-read=(), clipboard-write=(self), compute-pressure=(), display-capture=(self), encrypted-media=(), fullscreen=(self), gamepad=(), geolocation=(self), gyroscope=(self), hid=(), idle-detection=(), interest-cohort=(), keyboard-map=(), local-fonts=(), magnetometer=(), microphone=(self), midi=(), otp-credentials=(), payment=(), picture-in-picture=(self), private-state-token-issuance=(), publickey-credentials-get=(), screen-wake-lock=(), serial=(), shared-storage=(), shared-storage-select-url=(), private-state-token-redemption=(), usb=(), unload=(self), window-management=(), xr-spatial-tracking=();report-to="permissions_policy"
+D, [2024-09-03T16:50:12.325535 #58514] DEBUG -- : response-header: cross-origin-resource-policy => same-origin
+D, [2024-09-03T16:50:12.325561 #58514] DEBUG -- : response-header: cross-origin-opener-policy => unsafe-none;report-to="coop_report"
+D, [2024-09-03T16:50:12.325586 #58514] DEBUG -- : response-header: pragma => no-cache
+D, [2024-09-03T16:50:12.325611 #58514] DEBUG -- : response-header: cache-control => private, no-cache, no-store, must-revalidate
+D, [2024-09-03T16:50:12.325668 #58514] DEBUG -- : response-header: expires => Sat, 01 Jan 2000 00:00:00 GMT
+D, [2024-09-03T16:50:12.325693 #58514] DEBUG -- : response-header: x-content-type-options => nosniff
+D, [2024-09-03T16:50:12.325716 #58514] DEBUG -- : response-header: x-xss-protection => 0
+D, [2024-09-03T16:50:12.325795 #58514] DEBUG -- : response-header: x-frame-options => DENY
+D, [2024-09-03T16:50:12.325820 #58514] DEBUG -- : response-header: origin-agent-cluster => ?1
+D, [2024-09-03T16:50:12.325844 #58514] DEBUG -- : response-header: strict-transport-security => max-age=31536000; preload; includeSubDomains
+D, [2024-09-03T16:50:12.325867 #58514] DEBUG -- : response-header: x-stack => www
+D, [2024-09-03T16:50:12.325907 #58514] DEBUG -- : response-header: content-type => text/html; charset="utf-8"
+D, [2024-09-03T16:50:12.325931 #58514] DEBUG -- : response-header: x-fb-debug => W/BL+pv2taxMV+CJP1UL3LWjxhClacJJNU2CXl29ipdcmASAJ3lFhjmOxjXhvQxn72zzRtaXfl7cEFw5I16Ahw==
+D, [2024-09-03T16:50:12.325955 #58514] DEBUG -- : response-header: x-fb-server-load => 104
+D, [2024-09-03T16:50:12.325977 #58514] DEBUG -- : response-header: date => Tue, 03 Sep 2024 14:50:11 GMT
+D, [2024-09-03T16:50:12.326001 #58514] DEBUG -- : response-header: alt-svc => h3=":443"; ma=86400
+D, [2024-09-03T16:50:12.326024 #58514] DEBUG -- : response-header: transfer-encoding => chunked
+D, [2024-09-03T16:50:12.326047 #58514] DEBUG -- : response-header: connection => keep-alive
+D, [2024-09-03T16:50:12.326481 #58514] DEBUG -- : Read 1496 bytes (1496 total)
+D, [2024-09-03T16:50:12.326523 #58514] DEBUG -- : Read 4 bytes (1500 total)
+D, [2024-09-03T16:50:12.326580 #58514] DEBUG -- : Read 1495 bytes (2995 total)
+D, [2024-09-03T16:50:12.326783 #58514] DEBUG -- : Read 1391 bytes (4386 total)
+D, [2024-09-03T16:50:12.326836 #58514] DEBUG -- : Read 1495 bytes (5881 total)
+D, [2024-09-03T16:50:12.326886 #58514] DEBUG -- : Read 2569 bytes (8450 total)
+D, [2024-09-03T16:50:12.326988 #58514] DEBUG -- : Read 1495 bytes (9945 total)
+D, [2024-09-03T16:50:12.327036 #58514] DEBUG -- : Read 2569 bytes (12514 total)
+D, [2024-09-03T16:50:12.327087 #58514] DEBUG -- : Read 1495 bytes (14009 total)
+D, [2024-09-03T16:50:12.327128 #58514] DEBUG -- : Read 1014 bytes (15023 total)
+D, [2024-09-03T16:50:12.327221 #58514] DEBUG -- : Read 1491 bytes (16514 total)
+D, [2024-09-03T16:50:12.327279 #58514] DEBUG -- : Read 1494 bytes (18008 total)
+D, [2024-09-03T16:50:12.327335 #58514] DEBUG -- : Read 4096 bytes (22104 total)
+D, [2024-09-03T16:50:12.327388 #58514] DEBUG -- : Read 4096 bytes (26200 total)
+D, [2024-09-03T16:50:12.327460 #58514] DEBUG -- : Read 4096 bytes (30296 total)
+D, [2024-09-03T16:50:12.327507 #58514] DEBUG -- : Read 1111 bytes (31407 total)
+D, [2024-09-03T16:50:12.327745 #58514] DEBUG -- : Read 1495 bytes (32902 total)
+D, [2024-09-03T16:50:12.327806 #58514] DEBUG -- : Read 5 bytes (32907 total)
+D, [2024-09-03T16:50:12.327855 #58514] DEBUG -- : Read 1494 bytes (34401 total)
+D, [2024-09-03T16:50:12.327903 #58514] DEBUG -- : Read 4096 bytes (38497 total)
+D, [2024-09-03T16:50:12.327948 #58514] DEBUG -- : Read 4096 bytes (42593 total)
+D, [2024-09-03T16:50:12.328005 #58514] DEBUG -- : Read 4096 bytes (46689 total)
+D, [2024-09-03T16:50:12.328042 #58514] DEBUG -- : Read 1102 bytes (47791 total)
+D, [2024-09-03T16:50:12.328892 #58514] DEBUG -- : Read 1495 bytes (49286 total)
+D, [2024-09-03T16:50:12.328961 #58514] DEBUG -- : Read 5 bytes (49291 total)
+D, [2024-09-03T16:50:12.329011 #58514] DEBUG -- : Read 1494 bytes (50785 total)
+D, [2024-09-03T16:50:12.329096 #58514] DEBUG -- : Read 4096 bytes (54881 total)
+D, [2024-09-03T16:50:12.329150 #58514] DEBUG -- : Read 4096 bytes (58977 total)
+D, [2024-09-03T16:50:12.329287 #58514] DEBUG -- : Read 4096 bytes (63073 total)
+D, [2024-09-03T16:50:12.329334 #58514] DEBUG -- : Read 1102 bytes (64175 total)
+D, [2024-09-03T16:50:12.329636 #58514] DEBUG -- : Read 1495 bytes (65670 total)
+D, [2024-09-03T16:50:12.329685 #58514] DEBUG -- : Read 1500 bytes (67170 total)
+D, [2024-09-03T16:50:12.329732 #58514] DEBUG -- : Read 490 bytes (67660 total)
+D, [2024-09-03T16:50:12.329779 #58514] DEBUG -- : Read 1495 bytes (69155 total)
+D, [2024-09-03T16:50:12.329826 #58514] DEBUG -- : Read 1772 bytes (70927 total)
+D, [2024-09-03T16:50:12.330034 #58514] DEBUG -- : Read 83 bytes (71010 total)
+D, [2024-09-03T16:50:12.330083 #58514] DEBUG -- : Read 1494 bytes (72504 total)
+D, [2024-09-03T16:50:12.330132 #58514] DEBUG -- : Read 2534 bytes (75038 total)
+D, [2024-09-03T16:50:12.330183 #58514] DEBUG -- : Read 4064 bytes (79102 total)
+D, [2024-09-03T16:50:12.330228 #58514] DEBUG -- : Read 1494 bytes (80596 total)
+D, [2024-09-03T16:50:12.330308 #58514] DEBUG -- : Read 2570 bytes (83166 total)
+D, [2024-09-03T16:50:12.330369 #58514] DEBUG -- : Read 1500 bytes (84666 total)
+D, [2024-09-03T16:50:12.330430 #58514] DEBUG -- : Read 707 bytes (85373 total)
+D, [2024-09-03T16:50:12.389504 #58514] DEBUG -- : Read 1494 bytes (86867 total)
+D, [2024-09-03T16:50:12.389806 #58514] DEBUG -- : Read 2534 bytes (89401 total)
+D, [2024-09-03T16:50:12.389877 #58514] DEBUG -- : Read 3140 bytes (92541 total)
+D, [2024-09-03T16:50:12.389939 #58514] DEBUG -- : Read 1495 bytes (94036 total)
+D, [2024-09-03T16:50:12.389997 #58514] DEBUG -- : Read 539 bytes (94575 total)
+D, [2024-09-03T16:50:12.390288 #58514] DEBUG -- : Read 10 bytes (94585 total)
+D, [2024-09-03T16:50:12.390803 #58514] DEBUG -- : gzip response
+D, [2024-09-03T16:50:12.417813 #58514] DEBUG -- : saved cookie: csrftoken=CAbYEaTu3OPdG4mf8BcGfg
+I, [2024-09-03T16:50:25.923533 #58514]  INFO -- : Net::HTTP::Get: /accounts/login/?force_classic_login
+D, [2024-09-03T16:50:25.923592 #58514] DEBUG -- : request-header: accept-encoding => gzip,deflate,identity
+D, [2024-09-03T16:50:25.923610 #58514] DEBUG -- : request-header: accept => */*
+D, [2024-09-03T16:50:25.923652 #58514] DEBUG -- : request-header: user-agent => Mozilla/5.0 (Macintosh; Intel Mac OS X 14_2_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2 Safari/605.1.15
+D, [2024-09-03T16:50:25.923666 #58514] DEBUG -- : request-header: accept-charset => ISO-8859-1,utf-8;q=0.7,*;q=0.7
+D, [2024-09-03T16:50:25.923678 #58514] DEBUG -- : request-header: accept-language => en-us,en;q=0.5
+D, [2024-09-03T16:50:25.923689 #58514] DEBUG -- : request-header: host => www.instagram.com
+I, [2024-09-03T16:50:26.174413 #58514]  INFO -- : status: Net::HTTPOK 1.1 200 OK
+D, [2024-09-03T16:50:26.175010 #58514] DEBUG -- : response-header: vary => Accept-Encoding
+D, [2024-09-03T16:50:26.175394 #58514] DEBUG -- : response-header: content-encoding => gzip
+D, [2024-09-03T16:50:26.175438 #58514] DEBUG -- : response-header: set-cookie => csrftoken=ZjC8o2QpocOifOYsttB_q8; expires=Tue, 02-Sep-2025 14:50:26 GMT; Max-Age=31449600; path=/; domain=.instagram.com; secure
+D, [2024-09-03T16:50:26.175472 #58514] DEBUG -- : response-header: accept-ch-lifetime => 4838400
+D, [2024-09-03T16:50:26.175503 #58514] DEBUG -- : response-header: accept-ch => viewport-width,dpr,Sec-CH-Prefers-Color-Scheme,Sec-CH-UA-Full-Version-List,Sec-CH-UA-Platform-Version,Sec-CH-UA-Model
+D, [2024-09-03T16:50:26.175534 #58514] DEBUG -- : response-header: reporting-endpoints => coop_report="https://www.facebook.com/browser_reporting/coop/?minimize=0", default="https://www.instagram.com/error/ig_web_error_reports/?device_level=unknown", permissions_policy="https://www.instagram.com/error/ig_web_error_reports/"
+D, [2024-09-03T16:50:26.175570 #58514] DEBUG -- : response-header: report-to => {"max_age":2592000,"endpoints":[{"url":"https:\/\/www.facebook.com\/browser_reporting\/coop\/?minimize=0"}],"group":"coop_report","include_subdomains":true}, {"max_age":259200,"endpoints":[{"url":"https:\/\/www.instagram.com\/error\/ig_web_error_reports\/?device_level=unknown"}]}, {"max_age":21600,"endpoints":[{"url":"https:\/\/www.instagram.com\/error\/ig_web_error_reports\/"}],"group":"permissions_policy"}
+D, [2024-09-03T16:50:26.175603 #58514] DEBUG -- : response-header: content-security-policy-report-only => default-src *.facebook.com *.fbcdn.net *.instagram.com data: blob:;script-src *.instagram.com static.cdninstagram.com *.facebook.com *.fbcdn.net *.facebook.net 'unsafe-inline' 'unsafe-eval' blob: data: 'self' https://accounts.google.com;style-src *.instagram.com static.cdninstagram.com data: blob: 'unsafe-inline' *.fbcdn.net *.facebook.com;connect-src *.instagram.com wss://edge-chat.instagram.com connect.facebook.net *.facebook.com facebook.com *.fbcdn.net *.facebook.net wss://*.facebook.com:* blob: *.cdninstagram.com wss://*.instagram.com:* 'self' https://meta.privacy-gateway.cloudflare.com/relay;font-src *.instagram.com static.cdninstagram.com data: *.fbcdn.net *.intern.facebook.com *.facebook.com;img-src *.instagram.com *.facebook.com *.fbcdn.net data: *.cdninstagram.com *.whatsapp.net blob: *.fbsbx.com android-webview-video-poster: *.oculuscdn.com;media-src *.facebook.com *.fbcdn.net *.instagram.com *.cdninstagram.com cdn.fbsbx.com data: blob:;frame-src *.instagram.com *.facebook.com *.fbsbx.com fbsbx.com data:;block-all-mixed-content;upgrade-insecure-requests;report-uri https://www.facebook.com/csp/reporting/?m=c&minimize=0;
+D, [2024-09-03T16:50:26.175633 #58514] DEBUG -- : response-header: content-security-policy => default-src *.facebook.com *.fbcdn.net *.instagram.com data: blob:;script-src *.instagram.com static.cdninstagram.com *.facebook.com *.fbcdn.net *.facebook.net 'unsafe-inline' 'unsafe-eval' blob: data: 'self' https://accounts.google.com;style-src *.instagram.com static.cdninstagram.com data: blob: 'unsafe-inline' *.fbcdn.net *.facebook.com;connect-src *.instagram.com wss://edge-chat.instagram.com connect.facebook.net *.facebook.com facebook.com *.fbcdn.net *.facebook.net wss://*.facebook.com:* blob: *.cdninstagram.com wss://*.instagram.com:* 'self' https://meta.privacy-gateway.cloudflare.com/relay;font-src *.instagram.com static.cdninstagram.com data: *.fbcdn.net *.intern.facebook.com *.facebook.com;img-src *.instagram.com *.facebook.com *.fbcdn.net data: *.cdninstagram.com *.whatsapp.net blob: *.fbsbx.com android-webview-video-poster: *.oculuscdn.com;media-src *.facebook.com *.fbcdn.net *.instagram.com *.cdninstagram.com cdn.fbsbx.com data: blob:;frame-src *.instagram.com *.facebook.com *.fbsbx.com fbsbx.com data:;block-all-mixed-content;upgrade-insecure-requests;report-uri https://www.facebook.com/csp/reporting/?m=c&minimize=0;
+D, [2024-09-03T16:50:26.175851 #58514] DEBUG -- : response-header: document-policy => force-load-at-top
+D, [2024-09-03T16:50:26.175884 #58514] DEBUG -- : response-header: permissions-policy => accelerometer=(self), attribution-reporting=(), autoplay=(), bluetooth=(), camera=(self), ch-device-memory=(), ch-downlink=(), ch-dpr=(), ch-ect=(), ch-rtt=(), ch-save-data=(), ch-ua-arch=(), ch-ua-bitness=(), ch-viewport-height=(), ch-viewport-width=(), ch-width=(), clipboard-read=(), clipboard-write=(self), compute-pressure=(), display-capture=(self), encrypted-media=(), fullscreen=(self), gamepad=(), geolocation=(self), gyroscope=(self), hid=(), idle-detection=(), interest-cohort=(), keyboard-map=(), local-fonts=(), magnetometer=(), microphone=(self), midi=(), otp-credentials=(), payment=(), picture-in-picture=(self), private-state-token-issuance=(), publickey-credentials-get=(), screen-wake-lock=(), serial=(), shared-storage=(), shared-storage-select-url=(), private-state-token-redemption=(), usb=(), unload=(self), window-management=(), xr-spatial-tracking=();report-to="permissions_policy"
+D, [2024-09-03T16:50:26.175912 #58514] DEBUG -- : response-header: cross-origin-resource-policy => same-origin
+D, [2024-09-03T16:50:26.175938 #58514] DEBUG -- : response-header: cross-origin-opener-policy => unsafe-none;report-to="coop_report"
+D, [2024-09-03T16:50:26.175966 #58514] DEBUG -- : response-header: pragma => no-cache
+D, [2024-09-03T16:50:26.175992 #58514] DEBUG -- : response-header: cache-control => private, no-cache, no-store, must-revalidate
+D, [2024-09-03T16:50:26.176019 #58514] DEBUG -- : response-header: expires => Sat, 01 Jan 2000 00:00:00 GMT
+D, [2024-09-03T16:50:26.176044 #58514] DEBUG -- : response-header: x-content-type-options => nosniff
+D, [2024-09-03T16:50:26.176071 #58514] DEBUG -- : response-header: x-xss-protection => 0
+D, [2024-09-03T16:50:26.176097 #58514] DEBUG -- : response-header: x-frame-options => DENY
+D, [2024-09-03T16:50:26.176124 #58514] DEBUG -- : response-header: origin-agent-cluster => ?1
+D, [2024-09-03T16:50:26.176151 #58514] DEBUG -- : response-header: strict-transport-security => max-age=31536000; preload; includeSubDomains
+D, [2024-09-03T16:50:26.176178 #58514] DEBUG -- : response-header: x-stack => www
+D, [2024-09-03T16:50:26.176203 #58514] DEBUG -- : response-header: content-type => text/html; charset="utf-8"
+D, [2024-09-03T16:50:26.176229 #58514] DEBUG -- : response-header: x-fb-debug => L1ZhBxlGZ3p8X7fSPLDZN/a4y+05W4zTKh9hccniJFxEaUVD2Xj6KlSKl5K1CDW7TJ9QpseDEiwCIVh654Dj/Q==
+D, [2024-09-03T16:50:26.176287 #58514] DEBUG -- : response-header: x-fb-server-load => 53
+D, [2024-09-03T16:50:26.176317 #58514] DEBUG -- : response-header: date => Tue, 03 Sep 2024 14:50:26 GMT
+D, [2024-09-03T16:50:26.176344 #58514] DEBUG -- : response-header: alt-svc => h3=":443"; ma=86400
+D, [2024-09-03T16:50:26.176370 #58514] DEBUG -- : response-header: transfer-encoding => chunked
+D, [2024-09-03T16:50:26.177270 #58514] DEBUG -- : response-header: connection => keep-alive
+D, [2024-09-03T16:50:26.177708 #58514] DEBUG -- : Read 1491 bytes (1491 total)
+D, [2024-09-03T16:50:26.177799 #58514] DEBUG -- : Read 1495 bytes (2986 total)
+D, [2024-09-03T16:50:26.177849 #58514] DEBUG -- : Read 1401 bytes (4387 total)
+D, [2024-09-03T16:50:26.177922 #58514] DEBUG -- : Read 1495 bytes (5882 total)
+D, [2024-09-03T16:50:26.177991 #58514] DEBUG -- : Read 2569 bytes (8451 total)
+D, [2024-09-03T16:50:26.178049 #58514] DEBUG -- : Read 1494 bytes (9945 total)
+D, [2024-09-03T16:50:26.178108 #58514] DEBUG -- : Read 2570 bytes (12515 total)
+D, [2024-09-03T16:50:26.179163 #58514] DEBUG -- : Read 2508 bytes (15023 total)
+D, [2024-09-03T16:50:26.224275 #58514] DEBUG -- : Read 1491 bytes (16514 total)
+D, [2024-09-03T16:50:26.229140 #58514] DEBUG -- : Read 1494 bytes (18008 total)
+D, [2024-09-03T16:50:26.230976 #58514] DEBUG -- : Read 4096 bytes (22104 total)
+D, [2024-09-03T16:50:26.233794 #58514] DEBUG -- : Read 4096 bytes (26200 total)
+D, [2024-09-03T16:50:26.234049 #58514] DEBUG -- : Read 4096 bytes (30296 total)
+D, [2024-09-03T16:50:26.234105 #58514] DEBUG -- : Read 1111 bytes (31407 total)
+D, [2024-09-03T16:50:26.234218 #58514] DEBUG -- : Read 1491 bytes (32898 total)
+D, [2024-09-03T16:50:26.234270 #58514] DEBUG -- : Read 1491 bytes (34389 total)
+D, [2024-09-03T16:50:26.234521 #58514] DEBUG -- : Read 1494 bytes (35883 total)
+D, [2024-09-03T16:50:26.234593 #58514] DEBUG -- : Read 4096 bytes (39979 total)
+D, [2024-09-03T16:50:26.236113 #58514] DEBUG -- : Read 4096 bytes (44075 total)
+D, [2024-09-03T16:50:26.236266 #58514] DEBUG -- : Read 3716 bytes (47791 total)
+D, [2024-09-03T16:50:26.244763 #58514] DEBUG -- : Read 1491 bytes (49282 total)
+D, [2024-09-03T16:50:26.245637 #58514] DEBUG -- : Read 1491 bytes (50773 total)
+D, [2024-09-03T16:50:26.246836 #58514] DEBUG -- : Read 1494 bytes (52267 total)
+D, [2024-09-03T16:50:26.247485 #58514] DEBUG -- : Read 4096 bytes (56363 total)
+D, [2024-09-03T16:50:26.247571 #58514] DEBUG -- : Read 4096 bytes (60459 total)
+D, [2024-09-03T16:50:26.248568 #58514] DEBUG -- : Read 3716 bytes (64175 total)
+D, [2024-09-03T16:50:26.248760 #58514] DEBUG -- : Read 1491 bytes (65666 total)
+D, [2024-09-03T16:50:26.248813 #58514] DEBUG -- : Read 1495 bytes (67161 total)
+D, [2024-09-03T16:50:26.248865 #58514] DEBUG -- : Read 499 bytes (67660 total)
+D, [2024-09-03T16:50:26.248915 #58514] DEBUG -- : Read 1495 bytes (69155 total)
+D, [2024-09-03T16:50:26.248966 #58514] DEBUG -- : Read 1851 bytes (71006 total)
+D, [2024-09-03T16:50:26.249088 #58514] DEBUG -- : Read 83 bytes (71089 total)
+D, [2024-09-03T16:50:26.803594 #58514] DEBUG -- : Read 1495 bytes (72584 total)
+D, [2024-09-03T16:50:26.804347 #58514] DEBUG -- : Read 2533 bytes (75117 total)
+D, [2024-09-03T16:50:26.807395 #58514] DEBUG -- : Read 1494 bytes (76611 total)
+D, [2024-09-03T16:50:26.807644 #58514] DEBUG -- : Read 2570 bytes (79181 total)
+D, [2024-09-03T16:50:26.810722 #58514] DEBUG -- : Read 4064 bytes (83245 total)
+D, [2024-09-03T16:50:26.811024 #58514] DEBUG -- : Read 1495 bytes (84740 total)
+D, [2024-09-03T16:50:26.811672 #58514] DEBUG -- : Read 712 bytes (85452 total)
+D, [2024-09-03T16:50:26.916598 #58514] DEBUG -- : Read 1495 bytes (86947 total)
+D, [2024-09-03T16:50:26.917002 #58514] DEBUG -- : Read 2533 bytes (89480 total)
+D, [2024-09-03T16:50:26.921284 #58514] DEBUG -- : Read 1495 bytes (90975 total)
+D, [2024-09-03T16:50:26.924332 #58514] DEBUG -- : Read 1500 bytes (92475 total)
+D, [2024-09-03T16:50:26.924923 #58514] DEBUG -- : Read 138 bytes (92613 total)
+D, [2024-09-03T16:50:26.926736 #58514] DEBUG -- : Read 1495 bytes (94108 total)
+D, [2024-09-03T16:50:26.927254 #58514] DEBUG -- : Read 550 bytes (94658 total)
+D, [2024-09-03T16:50:26.927872 #58514] DEBUG -- : gzip response
+D, [2024-09-03T16:50:26.959966 #58514] DEBUG -- : saved cookie: csrftoken=ZjC8o2QpocOifOYsttB_q8
