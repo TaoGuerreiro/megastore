@@ -1,0 +1,5 @@
+= turbo_frame_tag :authors, class: "table-row-group w-full relative" do
+  = render EmptyFolder::Component.new(title: t("authors.empty_folder.title"), subtitle: t("authors.empty_folder.subtitle"))
+
+  - authors.order(:nickname).each do |author|
+    = render "admin/authors/author", author: author

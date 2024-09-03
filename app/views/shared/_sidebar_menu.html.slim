@@ -12,6 +12,9 @@
       - if Current.store.slug == "unsafe"
         = render MenuItem::Component.new(path: admin_instagram_path, icon_classes: "fa-brands fa-instagram", title: "Insta")
 
+      - if Current.store.slug == "ttt"
+        = render MenuItem::Component.new(path: admin_authors_path, icon_classes: "fa-solid fa-users", title: "Auteur.ices")
+
       - if current_user.queen?
 
         h2.text-content.font-bold Pour la Reine
