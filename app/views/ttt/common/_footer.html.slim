@@ -1,27 +1,27 @@
-/ footer class="bg-white "
-/   div class="px-6 py-20 mx-auto overflow-hidden max-w-7xl sm:py-24 lg:px-8"
-/     nav class="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12" aria-label="Footer"
-/       div class="pb-6"
-/         a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900"
-/           | CGV
-/       div class="pb-6"
-/         = link_to "Contact", contact_path, class: "text-sm leading-6 text-gray-600 hover:text-gray-900"
-/       div class="pb-6"
-/         = link_to "Boutique", store_path, class: "text-sm leading-6 text-gray-600 hover:text-gray-900"
-/       div class="pb-6"
-/         a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900"
-/           | Mentions légales
-/       div class="pb-6"
-/         a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900"
-/           | Confidentialité
-/       div class="pb-6"
-/         a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900"
-/           | Cookies
-/       div class="pb-6"
-/         a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900"
-/           | Plan du site
-/     div class="flex justify-center mt-10 space-x-10"
-/       = render SocialLinks::Component.new
-/     p class="mt-10 text-xs leading-5 text-center text-gray-500"
-/       | &copy;
-/       |  Studio Anemone #{Date.current.year} - All rights reserved
+footer class="bg-white "
+  div class="px-6 py-20 mx-auto overflow-hidden max-w-7xl sm:py-24 lg:px-8"
+    nav class="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12" aria-label="Footer"
+      div class="pb-6"
+        a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900"
+          | CGV
+      div class="pb-6"
+        = link_to "Contact", contact_path, class: "text-sm leading-6 text-gray-600 hover:text-gray-900"
+      div class="pb-6"
+        = link_to "Boutique", store_path, class: "text-sm leading-6 text-gray-600 hover:text-gray-900"
+      div class="pb-6"
+        a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900"
+          | Mentions légales
+      div class="pb-6"
+        a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900"
+          | Confidentialité
+      div class="pb-6"
+        a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900"
+          | Cookies
+      div class="pb-6"
+        a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900"
+          | Plan du site
+    div class="flex justify-center mt-10 space-x-10"
+      = render SocialLinks::Component.new
+    p class="mt-10 text-xs leading-5 text-center text-gray-500"
+      | &copy;
+      |  TTT.corp #{Date.current.year} - All rights reserved

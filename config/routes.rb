@@ -72,13 +72,14 @@ Rails.application.routes.draw do
 
   constraints(Domain) do
     root to: "pages#home"
-    get "/contact",       to: "pages#contact"
-    get "/about",         to: "pages#about"
-    post "/send_message", to: "pages#send_message"
-    get "/store",         to: "stores#show"
-    get "/portfolio",     to: "pages#portfolio"
-    get "/authors",       to: "pages#authors"
-    get "/authors/:id",   to: "pages#author", as: :author
+    get "/contact",         to: "pages#contact"
+    get "/about",           to: "pages#about"
+    post "/send_message",   to: "pages#send_message"
+    get "/store",           to: "stores#show"
+    get "/portfolio",       to: "pages#portfolio"
+    get "/authors",         to: "pages#authors"
+    get "/authors/:id",     to: "pages#author", as: :author
+    get "/confidentiality", to: "pages#confidentiality"
 
     resource :checkout, only: [:show] do
       post :confirm_payment, on: :member

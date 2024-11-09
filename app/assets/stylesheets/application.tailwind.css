@@ -148,9 +148,6 @@
       font-style: normal;
   }
 
-
-
-
   @font-face {
       font-family: 'Scandia';
       src: font-url('fonts/Scandia-RegularItalic.eot');
@@ -319,8 +316,6 @@
       font-style: normal;
   }
 
-
-
   :root {
     --color-primary: 8, 75, 131; /* #084B83 */
     --color-secondary: 213, 185, 66; /* #D5B942 */
@@ -378,7 +373,7 @@
   .ttt {
     --color-primary: 255, 77, 196; /* #FF4DC4 */
     --color-secondary: 48, 115, 81; /* #307351 */
-    --color-light: 232, 235, 247; /* #E8EBEF */
+    --color-light: 255, 250, 255; /* #E8EBEF */
     --color-contrast: 2, 2, 2; /* #020202 */
     --color-midgray: 113, 124, 137; /* #717 */
     --color-content: 187, 214, 134; /* #BBD686 */

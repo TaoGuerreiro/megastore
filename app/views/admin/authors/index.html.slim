@@ -5,7 +5,7 @@
   /                                       {name: "Catégories", path: admin_categories_path},
   /                                       {name: "Spécifications", path: admin_specifications_path}])
   - header.with_action_link do
-    = link_to new_admin_author_path do
+    = link_to new_admin_author_path, data: { turbo_frame: "modal" } do
       = render Buttons::Option::Component.new(label: "Ajouter un.e auteur.ice", icon: "fa-solid fa-plus")
   / - header.with_options do |option|
   /   .hidden.z-50.flex.gap-1.items-center data-bulk-edit-items-target="container"
@@ -44,6 +44,15 @@
           .table.w-full.pb-36.mt-6
             .table-header-group
               .table-row
+                / .table-cell.min-w-8
+                /   span.sr-only
+                /     | Checkbox
+                / .table-cell.min-w-8
+                /   span.sr-only
+                /     | En ligne
+                .table-cell.min-w-12
+                  span.sr-only
+                    | Image
 
                 .table-cell.text-sm.font-semibold.text-contrast
                   = filterable_sort_button(Item, :name) do

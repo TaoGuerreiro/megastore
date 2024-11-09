@@ -46,7 +46,7 @@ module Admin
       @collection.destroy
 
       respond_to do |format|
-        format.html { redirect_to admin_collections_path }
+        format.html { redirect_to admin_collections_path, notice: t(".success") }
         format.turbo_stream
       end
     end

@@ -1,7 +1,19 @@
-.relative.w-screen.flex.justify-center.my-36 data-controller="t"
+.relative.w-screen.h-screen.flex.justify-center data-controller="t"
   - images = Dir.glob("app/assets/images/#{Current.store.slug}/t/*").map { |path| path.gsub("app/assets/images/", "") }
 
   - images.each do |image|
     - axe = ["x", "y"].sample
     - direction = ["-", ""].sample
-    = image_tag image, class: "absolute top-0 w-96 ease-in-out duration-100 opacity-0", data: { "t-target": "t" }
+    = image_tag image, class: "absolute top-36 w-96 ease-in-out duration-100 opacity-0", data: { "t-target": "t" }
+  .absolute.inset-x-0.bottom-10.text-center.cursor-pointer data-controller="scroll-down"
+    i.fa-solid.fa-arrow-down.animate-bounce.text-4xl.text-primary data-action="click->scroll-down#scroll"
+
+.max-w-5xl.mx-auto.flex.flex-col.items-center.py-36
+  h2.text-4xl.font-bold.mb-6
+    | Les campagnes de crowfonding en cours !
+  = render "stores/items", items: Current.store.items.pre_sale, collections: @collections
+
+.max-w-5xl.mx-auto.flex.flex-col.items-center.py-36
+  h2.text-4xl.font-bold.mb-6
+    | Les autre sortie signer TTT !
+  = render "stores/items", items: Current.store.items.active, collections: @collections

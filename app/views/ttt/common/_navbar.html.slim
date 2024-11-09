@@ -1,32 +1,32 @@
-.fixed.top-2.right-6.z-50.text-white = render "shared/cart"
-- style = action_name == "home" ? "!text-contrast" : "!text-contrast bg-white"
+.fixed.top-2.right-6.z-50.text-contrast = render "shared/cart"
+- style = action_name == "home" ? "!text-contrast" : "!text-contrast bg-contrast"
 .w-full.hidden.md:flex.bg-light.relative.cursor-default.items-center.flex-col.border-b.boder-light
   .justify-end.px-24.items-center.w-full.transition.absolute.top-0.py-8.z-40.flex.gap-6
     .absolute.left-12
       = link_to root_path do
-        = image_tag("#{Current.store.slug}/logo_pink.svg", class: "w-96 pt-6")
+        = image_tag("#{Current.store.slug}/logo_pink.svg", class: "h-16 pt-6")
 
-    = render Ttt::Button::Component.new(path: contact_path, text: "Espace libraire")
+    / = render Ttt::Button::Component.new(path: contact_path, text: "Espace libraire")
     = render Ttt::Button::Component.new(path: authors_path, text: "Auter.i.ces")
     = render Ttt::Button::Component.new(path: store_path, text: "Shop")
     = render Ttt::Button::Component.new(path: "#", text: "À propos") do |button|
       - button.with_sub_link(text: "L'association", path: about_path)
       - button.with_sub_link(text: "Contact", path: about_path)
 
-/ .md:hidden
-/   = label_tag :phonenav, class: "fixed shadow-xl z-40 top-4 left-4 rounded-full" do
-/     .w-16.h-16.bg-secondary.flex.items-center.justify-center.rounded-full.p-3
-/       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-/         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-/       </svg>
-/   = check_box_tag :phonenav, nil, nil, {class: "hidden peer"}
-/   .z-50.fixed.hidden.peer-checked:block.top-0.left-0.right-0.bottom-0.bg-secondary/90
-/     = label_tag :phonenav, class: "absolute top-10 right-10" do
-/       .w-16.h-16.flex.items-center.justify-center.rounded-full.p-3.text-light
-/         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12">
-/           <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-/         </svg>
-/     .flex.flex-col.justify-around.items-start.py-12.px-12
-/       = link_to "À propos", about_path, class: "tracking-widest text-5xl text-light mb-8"
-/       = link_to "Contact", contact_path, class: "tracking-widest text-5xl text-light mb-8"
-/       = link_to "Boutique", store_path, class: "tracking-widest text-5xl text-light mb-8"
+.md:hidden
+  = label_tag :phonenav, class: "fixed shadow-xl z-40 top-4 left-4 rounded-full" do
+    .w-16.h-16.bg-secondary.flex.items-center.justify-center.rounded-full.p-3
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+      </svg>
+  = check_box_tag :phonenav, nil, nil, {class: "hidden peer"}
+  .z-50.fixed.hidden.peer-checked:block.top-0.left-0.right-0.bottom-0.bg-secondary/90
+    = label_tag :phonenav, class: "absolute top-10 right-10" do
+      .w-16.h-16.flex.items-center.justify-center.rounded-full.p-3.text-light
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+    .flex.flex-col.justify-around.items-start.py-12.px-12
+      = link_to "À propos", about_path, class: "tracking-widest text-5xl text-light mb-8"
+      = link_to "Contact", contact_path, class: "tracking-widest text-5xl text-light mb-8"
+      = link_to "Boutique", store_path, class: "tracking-widest text-5xl text-light mb-8"

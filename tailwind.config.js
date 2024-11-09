@@ -9,7 +9,6 @@ function withOpacity(varName) {
     return `rgba(var(${varName}))`
   }
 }
-
 module.exports = {
   content: [
     './app/assets/stylesheets/safe-list.css',
@@ -29,6 +28,7 @@ module.exports = {
         unsafe: ["'Noto Sans'", ...defaultTheme.fontFamily.sans],
         anemone: ["Avenir", ...defaultTheme.fontFamily.sans],
         kenjosset: ["Scandia", ...defaultTheme.fontFamily.sans],
+        "ttt-title": ["Titillium Web", ...defaultTheme.fontFamily.sans],
       },
       colors:{
         primary: withOpacity('--color-primary'),
@@ -45,5 +45,6 @@ module.exports = {
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/typography'),
   ]
 }

@@ -72,3 +72,6 @@ application.register("hover", HoverController)
 // TTT
 import TController from "./ttt/t_controller"
 application.register("t", TController)
+
+import ScrollDownController from "./ttt/scroll_down_controller"
+application.register("scroll-down", ScrollDownController)

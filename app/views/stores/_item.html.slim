@@ -1,0 +1,4 @@
+- if File.exist?(Rails.root.join('app', 'views', "#{store.slug}", 'shared', '_card.html.slim'))
+  = render "#{store.slug}/shared/card", item: item
+- else
+  = render "stores/card", item: item

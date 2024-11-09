@@ -15,6 +15,10 @@ module Status
       def online?
         @status == :active
       end
+
+      def pre_sale?
+        @status == :pre_sale
+      end
     end
   end
 end
