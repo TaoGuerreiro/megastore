@@ -1,11 +1,12 @@
 {
   "apps": [
     {
-      "app_id": "app_f46053dd-334d-472b-b2c3-ed45414d2cfa",
-      "org_id": "user_d0f57996-e7b2-40a9-afee-a87c7e355d16",
-      "deploy_url": "https://push-n3-par-clevercloud-customers.services.clever-cloud.com/app_f46053dd-334d-472b-b2c3-ed45414d2cfa.git",
-      "name": "megastore",
-      "alias": "megastore"
+      "app_id": "app_8b3dd0c9-ae64-41b8-aa21-1b5c4379dca2",
+      "org_id": "orga_b9885260-4b1f-42b9-879c-f273f69e5385",
+      "deploy_url": "https://push-n3-par-clevercloud-customers.services.clever-cloud.com/app_8b3dd0c9-ae64-41b8-aa21-1b5c4379dca2.git",
+      "git_ssh_url": "git+ssh://git@push-n3-par-clevercloud-customers.services.clever-cloud.com/app_8b3dd0c9-ae64-41b8-aa21-1b5c4379dca2.git",
+      "name": "store",
+      "alias": "store"
     }
   ]
 }
