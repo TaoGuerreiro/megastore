@@ -1,0 +1,12 @@
+fr:
+  admin:
+    carousel_cards:
+      create:
+        title: Effectué
+        success: Carte créée avec succès
+      update:
+        title: Effectuée
+        success: Carte mise à jour avec succès
+      destroy:
+        title: Effectuée
+        success: Carte supprimée

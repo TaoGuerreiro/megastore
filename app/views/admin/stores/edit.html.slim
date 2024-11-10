@@ -21,9 +21,23 @@
       = field.input :holiday, label: t('.holiday'), as: :boolean, input_html: { checked: @store.holiday?, class: "w-5 h-5 m-0 p-0 flex checked:!bg-primary"}, wrapper_html: {class: "flex items-center basis-1/4"}, label_html: {class: "-top-0.5 left-4"}
       = field.input :holiday_sentence, label: t('.holiday_message'), placeholder: t('.holiday_message_placeholder'), input_html: { class: "w-full" }, wrapper_html: {class: "basis-3/4"}
 
+    = field.input :mail_body, as: :text, label: t('.mail_text'), placeholder: t('.mail_text_placeholder'), input_html: { rows: 5 }
+
+
+    h3.mb-6.text-2xl.text-contrast Page "À propos"
+
     .mb-5.control data-controller="trix"
       = field.rich_text_area :about, label: t('.about_text'), placeholder: t('.about_text_placeholder'), data: { trix_target: 'editor' }
-    = field.input :mail_body, as: :text, label: t('.mail_text'), placeholder: t('.mail_text_placeholder'), input_html: { rows: 5 }
+    div.flex.w-full.justify-between.mb-5
+      .hidden = field.input :about_photo, label: false, input_html: {value: @store.about_photo, multiple: false, class: "hidden" }
+      = field.label :about_photo do
+
+        .btn.btn-secondary
+          | Modifier la photo
+          i.fa-solid.fa-pen-to-square.ml-2
+      - if @store.about_photo.attached?
+        .max-h-48 = image_tag @store.about_photo.variant(resize_to_fill: [100, 100]), class: "w-full h-full object-cover rounded-xl"
+
     .flex.items-center
       = field.button :submit, t('.submit'), class: "btn btn-primary"
   .absolute.right-6.bottom-8 = button_to "Annuler mon abonnement", admin_subscription_path, method: :delete, data: { turbo: false }, class: "ml-auto block mt-4 text-decoration-underlined text-secondary hover:text-red-600"

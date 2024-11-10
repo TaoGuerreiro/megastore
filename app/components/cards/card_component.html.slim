@@ -1,22 +1,35 @@
-.rounded-lg.hover:scale-105.transition.relative.group.opacity-100 data-controller='card' data-action="click->card#show" data-card-animate-target="card"
-  .text-center.text-xs.md:text-2xl.text-light.font-bold.uppercase.group-hover:opacity-100.group-hover:shadow-xl.opacity-0.absolute.top-0.bottom-0.left-0.right-0.rounded-lg.hover:shadow-xl.transition.flex.items-center.justify-center class="bg-secondary/90"
-    = title
-  = image_tag images[0], class: "cursor-pointer max-w-full rounded-lg group-hover:opacity-10 transition"
-  .absolute.left-0.right-0.h-5.bottom-2.flex.justify-center.gap-2
-    - images.size.times do
-      .h-2.w-2.bg-primary/30.rounded-full.inline-block
-  template data-card-target="template"
-    .md:px-24.md:py-12.relative.w-screen.h-screen.backdrop-blur-sm.bg-primary/50 data-controller='card'
-      i.fa-solid.hover:scale-110.fa-xmark.right-10.top-10.text-3xl.text-contrast.absolute.cursor-pointer.z-50 data-action="click->card#quit"
-      .flex.w-full.items-center.h-full.relative
-        - if images.count > 1
-          i.fa-solid.hover:scale-110.pl-2.fa-chevron-left.text-3xl.text-contrast.cursor-pointer data-action="click->card#previous"
-        #images.w-full.h-full.relative.grow data-card-target="images"
-          - images.each do |image|
-            = link_to link, target: "_blank", class: "" do
-              = image_tag image, class: "px-2 opacity-0 max-h-[calc(100vh-96px)] cursor-pointer rounded-lg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-        .absolute.left-0.right-0.h-5.bottom-2.flex.justify-center.gap-4 data-card-target="dots"
-          - images.size.times do |idx|
-            .h-4.w-4.bg-primary/60.rounded-full.inline-block class=('active' if idx == 0)
-        - if images.count > 1
-          i.fa-solid.hover:scale-110.pr-2.fa-chevron-right.text-3xl.text-contrast.cursor-pointer data-action="click->card#next"
+- if card.cover.attached?
+  .card.rounded-lg.hover:scale-105.transition.relative.group.opacity-100 data-controller='card' data-action="click->card#show" data-card-animate-target="card" data-draggable-target="card" data-card-id=card.id
+    = form_with model: card, url: update_position_admin_carousel_card_path(card), method: :patch, data: { turbo: true, remote: true }, class: "position-form" do |f|
+      = f.hidden_field :position_x, value: card.position_x
+      = f.hidden_field :position_y, value: card.position_y
+
+    .text-center.text-xs.md:text-2xl.text-light.font-bold.uppercase.group-hover:opacity-100.group-hover:shadow-xl.opacity-0.absolute.top-0.bottom-0.left-0.right-0.rounded-lg.hover:shadow-xl.transition.flex.items-center.justify-center class="bg-secondary/90"
+      = card.title
+    - if helpers.current_user.presence&.is_current_store_admin?
+      .absolute.left-5.top-5.z-50.flex.gap-4
+        = link_to edit_admin_carousel_card_path(card), data: { turbo_frame: :modal } do
+          i.fa-solid.fa-pen.text-2xl.text-midgray
+        = link_to admin_carousel_card_path(card), data: { turbo_method: :delete, turbo_confirm: "Sure?" }, class: "text-contrast hover:text-primary/90" do
+          i.fa-solid.fa-trash.text-2xl.text-midgray
+
+    = image_tag card.cover, class: "handle cursor-pointer max-w-full rounded-lg group-hover:opacity-10 transition"
+    .absolute.left-0.right-0.h-5.bottom-2.flex.justify-center.gap-2
+      - card.images.size.times do
+        .h-2.w-2.bg-primary/30.rounded-full.inline-block
+    template data-card-target="template"
+      .md:px-24.md:py-12.relative.w-screen.h-screen.backdrop-blur-sm.bg-primary/50 data-controller='card'
+        i.fa-solid.hover:scale-110.fa-xmark.right-10.top-10.text-3xl.text-contrast.absolute.cursor-pointer.z-50 data-action="click->card#quit"
+        .flex.w-full.items-center.h-full.relative
+          = card.all_images.count
+          - if card.all_images.count > 1
+            i.fa-solid.hover:scale-110.pl-2.fa-chevron-left.text-3xl.text-contrast.cursor-pointer data-action="click->card#previous"
+          #images.w-full.h-full.relative.grow data-card-target="images"
+            - card.all_images.each do |image|
+              = link_to card.url, target: "_blank" do
+                = image_tag image, class: "px-2 opacity-0 max-h-[calc(100vh-96px)] cursor-pointer rounded-lg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          .absolute.left-0.right-0.h-5.bottom-2.flex.justify-center.gap-4 data-card-target="dots"
+            - card.images.size.times do |idx|
+              .h-4.w-4.bg-primary/60.rounded-full.inline-block class=('active' if idx == 0)
+          - if card.all_images.count > 1
+            i.fa-solid.hover:scale-110.pr-2.fa-chevron-right.text-3xl.text-contrast.cursor-pointer data-action="click->card#next"

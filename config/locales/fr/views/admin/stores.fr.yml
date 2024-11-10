@@ -31,3 +31,4 @@ fr:
         stripe_webhook_key: "Clef webhook Stripe"
         submit: "Valider"
         title: "Editer la boutique"
+        about_photo: "Photo page 'À propos'"

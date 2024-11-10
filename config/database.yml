@@ -5,7 +5,7 @@ default: &default
 
 development:
   <<: *default
-  database: megastore_development
+  database: <%= ENV.fetch("DEV_DB") %>
 
 test:
   <<: *default

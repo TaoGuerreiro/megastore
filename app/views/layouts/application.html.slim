@@ -2,7 +2,8 @@ doctype html
 html
   head
     = render "shared/head"
-    #modal.z-50.fixed.hidden
+    = turbo_frame_tag :modal do
+    #card-modal.z-50.fixed.hidden
 
   body.bg-light class="#{Current.store.slug} font-#{Current.store.slug}" data-controller="scroll" data-action="scroll@window->scroll#scroll"
     = render "#{Current.store.slug}/common/navbar"

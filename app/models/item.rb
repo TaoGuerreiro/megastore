@@ -16,6 +16,7 @@ class Item < ApplicationRecord
   has_many :order_items, dependent: :destroy
   has_many :orders, through: :order_items
   has_many_attached :photos
+  has_one_attached :cover
 
   STATUSES = %w[active archived offline].freeze
   enumerize :status, in: STATUSES, default: :active, predicates: true

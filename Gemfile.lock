@@ -151,6 +151,10 @@ GEM
     diff-lcs (1.5.1)
     docile (1.4.0)
     domain_name (0.6.20240107)
+    dotenv (3.1.4)
+    dotenv-rails (3.1.4)
+      dotenv (= 3.1.4)
+      railties (>= 6.1)
     enumerize (2.8.1)
       activesupport (>= 3.2)
     erubi (1.12.0)
@@ -462,6 +466,7 @@ DEPENDENCIES
   devise
   devise-i18n
   devise_invitable
+  dotenv-rails
   enumerize
   factory_bot_rails
   faker

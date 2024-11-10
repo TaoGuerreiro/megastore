@@ -6,7 +6,7 @@
     "min_weight": 0,
     "max_weight": 20,
     "service_point_input": "none",
-    "price": 1.29,
+    "price": 1.79,
     "lead_time_hours": 72
   },
   {
@@ -16,7 +16,7 @@
     "min_weight": 20,
     "max_weight": 100,
     "service_point_input": "none",
-    "price": 2.58,
+    "price": 3.08,
     "lead_time_hours": 72
   },
   {
@@ -26,7 +26,7 @@
     "min_weight": 100,
     "max_weight": 250,
     "service_point_input": "none",
-    "price": 4.30,
+    "price": 4.80,
     "lead_time_hours": 72
   },
   {
@@ -36,7 +36,7 @@
     "min_weight": 250,
     "max_weight": 500,
     "service_point_input": "none",
-    "price": 6.30,
+    "price": 6.80,
     "lead_time_hours": 72
   },
   {
@@ -46,7 +46,7 @@
     "min_weight": 500,
     "max_weight": 1000,
     "service_point_input": "none",
-    "price": 7.70,
+    "price": 8.20,
     "lead_time_hours": 72
   },
   {
@@ -56,7 +56,7 @@
     "min_weight": 1000,
     "max_weight": 2000,
     "service_point_input": "none",
-    "price": 9.29,
+    "price": 9.79,
     "lead_time_hours": 72
   }
 ]

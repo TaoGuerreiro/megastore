@@ -1,0 +1,8 @@
+.px-4.sm:px-0
+= simple_form_for [:admin, carousel_card], html: { class: "flex flex-col items-center", data: { turbo: false } } do |field|
+  = field.input :title, label: "Nom de la collection", placeholder: "Nom de la collection", wrapper_html: { class: "pt-[20px] mr-2" }, label_html: { class: "mt-[20px]" }
+  = field.input :url, label: "URL", placeholder: "URL", wrapper_html: { class: "pt-[20px] mr-2" }, label_html: { class: "mt-[20px]" }
+  = field.input :cover
+  = field.input :images, as: :file, label: "Photos", input_html: { multiple: true, data: { action: "change->photo-upload#show" }}
+  = button_tag type: :submit do
+    i.fa-solid.fa-check.text-2xl.text-midgray

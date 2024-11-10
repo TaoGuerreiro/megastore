@@ -8,6 +8,7 @@ class Store < ApplicationRecord
   has_many :orders, dependent: :destroy
   has_many :collections, dependent: :destroy
   has_rich_text :about
+  has_one_attached :about_photo
 
   encrypts :postmark_key
   encrypts :sendcloud_private_key

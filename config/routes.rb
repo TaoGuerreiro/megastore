@@ -45,7 +45,10 @@ Rails.application.routes.draw do
         resources :specifications, only: [:destroy, :index, :new, :create, :edit, :update]
         resources :categories, only: [:destroy, :index, :new, :create, :edit, :update]
         resources :shipping_methods, only: [:destroy]
-        resources :collections, only: %i[index new create show edit destroy update]
+        resources :collections, only: %i[index new create edit destroy update]
+        resources :carousel_cards, only: %i[new create edit destroy update] do
+          patch :update_position, on: :member
+        end
         resource :bulk_edit_items, only: [] do
           patch :online, on: :member
           patch :offline, on: :member

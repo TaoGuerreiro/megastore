@@ -1,8 +1,8 @@
 = link_to item_path(collection.items.first), class:"relative" do
   .group.relative.flex.flex-col.overflow-hidden.rounded-lg.border.shadow-sm class="hover:shadow-lg hover:scale-[1.005] transition-all  #{'disabled' if collection.soldout?}"
     .aspect-h-4.aspect-w-3.bg-contrast.sm:aspect-none.sm:h-96
-      - if collection.items.first.photos.attached?
-        = image_tag collection.items.first.photos.first, class: "h-full w-full object-cover object-center sm:h-full sm:w-full"
+      = image_tag collection.cover_image, class: "h-full w-full object-cover object-center sm:h-full sm:w-full"
+
     .flex.flex-1.flex-col.space-y-2.p-4.bg-contour.min-h-36
       h3.text-sm.font-medium.text-contrast
         span.absolute.inset-0[aria-hidden="true"]

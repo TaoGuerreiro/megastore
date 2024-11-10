@@ -3,8 +3,17 @@
 class Collection < ApplicationRecord
   has_many :items, dependent: :nullify
   belongs_to :store
+  belongs_to :cover, class_name: "Item", optional: true
 
   validates :name, presence: true
+
+  def has_cover?
+    cover.present?
+  end
+
+  def cover_image
+    cover&.photos&.first || items.first&.photos&.first
+  end
 
   def soldout?
     return false unless items.any?
@@ -38,12 +47,6 @@ class Collection < ApplicationRecord
 
   def status
     active? ? :active : :inactive
-  end
-
-  def cover_image
-    return unless items.first
-
-    items.first.photos.first
   end
 
   def photos_attached?

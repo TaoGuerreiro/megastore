@@ -2,13 +2,10 @@
 
 module Cards
   class CardComponent < ViewComponent::Base
-    attr_accessor :images, :link, :title
+    attr_accessor :card
 
-    def initialize(data = {})
-      super
-      @images = data[:images]
-      @link = data[:link] || nil
-      @title = data[:title] || nil
+    def initialize(card:)
+      @card = card
     end
   end
 end

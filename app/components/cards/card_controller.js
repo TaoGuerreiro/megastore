@@ -5,6 +5,7 @@ export default class extends Controller {
   static targets = ["template", "images", "dots"]
   connect() {
     if (this.hasImagesTarget) {
+      debugger
       this.imagesTarget.firstChild.firstChild.classList.remove("opacity-0")
       this.dotsTarget.firstChild.classList.add("!bg-secondary")
     }
@@ -12,13 +13,13 @@ export default class extends Controller {
 
   show() {
     const template = this.templateTarget.content.cloneNode(true);
-    document.querySelector("#modal").classList.remove("hidden")
-    document.querySelector("#modal").appendChild(template)
+    document.querySelector("#card-modal").classList.remove("hidden")
+    document.querySelector("#card-modal").appendChild(template)
   }
 
   quit() {
-    document.querySelector("#modal").classList.add("hidden")
-    document.querySelector("#modal").innerHTML = ""
+    document.querySelector("#card-modal").classList.add("hidden")
+    document.querySelector("#card-modal").innerHTML = ""
   }
 
   next() {

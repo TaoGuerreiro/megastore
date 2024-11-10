@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_07_202817) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_09_193833) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_07_202817) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "carousel_cards", force: :cascade do |t|
+    t.string "title"
+    t.string "url"
+    t.integer "position_x"
+    t.integer "position_y"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.bigint "store_id", null: false
@@ -65,6 +74,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_07_202817) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "store_id", null: false
+    t.bigint "cover_id"
+    t.index ["cover_id"], name: "index_collections_on_cover_id"
     t.index ["store_id"], name: "index_collections_on_store_id"
   end
 
@@ -302,6 +313,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_07_202817) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "categories", "stores"
+  add_foreign_key "collections", "items", column: "cover_id"
   add_foreign_key "collections", "stores"
   add_foreign_key "fees", "orders"
   add_foreign_key "item_specifications", "items"

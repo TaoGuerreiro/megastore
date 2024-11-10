@@ -1,6 +1,8 @@
 = turbo_frame_tag dom_id(order), class: "table-row text-sm text-contrast"
   .table-cell
     = order.id
+  .table-cell
+    = l(order.created_at, format: :short)
   .table-cell.max-w-28.cursor-help title=order.user.full_name
     = order.user.full_name
   .table-cell.max-w-36.cursor-help title=order.user.email

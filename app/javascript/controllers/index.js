@@ -58,6 +58,9 @@ application.register("address-autocomplete", AddressAutocompleteController)
 import CardAnimateController from "./card_animate_controller"
 application.register("card-animate", CardAnimateController)
 
+import DraggableController from "./draggable_controller"
+application.register("draggable", DraggableController)
+
 // UNSAFE
 import ScrollController from "./unsafe/scroll_controller"
 application.register("scroll", ScrollController)

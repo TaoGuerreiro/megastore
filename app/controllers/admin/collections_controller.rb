@@ -54,7 +54,7 @@ module Admin
     private
 
     def collection_params
-      params.require(:collection).permit(:name)
+      params.require(:collection).permit(:name, :cover_id)
     end
   end
 end

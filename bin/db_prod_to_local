@@ -1,0 +1,90 @@
+#! /bin/bash
+
+# Abort script at first error
+set -e
+
+# Define color codes
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
+# Ensure the app is not running
+if [ -f ./.overmind.sock ]; then
+  echo "Overmind is running, stopping it"
+  overmind quit
+fi
+
+# Find the CC_DB_UUID in .env file
+# We don't use grep -P, it's not available on all systems
+CC_DB_UUID=$(grep -o 'CC_DB_UUID=.*' .env | cut -d'=' -f2) || true
+
+# Exit if CC_DB_UUID is not set
+if [ -z "$CC_DB_UUID" ]; then
+  echo -e "${RED}CC_DB_UUID not found in .env file${NC}"
+  echo ""
+  echo "You can find it in Clever Cloud console: https://console.clever-cloud.com"
+  echo -e "The format is ${GREEN}postgresql_8d619927-857b-45f8-a98d-f579d319cfa8${NC}"
+  echo ""
+  echo "Add CC_DB_UUID to .env file like this:"
+  echo ""
+  echo "CC_DB_UUID=postgresql_8d619927-857b-45f8-a98d-f579d319cfa8"
+  echo ""
+  echo -e "${RED}Change the value with your database uuid ;)${NC}"
+  exit 1
+fi
+
+BACKUPS=$(clever database backups $CC_DB_UUID --format json)
+DOWNLOAD_URL=$(echo $BACKUPS | jq -r '.[-1].downloadUrl') || true
+
+# Exit if download url is not set
+if [ -z "$DOWNLOAD_URL" ]; then
+  echo -e "#{RED}No download url found${NC}"
+  exit 1
+fi
+
+BACKUP_DATE=$(echo $BACKUPS | jq -r '.[-1].creationDate' | cut -d'T' -f1 | sed 's/-//g')
+
+# if dump already exists skip download
+if [ -f tmp/dump-$BACKUP_DATE.sql ]; then
+  echo "Dump already exists, skipping download"
+else
+  echo "Downloading $BACKUP_DATE dump..."
+  curl --output tmp/dump-$BACKUP_DATE.sql $DOWNLOAD_URL
+fi
+
+echo "Creating database..."
+DB_NAME=$BACKUP_DATE"_"$CC_DB_UUID
+if psql -lqt | cut -d \| -f 1 | grep -qw "$DB_NAME"; then
+  echo "Database '$DB_NAME' already exists, dropping it..."
+  dropdb "$DB_NAME"
+fi
+createdb "$DB_NAME"
+echo -e "${GREEN}Database '$DB_NAME' created successfully.${NC}"
+
+# Restore dump
+echo "Restoring dump..."
+# `|| true` to keep the script running even if pg_restore have a non-zero exit code
+pg_restore --verbose --clean --no-acl --no-owner -d "$DB_NAME" "tmp/dump-$BACKUP_DATE.sql" || true
+echo ""
+echo ""
+echo -e "${GREEN}Dump restored successfully.${NC}"
+
+echo "Setting up the database to be development ready..."
+# Comment previous DEV_DB and set the new database in .env
+# using perl to avoid issues with sed on MacOS
+perl -pi -e "s/^DEV_DB=/# &/" .env
+echo "DEV_DB=$DB_NAME" >> .env
+
+# Development mode
+psql "$DB_NAME" -c "UPDATE ar_internal_metadata SET value = 'development' WHERE key = 'environment';"
+
+rails runner "User.find_by(email: 'hello@chalky.fr').update(password: '123456')"
+rails runner "Store.first.update(domain: 'localhost')"
+
+echo -e "${GREEN}Database setup successfully.${NC}"
+
+# Delete dump file
+rm tmp/dump-$BACKUP_DATE.sql
+echo "Dump file deleted"
+
+echo -e "${GREEN}Everything is ready, enjoy! 🚀 ${NC}"

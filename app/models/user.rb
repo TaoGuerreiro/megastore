@@ -17,6 +17,10 @@ class User < ApplicationRecord
 
   accepts_nested_attributes_for :store
 
+  def is_current_store_admin?
+    store.admin == self || self.queen?
+  end
+
   def full_name
     "#{first_name&.capitalize} #{last_name&.upcase}".strip.presence || email
   end

@@ -32,9 +32,8 @@ module Admin
 
     def store_params
       params.require(:store).permit(:name, :meta_title, :meta_description, :about, :facebook_url, :instagram_url,
-                                    :stripe_webhook_secret_key, :stripe_secret_key, :stripe_publishable_key, :holiday,
-                                    :holiday_sentence, :postmark_key, :mail_body, :city, :postal_code, :address,
-                                    :country, :sendcloud_private_key, :sendcloud_public_key)
+                                    :holiday, :holiday_sentence, :city, :postal_code, :address,
+                                    :country, :about_photo)
     end
   end
 end

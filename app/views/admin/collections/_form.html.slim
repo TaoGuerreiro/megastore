@@ -1,5 +1,7 @@
 .px-4.sm:px-0
-= simple_form_for [:admin, @collection], html: { class: "flex items-center" } do |field|
+= simple_form_for [:admin, @collection], html: { class: "flex flex-col items-center" } do |field|
   = field.input :name, label: "Nom de la collection", placeholder: "Nom de la collection", wrapper_html: { class: "pt-[20px] mr-2" }, label_html: { class: "mt-[20px]" }
+  / = field.input :cover, collection: @collection.items, as: :select, label: "Photo de couverture", wrapper_html: { class: "pt-[20px] mr-2" }, label_html: { class: "mt-[20px]" }
+  = field.association :cover, collection: @collection.items, as: :select, label: "Photo de couverture", wrapper_html: { class: "pt-[20px] mr-2" }, label_html: { class: "mt-[20px]" }
   = button_tag type: :submit do
     i.fa-solid.fa-check.text-2xl.text-midgray
