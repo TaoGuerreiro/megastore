@@ -413,7 +413,7 @@
   }
   /* Btn CSS */
   .btn {
-    @apply px-3 py-2;
+    @apply px-3 py-2 cursor-pointer;
   }
 
   .btn-menu {
@@ -430,6 +430,10 @@
 
   .btn-link {
     @apply text-xl tracking-wider transition-all text-contrast hover:text-primary;
+  }
+
+  .btn-neutral {
+    @apply rounded-md bg-form-input px-2.5 py-1.5 text-sm font-semibold text-contrast shadow-sm ring-1 ring-inset ring-midgray hover:bg-light
   }
 
   .kenjosset .btn-link {

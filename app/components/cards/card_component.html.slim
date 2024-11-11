@@ -7,7 +7,7 @@
     .text-center.text-xs.md:text-2xl.text-light.font-bold.uppercase.group-hover:opacity-100.group-hover:shadow-xl.opacity-0.absolute.top-0.bottom-0.left-0.right-0.rounded-lg.hover:shadow-xl.transition.flex.items-center.justify-center class="bg-secondary/90"
       = card.title
     - if helpers.current_user.presence&.is_current_store_admin?
-      .absolute.left-5.top-5.z-50.flex.gap-4
+      .absolute.left-5.top-5.z-40.flex.gap-4
         = link_to edit_admin_carousel_card_path(card), data: { turbo_frame: :modal } do
           i.fa-solid.fa-pen.text-2xl.text-midgray
         = link_to admin_carousel_card_path(card), data: { turbo_method: :delete, turbo_confirm: "Sure?" }, class: "text-contrast hover:text-primary/90" do
@@ -21,7 +21,6 @@
       .md:px-24.md:py-12.relative.w-screen.h-screen.backdrop-blur-sm.bg-primary/50 data-controller='card'
         i.fa-solid.hover:scale-110.fa-xmark.right-10.top-10.text-3xl.text-contrast.absolute.cursor-pointer.z-50 data-action="click->card#quit"
         .flex.w-full.items-center.h-full.relative
-          = card.all_images.count
           - if card.all_images.count > 1
             i.fa-solid.hover:scale-110.pl-2.fa-chevron-left.text-3xl.text-contrast.cursor-pointer data-action="click->card#previous"
           #images.w-full.h-full.relative.grow data-card-target="images"

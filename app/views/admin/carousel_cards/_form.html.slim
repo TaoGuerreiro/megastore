@@ -1,8 +1,39 @@
 .px-4.sm:px-0
-= simple_form_for [:admin, carousel_card], html: { class: "flex flex-col items-center", data: { turbo: false } } do |field|
+= simple_form_for [:admin, carousel_card], html: { class: "flex flex-col items-start", data: { turbo: false } } do |field|
   = field.input :title, label: "Nom de la collection", placeholder: "Nom de la collection", wrapper_html: { class: "pt-[20px] mr-2" }, label_html: { class: "mt-[20px]" }
   = field.input :url, label: "URL", placeholder: "URL", wrapper_html: { class: "pt-[20px] mr-2" }, label_html: { class: "mt-[20px]" }
-  = field.input :cover
-  = field.input :images, as: :file, label: "Photos", input_html: { multiple: true, data: { action: "change->photo-upload#show" }}
-  = button_tag type: :submit do
-    i.fa-solid.fa-check.text-2xl.text-midgray
+
+  h3.text-2xl.text-contrast Photo de courverture
+  . data-controller="photo-upload"
+    = field.input :cover, label: false, input_html: { value: carousel_card.cover, multiple: true, class: "hidden", data: { action: "change->photo-upload#show" } }
+    .flex.items-center.gap-4.min-h-20
+      = field.label :cover do
+        .btn.btn-neutral.inline Ajouter une photo
+      .mt-5 data-photo-upload-target="photosContainer"
+        - if carousel_card.persisted?
+          = turbo_frame_tag dom_id(carousel_card.cover) do
+            .inline-block.w-20.h-20.mr-4.bg-contrast.rounded-xl.relative
+              = image_tag carousel_card.cover.variant(resize_to_fill: [50, 50]), class: "w-full h-full object-cover rounded-xl"
+              / = button_to remove_photo_admin_item_path(item, photo_id: photo), method: :delete, class: "absolute top-1 right-1 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-contrast hover:bg-red-600" do
+                i.fas.fa-times
+
+  h3.text-2xl.text-contrast Photos
+  . data-controller="photo-upload"
+    = field.input :images, label: false, input_html: { value: carousel_card.images, multiple: true, class: "hidden", data: { action: "change->photo-upload#show" }}
+    .flex.items-center.gap-4.min-h-20
+      = field.label :images do
+        .btn.btn-neutral.inline Ajouter des photos
+      .mt-5 data-photo-upload-target="photosContainer"
+        - if carousel_card.persisted?
+          - carousel_card.images.each do |photo|
+            = turbo_frame_tag dom_id(photo) do
+              .inline-block.w-20.h-20.mr-4.bg-contrast.rounded-xl.relative
+                = image_tag photo.variant(resize_to_fill: [50, 50]), class: "w-full h-full object-cover rounded-xl"
+                / = button_to remove_photo_admin_item_path(item, photo_id: photo), method: :delete, class: "absolute top-1 right-1 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-contrast hover:bg-red-600" do
+                  i.fas.fa-times
+
+
+  = button_tag type: :submit, class: "ml-auto" do
+    .flex.items-center.btn-primary.btn
+      i.fa-solid.fa-check.text-2xl
+      span.ml-2 Enregistrer
