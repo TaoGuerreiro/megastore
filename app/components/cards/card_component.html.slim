@@ -1,4 +1,4 @@
-- if card.cover.attached?
+  / - if card.cover.attached?
   .card.rounded-lg.hover:scale-105.transition.relative.group.opacity-100 data-controller='card' data-action="click->card#show" data-card-animate-target="card" data-draggable-target="card" data-card-id=card.id
     = form_with model: card, url: update_position_admin_carousel_card_path(card), method: :patch, data: { turbo: true, remote: true }, class: "position-form" do |f|
       = f.hidden_field :position_x, value: card.position_x

@@ -5,7 +5,7 @@
 
   h3.text-2xl.text-contrast Photo de courverture
   . data-controller="photo-upload"
-    = field.input :cover, label: false, input_html: { value: carousel_card.cover, multiple: true, class: "hidden", data: { action: "change->photo-upload#show" } }
+    = field.input :cover, label: false, input_html: { value: carousel_card.cover, class: "hidden", data: { action: "change->photo-upload#show" } }
     .flex.items-center.gap-4.min-h-20
       = field.label :cover do
         .btn.btn-neutral.inline Ajouter une photo
