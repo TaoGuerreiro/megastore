@@ -15,7 +15,7 @@ class CarouselCard < ApplicationRecord
   end
 
   def update_position
-    max_y = CarouselCard.all.min_by(&:position_y).position_y
-    card.update!(position_x: 3, position_y: max_y - 1)
+    min_y = CarouselCard.all.min_by(&:position_y).position_y
+    card.update!(position_x: 3, position_y: min_y)
   end
 end
