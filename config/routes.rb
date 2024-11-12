@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   require "domain"
   devise_for :users
   mount StripeEvent::Engine, at: "/stripe-webhooks"
+  get "/", to: "pages#home"
 
   post "/webhooks/:source", to: "webhooks#create"
 
