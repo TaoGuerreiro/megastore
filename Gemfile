@@ -8,6 +8,7 @@ gem "rails", "~> 7.0.8"
 
 gem "action_policy"
 gem "activerecord-session_store"
+gem "appsignal"
 gem "aws-sdk-s3", require: false
 gem "bootsnap", require: false
 gem "country_select"
