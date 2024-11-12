@@ -6,7 +6,7 @@ class PagesController < ApplicationController
   def landing; end
 
   def home
-    return render json: { error: 'Store not found' }, status: :200 if Current.store.nil?
+    render "home" if Current.store.nil?
 
     @items = Current.store.items.where(status: :active)
     render "#{Current.store.slug}/home"
