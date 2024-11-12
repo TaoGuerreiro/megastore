@@ -45,12 +45,12 @@ fi
 BACKUP_DATE=$(echo $BACKUPS | jq -r '.[-1].creationDate' | cut -d'T' -f1 | sed 's/-//g')
 
 # if dump already exists skip download
-if [ -f tmp/dump-$BACKUP_DATE.sql ]; then
-  echo "Dump already exists, skipping download"
-else
-  echo "Downloading $BACKUP_DATE dump..."
-  curl --output tmp/dump-$BACKUP_DATE.sql $DOWNLOAD_URL
-fi
+# if [ -f tmp/dump-$BACKUP_DATE.sql ]; then
+#   echo "Dump already exists, skipping download"
+# else
+echo "Downloading $BACKUP_DATE dump..."
+curl --output tmp/dump-$BACKUP_DATE.sql $DOWNLOAD_URL
+# fi
 
 echo "Creating database..."
 DB_NAME=$BACKUP_DATE"_"$CC_DB_UUID
