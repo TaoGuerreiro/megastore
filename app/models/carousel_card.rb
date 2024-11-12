@@ -2,10 +2,12 @@ class CarouselCard < ApplicationRecord
   has_many_attached :images
   has_one_attached :cover
 
-  after_create_commit :update_position
+  before_validation :update_position, on: :create
 
   validates :title, presence: true
   validates :cover, presence: true
+  validates :position_x, presence: true
+  validates :position_y, presence: true
 
   def all_images
     image_attachments = images.attached? ? images.blobs.to_a : []
@@ -15,7 +17,9 @@ class CarouselCard < ApplicationRecord
   end
 
   def update_position
-    min_y = CarouselCard.all.min_by(&:position_y).position_y
-    card.update!(position_x: 3, position_y: min_y)
+    CarouselCard.where(position_x: 1).order(:position_y).each_with_index do |card, index|
+      card.update!(position_x: 1, position_y: index + 1)
+    end
+    assign_attributes(position_x: 1, position_y: 0)
   end
 end
