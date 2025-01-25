@@ -18,6 +18,24 @@ class StoresController < ApplicationController
     end
   end
 
+  def library
+    redirect_to store_path(Current.store) if Current.store.slug =! "ttt"
+    Current.store.update(slug: "ttt")
+
+    @max_price = max_price
+    @min_price = min_price
+    @default_sort = default_sort
+    @query = params.dig(:filters, :query)
+    @items = fetch_items
+    @collections = @store.collections_with_items
+
+    return unless params[:filters]
+
+    respond_to do |format|
+      format.turbo_stream
+    end
+  end
+
   private
 
   def max_price

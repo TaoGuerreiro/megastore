@@ -76,6 +76,7 @@ Rails.application.routes.draw do
     get "/about",           to: "pages#about"
     post "/send_message",   to: "pages#send_message"
     get "/store",           to: "stores#show"
+    get "/library",         to: "stores#library"
     get "/portfolio",       to: "pages#portfolio"
     get "/authors",         to: "pages#authors"
     get "/authors/:id",     to: "pages#author", as: :author

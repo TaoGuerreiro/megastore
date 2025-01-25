@@ -12,8 +12,12 @@
         - if item.stock == 1
           p.text-sm.font-base.text-contrast.text-red-500
             = "Plus qu'un seul exemplaire en stock !"
-      = button_to add_item_checkout_path(item), method: :post do
-        i.fa-solid.fa-cart-shopping.text-2xl
+      - unless item.pre_sale?
+        = button_to add_item_checkout_path(item), method: :post do
+          i.fa-solid.fa-cart-shopping.text-2xl
+      - else
+        = link_to item.pre_sale_url, target: "_blank" do
+          i.fa-solid.fa-coin.text-2xl
 
   - if item.soldout?
     .absolute.left-1/2.top-1/2.-translate-x-1/2.-translate-y-1/2.text-center.opacity-100

@@ -5,6 +5,11 @@
       h2.text-lg.font-medium.text-contrast.mb-4
         | Informations complémentaires
 
+
+      / .mb-4 = field.input :library, as: :boolean, label: false, placeholder: "Librairie"
+      / .mb-4 = field.label :library, as: :label, class: "switch"
+      .mt-8 = field.input :library, as: :boolean, input_html: { class: 'switch' }, label: 'Facturation fin de mois', label_html: { class: '-top-6 px-0' }
+
       .mb-4 = field.input :email, label: "Email", placeholder: "Email"
       .flex.gap-4.mb-4
         = field.input :first_name, label: "Prénom", placeholder: "Prénom"

@@ -24,6 +24,21 @@ module.exports = {
   ],
   theme: {
     extend: {
+      animation: {
+        text: 'text 9s ease infinite',
+      },
+      keyframes: {
+        text: {
+          '0%, 100%': {
+            'background-size': '200% 200%',
+            'background-position': 'left center',
+          },
+          '50%': {
+            'background-size': '200% 200%',
+            'background-position': 'right center',
+          },
+        },
+      },
       fontFamily: {
         unsafe: ["'Noto Sans'", ...defaultTheme.fontFamily.sans],
         anemone: ["Avenir", ...defaultTheme.fontFamily.sans],
@@ -45,6 +60,5 @@ module.exports = {
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/aspect-ratio'),
-    require('@tailwindcss/typography'),
   ]
 }
