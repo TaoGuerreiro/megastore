@@ -1,8 +1,12 @@
-- if item.photos.attached?
-  .relative.text-center
-    = image_tag item.photos.first.variant(resize_to_fill: [50, 50])
-    span.absolute.-left-2.-bottom-2.text-center.flex.items-center.justify-center
-      span.rounded-full.w-4.h-4.bg-primary/80.text-xs.text-secondary = item.photos.count
-    - if item.collection.present?
-      span.absolute.right-2.-bottom-2.text-center.flex.items-center.justify-center
-        = render Tooltip::Component.new(message: t("in_collection"))
+- if item.public_send(method).attached?
+  - if item.public_send(method).is_a?(ActiveStorage::Attached::Many)
+    .relative.text-center
+      = image_tag item.photos.first.variant(resize_to_fill: [50, 50])
+      span.absolute.-left-2.-bottom-2.text-center.flex.items-center.justify-center
+        span.rounded-full.w-4.h-4.bg-primary/80.text-xs.text-secondary = item.photos.count
+      - if item.collection.present?
+        span.absolute.right-2.-bottom-2.text-center.flex.items-center.justify-center
+          = render Tooltip::Component.new(message: t("in_collection"))
+  - else
+    .relative.text-center
+      = image_tag item.public_send(method).variant(resize_to_fill: [50, 50])

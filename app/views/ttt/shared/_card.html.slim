@@ -1,0 +1,24 @@
+.relative
+  .group.relative.flex.flex-col.overflow-hidden.border.shadow-sm class="hover:shadow-lg hover:scale-[1.005] transition-all  #{'disabled' if item.soldout?}" data-card-animate-target="card"
+    .text-center.bg-form-input.border
+      h3.py-3.uppercase.font-black.font-ttt-title.text-2xl = item.name
+    = link_to item_path(item), class: "border" do
+      .aspect-h-4.aspect-w-3.bg-form-input.transition.sm:aspect-none.sm:h-96
+        - if item.photos.attached?
+          = image_tag item.photos.first.variant(resize_to_fill: [600, 600]), class: "h-full w-full object-contain object-center sm:h-full sm:w-full px-6"
+    .flex.justify-between.items-center.p-4.bg-form-input.border
+      .font-black.font-ttt-title.text-2xl class="!mt-auto"
+        = "#{item.price} €"
+        - if item.stock == 1
+          p.text-sm.font-base.text-contrast.text-red-500
+            = "Plus qu'un seul exemplaire en stock !"
+      - unless item.pre_sale?
+        = button_to add_item_checkout_path(item), method: :post do
+          i.fa-solid.fa-cart-shopping.text-2xl
+      - else
+        = link_to item.pre_sale_url, target: "_blank" do
+          i.fa-solid.fa-coin.text-2xl
+
+  - if item.soldout?
+    .absolute.left-1/2.top-1/2.-translate-x-1/2.-translate-y-1/2.text-center.opacity-100
+      .text-3xl.text-red-500.font-bold RUPTURE DE STOCK

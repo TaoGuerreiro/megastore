@@ -9,7 +9,6 @@ function withOpacity(varName) {
     return `rgba(var(${varName}))`
   }
 }
-
 module.exports = {
   content: [
     './app/assets/stylesheets/safe-list.css',
@@ -25,10 +24,26 @@ module.exports = {
   ],
   theme: {
     extend: {
+      animation: {
+        text: 'text 9s ease infinite',
+      },
+      keyframes: {
+        text: {
+          '0%, 100%': {
+            'background-size': '200% 200%',
+            'background-position': 'left center',
+          },
+          '50%': {
+            'background-size': '200% 200%',
+            'background-position': 'right center',
+          },
+        },
+      },
       fontFamily: {
         unsafe: ["'Noto Sans'", ...defaultTheme.fontFamily.sans],
         anemone: ["Avenir", ...defaultTheme.fontFamily.sans],
         kenjosset: ["Scandia", ...defaultTheme.fontFamily.sans],
+        "ttt-title": ["Titillium Web", ...defaultTheme.fontFamily.sans],
       },
       colors:{
         primary: withOpacity('--color-primary'),

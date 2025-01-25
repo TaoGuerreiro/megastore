@@ -1,0 +1,9 @@
+.max-w-5xl.mx-auto.flex.flex-col.items-center.pt-36
+  = image_tag "#{Current.store.slug}/logo.svg", class: "object-contain w-36 overflow-hidden mb-20"
+  .w-full.md:px-0.px-12.pt-6.md:pt-0.text-justify.text-sm.leading-7.mb-12
+    h2.text-xl Qui sommes nous ?
+    == Current&.store&.about&.body&.to_html
+
+  .w-full.md:px-0.px-12.py-6.md:pt-0.text-justify.text-sm.leading-7
+    h2.text-xl Contact
+    p hello@tttcorp-asso.fr

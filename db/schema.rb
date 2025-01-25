@@ -10,9 +10,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_11_09_193833) do
+ActiveRecord::Schema[7.0].define(version: 2025_01_25_101409) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "adminpack"
+  enable_extension "autoinc"
+  enable_extension "btree_gin"
+  enable_extension "btree_gist"
+  enable_extension "citext"
+  enable_extension "cube"
+  enable_extension "dblink"
+  enable_extension "dict_int"
+  enable_extension "dict_xsyn"
+  enable_extension "earthdistance"
+  enable_extension "file_fdw"
+  enable_extension "fuzzystrmatch"
+  enable_extension "hstore"
+  enable_extension "insert_username"
+  enable_extension "intagg"
+  enable_extension "intarray"
+  enable_extension "isn"
+  enable_extension "lo"
+  enable_extension "ltree"
+  enable_extension "moddatetime"
+  enable_extension "pageinspect"
+  enable_extension "pg_buffercache"
+  enable_extension "pg_freespacemap"
+  enable_extension "pg_stat_statements"
+  enable_extension "pg_trgm"
+  enable_extension "pgcrypto"
+  enable_extension "pgrowlocks"
+  enable_extension "pgstattuple"
   enable_extension "plpgsql"
+  enable_extension "refint"
+  enable_extension "seg"
+  enable_extension "sslinfo"
+  enable_extension "tablefunc"
+  enable_extension "tcn"
+  enable_extension "unaccent"
+  enable_extension "uuid-ossp"
+  enable_extension "xml2"
 
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
@@ -50,6 +86,25 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_09_193833) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "carousel_cards", force: :cascade do |t|
+    t.string "title"
+    t.string "url"
+    t.integer "position_x"
+    t.integer "position_y"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "authors", force: :cascade do |t|
+    t.string "nickname"
+    t.string "bio"
+    t.string "website"
+    t.bigint "store_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["store_id"], name: "index_authors_on_store_id"
   end
 
   create_table "carousel_cards", force: :cascade do |t|
@@ -111,6 +166,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_09_193833) do
     t.index ["owner_type", "owner_id"], name: "index_filterable_views_on_owner"
   end
 
+  create_table "item_authors", force: :cascade do |t|
+    t.bigint "item_id", null: false
+    t.bigint "author_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_item_authors_on_author_id"
+    t.index ["item_id"], name: "index_item_authors_on_item_id"
+  end
+
   create_table "item_specifications", force: :cascade do |t|
     t.bigint "item_id", null: false
     t.bigint "specification_id", null: false
@@ -137,6 +201,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_09_193833) do
     t.string "status", default: "active"
     t.bigint "collection_id"
     t.string "format"
+    t.string "pre_sale_url"
     t.index ["category_id"], name: "index_items_on_category_id"
     t.index ["collection_id"], name: "index_items_on_collection_id"
     t.index ["store_id"], name: "index_items_on_store_id"
@@ -274,6 +339,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_09_193833) do
     t.string "stripe_checkout_session_id"
     t.text "endi_auth"
     t.integer "endi_id"
+    t.boolean "filters", default: true
     t.index ["admin_id"], name: "index_stores_on_admin_id"
     t.index ["slug"], name: "index_stores_on_slug", unique: true
     t.index ["stripe_subscription_id"], name: "index_stores_on_stripe_subscription_id", unique: true
@@ -312,10 +378,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_09_193833) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "authors", "stores"
   add_foreign_key "categories", "stores"
   add_foreign_key "collections", "items", column: "cover_id"
   add_foreign_key "collections", "stores"
   add_foreign_key "fees", "orders"
+  add_foreign_key "item_authors", "authors"
+  add_foreign_key "item_authors", "items"
   add_foreign_key "item_specifications", "items"
   add_foreign_key "item_specifications", "specifications"
   add_foreign_key "items", "categories"

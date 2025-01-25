@@ -9,6 +9,14 @@
       = field.input :stock, label: "Stock", placeholder: "Stock"
       = field.association :category, collection: Current.store.categories.map {|category| [category.name, category.id]}, label: "Catégorie", placeholder: "Catégorie"
 
+    - if Current.store.slug == "ttt"
+      h3.mb-6.text-2xl.text-contrast Auteur.i.ces
+      = field.association :authors,
+        as: :select,
+        label: false,
+        collection: Author.all.map {|author| [author.nickname, author.id]},
+        input_html: { multiple: true, data: { controller: "select"} }
+
     h3.mb-6.text-2xl.text-contrast Dimensions
 
     .grid.grid-cols-2.sm:grid-cols-4.gap-4.mb-6
@@ -42,8 +50,15 @@
 
 
     h3.mb-6.text-2xl.text-contrast Affichage
-    - unless item.archived?
-      = field.input :active, label: "En ligne", as: :boolean, input_html: { checked: item.active?, class: "w-5 h-5 m-0 p-0 flex checked:!bg-primary"}, wrapper_html: {class: "flex items-center"}, label_html: {class: "-top-0.5 left-4"}
+    / - unless item.archived?
+    /   = field.input :active, label: "En ligne", as: :boolean, input_html: { checked: item.active?, class: "w-5 h-5 m-0 p-0 flex checked:!bg-primary"}, wrapper_html: {class: "flex items-center"}, label_html: {class: "-top-0.5 left-4"}
+    div.flex.gap-3.
+      - Item.status.values.each do |status|
+        div
+          = field.radio_button :status, status, id: status, class: "hidden peer"
+          = field.label :status, for: status, class: "block py-3 px-3 first:mx-0 mb-2 border rounded-md cursor-pointer text-content bg-contour peer-checked:bg-tertiary peer-checked:text-contrast transition-colors duration-300 peer-checked:border peer-checked:border-primary" do
+            = I18n.t("enumerize.item.status.#{status}")
+
 
     h3.mb-6.text-2xl.text-contrast Spécifications
     = field.association :specifications,

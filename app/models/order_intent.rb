@@ -5,7 +5,7 @@ class OrderIntent
 
   attr_accessor :email, :first_name, :last_name, :address, :postal_code, :city, :country,
                 :phone, :shipping_method, :service_point, :items_price, :shipping_price,
-                :need_point, :weight, :street_number, :fees_price
+                :need_point, :weight, :street_number, :fees_price, :library
 
   def initialize(attr = {})
     super

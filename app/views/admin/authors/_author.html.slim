@@ -1,0 +1,20 @@
+= turbo_frame_tag dom_id(author), class: "table-row text-sm text-contrast" do
+  / .table-cell.text-center.align-middle
+  /   = check_box_tag "#{author.id}", author.id, false, class: "w-6 h-6 rounded-md text-primary focus:ring-primary", data: { action: "change->bulk-edit-items#select" }
+
+  .table-cell.align-middle.h-16
+    = render Miniature::Component.new(item: author, method: :avatar)
+
+  .table-cell.max-w-36.align-middle.text-contrast.font-bold title = author.nickname
+    = author.nickname
+
+  .table-cell.max-w-36.align-middle title = author.bio
+    = author.bio.first(30)
+
+  .table-cell.align-middle
+    = author.website
+
+  .table-cell
+    = render List::Component.new(item: author,
+                                 links:[{icon: "fas fa-pen", label: "Editer", path: edit_admin_author_path(author), options: { data: { turbo_frame: "modal" }}},
+                                        {icon: "fas fa-trash", label: "Supprimer", path: admin_author_path(author), options: { data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer cet article ?" }}}])

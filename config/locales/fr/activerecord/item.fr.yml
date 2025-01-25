@@ -1,0 +1,18 @@
+fr:
+  activerecord:
+    models:
+      item:
+        zero: article
+        one: article
+        other: articles
+    attributes:
+      item:
+        status: État
+  enumerize:
+    item:
+      status:
+        archived: Archivé
+        active: En ligne
+        offline: Offline
+        pre_sale: Pré-vente
+        soldout: Sold out

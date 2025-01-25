@@ -3,9 +3,9 @@
   = label_tag :cart do
     .relative.cursor-pointer
       - if File.exist?("app/assets/images/#{Current.store.slug}/basket.svg")
-        = image_tag "#{Current.store.slug}/basket.svg", class: "h-8 w-8"
+        = image_tag "#{Current.store.slug}/basket.svg", class: "h-8 w-8 text-contrast"
       - else
-        i.fa-solid.fa-cart-shopping.text-2xl
+        i.fa-regular.fa-basket-shopping-minus.text-2xl.text-contrast
       #cart-counter.bg-primary.rounded-full.h-6.w-6.absolute.text-form-input.text-sm.-right-2.-bottom-3.text-center.align-middle class="leading-[1.6rem]"
         = session[:checkout_items]&.count
   = check_box_tag :cart, nil, nil, {checked: @opened, class: "hidden peer"}

@@ -11,5 +11,5 @@
         .flex.items-center
           = link_to edit_admin_store_path(@store), class: "text-midgray", data: { turbo_frame: :modal } do
             i.fa-solid.fa-pen
-      .mt-6.border-t.border-contour
+      .mt-6.border-t.border-contour.prose
         = render "admin/stores/store"

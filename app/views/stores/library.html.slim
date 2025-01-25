@@ -1,0 +1,23 @@
+.bg-light.w-full.min-h-screen.pt-36.ttt-dark
+  .max-w-5xl.mx-auto
+    h1.text-4xl.text-contrast Libraire, commander nos BD avec des prix professionels
+    p.text-contrast.mt-4
+      | Les avantages libraire sont les prix professionels, la contrepartie est que nous demandons une commande pour 5 ouvrages minimum
+
+  - filters = Current.store.filters
+  .md:pt-24 class="min-h-[calc(100vh-10rem)]"
+    main.mx-auto.max-w-2xl.px-4.lg:max-w-7xl.lg:px-8
+      .pb-24.pt-12.lg:grid.lg:grid-cols-3.lg:gap-x-8.xl:grid-cols-4 class="#{'xl:!grid-cols-3' unless filters}"
+        - if filters
+          = render "filters"
+        section.mt-6.lg:col-span-2.lg:mt-0.xl:col-span-3[aria-labelledby="product-heading"]
+          - if @items.blank?
+            .flex.items-center.justify-center.py-24
+              h1.text-4xl.text-midgray Aucune résultat pour votre recherche
+          - elsif Current.store.holiday?
+            .flex.items-center.justify-center.py-24
+              h1.text-4xl.text-midgray = Current.store.holiday_sentence
+          - else
+            h2#product-heading.sr-only
+              | Products
+            = render "items", items: @items, collections: @collections

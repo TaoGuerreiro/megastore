@@ -1,0 +1,8 @@
+.px-4.sm:px-0
+  = simple_form_for [:admin, author], html: { class: "items-center" } do |field|
+    = field.input :nickname, label: "Nom", placeholder: "Nom", wrapper_html: { class: "pt-[20px] mr-2" }, label_html: { class: "mt-[20px]" }
+    = field.input :bio, as: :text, label: "Bio", placeholder: "Bio", wrapper_html: { class: "pt-[20px] mr-2" }, label_html: { class: "mt-[20px]" }
+    = field.input :website, label: "Site", placeholder: "Site", wrapper_html: { class: "pt-[20px] mr-2" }, label_html: { class: "mt-[20px]" }
+    = field.input :avatar, as: :file, label: "Avatar", wrapper_html: { class: "pt-[20px] mr-2" }, label_html: { class: "mt-[20px]" }
+    = button_tag type: :submit do
+      i.fa-solid.fa-check.text-2xl.text-midgray

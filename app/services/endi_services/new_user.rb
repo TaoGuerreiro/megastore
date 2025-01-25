@@ -13,19 +13,19 @@ module EndiServices
     end
 
     def call
-      response = HTTParty.post(@url, body:, headers: @headers)
+      # response = HTTParty.post(@url, body:, headers: @headers)
 
-      if response.code == 401
-        @headers = EndiService.new.headers.merge("Referer" => "#{ENDI_PATH}/companies/#{ENDI_ID}/customers/add")
-        EndiServices::ResetAuth.new.call
-        response = HTTParty.post(@url, body:, headers: @headers)
-      end
+      # if response.code == 401
+      #   @headers = EndiService.new.headers.merge("Referer" => "#{ENDI_PATH}/companies/#{ENDI_ID}/customers/add")
+      #   EndiServices::ResetAuth.new.call
+      #   response = HTTParty.post(@url, body:, headers: @headers)
+      # end
 
-      @store.update(endi_id: response["id"])
+      # @store.update(endi_id: response["id"])
 
-      EndiServices::AddUserToFolder.new(@store, response["id"]).call
+      # EndiServices::AddUserToFolder.new(@store, response["id"]).call
 
-      response
+      # response
     end
 
     def body

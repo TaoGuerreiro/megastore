@@ -35,7 +35,7 @@ Rails.application.routes.draw do
     namespace :admin do
       authenticate :user, -> (user) { user.queen? || user.admin? } do
         resource :instagram, only: [:show]
-
+        resources :authors
         resource :onboarding, only: %i[new create]
         resource :subscription, only: %i[create destroy]
         resources :stores, only: %i[show edit update] do
@@ -72,11 +72,16 @@ Rails.application.routes.draw do
 
   constraints(Domain) do
     root to: "pages#home"
-    get "/contact",       to: "pages#contact"
-    get "/about",         to: "pages#about"
-    post "/send_message", to: "pages#send_message"
-    get "/store",         to: "stores#show"
-    get "/portfolio",     to: "pages#portfolio"
+    get "/contact",         to: "pages#contact"
+    get "/about",           to: "pages#about"
+    post "/send_message",   to: "pages#send_message"
+    get "/store",           to: "stores#show"
+    get "/library",         to: "stores#library"
+    get "/portfolio",       to: "pages#portfolio"
+    get "/authors",         to: "pages#authors"
+    get "/authors/:id",     to: "pages#author", as: :author
+    get "/confidentiality", to: "pages#confidentiality"
+
     resource :checkout, only: [:show] do
       post :confirm_payment, on: :member
     end
