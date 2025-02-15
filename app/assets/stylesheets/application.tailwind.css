@@ -661,6 +661,30 @@
   }
 
 
+  #ttt-anim { animation: mutant 5s cubic-bezier(0.25, 1, 0.5, 1) infinite alternate; }
+    @keyframes mutant {
+        0% { font-variation-settings: "wdth" 0, "wght" 0 }
+        25% { font-variation-settings: "wdth" 1000, "wght" 0 }
+        50% { font-variation-settings: "wdth" 1000, "wght" 1000 }
+        75% { font-variation-settings: "wdth" 0, "wght" 1000 }
+        100% { font-variation-settings: "wdth" 0, "wght" 0 }
+    }
+
+    #ttt-logo {
+      transition: transform 0.1s ease, font-variation-settings 0.1s ease;
+    }
+
+    .hachures {
+      background: repeating-linear-gradient(
+          -10deg,
+          transparent,
+          transparent 12px,
+          black 12px,
+          black 14px
+      );
+  }
+
+
    /* PAGY */
 
   .pagy {

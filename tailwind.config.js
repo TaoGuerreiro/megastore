@@ -24,6 +24,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      transitionProperty: {
+        'max-height': 'max-height'
+      },
       animation: {
         text: 'text 9s ease infinite',
       },
@@ -44,6 +47,7 @@ module.exports = {
         anemone: ["Avenir", ...defaultTheme.fontFamily.sans],
         kenjosset: ["Scandia", ...defaultTheme.fontFamily.sans],
         "ttt-title": ["Titillium Web", ...defaultTheme.fontFamily.sans],
+        "ttt-logo": ["Roboto Flex", ...defaultTheme.fontFamily.sans],
       },
       colors:{
         primary: withOpacity('--color-primary'),

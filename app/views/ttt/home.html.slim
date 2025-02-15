@@ -1,20 +1,22 @@
-.relative.w-screen.h-screen.flex.justify-center data-controller="t"
-  - images = Dir.glob("app/assets/images/#{Current.store.slug}/t/*").map { |path| path.gsub("app/assets/images/", "") }
-
-  - images.each do |image|
-    - axe = ["x", "y"].sample
-    - direction = ["-", ""].sample
-    = image_tag image, class: "absolute top-36 w-96 ease-in-out duration-100 opacity-0", data: { "t-target": "t" }
+.relative.w-screen.h-screen.flex.justify-center.items-center data-controller="t"
+  #ttt-logo.flex.flex-col.items-center
+    .relative
+      span.absolute.bottom-0 class="left-0 origin-center translate-x-8 translate-y-10" class="text-[8rem]" T
+      #ttt-logo-main.absolute.bottom-0 class="origin-center -translate-x-1/2 translate-y-16 left-1/2" class="text-[12rem]" T
+      span.absolute.bottom-0 class="right-0 origin-center -translate-x-8 translate-y-10" class="text-[8rem]" T
+    .font-bold.font-ttt-logo.text-4xl.font-bold.font-black.text-transparent.animate-text.bg-gradient-to-r.from-primary.via-purple-500.to-orange-500.bg-clip-text.tracking-widest.text-center
+      | EDITIONS
   .absolute.inset-x-0.bottom-10.text-center.cursor-pointer data-controller="scroll-down"
     i.fa-solid.fa-arrow-down.animate-bounce.text-4xl.text-primary data-action="click->scroll-down#scroll"
 
-.max-w-5xl.mx-auto.flex.flex-col.py-12.relative.h-screen
+.max-w-5xl.mx-auto.flex.flex-col.py-6.relative.h-screen
   h2.text-4xl.font-bold.mb-6.font-black.text-transparent.animate-text.bg-gradient-to-r.from-primary.via-purple-500.to-orange-500.bg-clip-text
     | Les campagnes de crowfonding en cours !
   p.text-contrast.mb-6
     | Les campagnes de crowfonding en cours ! Aidez-vous à financer la prochaine sortie de TTT
 
   = render "stores/items", items: Current.store.items.pre_sale, collections: @collections
+
   .absolute.inset-x-0.bottom-10.text-center.cursor-pointer data-controller="scroll-down"
     i.fa-solid.fa-arrow-down.animate-bounce.text-4xl.text-primary data-action="click->scroll-down#scroll"
 

@@ -1,24 +1,50 @@
-.relative
-  .group.relative.flex.flex-col.overflow-hidden.border.shadow-sm class="hover:shadow-lg hover:scale-[1.005] transition-all  #{'disabled' if item.soldout?}" data-card-animate-target="card"
-    .text-center.bg-form-input.border
-      h3.py-3.uppercase.font-black.font-ttt-title.text-2xl = item.name
-    = link_to item_path(item), class: "border" do
-      .aspect-h-4.aspect-w-3.bg-form-input.transition.sm:aspect-none.sm:h-96
-        - if item.photos.attached?
-          = image_tag item.photos.first.variant(resize_to_fill: [600, 600]), class: "h-full w-full object-contain object-center sm:h-full sm:w-full px-6"
-    .flex.justify-between.items-center.p-4.bg-form-input.border
-      .font-black.font-ttt-title.text-2xl class="!mt-auto"
-        = "#{item.price} €"
-        - if item.stock == 1
-          p.text-sm.font-base.text-contrast.text-red-500
-            = "Plus qu'un seul exemplaire en stock !"
-      - unless item.pre_sale?
-        = button_to add_item_checkout_path(item), method: :post do
-          i.fa-solid.fa-cart-shopping.text-2xl
-      - else
-        = link_to item.pre_sale_url, target: "_blank" do
-          i.fa-solid.fa-coin.text-2xl
+/ .relative
+/   .group.relative.flex.flex-col.overflow-hidden.border.shadow-sm class="hover:shadow-lg hover:scale-[1.005] transition-all  #{'disabled' if item.soldout?}" data-card-animate-target="card"
+/     .text-center.bg-form-input.border
+/       h3.py-3.uppercase.font-black.font-ttt-title.text-2xl = item.name
+/     = link_to item_path(item), class: "border" do
+/       .aspect-h-4.aspect-w-3.bg-form-input.transition.sm:aspect-none.sm:h-96
+/         - if item.photos.attached?
+/           = image_tag item.photos.first.variant(resize_to_fill: [600, 600]), class: "h-full w-full object-contain object-center sm:h-full sm:w-full px-6"
+/     .flex.justify-between.items-center.p-4.bg-form-input.border
+/       .font-black.font-ttt-title.text-2xl class="!mt-auto"
+/         = "#{item.price} €"
+/         - if item.stock == 1
+/           p.text-sm.font-base.text-contrast.text-red-500
+/             = "Plus qu'un seul exemplaire en stock !"
+/       - unless item.pre_sale?
+/         = button_to add_item_checkout_path(item), method: :post do
+/           i.fa-solid.fa-cart-shopping.text-2xl
+/       - else
+/         = link_to item.pre_sale_url, target: "_blank" do
+/           i.fa-solid.fa-coin.text-2xl
 
-  - if item.soldout?
-    .absolute.left-1/2.top-1/2.-translate-x-1/2.-translate-y-1/2.text-center.opacity-100
-      .text-3xl.text-red-500.font-bold RUPTURE DE STOCK
+/   - if item.soldout?
+/     .absolute.left-1/2.top-1/2.-translate-x-1/2.-translate-y-1/2.text-center.opacity-100
+/       .text-3xl.text-red-500.font-bold RUPTURE DE STOCK
+= link_to item_path(item), class: "" do
+  .relative.max-w-96.py-1.bg-cover.bg-auto.hachures.rounded-2xl.h-fit.group.cursor-pointer class="max-h-[35rem] hover:bg-none transition-all"
+    .mx-3.my-2.rounded-xl.overflow-hidden.h-3/4 class="transition-all origin-center group-hover:rotate-6 group-hover:-translate-y-5"
+      = image_tag item.photos.first.variant(resize_to_fill: [600, 600]), class: "h-full w-full object-cover object-center"
+
+    .absolute.flex.flex-col.items-center.bg-light.rounded-xl.text-center.py-4.border.border-contrast.border-2 class="translate-y-3 bottom-1/4 -left-5 -right-5"
+      span.text-3xl class="font-[1000]"
+        = item.name.upcase
+
+      span class="overflow-hidden transition-all ease-in-out max-h-0 group-hover:max-h-64"
+          . class="w-full my-3 border-t border-midgray"
+          = item.description.first(100)
+
+    .relative.m-3.bg-light.rounded-xl.text-center.py-4.text-3xl.border.border-contrast.border-2 class="font-[1000] group/button"
+      . class="transition-all group-hover:-translate-x-1/4"
+        = item.price
+      .absolute.text-base.uppercase.opacity-0 class="px-2 transition-opacity -translate-y-1/2 transition-300 left-1/2 top-1/2 group-hover:opacity-100 group-hover/button:opacity-0"
+        span class="transition-opacity transition-300 group-hover:opacity-100 group-hover/button:opacity-0" Ajouter au panier
+      .absolute.text-base.uppercase.opacity-0 class="px-2 transition-opacity -translate-y-1/2 transition-300 left-3/4 top-1/2 group-hover/button:opacity-100"
+        span.text-base
+          - unless item.pre_sale?
+            = button_to add_item_checkout_path(item), method: :post do
+              i.fa-solid.fa-cart-shopping.text-2xl
+          - else
+            = link_to item.pre_sale_url, target: "_blank" do
+              i.fa-solid.fa-coin.text-2xl

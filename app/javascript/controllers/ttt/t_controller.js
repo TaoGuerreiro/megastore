@@ -2,42 +2,41 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="autosave"
 export default class extends Controller {
-  static targets = ["t"]
-
   connect() {
-    this.animateTargetsSequentially(0); // Commencez avec le premier élément
-    this.distance = 100;
-    document.addEventListener('mousemove', (event) => {
-      // Récupérer la largeur et la hauteur de la fenêtre
-      const centerX = window.innerWidth / 2;
-      const centerY = window.innerHeight / 2;
+    const logo = document.querySelector('#ttt-logo');
+    let width = window.innerWidth;
+    let height = window.innerHeight;
 
-      // Récupérer la position de la souris
-      const mouseX = event.clientX;
-      const mouseY = event.clientY;
+    const minWght = 700;
+    const maxWght = 1000;
+    const minWdth = 100;
+    const maxWdth = 150;
+    const minGrad = 0;
+    const maxGrad = 15;
+    const maxTilt = 10; // Maximum tilt in degrees
+    const minLetterSpacing = 0; // Minimum letter spacing (in px)
+    const maxLetterSpacing = 20; // Maximum letter spacing (in px)
 
-      // Calculer la distance entre la souris et le centre de la page
-      const distanceX = Math.abs(centerX - mouseX);
-      const distanceY = Math.abs(centerY - mouseY);
+    window.addEventListener('mousemove', function(e) {
+        // Calculate distance from center
+        const xFromCenter = Math.abs(e.clientX - (width / 2));
+        const yFromCenter = Math.abs(e.clientY - (height / 2));
 
-      // Utiliser le théorème de Pythagore pour calculer la distance diagonale
-      const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+        // Normalize distances to range [0, 1]
+        const maxDistance = Math.sqrt(Math.pow(width / 2, 2) + Math.pow(height / 2, 2));
+        const distanceFromCenter = Math.sqrt(Math.pow(xFromCenter, 2) + Math.pow(yFromCenter, 2)) / maxDistance;
 
-      this.distance = distance;
-    });
-  }
+        // Interpolate weight from maxWght to minWght
+        const wght = maxWght - (distanceFromCenter * (maxWght - minWght));
+        const wdth = maxWdth - (distanceFromCenter * (maxWdth - minWdth));
+        const grad = minGrad + (distanceFromCenter * (maxGrad - minGrad));
+        // Calculate tilt based on horizontal position
+        const tilt = ((e.clientX / width) - 0.5) * -1 * maxTilt;
 
-  animateTargetsSequentially(index) {
-    if (index < this.tTargets.length) {
-      this.index = index;
-      const t = this.tTargets[index];
-      t.classList.remove('opacity-0');
-      setTimeout(() => {
-        t.classList.add('opacity-0');
-        this.animateTargetsSequentially(index + 1);
-      }, this.distance);
-    } else {
-      this.animateTargetsSequentially(0);
-    }
+        // Set variation, tilt, and letter spacing
+        const variation = ' "wght" ' + Math.floor(wght) + ', "wdth" ' + Math.floor(wdth) + ', "GRAD" ' + Math.floor(grad);
+        logo.style.fontVariationSettings = variation;
+        logo.style.transform = `rotate(${tilt}deg)`;
+    })
   }
 }
