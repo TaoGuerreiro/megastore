@@ -503,6 +503,22 @@
     @apply tracking-wider uppercase transition-all text-contour hover:text-contrast hover:translate-x-3;
   }
 
+  #logo-navbar {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 80px; /* Taille ajustable */
+    height: auto;
+    opacity: 0;
+    transform: translateY(-100%);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  }
+
+  #logo-navbar.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   /* ______________________________TTT______________________________ */
 
 
