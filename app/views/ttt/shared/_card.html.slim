@@ -1,26 +1,26 @@
-= link_to item_path(item), class: "" do
-  .relative.max-w-96.py-1.bg-cover.bg-auto.hachures.rounded-2xl.h-fit.group.cursor-pointer class="max-h-[35rem] hover:bg-none transition-all"
-    .mx-3.my-2.rounded-xl.overflow-hidden.h-3/4 class="transition-all origin-center group-hover:rotate-6 group-hover:-translate-y-5"
+= link_to item_path(item), class: "h-full max-h-[35rem]" do
+  .flex.flex-col.gap-3.justify-between.relative.max-w-96.py-1.bg-cover.bg-auto.hachures.rounded-2xl.group.cursor-pointer class="h-full transition-all hover:bg-none"
+    .mx-3.my-2.rounded-xl.overflow-hidden.h-full class="transition-all duration-700 ease-out origin-center group-hover:rotate-6 group-hover:-translate-y-5"
       = image_tag item.photos.first.variant(resize_to_fill: [600, 600]), class: "h-full w-full object-cover object-center"
 
-    .absolute.flex.flex-col.items-center.bg-light.rounded-xl.text-center.py-4.border.border-contrast.border-2 class="translate-y-3 bottom-1/4 -left-5 -right-5"
-      span.text-3xl class="font-[1000]"
-        = item.name.upcase
+    .relative.m-3.bg-light.rounded-xl.text-center.py-4.border.border-contrast.border-2 class="group/button"
+      .absolute.flex.flex-col.items-center.bg-light.rounded-xl.text-center.pt-4.border.border-contrast.border-2 class="translate-y-3 bottom-24 -left-5 -right-5"
+        span.text-3xl class="font-[1000]"
+          = item.name.upcase
 
-      span class="overflow-hidden transition-all ease-in-out max-h-0 group-hover:max-h-64"
-          . class="w-full my-3 border-t border-midgray"
-          = item.description.first(100)
+        span class="overflow-hidden ease-out grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 group-hover:grid-rows-[1fr] "
+          .overflow-hidden.pb-3
+            . class="w-full my-3 border-t border-midgray"
+            = "#{item.description.first(100)} ..."
 
-    .relative.m-3.bg-light.rounded-xl.text-center.py-4.text-3xl.border.border-contrast.border-2 class="font-[1000] group/button"
-      . class="transition-all group-hover:-translate-x-1/4"
+      . class="transition-all duration-300 ease-out group-hover:-translate-x-1/4 font-[1000] text-3xl"
         = item.price
-      .absolute.text-base.uppercase.opacity-0 class="px-2 transition-opacity -translate-y-1/2 transition-300 left-1/2 top-1/2 group-hover:opacity-100 group-hover/button:opacity-0"
-        span class="transition-opacity transition-300 group-hover:opacity-100 group-hover/button:opacity-0" Ajouter au panier
-      .absolute.text-base.uppercase.opacity-0 class="px-2 transition-opacity -translate-y-1/2 transition-300 left-3/4 top-1/2 group-hover/button:opacity-100"
+      .absolute.text-base.uppercase.opacity-0 class="px-2 transition-opacity duration-300 ease-out -translate-y-1/2 transition-300 left-1/2 top-1/2 group-hover:opacity-100 group-hover/button:opacity-0"
+        span class="font-[1000] transition-opacity duration-300 ease-out transition-300 group-hover:opacity-100 group-hover/button:opacity-0" Ajouter au panier
+      .absolute.text-base.uppercase.opacity-0 class="px-2 transition-opacity duration-300 ease-out -translate-y-1/2 transition-300 left-3/4 top-1/2 group-hover/button:opacity-100"
         span.text-base
           - unless item.pre_sale?
             = button_to add_item_checkout_path(item), method: :post do
               i.fa-solid.fa-cart-shopping.text-2xl
           - else
-            = link_to item.pre_sale_url, target: "_blank" do
-              i.fa-solid.fa-coin.text-2xl
+            i.fa-solid.fa-coin.text-2xl

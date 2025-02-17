@@ -2,15 +2,9 @@
   .fixed.top-2.right-6.z-50 = render "shared/cart"
   .w-full.hidden.md:flex.bg-light.relative.cursor-default.items-center.flex-col.border-b.boder-light
     .justify-end.px-24.items-center.w-full.transition.absolute.top-0.py-8.z-40.flex.gap-6
-      #logo-navbar.absolute.left-12.scale-150.pt-4 data-controller="scroll-down"
+      #logo-navbar.absolute.left-12.top-0 data-controller="scroll-down"
         = link_to root_path do
-            .flex.flex-col.items-center
-              .relative.mt-6.mb-1
-                span.absolute.bottom-6 class="origin-center translate-x-6 translate-y-8 -left-4" class="text-3xl font-[900]" T
-                #ttt-logo-main.absolute.bottom-6 class="origin-center -translate-x-1/2 translate-y-8 left-1/2" class="text-5xl font-bold" T
-                span.absolute.bottom-6 class="origin-center -translate-x-6 translate-y-8 -right-4" class="text-3xl font-[900]" T
-              .font-bold.font-ttt-logo.font-bold.font-black.text-transparent.animate-text.bg-gradient-to-r.from-primary.via-purple-500.to-orange-500.bg-clip-text.tracking-widest.text-center class="text-[0.5rem]"
-                | EDITIONS
+          .w-48 = render Ttt::Logo::Component.new
 
       = render Ttt::Button::Component.new(path: authors_path, text: "Auter.i.ces")
       = render Ttt::Button::Component.new(path: store_path, text: "Shop")

@@ -519,6 +519,41 @@
     transform: translateY(0);
   }
 
+  pre {
+    transform-style: preserve-3d;
+    transform: perspective(300px) rotateY(var(--rotateX)) rotateX(var(--rotateY));
+  }
+
+  pre::before,
+  pre::after {
+    content: "";
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+  }
+
+  /* gradient thingy */
+  pre::after {
+    z-index: -2;
+    inset: -1rem;
+    background-image: url('/assets/ttt/Editions_3000.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    transform: translateZ(100px);
+  }
+
+  pre::before {
+    z-index: -2;
+    inset: -1rem;
+    background-image: url('/assets/ttt/T_3000.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    transform: translateZ(100px);
+  }
+
   /* ______________________________TTT______________________________ */
 
 
@@ -692,14 +727,13 @@
 
     .hachures {
       background: repeating-linear-gradient(
-          -10deg,
+          -37deg,
           transparent,
-          transparent 12px,
-          black 12px,
-          black 14px
+          transparent 9px,
+          black 9px,
+          black 10px
       );
-  }
-
+    }
 
    /* PAGY */
 
