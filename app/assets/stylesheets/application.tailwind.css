@@ -519,11 +519,6 @@
     transform: translateY(0);
   }
 
-  pre {
-    transform-style: preserve-3d;
-    transform: perspective(300px) rotateY(var(--rotateX)) rotateX(var(--rotateY));
-  }
-
   pre::before,
   pre::after {
     content: "";
@@ -544,16 +539,19 @@
     transform: translateZ(50px);
   } */
 
-  pre::before {
-    z-index: -2;
-    inset: -1rem;
-    background-image: url('/assets/ttt/logodoodle.png');
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    transform: translateZ(100px);
+  pre {
+    transform-style: preserve-3d;
+    transform: perspective(300px) rotateY(var(--rotateX)) rotateX(var(--rotateY));
   }
 
+  pre {
+    @apply relative before:content-[''] before:absolute before:z-[2] before:inset-[-1rem]
+    before:bg-[url('/assets/ttt/logodoodle.png')] before:bg-center before:bg-contain before:bg-no-repeat
+    before:transform;
+  }
+  pre::before {
+    transform: translateZ(100px);
+  }
   /* ______________________________TTT______________________________ */
 
 
