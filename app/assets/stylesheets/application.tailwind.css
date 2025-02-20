@@ -546,7 +546,7 @@
 
   pre {
     @apply relative before:content-[''] before:absolute before:z-[2] before:inset-[-1rem]
-    before:bg-[url('/assets/ttt/logodoodle.png')] before:bg-center before:bg-contain before:bg-no-repeat
+    before:bg-ttt-logo-bg before:bg-center before:bg-contain before:bg-no-repeat
     before:transform;
   }
   pre::before {

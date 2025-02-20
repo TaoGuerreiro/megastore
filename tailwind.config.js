@@ -24,6 +24,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        'ttt-logo-bg': "url('assets/ttt/logodoodle.png')",
+      },
       transitionProperty: {
         'max-height': 'max-height'
       },
