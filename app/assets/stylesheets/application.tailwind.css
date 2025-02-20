@@ -534,20 +534,20 @@
   }
 
   /* gradient thingy */
-  pre::after {
+  /* pre::after {
     z-index: -2;
     inset: -1rem;
-    background-image: url('/assets/ttt/Editions_3000.png');
+    background-image: url('/assets/ttt/justedoodle.png');
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
-    transform: translateZ(100px);
-  }
+    transform: translateZ(50px);
+  } */
 
   pre::before {
     z-index: -2;
     inset: -1rem;
-    background-image: url('/assets/ttt/T_3000.png');
+    background-image: url('/assets/ttt/logodoodle.png');
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
