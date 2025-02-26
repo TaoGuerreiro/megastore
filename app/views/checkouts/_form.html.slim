@@ -5,13 +5,8 @@
       h2.text-lg.font-medium.text-contrast.mb-4
         | Informations complémentaires
 
-
-      / .mb-4 = field.input :library, as: :boolean, label: false, placeholder: "Librairie"
-      / .mb-4 = field.label :library, as: :label, class: "switch"
-      .mt-8 = field.input :library, as: :boolean, input_html: { class: 'switch' }, label: 'Facturation fin de mois', label_html: { class: '-top-6 px-0' }
-
       .mb-4 = field.input :email, label: "Email", placeholder: "Email"
-      .flex.gap-4.mb-4
+      .flex.gap-4.mb-4s
         = field.input :first_name, label: "Prénom", placeholder: "Prénom"
         = field.input :last_name, label: "Nom", placeholder: "Nom"
       .mb-6.w-full data-address-autocomplete-target="input"
@@ -31,6 +26,10 @@
         = field.input :weight, label: "weight", placeholder: "weight"
         = field.input :shipping_method, label: "shipping_method", placeholder: "shipping_method"
         = field.input :fees_price, label: "fees_price", placeholder: "fees_price"
+
+      - if Current.store.slug == "ttt"
+        = field.input :library, label: t('.library'), as: :boolean, input_html: { checked: order_intent.library, class: "w-5 h-5 m-0 p-0 flex peer checked:!bg-primary"}, wrapper_html: {class: "flex items-center basis-1/4"}, label_html: {class: "-top-0.5 left-4"}
+        / .bg-primary.w-4.h-4 class="peer-checked:bg-secondary"
 
       = button_tag type: "submit", class: "btn btn-primary btn-block w-full", data: { "controller": "spinner", action: "click->spinner#spin" } do
         . Continuer

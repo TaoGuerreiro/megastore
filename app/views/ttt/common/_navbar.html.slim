@@ -2,15 +2,13 @@
   .fixed.top-2.right-6.z-50 = render "shared/cart"
   .w-full.hidden.md:flex.bg-light.relative.cursor-default.items-center.flex-col.border-b.boder-light
     .justify-end.px-24.items-center.w-full.transition.absolute.top-0.py-8.z-40.flex.gap-6
-      #logo-navbar.absolute.left-12.top-0 data-controller="scroll-down"
+      .absolute.left-12.top-0 data-controller="scroll-down" id=(action_name == "home" ? "logo-navbar" : "")
         = link_to root_path do
           .w-48 = render Ttt::Logo::Component.new
 
       = render Ttt::Button::Component.new(path: authors_path, text: "Auter.i.ces")
       = render Ttt::Button::Component.new(path: store_path, text: "Shop")
-      = render Ttt::Button::Component.new(path: "#", text: "À propos") do |button|
-        - button.with_sub_link(text: "L'association", path: about_path)
-        - button.with_sub_link(text: "Contact", path: about_path)
+      = render Ttt::Button::Component.new(path: about_path, text: "À propos")
 
   .md:hidden
     = label_tag :phonenav, class: "fixed shadow-xl z-40 top-4 left-4 rounded-full" do
@@ -27,5 +25,5 @@
           </svg>
       .flex.flex-col.justify-around.items-start.py-12.px-12
         = link_to "À propos", about_path, class: "tracking-widest text-5xl text-light mb-8"
-        = link_to "Contact", contact_path, class: "tracking-widest text-5xl text-light mb-8"
-        = link_to "Boutique", store_path, class: "tracking-widest text-5xl text-light mb-8"
+        = link_to "Auter.i.ces", authors_path, class: "tracking-widest text-5xl text-light mb-8"
+        = link_to "Shop", store_path, class: "tracking-widest text-5xl text-light mb-8"
