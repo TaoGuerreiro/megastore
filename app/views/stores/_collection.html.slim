@@ -1,4 +1,9 @@
-= link_to item_path(collection.items.first), class:"relative" do
+- store = collection.items.first.store
+
+- if File.exist?(Rails.root.join('app', 'views', "#{store.slug}", 'shared', '_card.html.slim'))
+  = render "#{store.slug}/shared/card", item: collection.items.first
+- else
+  = link_to item_path(collection.items.first), class:"relative" do
   .group.relative.flex.flex-col.overflow-hidden.rounded-lg.border.shadow-sm class="hover:shadow-lg hover:scale-[1.005] transition-all  #{'disabled' if collection.soldout?}"
     .aspect-h-4.aspect-w-3.bg-contrast.sm:aspect-none.sm:h-96
       = image_tag collection.cover_image, class: "h-full w-full object-cover object-center sm:h-full sm:w-full"

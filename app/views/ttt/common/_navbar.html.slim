@@ -6,7 +6,7 @@
         = link_to root_path do
           .w-48 = render Ttt::Logo::Component.new
 
-      = render Ttt::Button::Component.new(path: authors_path, text: "Auter.i.ces")
+      = render Ttt::Button::Component.new(path: authors_path, text: "Auteur.ices")
       = render Ttt::Button::Component.new(path: store_path, text: "Shop")
       = render Ttt::Button::Component.new(path: about_path, text: "À propos")
 
@@ -25,5 +25,5 @@
           </svg>
       .flex.flex-col.justify-around.items-start.py-12.px-12
         = link_to "À propos", about_path, class: "tracking-widest text-5xl text-light mb-8"
-        = link_to "Auter.i.ces", authors_path, class: "tracking-widest text-5xl text-light mb-8"
+        = link_to "Auteur.ices", authors_path, class: "tracking-widest text-5xl text-light mb-8"
         = link_to "Shop", store_path, class: "tracking-widest text-5xl text-light mb-8"
