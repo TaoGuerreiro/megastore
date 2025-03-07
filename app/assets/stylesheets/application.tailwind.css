@@ -525,7 +525,6 @@
     position: absolute;
     margin-left: auto;
     margin-right: auto;
-    width: 70%;
   }
 
   /* gradient thingy */
@@ -541,16 +540,16 @@
 
   pre {
     transform-style: preserve-3d;
-    transform: perspective(300px) rotateY(var(--rotateX)) rotateX(var(--rotateY));
+    transform: perspective(1200px) rotateY(var(--rotateX)) rotateX(var(--rotateY));
   }
 
   pre {
     @apply relative before:content-[''] before:absolute before:z-[2] before:inset-[-1rem]
-    before:bg-ttt-logo-bg before:bg-center before:bg-contain before:bg-no-repeat
+    before:bg-ttt-logo-bg before:bg-contain before:bg-no-repeat
     before:transform;
   }
   pre::before {
-    transform: translateZ(100px);
+    transform: translateZ(-100px);
   }
   /* ______________________________TTT______________________________ */
 

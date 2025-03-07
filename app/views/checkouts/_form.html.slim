@@ -1,5 +1,5 @@
 = turbo_frame_tag :form do
-  = simple_form_for order_intent, url: order_intents_path, method: :post, id: "order_intent", data: { controller: "address-autocomplete" } do |field|
+  = simple_form_for order_intent, url: order_intents_path, method: :post, id: "order_intent", data: { controller: "address-autocomplete form" } do |field|
     . class="#{'hidden' if field.object.errors.empty? && params[:controller] != 'checkouts' || params[:action] == 'confirm_payment'}"
       .mb-3 = render Step::Component.new(steps: 3, current_step: 1)
       h2.text-lg.font-medium.text-contrast.mb-4
@@ -28,8 +28,9 @@
         = field.input :fees_price, label: "fees_price", placeholder: "fees_price"
 
       - if Current.store.slug == "ttt"
-        = field.input :library, label: t('.library'), as: :boolean, input_html: { checked: order_intent.library, class: "w-5 h-5 m-0 p-0 flex peer checked:!bg-primary"}, wrapper_html: {class: "flex items-center basis-1/4"}, label_html: {class: "-top-0.5 left-4"}
-        / .bg-primary.w-4.h-4 class="peer-checked:bg-secondary"
+        .mb-4.flex.items-center
+          = field.input :library, label: "Je suis libraire", as: :boolean, input_html: { class: "peer w-5 h-5 m-0 p-0 flex checked:bg-primary" }, label_html: { class: "ml-2" }
+          .text-sm.text-primary.mt-2.hidden.peer-checked:block Des réductions spéciales s'appliquent pour les libraires
 
       = button_tag type: "submit", class: "btn btn-primary btn-block w-full", data: { "controller": "spinner", action: "click->spinner#spin" } do
         . Continuer
