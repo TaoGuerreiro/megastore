@@ -5,7 +5,7 @@ export default class extends Controller {
   static targets = ["menu"]
 
   toggle() {
-    this.menuTarget.classList.toggle("tw-hidden")
+    this.menuTarget.classList.toggle("hidden")
 
     document.addEventListener("click", (event) => {
       if (!this.element.contains(event.target)) {
@@ -15,6 +15,6 @@ export default class extends Controller {
   }
 
   hide() {
-    this.menuTarget.classList.add("tw-hidden")
+    this.menuTarget.classList.add("hidden")
   }
 }

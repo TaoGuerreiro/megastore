@@ -28,7 +28,10 @@
         .table-cell.py-4.text-midgray
           = author.website
         .table-cell.py-4.text-right.space-x-4
-          = link_to edit_admin_author_path(author), data: { turbo_frame: "modal" }, class: "text-midgray hover:text-contrast" do
-            i.fa-solid.fa-pen
-          = button_to admin_author_path(author), method: :delete, class: "text-midgray hover:text-red-600", data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer cet auteur ?" } do
-            i.fa-solid.fa-trash
+          = render Dropdown::Component.new do |dropdown|
+            .rounded-full.h-8.w-8.flex.items-center.justify-center.focus:ring.focus:ring-solid.focus:ring-teal-600
+              i.fas.fa-ellipsis-v.text-teal-600
+            - dropdown.with_list do |list|
+              - list.with_item_link(name: t('manage'), icon: "fa-solid fa-edit", href: edit_admin_author_path(author), data: { turbo_frame: "modal" }, classes: "text-midgray hover:text-contrast") do
+
+              - list.with_item_link(name: t('delete'), icon: "fa-solid fa-trash", href: admin_author_path(author), data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer cet auteur ?" }, classes: "text-midgray hover:text-red-600") do

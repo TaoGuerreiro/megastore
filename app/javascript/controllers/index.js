@@ -61,6 +61,9 @@ application.register("card-animate", CardAnimateController)
 import DraggableController from "./draggable_controller"
 application.register("draggable", DraggableController)
 
+import DropdownController from "../../components/dropdown/controller.js"
+application.register("dropdown", DropdownController)
+
 // UNSAFE
 import ScrollController from "./unsafe/scroll_controller"
 application.register("scroll", ScrollController)

@@ -3,6 +3,7 @@
 module Dropdown
   class Component < ViewComponent::Base
     renders_many :lists, "::Dropdown::List::Component"
+    renders_one :menu
 
     def initialize(pop_direction: :right)
       @pop_direction = pop_direction

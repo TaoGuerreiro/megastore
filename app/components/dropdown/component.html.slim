@@ -1,6 +1,6 @@
 .relative.inline-block data-controller="dropdown"
   .h-full
-    button.p-0.bg-transparent.border-none.h-full.focus-visible:outline-none.focus:outline-none aria-expanded="true" aria-haspopup="true" data-action="dropdown#toggle" type="button"
+    button.p-0.bg-transparent.border-none.h-full.focus-visible:outline-none.focus:outline-none aria-expanded="true" aria-haspopup="true" data-test-id="dropdown_btn" data-action="dropdown#toggle" type="button"
       = content
   .hidden.absolute.z-20.mt-2.max-w-72.divide-y.divide-slate-200.rounded-md.bg-white.shadow-lg.ring-1.ring-black.ring-opacity-5.focus:outline-none[
     class=(pop_direction_class)
@@ -13,3 +13,7 @@
   ]
     - lists.each do |list|
       = list
+
+    - if menu.present?
+      .py-1 role="none"
+        = menu

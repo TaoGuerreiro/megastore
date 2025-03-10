@@ -4,12 +4,14 @@ export default class extends Controller {
   static targets = [ "input", "container"]
 
   connect() {
-    this.inputTarget.value = ""
-    this.items = []
+    if (this.hasInputTarget) {
+      this.inputTarget.value = ""
+      this.items = []
+    }
   }
+
   select(event) {
     this.containerTarget.classList.remove("hidden");
-
 
     if (event.currentTarget.checked) {
       this.items.push(event.currentTarget.id)

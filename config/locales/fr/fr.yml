@@ -26,6 +26,8 @@ fr:
   canceled: Annulé
   paid: Payé
   refunded: Remboursé
+  manage: Éditer
+  delete: Supprimer
   enumerize:
     shipping_method:
       service_name:
