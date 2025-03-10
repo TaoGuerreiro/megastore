@@ -2,7 +2,9 @@
   = simple_form_for [:admin, item], data: { turbo: false } do |field|
     h3.mb-6.text-2xl.text-contrast Informations
 
-    = field.input :name, label: "Nom", placeholder: "Nom"
+    .flex.gap-4
+      = field.input :name, label: "Nom", placeholder: "Nom"
+      = field.input :sub_name, label: "Sous-titre", placeholder: "Sous-titre"
     = field.input :description, as: :text, label: "Description", placeholder: "Description"
     .flex.gap-4
       = field.input :price, label: "Prix", placeholder: "Prix"

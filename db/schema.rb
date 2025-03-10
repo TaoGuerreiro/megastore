@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_01_25_101409) do
+ActiveRecord::Schema[7.0].define(version: 2025_03_10_121419) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "adminpack"
   enable_extension "autoinc"
@@ -41,6 +41,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_25_101409) do
   enable_extension "pgrowlocks"
   enable_extension "pgstattuple"
   enable_extension "plpgsql"
+  enable_extension "postgres_fdw"
   enable_extension "refint"
   enable_extension "seg"
   enable_extension "sslinfo"
@@ -86,15 +87,6 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_25_101409) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
-  end
-
-  create_table "carousel_cards", force: :cascade do |t|
-    t.string "title"
-    t.string "url"
-    t.integer "position_x"
-    t.integer "position_y"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "authors", force: :cascade do |t|
@@ -202,6 +194,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_25_101409) do
     t.bigint "collection_id"
     t.string "format"
     t.string "pre_sale_url"
+    t.string "sub_name"
     t.index ["category_id"], name: "index_items_on_category_id"
     t.index ["collection_id"], name: "index_items_on_collection_id"
     t.index ["store_id"], name: "index_items_on_store_id"

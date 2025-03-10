@@ -107,7 +107,7 @@ module Admin
     end
 
     def item_params
-      params.require(:item).permit(:name, :description, :price, :image, :stock, :length, :width, :height, :weight,
+      params.require(:item).permit(:name, :sub_name, :description, :price, :image, :stock, :length, :width, :height, :weight,
                                    :category_id, :format, :collection_id, :active, :status,
                                    photos: [], shipping_method_ids: [], specification_ids: [], author_ids: []).tap do |permitted_params|
         manage_status(permitted_params)

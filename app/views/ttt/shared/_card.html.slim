@@ -10,6 +10,9 @@
       .absolute.flex.flex-col.items-center.bg-light.rounded-xl.text-center.pt-4.border.border-contrast.border-2 class="translate-y-3 bottom-24 -left-5 -right-5"
         span.text-3xl.px-3 class="font-[1000]"
           = item.name.upcase
+        - if item.sub_name.present?
+          span.text-xl.px-3.block.text-midgray
+            = item.sub_name
 
         span class="overflow-hidden ease-out grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 group-hover:grid-rows-[1fr] "
           .overflow-hidden.pb-4.px-3
