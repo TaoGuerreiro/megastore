@@ -1,0 +1,40 @@
+= render Header::Component.new do |header|
+  - header.with_action_link do
+    = link_to edit_admin_author_path(@author) do
+      = render Buttons::Option::Component.new(label: "Modifier", icon: "fa-solid fa-pen")
+
+  .px-4.sm:px-6.lg:px-0
+    .sm:flex.sm:items-center.mb-6
+      .sm:flex-auto
+        h1.text-base.font-semibold.leading-6.text-contrast
+          = @author.nickname
+
+    .mt-8.flow-root
+      .bg-contrast.shadow.sm:rounded-lg
+        .px-4.py-5.sm:p-6
+          .flex.items-center.gap-8
+            - if @author.avatar.attached?
+              = image_tag @author.avatar.variant(resize_to_fill: [200, 200]), class: "w-48 h-48 rounded-full object-cover"
+            - else
+              = image_tag "https://placehold.co/200x200?text=No+image", class: "w-48 h-48 rounded-full object-cover"
+
+            .flex.flex-col.gap-4
+              .flex.flex-col
+                span.text-sm.text-midgray Bio
+                = @author.bio
+
+              .flex.flex-col
+                span.text-sm.text-midgray Site web
+                = link_to @author.website, @author.website, target: "_blank", class: "text-primary hover:text-primary-dark" if @author.website.present?
+
+        .border-t.border-content.px-4.py-5.sm:p-6
+          h3.text-base.font-semibold.leading-6.text-contrast.mb-4 Articles
+          .grid.grid-cols-2.sm:grid-cols-4.gap-4
+            - @author.items.each do |item|
+              = link_to admin_item_path(item) do
+                .flex.flex-col.items-center.gap-2
+                  - if item.photos.attached?
+                    = image_tag item.photos.first.variant(resize_to_fill: [100, 100]), class: "w-24 h-24 object-cover rounded"
+                  - else
+                    = image_tag "https://placehold.co/100x100?text=No+image", class: "w-24 h-24 object-cover rounded"
+                  span.text-sm.text-midgray = item.name

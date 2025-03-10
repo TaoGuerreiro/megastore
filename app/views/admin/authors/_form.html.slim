@@ -1,8 +1,43 @@
-.px-4.sm:px-0
-  = simple_form_for [:admin, author], html: { class: "items-center" } do |field|
-    = field.input :nickname, label: "Nom", placeholder: "Nom", wrapper_html: { class: "pt-[20px] mr-2" }, label_html: { class: "mt-[20px]" }
-    = field.input :bio, as: :text, label: "Bio", placeholder: "Bio", wrapper_html: { class: "pt-[20px] mr-2" }, label_html: { class: "mt-[20px]" }
-    = field.input :website, label: "Site", placeholder: "Site", wrapper_html: { class: "pt-[20px] mr-2" }, label_html: { class: "mt-[20px]" }
-    = field.input :avatar, as: :file, label: "Avatar", wrapper_html: { class: "pt-[20px] mr-2" }, label_html: { class: "mt-[20px]" }
-    = button_tag type: :submit do
-      i.fa-solid.fa-check.text-2xl.text-midgray
+.inline-block.min-w-full.py-2.sm:py-5.align-middle data-controller="photo-upload"
+  = simple_form_for [:admin, author], html: { multipart: true } do |f|
+    h3.mb-6.text-2xl.text-contrast Informations
+
+    .flex.flex-col.gap-4
+      .field.mb-4
+        = f.input :nickname,
+                 label: "Pseudo",
+                 placeholder: "Pseudo"
+      .field.mb-4
+        = f.input :bio,
+                 as: :text,
+                 label: "Bio",
+                 placeholder: "Bio"
+
+      .field.mb-4
+        = f.input :website,
+                 label: "Site web",
+                 placeholder: "Site web"
+
+      .field.mb-4
+        h3.mb-4.text-xl.text-contrast Photo de profil
+        = f.input :avatar,
+                 as: :file,
+                 label: false,
+                 input_html: { class: "hidden", data: { action: "change->photo-upload#show" } }
+        = f.label :avatar, class: "cursor-pointer" do
+          .btn.btn-primary.inline Ajouter une photo
+
+        .mt-4 data-photo-upload-target="photosContainer"
+          #author_avatar
+            - if author.avatar.attached?
+              = turbo_frame_tag "avatar" do
+                .inline-block.w-20.h-20.mr-4.bg-contrast.rounded-xl.relative
+                  = image_tag author.avatar.variant(resize_to_fill: [50, 50]), class: "w-full h-full object-cover rounded-xl"
+                  = link_to remove_avatar_admin_author_path(author),
+                          data: { turbo_method: :delete },
+                          class: "absolute top-1 right-1 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-contrast hover:bg-red-600" do
+                    i.fas.fa-times
+
+
+      .flex.justify-end
+        = f.button :submit, "Enregistrer", class: "btn btn-primary"

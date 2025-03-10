@@ -1,0 +1,32 @@
+.table.w-full.pb-36.mt-6
+  .table-header-group
+    .table-row
+      .table-cell.text-sm.font-semibold.text-contrast
+        | Photo
+      .table-cell.text-sm.font-semibold.text-contrast
+        | Pseudo
+      .table-cell.text-sm.font-semibold.text-contrast
+        | Bio
+      .table-cell.text-sm.font-semibold.text-contrast
+        | Site web
+      .table-cell.w-8
+        span.sr-only
+          | Actions
+
+  .table-row-group
+    - authors.each do |author|
+      .table-row.hover:bg-contour
+        .table-cell.py-4
+          - if author.avatar.attached?
+            = image_tag author.avatar.variant(resize_to_fill: [50, 50]), class: "w-12 h-12 rounded-full object-cover"
+          - else
+            = image_tag "https://placehold.co/50x50?text=No+image", class: "w-12 h-12 rounded-full object-cover"
+        .table-cell.py-4
+          = author.nickname
+        .table-cell.py-4.text-midgray.truncate.max-w-xs
+          = author.bio
+        .table-cell.py-4.text-midgray
+          = author.website
+        .table-cell.py-4.text-right
+          = link_to edit_admin_author_path(author), data: { turbo_frame: "modal" }, class: "text-midgray hover:text-contrast" do
+            i.fa-solid.fa-pen

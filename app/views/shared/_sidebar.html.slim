@@ -27,9 +27,10 @@ div.sticky.top-0.z-50
 
       nav.flex.flex-1.flex-col
         = render "shared/sidebar_menu"
-
-
-
+        - if Current.store&.slug == "ttt"
+          = link_to admin_authors_path, class: "flex items-center gap-x-3 rounded-lg p-2 text-sm font-semibold leading-6 text-content hover:text-contrast hover:bg-contour" do
+            i.fa-solid.fa-users
+            | Auteurs
 
   .absolute.top-0.z-40.flex.items-center.gap-x-6.bg-contrast.px-4.py-4.shadow-sm.rounded-br-lg.sm:px-6.lg:hidden
     / = check_box_tag :cart, nil, nil, {checked: @opened, class: "hidden peer"}

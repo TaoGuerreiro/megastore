@@ -1,11 +1,19 @@
 module Admin
   class AuthorsController < AdminController
+    before_action :set_author, only: [:show, :edit, :update, :destroy]
+
     def index
       @authors = Author.all
+      @authors = @authors.search_by_term(params[:search]) if params[:search].present?
+      @pagy, @authors = pagy(@authors)
+
+      respond_to do |format|
+        format.html
+        format.turbo_stream
+      end
     end
 
     def show
-      @author = Author.find(params[:id])
     end
 
     def new
@@ -13,7 +21,6 @@ module Admin
     end
 
     def edit
-      @author = Author.find(params[:id])
     end
 
     def create
@@ -26,24 +33,22 @@ module Admin
           format.turbo_stream
         end
       else
-        render :new
+        render :new, status: :unprocessable_entity
       end
     end
 
     def update
-      @author = Author.find(params[:id])
       if @author.update(author_params)
         respond_to do |format|
           format.html { redirect_to admin_authors_path, notice: t(".success") }
           format.turbo_stream
         end
       else
-        render :edit
+        render :edit, status: :unprocessable_entity
       end
     end
 
     def destroy
-      @author = Author.find(params[:id])
       @author.destroy
       respond_to do |format|
         format.html { redirect_to admin_authors_path, notice: t(".success") }
@@ -53,8 +58,12 @@ module Admin
 
     private
 
+    def set_author
+      @author = Author.find(params[:id])
+    end
+
     def author_params
-      params.require(:author).permit(:website, :nickname, :avatar, :bio)
+      params.require(:author).permit(:nickname, :bio, :website, :avatar)
     end
   end
 end

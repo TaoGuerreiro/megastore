@@ -1,73 +1,26 @@
 = render Header::Component.new do |header|
-  / - header.with_tabs do
-  /   = render Tabs::Component.new(tabs: [{name: "Articles", path: admin_items_path},
-  /                                       {name: "Collections", path: admin_collections_path},
-  /                                       {name: "Catégories", path: admin_categories_path},
-  /                                       {name: "Spécifications", path: admin_specifications_path}])
   - header.with_action_link do
     = link_to new_admin_author_path, data: { turbo_frame: "modal" } do
       = render Buttons::Option::Component.new(label: "Ajouter un.e auteur.ice", icon: "fa-solid fa-plus")
-  / - header.with_options do |option|
-  /   .hidden.z-50.flex.gap-1.items-center data-bulk-edit-items-target="container"
-  /     = form_tag online_admin_bulk_edit_items_path, method: :patch, data: { turbo_stream: true } do
-  /       = text_field_tag :item_ids, {}, data: { "bulk-edit-items-target": "input" }, type: :hidden
-  /       = button_tag "Online", class: "" do
-  /         = render Buttons::Option::Component.new(icon: "fa-solid fa-eye", label: "Online")
-  /     = form_tag offline_admin_bulk_edit_items_path, method: :patch, data: { turbo_stream: true } do
-  /       = text_field_tag :item_ids, {}, data: { "bulk-edit-items-target": "input" }, type: :hidden
-  /       = button_tag "Offline", class: "" do
-  /         = render Buttons::Option::Component.new(icon: "fa-solid fa-eye-slash", label: "Offline")
-  /     = form_tag add_to_collection_admin_bulk_edit_items_path, method: :patch, data: { turbo: false, controller: "autosave" } do
-  /       = text_field_tag :item_ids, {}, data: { "bulk-edit-items-target": "input" }, type: :hidden
-  /       = select_tag :collection_id, options_from_collection_for_select(@collections, :id, :name), include_blank: "Collection", class: "rounded box-border border-content h-8 text-sm py-0.5", data: { action: "change->autosave#submit" }
-
 
   .px-4.sm:px-6.lg:px-0
     .sm:flex.sm:items-center.mb-6
       .sm:flex-auto
         h1.text-base.font-semibold.leading-6.text-contrast
-          | Auteur.ices
+          | Auteurs
         p.mt-2.text-sm.text-midgray
-          | Liste de tous les auteur.ices TTT.
+          | Liste de tous les auteurs de votre boutique.
 
     .mt-8.flow-root
       .flex.w-full.gap-3
-        = filterable_form_for(Author)
         = form_tag admin_authors_path, method: :get, data: { turbo_stream: true, controller: :autosave }, class: "w-full" do
           .flex.items-center
-            = text_field_tag :search, params[:search], class: "form-input w-full placeholder:text-content z-30", placeholder: "Rechercher un article", data: { action: "keyup->autosave#submit"}
-
+            = text_field_tag :search, params[:search], class: "form-input w-full placeholder:text-content z-30", placeholder: "Rechercher un auteur", data: { action: "keyup->autosave#submit"}
 
       .-mx-4.-my-2.overflow-x-auto.sm:-mx-6.lg:-mx-8
         .inline-block.min-w-full.py-2.align-middle.sm:px-6.lg:px-8
+          #authors-table
+            = render partial: "authors_table", locals: { authors: @authors }
 
-          .table.w-full.pb-36.mt-6
-            .table-header-group
-              .table-row
-                / .table-cell.min-w-8
-                /   span.sr-only
-                /     | Checkbox
-                / .table-cell.min-w-8
-                /   span.sr-only
-                /     | En ligne
-                .table-cell.min-w-12
-                  span.sr-only
-                    | Image
-
-                .table-cell.text-sm.font-semibold.text-contrast
-                  = filterable_sort_button(Item, :name) do
-                    | Nom
-                .table-cell.text-sm.font-semibold.text-contrast
-                  = filterable_sort_button(Item, :description) do
-                    | Bio
-                .table-cell.text-sm.font-semibold.text-contrast
-                  = filterable_sort_button(Item, :category_id) do
-                    | Site
-                .table-cell.w-8
-                  span.sr-only
-                    | Actions
-
-
-            = render "admin/authors/authors", authors: @authors
-            / - header.with_pagination do
-            /   == pagy_nav(@pagy)
+    - header.with_pagination do
+      == pagy_nav(@pagy) if defined?(@pagy)
