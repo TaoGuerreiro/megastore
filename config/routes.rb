@@ -30,7 +30,9 @@ Rails.application.routes.draw do
           patch :set_localhost, on: :member
         end
         resources :store_orders, only: %i[index show]
-        resources :events, only: [:index, :show]
+        resources :events, only: [:index, :show] do
+          post :relaunch, on: :member
+        end
       end
     end
 

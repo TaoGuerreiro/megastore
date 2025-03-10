@@ -1,44 +1,50 @@
-.px-4.sm:px-6.lg:px-8
-  .sm:flex.sm:items-center
-    .sm:flex-auto
-      h1.text-base.font-semibold.leading-6.text-gray-900 Users
-      p.mt-2.text-sm.text-gray-700 A list of all the users in your account including their name, title, email and role.
-    .mt-4.sm:ml-16.sm:mt-0.sm:flex-none
-      = link_to new_queen_user_path, class: "btn btn-primary" do
-        | Add user
-  .flow-root.mt-8
-    .-mx-4.-my-2.overflow-x-auto.sm:-mx-6.lg:-mx-8
-      .inline-block.min-w-full.py-2.align-middle.sm:px-6.lg:px-8
-        table.min-w-full.divide-y.divide-gray-300
-          thead
-            tr
-              th.py-3.5.pl-4.pr-3.text-left.text-sm.font-semibold.text-gray-900.sm:pl-0 scope="col" Name
-              th.px-3.py-3.5.text-left.text-sm.font-semibold.text-gray-900 scope="col" Title
-              th.px-3.py-3.5.text-left.text-sm.font-semibold.text-gray-900 scope="col" Email
-              th.px-3.py-3.5.text-left.text-sm.font-semibold.text-gray-900 scope="col" Role
-              th.px-3.py-3.5.text-left.text-sm.font-semibold.text-gray-900 scope="col" Dernière connexion
-              th.relative.py-3.5.pl-3.pr-4.sm:pr-0 scope="col"
-                span.sr-only Edit
-              th.relative.py-3.5.pl-3.pr-4.sm:pr-0 scope="col"
-                span.sr-only Remove
-              - if Rails.env.development?
-                th.relative.py-3.5.pl-3.pr-4.sm:pr-0 scope="col"
-                  span.sr-only SetCurrent
-          tbody.divide-y.divide-gray-200
-            - @users.each do |user|
-              tr
-                td.py-4.pl-4.pr-3.text-sm.font-medium.text-gray-900.whitespace-nowrap.sm:pl-0 = user.full_name
-                td.px-3.py-4.text-sm.text-gray-500.whitespace-nowrap = user.store_name
-                td.px-3.py-4.text-sm.text-gray-500.whitespace-nowrap = user.email
-                td.px-3.py-4.text-sm.text-gray-500.whitespace-nowrap = t(".#{user.role}")
-                td.px-3.py-4.text-sm.text-gray-500.whitespace-nowrap = time_ago_in_words(user.last_sign_in_at) if user.last_sign_in_at
-                td.relative.py-4.pl-3.pr-4.text-sm.font-medium.text-right.whitespace-nowrap.sm:pr-0
-                  = link_to edit_queen_user_path(user), class: "text-indigo-600 hover:text-indigo-900" do
-                    | Edit
-                td.relative.py-4.pl-3.pr-4.text-sm.font-medium.text-right.whitespace-nowrap.sm:pr-0
-                  = link_to queen_user_path(user), data: { turbo_method: :delete, turbo_confirm: "Sure?" }, class: "text-indigo-600 hover:text-indigo-900" do
-                    i.fa.fa-trash
+= render Header::Component.new do |header|
+  - header.with_action_link do
+    = link_to new_queen_user_path do
+      = render Buttons::Option::Component.new(label: "Ajouter un utilisateur", icon: "fa-solid fa-plus")
+
+  .px-4.sm:px-6.lg:px-0
+    .sm:flex.sm:items-center.mb-6
+      .sm:flex-auto
+        h1.text-base.font-semibold.leading-6.text-contrast
+          | Utilisateurs
+        p.mt-2.text-sm.text-midgray
+          | Liste de tous les utilisateurs de votre compte.
+
+    .mt-8.flow-root
+      .-mx-4.-my-2.overflow-x-auto.sm:-mx-6.lg:-mx-8
+        .inline-block.min-w-full.py-2.align-middle.sm:px-6.lg:px-8
+          .table.w-full.pb-36.mt-6
+            .table-header-group
+              .table-row
+                .table-cell.text-sm.font-semibold.text-contrast Nom
+                .table-cell.text-sm.font-semibold.text-contrast Titre
+                .table-cell.text-sm.font-semibold.text-contrast Email
+                .table-cell.text-sm.font-semibold.text-contrast Rôle
+                .table-cell.text-sm.font-semibold.text-contrast Dernière connexion
+                .table-cell.w-8
+                  span.sr-only Actions
+                .table-cell.w-8
+                  span.sr-only Supprimer
                 - if Rails.env.development?
-                  td.relative.py-4.pl-3.pr-4.text-sm.font-medium.text-right.whitespace-nowrap.sm:pr-0
-                    = link_to set_localhost_queen_user_path(user), data: { turbo_method: :patch, turbo_confirm: "Sure?" }, class: "text-indigo-600 hover:text-indigo-900" do
-                      i.fa.fa-eyes
+                  .table-cell.w-8
+                    span.sr-only SetCurrent
+
+            .table-row-group.divide-y.divide-gray-200
+              - @users.each do |user|
+                .table-row
+                  .table-cell.py-4.text-sm.font-medium.text-gray-900 = user.full_name
+                  .table-cell.py-4.text-sm.text-gray-500 = user.store_name
+                  .table-cell.py-4.text-sm.text-gray-500 = user.email
+                  .table-cell.py-4.text-sm.text-gray-500 = t(".#{user.role}")
+                  .table-cell.py-4.text-sm.text-gray-500 = time_ago_in_words(user.last_sign_in_at) if user.last_sign_in_at
+                  .table-cell.py-4.text-sm.font-medium.text-right
+                    = link_to edit_queen_user_path(user), class: "text-indigo-600 hover:text-indigo-900" do
+                      i.fa-solid.fa-pen
+                  .table-cell.py-4.text-sm.font-medium.text-right
+                    = link_to queen_user_path(user), data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?" }, class: "text-indigo-600 hover:text-indigo-900" do
+                      i.fa-solid.fa-trash
+                  - if Rails.env.development?
+                    .table-cell.py-4.text-sm.font-medium.text-right
+                      = link_to set_localhost_queen_user_path(user), data: { turbo_method: :patch, turbo_confirm: "Êtes-vous sûr ?" }, class: "text-indigo-600 hover:text-indigo-900" do
+                        i.fa-solid.fa-eye

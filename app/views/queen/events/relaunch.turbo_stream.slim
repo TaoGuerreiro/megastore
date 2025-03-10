@@ -1,0 +1,2 @@
+= turbo_stream.prepend "notifications" do
+  = render(Notifications::Component.new(type: "success", data: {title: "Event relancé", body: "L'event a été relancé avec succès"}))

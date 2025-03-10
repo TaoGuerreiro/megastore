@@ -1,0 +1,39 @@
+.table.w-full.pb-36.mt-6
+  .table-header-group
+    .table-row
+      .table-cell.text-sm.font-semibold.text-contrast
+        | ID
+      .table-cell.text-sm.font-semibold.text-contrast
+        | Source
+      .table-cell.text-sm.font-semibold.text-contrast
+        | Status
+      .table-cell.text-sm.font-semibold.text-contrast
+        | Erreurs
+      .table-cell.text-sm.font-semibold.text-contrast
+        | Créé le
+      .table-cell.w-8.text-right
+        span.sr-only
+          | Actions
+
+  .table-row-group
+    - events.each do |event|
+      .table-row.hover:bg-gray-50
+        .table-cell.whitespace-nowrap.py-4.pl-4.pr-3.text-sm.sm:pl-6
+          = event.id
+        .table-cell.whitespace-nowrap.px-3.py-4.text-sm.text-gray-500
+          = event.source
+        .table-cell.whitespace-nowrap.px-3.py-4.text-sm
+          .inline-flex.items-center.rounded-md.px-2.py-1 class=status_color(event.status)
+            = event.status
+        .table-cell.whitespace-nowrap.px-3.py-4.text-sm.text-gray-500
+          = truncate(event.processing_errors, length: 50) if event.processing_errors.present?
+        .table-cell.whitespace-nowrap.px-3.py-4.text-sm.text-gray-500
+          = l(event.created_at, format: :short)
+        .table-cell.relative.whitespace-nowrap.py-4.pl-3.pr-4.text-right.text-sm.font-medium.sm:pr-6
+          .flex.items-center.justify-end.gap-2
+            = link_to queen_event_path(event), class: "text-indigo-600 hover:text-indigo-900" do
+              i.fas.fa-eye.mr-2
+              | Voir
+            = button_to relaunch_queen_event_path(event), class: "text-indigo-600 hover:text-indigo-900", data: { turbo_confirm: "Êtes-vous sûr de vouloir relancer cet event ?" } do
+              i.fas.fa-redo.mr-2
+              | Relancer
