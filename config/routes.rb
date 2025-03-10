@@ -86,12 +86,12 @@ Rails.application.routes.draw do
     get "/store",           to: "stores#show"
     get "/library",         to: "stores#library"
     get "/portfolio",       to: "pages#portfolio"
-    get "/authors",         to: "pages#authors"
-    get "/authors/:id",     to: "pages#author", as: :author
+    get "/authors", to: "ttt/authors#index"
+    get "/authors/:id", to: "ttt/authors#show", as: :author
     get "/confidentiality", to: "pages#confidentiality"
 
     resource :checkout, only: [:show] do
-      post :confirm_payment, on: :member
+      post :confirm_payment, ons: :member
     end
     resources :items, only: [:show] do
       resource :checkout, only: [] do

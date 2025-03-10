@@ -29,25 +29,10 @@ class PagesController < ApplicationController
 
   def about
     @contact = Contact.new
-
     render template: "#{@store.slug}/about"
   end
 
   def confidentiality; end
-
-  def authors
-    @authors = Author.order(:nickname)
-    render "#{@store.slug}/authors"
-  end
-
-  def author
-    @author = Author.find(params[:id])
-
-    respond_to do |format|
-      format.html
-      format.turbo_stream { render turbo_stream: turbo_stream.update("modale", partial: "ttt/author") }
-    end
-  end
 
   def portfolio
     render template: "#{@store.slug}/portfolio"
