@@ -16,12 +16,12 @@
         = render MenuItem::Component.new(path: admin_authors_path, icon_classes: "fa-solid fa-users", title: "Auteur.ices")
 
       - if current_user.queen?
-
         h2.text-content.font-bold Pour la Reine
         li
           ul.space-y-1
             = render MenuItem::Component.new(path: queen_users_path, icon_classes: "fa-solid fa-users", title: "Utilisateur.ices")
-            = render MenuItem::Component.new(path: queen_store_orders_path, icon_classes: "fa-solid fa-users", title: "Factures")
+            = render MenuItem::Component.new(path: queen_store_orders_path, icon_classes: "fa-solid fa-file-invoice", title: "Factures")
+            = render MenuItem::Component.new(path: queen_events_path, icon_classes: "fa-solid fa-bell", title: "Events")
           .mt-10.border.border-white
             .bg-primary.py-2.align-middle.text-center.text-contour
               p.text-lg Primary + Contour

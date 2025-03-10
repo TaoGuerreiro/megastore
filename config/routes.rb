@@ -21,6 +21,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get "/admin", to: "admin/items#index"
+
   devise_scope :user do
     namespace :queen do
       authenticate :user, -> (user) { user.queen? } do
@@ -28,10 +30,12 @@ Rails.application.routes.draw do
           patch :set_localhost, on: :member
         end
         resources :store_orders, only: %i[index show]
+        resources :events, only: [:index, :show]
       end
     end
 
     resource :profile, only: %i[edit update]
+
     namespace :admin do
       authenticate :user, -> (user) { user.queen? || user.admin? } do
         resource :instagram, only: [:show]

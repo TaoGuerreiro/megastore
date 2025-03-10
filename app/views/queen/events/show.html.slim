@@ -1,0 +1,40 @@
+= render Header::Component.new do |header|
+  - header.with_tabs do
+    = render Tabs::Component.new(tabs: [{name: "Events", path: queen_events_path}])
+  - header.with_action_link do
+    = link_to queen_events_path do
+      = render Buttons::Option::Component.new(label: "Retour aux events", icon: "fa-solid fa-arrow-left")
+
+  .px-4.sm:px-6.lg:px-0
+    .sm:flex.sm:items-center.mb-6
+      .sm:flex-auto
+        h1.text-base.font-semibold.leading-6.text-contrast
+          | Event ##{@event.id}
+
+    .mt-8.flow-root
+      .bg-white.shadow.sm:rounded-lg
+        .px-4.py-5.sm:p-6
+          .space-y-6
+            .flex.items-center.justify-between
+              .text-sm.font-medium.text-gray-500 Source
+              .text-sm.text-gray-900 = @event.source
+
+            .flex.items-center.justify-between
+              .text-sm.font-medium.text-gray-500 Status
+              .inline-flex.items-center.rounded-md.px-2.py-1 class=status_color(@event.status)
+                = @event.status
+
+            .flex.items-center.justify-between
+              .text-sm.font-medium.text-gray-500 Créé le
+              .text-sm.text-gray-900 = l(@event.created_at, format: :long)
+
+            - if @event.processing_errors.present?
+              .border-t.border-gray-200.pt-4
+                .text-sm.font-medium.text-gray-500.mb-2 Erreurs de traitement
+                div.bg-gray-50.p-4.rounded-lg.text-sm.text-red-600.overflow-auto.max-h-96
+                  = @event.processing_errors
+
+            .border-t.border-gray-200.pt-4
+              .text-sm.font-medium.text-gray-500.mb-2 Données
+              div.bg-gray-50.p-4.rounded-lg.text-sm.overflow-auto.max-h-96
+                = JSON.pretty_generate(JSON.parse(@event.data)) rescue @event.data

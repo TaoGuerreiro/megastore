@@ -1,0 +1,59 @@
+= render Header::Component.new do |header|
+  - header.with_tabs do
+    = render Tabs::Component.new(tabs: [{name: "Events", path: queen_events_path}])
+
+  .px-4.sm:px-6.lg:px-0
+    .sm:flex.sm:items-center.mb-6
+      .sm:flex-auto
+        h1.text-base.font-semibold.leading-6.text-contrast
+          | Events
+        p.mt-2.text-sm.text-midgray
+          | Liste de tous les événements du système.
+
+    .mt-8.flow-root
+      .flex.w-full.gap-3
+        = form_tag queen_events_path, method: :get, data: { turbo_stream: true, controller: :autosave }, class: "w-full" do
+          .flex.items-center
+            = text_field_tag :search, params[:search], class: "form-input w-full placeholder:text-content z-30", placeholder: "Rechercher un event", data: { action: "keyup->autosave#submit"}
+
+      .-mx-4.-my-2.overflow-x-auto.sm:-mx-6.lg:-mx-8
+        .inline-block.min-w-full.py-2.align-middle.sm:px-6.lg:px-8
+
+          .table.w-full.pb-36.mt-6
+            .table-header-group
+              .table-row
+                .table-cell.text-sm.font-semibold.text-contrast
+                  | ID
+                .table-cell.text-sm.font-semibold.text-contrast
+                  | Source
+                .table-cell.text-sm.font-semibold.text-contrast
+                  | Status
+                .table-cell.text-sm.font-semibold.text-contrast
+                  | Erreurs
+                .table-cell.text-sm.font-semibold.text-contrast
+                  | Créé le
+                .table-cell.w-8
+                  span.sr-only
+                    | Actions
+
+            .table-row-group
+              - @events.each do |event|
+                .table-row.hover:bg-gray-50
+                  .table-cell.whitespace-nowrap.py-4.pl-4.pr-3.text-sm.sm:pl-6
+                    = event.id
+                  .table-cell.whitespace-nowrap.px-3.py-4.text-sm.text-gray-500
+                    = event.source
+                  .table-cell.whitespace-nowrap.px-3.py-4.text-sm
+                    .inline-flex.items-center.rounded-md.px-2.py-1 class=status_color(event.status)
+                      = event.status
+                  .table-cell.whitespace-nowrap.px-3.py-4.text-sm.text-gray-500
+                    = truncate(event.processing_errors, length: 50) if event.processing_errors.present?
+                  .table-cell.whitespace-nowrap.px-3.py-4.text-sm.text-gray-500
+                    = l(event.created_at, format: :short)
+                  .table-cell.relative.whitespace-nowrap.py-4.pl-3.pr-4.text-right.text-sm.font-medium.sm:pr-6
+                    = link_to queen_event_path(event), class: "text-indigo-600 hover:text-indigo-900" do
+                      i.fas.fa-eye.mr-2
+                      | Voir
+
+    - header.with_pagination do
+      == pagy_nav(@pagy)
