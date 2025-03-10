@@ -2,7 +2,7 @@
   .flex.flex-col.gap-3.justify-between.relative.max-w-96.py-1.bg-cover.bg-auto.hachures.rounded-2xl.group.cursor-pointer class="h-full transition-all hover:bg-none"
     .mx-3.my-2.rounded-xl.overflow-hidden.h-full class="transition-all duration-700 ease-out origin-center group-hover:rotate-6 group-hover:-translate-y-5"
       - if item.photos.first.present?
-        = image_tag item.photos.first.variant(resize_to_fill: [600, 600]), class: "h-full w-full object-cover object-center"
+        = image_tag item.photos.first.variant(resize_to_fill: [600, 600]), class: "h-full w-full object-cover object-center min-h-80"
       - else
         = image_tag "https://placehold.co/600x1200?text=No+image", class: "h-full w-full object-cover object-center"
 

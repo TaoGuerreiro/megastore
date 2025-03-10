@@ -16,6 +16,7 @@ module Ttt
     end
 
     def show
+      @store = Current.store
       @author = Author.find(params[:id])
 
       respond_to do |format|
