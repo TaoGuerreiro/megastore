@@ -32,5 +32,8 @@ module Megastore
 
     config.autoload_paths += Dir[Rails.root.join("lib/filterable_lib")]
     config.i18n.load_path += Dir[Rails.root.join("lib/filterable_lib/locales/**/*.yml")]
+
+    config.autoload_lib(ignore: %w(assets tasks))
+
   end
 end

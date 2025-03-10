@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_03_10_121419) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_10_234026) do
+  create_schema "tiger"
+  create_schema "tiger_data"
+  create_schema "topology"
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "adminpack"
   enable_extension "autoinc"
