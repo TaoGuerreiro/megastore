@@ -7,7 +7,7 @@
         = image_tag "https://placehold.co/600x1200?text=No+image", class: "h-full w-full object-cover object-center"
 
     .relative.m-3.bg-light.rounded-xl.text-center.py-4.border.border-contrast.border-2 class="group/button"
-      .absolute.flex.flex-col.items-center.bg-light.rounded-xl.text-center.pt-4.border.border-contrast.border-2 class="translate-y-3 bottom-24 -left-5 -right-5"
+      .absolute.flex.flex-col.items-center.bg-light.rounded-xl.text-center.py-4.border.border-contrast.border-2 class="translate-y-3 bottom-24 -left-5 -right-5"
         span.text-3xl.px-3 class="font-[1000]"
           = item.name.upcase
         - if item.sub_name.present?
@@ -15,8 +15,8 @@
             = item.sub_name
 
         span class="overflow-hidden ease-out grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 group-hover:grid-rows-[1fr] "
-          .overflow-hidden.pb-4.px-3
-            . class="w-full my-4 border-t border-midgray"
+          .overflow-hidden.pt-4.px-3
+            . class="w-full pb-3 border-t border-midgray"
             = "#{item.description.first(100)} ..."
 
       . class="transition-all duration-300 ease-out group-hover:-translate-x-1/4 font-[1000] text-3xl"
