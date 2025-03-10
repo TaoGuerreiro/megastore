@@ -1,3 +1,3 @@
-= turbo_stream.remove @author
+= turbo_stream.remove dom_id(@author)
 = turbo_stream.prepend "notifications" do
   = render(Notifications::Component.new(type: "success", data: {title: t(".title"), body: t(".success")}))

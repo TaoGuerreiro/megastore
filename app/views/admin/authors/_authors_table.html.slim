@@ -15,7 +15,7 @@
 
   .table-row-group
     - authors.each do |author|
-      .table-row.hover:bg-contour
+      = turbo_frame_tag dom_id(author), class: "table-row hover:bg-contour" do
         .table-cell.py-4
           - if author.avatar.attached?
             = image_tag author.avatar.variant(resize_to_fill: [50, 50]), class: "w-12 h-12 rounded-full object-cover"
@@ -27,6 +27,8 @@
           = author.bio
         .table-cell.py-4.text-midgray
           = author.website
-        .table-cell.py-4.text-right
+        .table-cell.py-4.text-right.space-x-4
           = link_to edit_admin_author_path(author), data: { turbo_frame: "modal" }, class: "text-midgray hover:text-contrast" do
             i.fa-solid.fa-pen
+          = button_to admin_author_path(author), method: :delete, class: "text-midgray hover:text-red-600", data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer cet auteur ?" } do
+            i.fa-solid.fa-trash
