@@ -32,6 +32,10 @@ class Store < ApplicationRecord
     collections.includes(:items).where(items: { status: :pre_sale }).order(created_at: :desc)
   end
 
+  def active_items
+    items.where(status: :active).order(created_at: :desc)
+  end
+
   def holiday?
     holiday
   end

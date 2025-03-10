@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Collection < ApplicationRecord
+  default_scope { where(store: Current.store) }
   has_many :items, dependent: :nullify
   belongs_to :store
   belongs_to :cover, class_name: "Item", optional: true
