@@ -10,7 +10,7 @@
   p.text-contrast.mb-6
     | Les campagnes de crowfonding en cours ! Aidez-vous à financer la prochaine sortie de TTT
 
-  = render "stores/items", items: Current.store.items.pre_sale, collections: @collections
+  = render "stores/items", items: @store.items.pre_sale, collections: @store.pre_sale_collections_with_items
 
   .absolute.inset-x-0.bottom-10.text-center.cursor-pointer data-controller="scroll-down"
     i.fa-solid.fa-arrow-down.animate-bounce.text-4xl.text-primary data-action="click->scroll-down#scroll"
@@ -20,4 +20,4 @@
     | Les autre sortie signé TTT !
   p.text-contrast.mb-6
     | Nous avons encore d'autre BD TTT en stock
-  = render "stores/items", items: Current.store.items.active, collections: @collections
+  = render "stores/items", items: @store.items.active, collections: @store.active_collections_with_items

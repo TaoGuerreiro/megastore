@@ -7,9 +7,7 @@ class PagesController < ApplicationController
   def landing; end
 
   def home
-    @items = @store.items.where(status: :active)
-    @collections = @store.collections_with_items
-
+    @store = Current.store
     render "#{@store.slug}/home"
   end
 

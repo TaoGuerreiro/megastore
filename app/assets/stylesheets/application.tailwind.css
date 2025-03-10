@@ -505,13 +505,21 @@
 
   #logo-navbar {
     position: fixed;
-    top: 20px;
+    top: 10px;
     left: 20px;
     width: 80px; /* Taille ajustable */
     height: auto;
     opacity: 0;
     transform: translateY(-100%);
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  }
+
+  #home-logo-navbar {
+    position: fixed;
+    top: 10px;
+    left: 20px;
+    width: 80px; /* Taille ajustable */
+    height: auto;
   }
 
   #logo-navbar.visible {

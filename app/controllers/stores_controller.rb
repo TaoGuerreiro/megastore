@@ -9,7 +9,7 @@ class StoresController < ApplicationController
     @default_sort = default_sort
     @query = params.dig(:filters, :query)
     @items = fetch_items
-    @collections = @store.collections_with_items
+    @collections = @store.active_collections_with_items
 
     return unless params[:filters]
 
@@ -19,7 +19,7 @@ class StoresController < ApplicationController
   end
 
   def library
-    redirect_to store_path(Current.store) if Current.store.slug =! "ttt"
+    redirect_to store_path(Current.store) if Current.store.slug = !"ttt"
     Current.store.update(slug: "ttt")
 
     @max_price = max_price
@@ -27,7 +27,7 @@ class StoresController < ApplicationController
     @default_sort = default_sort
     @query = params.dig(:filters, :query)
     @items = fetch_items
-    @collections = @store.collections_with_items
+    @collections = @store.active_collections_with_items
 
     return unless params[:filters]
 

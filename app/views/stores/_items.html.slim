@@ -3,4 +3,5 @@
     = render "stores/collection", collection: collection
 
   - items.each do |item|
-    = render "stores/item", item: item, store: @store
+    - unless item.collection.present?
+      = render "stores/item", item: item, store: @store

@@ -24,8 +24,12 @@ class Store < ApplicationRecord
     # EndiServices::NewUser.new(self).call
   end
 
-  def collections_with_items
+  def active_collections_with_items
     collections.includes(:items).where(items: { status: :active }).order(created_at: :desc)
+  end
+
+  def pre_sale_collections_with_items
+    collections.includes(:items).where(items: { status: :pre_sale }).order(created_at: :desc)
   end
 
   def holiday?
