@@ -4,7 +4,7 @@ source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.2.2"
-gem "rails", "~> 7.1.0"
+gem "rails", "~> 8.0.1"
 
 gem "action_policy"
 gem "activerecord-session_store"
@@ -29,7 +29,7 @@ gem "pg_search"
 gem "pg", "~> 1.1"
 gem "postmark-rails"
 gem "puma", "~> 6.0"
-gem "rails-i18n", "~> 7.0.10"
+gem "rails-i18n", "~> 8.0.1"
 gem "redis", "~> 4.0"
 gem "sidekiq-failures", "~> 1.0"
 gem "sidekiq"
@@ -41,7 +41,7 @@ gem "stripe_event"
 gem "stripe"
 gem "turbo-rails"
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
-gem "view_component", "~> 3.4.0"
+gem "view_component", "~> 3.21.0"
 gem "mechanize"
 
 group :development, :test do

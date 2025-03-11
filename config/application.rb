@@ -13,7 +13,7 @@ module Megastore
   class Application < Rails::Application
     config.assets.paths << Rails.root.join("app/assets/fonts")
 
-    config.load_defaults 7.0
+    config.load_defaults 8.0
 
     config.generators do |generate|
       generate.helper false
