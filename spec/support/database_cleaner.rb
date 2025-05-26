@@ -1,17 +1,12 @@
 RSpec.configure do |config|
-  config.before(:suite) do
-    DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with(:deletion)
-  end
-
   config.use_transactional_fixtures = false
 
-  config.before(:each, type: :system) do
-    DatabaseCleaner.strategy = :truncation
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:deletion, except: %w[ar_internal_metadata])
   end
 
-  config.before(:each, type: :request) do
-    DatabaseCleaner.strategy = :truncation
+  config.before(:each) do
+    DatabaseCleaner.strategy = :deletion
   end
 
   config.before(:each) do

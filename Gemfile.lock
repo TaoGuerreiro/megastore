@@ -239,7 +239,7 @@ GEM
     mime-types-data (3.2024.0305)
     mini_magick (4.12.0)
     mini_mime (1.1.5)
-    minitest (5.25.4)
+    minitest (5.25.5)
     monetize (1.13.0)
       money (~> 6.12)
     money (6.19.0)
@@ -489,7 +489,7 @@ DEPENDENCIES
   country_select
   cssbundling-rails
   cuprite
-  database_cleaner-active_record
+  database_cleaner-active_record (~> 2.1.0)
   debug
   devise
   devise-i18n

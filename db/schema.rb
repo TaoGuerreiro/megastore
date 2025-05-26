@@ -10,13 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_10_234026) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_10_234026) do
   create_schema "tiger"
   create_schema "tiger_data"
   create_schema "topology"
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "adminpack"
   enable_extension "autoinc"
   enable_extension "btree_gin"
   enable_extension "btree_gist"
@@ -38,13 +37,14 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_10_234026) do
   enable_extension "moddatetime"
   enable_extension "pageinspect"
   enable_extension "pg_buffercache"
+  enable_extension "pg_catalog.adminpack"
+  enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_freespacemap"
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
   enable_extension "pgcrypto"
   enable_extension "pgrowlocks"
   enable_extension "pgstattuple"
-  enable_extension "plpgsql"
   enable_extension "postgres_fdw"
   enable_extension "refint"
   enable_extension "seg"

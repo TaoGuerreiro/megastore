@@ -60,7 +60,7 @@ group :test do
   gem "capybara"
   gem "rspec-rails"
   gem "cuprite"
-  gem "database_cleaner-active_record"
+  gem "database_cleaner-active_record", "~> 2.1.0"
   gem "vcr"
   gem "webmock"
   gem "simplecov"
