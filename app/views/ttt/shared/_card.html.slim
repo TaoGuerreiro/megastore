@@ -1,28 +1,29 @@
-div class="h-full max-h-[35rem]"
-  .flex.flex-col.gap-3.justify-between.relative.max-w-96.py-1.bg-cover.bg-auto.hachures.rounded-2xl.group class="h-full transition-all hover:bg-none"
+div class="h-full max-h-[30rem] mx-auto"
+  .flex.flex-col.gap-3.justify-between.relative.max-w-96.py-1.bg-cover.bg-auto.hachures.rounded-2xl.group class="relative h-full transition-all hover:bg-none"
     = link_to item_path(item), class: "h-full mx-3 my-2 overflow-hidden transition-all duration-700 ease-out origin-center rounded-xl group-hover:rotate-6 group-hover:-translate-y-5"
       - if item.photos.first.present?
         = image_tag item.photos.first.variant(resize_to_fill: [600, 600]), class: "h-full w-full object-cover object-center min-h-80"
       - else
         = image_tag "https://placehold.co/600x1200?text=No+image", class: "h-full w-full object-cover object-center"
 
-    .relative.m-3.bg-light.rounded-xl.text-center.py-4.border.border-contrast.border-2
-      = link_to item_path(item), class: "absolute flex flex-col items-center bg-light rounded-xl text-center pt-2 border border-contrast border-2 translate-y-3 bottom-24 -left-5 -right-5"
-        span.text-2xl.px-3 class="font-[1000]"
-          = item.name.upcase
-        - if item.sub_name.present?
-          span.text-xl.px-3.block.text-midgray
-            = item.sub_name
 
-        span class="mt-2 overflow-hidden ease-out grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 group-hover:grid-rows-[1fr] "
-          .overflow-hidden.px-3
-            . class="w-full border-t border-midgray"
-            .py-2 = "#{item.description.first(100)} ..."
+    = link_to item_path(item), class: "absolute flex flex-col items-center bg-light rounded-xl text-center pt-2 border border-primary translate-y-3 bottom-12 -left-5 -right-5"
+      span.text-xl.px-3 class="font-[1000] text-primary"
+        = item.name.upcase
+      - if item.sub_name.present?
+        span.text-lg.px-3.block.text-primary
+          = item.sub_name
 
-      . class="transition-all duration-300 ease-out group-hover:-translate-x-1/4 font-[1000] text-3xl"
-        = item.price
+      span class="mt-2 overflow-hidden ease-out grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 group-hover:grid-rows-[1fr] "
+        .overflow-hidden.px-3
+          . class="w-full border-t border-primary"
+          .py-2.text-primary = "#{item.description.first(100)} ..."
 
-      .absolute.text-base.uppercase.opacity-0.cursor-default class="px-2 transition-opacity duration-300 ease-out -translate-y-1/2 group/cart transition-300 left-1/2 top-1/2 group-hover:opacity-100"
-        = button_to add_item_checkout_path(item), class: "group/link", method: :post do
-          i.fa-solid.fa-cart-shopping.text-2xl.mr-2
-          span class="font-[1000] transition-opacity duration-300 ease-out transition-300 text-center uppercase" Acheter
+    .w-fit.absolute.-bottom-8.left-1/2.-translate-x-1/2.relative.bg-light.rounded-xl.text-center.py-2.border.border-primary class="group/link"
+      .uppercase.cursor-default
+        = button_to add_item_checkout_path(item), class: "flex items-center px-3 gap-x-2 relative", method: :post do
+          . class="text-primary font-[1000] text-2xl"
+            = item.price.format(symbol_position: :after, symbol: '€')
+          span.text-primary.mr-3.hidden class="group-hover/link:block" Ajouter au panier
+          .text-xl.-right-6.absolute.hidden class="group-hover/link:block"
+            = image_tag "ttt/backpack.svg", class: "w-10 h-10"

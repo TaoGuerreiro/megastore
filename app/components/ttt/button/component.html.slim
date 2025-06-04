@@ -1,11 +1,7 @@
 .relative
-  = link_to path, class: "relative peer px-5 py-3 overflow-hidden font-medium text-contrast border border-contrast shadow-inner group" do
-    / span class="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-contrast group-hover:w-full ease"
-    / span class="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-contrast group-hover:w-full ease"
-    / span class="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-primary group-hover:h-full ease"
-    / span class="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-primary group-hover:h-full ease"
+  = link_to path, class: "relative peer pr-5 pl-1 pt-5 pb-1 overflow-hidden font-medium text-primary border border-primary shadow-inner group" do
     span class="absolute inset-0 w-full h-full duration-300 delay-100 opacity-0 bg-primary group-hover:opacity-100"
-    span class="relative uppercase transition-colors duration-300 delay-200 group-hover:text-contour ease" = text
+    span class="relative text-left uppercase transition-colors duration-300 delay-200 group-hover:text-light ease" = "#{text} ."
 
   - if sub_links?
     .absolute.hidden.top-8.peer-hover:flex.hover:flex.origin-top

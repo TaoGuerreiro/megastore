@@ -5,20 +5,26 @@
     i.fa-solid.fa-arrow-down.animate-bounce.text-4xl.text-primary data-action="click->scroll-down#scroll"
 
 - if @store.items.pre_sale.any?
-  .max-w-5xl.mx-auto.flex.flex-col.py-12.relative.h-screen.px-6
-    h2.text-4xl.font-bold.mb-12.font-black.text-transparent.animate-text.bg-gradient-to-r.from-primary.via-purple-500.to-orange-500.bg-clip-text
+  .flex.items-center
+    .h-6.w-1/2.bg-contour.text-right.text-light.uppercase
       | Les campagnes de crowfonding en cours !
-    p.text-contrast.mb-6
-      | Les campagnes de crowfonding en cours ! Aidez-vous à financer la prochaine sortie de TTT
+    .h-6.w-20.clip-diagonal-right.bg-gradient-to-br.from-contour.via-contour.to-transparent
 
-    = render "stores/items", items: @store.items.pre_sale, collections: @store.pre_sale_collections_with_items
+    .max-w-5xl.mx-auto.flex.flex-col.py-12.relative.h-screen.px-6
+      h2.text-4xl.font-bold.mb-12.fonst-black.text-transparent.animate-text.bg-gradient-to-r.from-primary.via-purple-500.to-orange-500.bg-clip-text
+        | Les campagnes de crowfonding en cours !
+      p.text-contrast.mb-6
+        | Les campagnes de crowfonding en cours ! Aidez-vous à financer la prochaine sortie de TTT
 
-  .absolute.inset-x-0.bottom-10.text-center.cursor-pointer data-controller="scroll-down"
-    i.fa-solid.fa-arrow-down.animate-bounce.text-4xl.text-primary data-action="click->scroll-down#scroll"
+      = render "stores/items", items: @store.items.pre_sale, collections: @store.pre_sale_collections_with_items
 
-.max-w-5xl.mx-auto.flex.flex-col.py-12.relative.h-screen.px-6
-  h2.text-4xl.font-bold.mb-12.font-black.text-transparent.animate-text.bg-gradient-to-r.from-primary.via-purple-500.to-orange-500.bg-clip-text
-    | Les sorties signées TTT !
-  p.text-contrast.mb-6
-    | Nous avons encore d'autre BD TTT en stock
+    .absolute.inset-x-0.bottom-10.text-center.cursor-pointer data-controller="scroll-down"
+      i.fa-solid.fa-arrow-down.animate-bounce.text-4xl.text-primary data-action="click->scroll-down#scroll"
+
+.flex.items-center
+  .h-6.w-1/2.bg-contour.text-right.text-light.uppercase
+    | Nos projets déjà publiés
+  .h-6.w-20.clip-diagonal-right.bg-gradient-to-br.from-contour.via-contour.to-transparent
+
+.max-w-5xl.mx-auto.flex.flex-col.py-12.relative.h-full.px-6
   = render "stores/items", items: @store.items.active, collections: @store.active_collections_with_items

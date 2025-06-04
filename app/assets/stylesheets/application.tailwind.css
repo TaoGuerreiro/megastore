@@ -371,13 +371,13 @@
   }
 
   .ttt {
-    --color-primary: 255, 77, 196; /* #FF4DC4 */
+    --color-primary: 200, 94, 146; /* #CA5E92 */
     --color-secondary: 48, 115, 81; /* #307351 */
     --color-light: 255, 250, 255; /* #E8EBEF */
     --color-contrast: 2, 2, 2; /* #020202 */
     --color-midgray: 113, 124, 137; /* #717 */
     --color-content: 187, 214, 134; /* #BBD686 */
-    --color-contour: 238, 238, 238;
+    --color-contour: 255, 179, 234;
     --color-form-input: 255, 255, 255;
   }
 
@@ -535,17 +535,6 @@
     margin-right: auto;
   }
 
-  /* gradient thingy */
-  /* pre::after {
-    z-index: -2;
-    inset: -1rem;
-    background-image: url('/assets/ttt/justedoodle.png');
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    transform: translateZ(50px);
-  } */
-
   pre {
     transform-style: preserve-3d;
     transform: perspective(1200px) rotateY(var(--rotateX)) rotateX(var(--rotateY));
@@ -610,6 +599,11 @@
     display: inline-block;
     vertical-align: middle;
     font-weight:900;
+  }
+
+  .text-outline-primary {
+    color: transparent;
+    -webkit-text-stroke: 2px #1e40af; /* adapte la couleur */
   }
 
   /* TEST */
@@ -732,12 +726,16 @@
 
     .hachures {
       background: repeating-linear-gradient(
-          -37deg,
-          transparent,
-          transparent 9px,
-          black 9px,
-          black 10px
+        -37deg,
+        transparent,
+        transparent 9px,
+        black 9px,
+        black 10px
       );
+    }
+
+    .clip-diagonal-right {
+      clip-path: polygon(0 0, 100% 0%, 50% 100%, 0% 100%);
     }
 
    /* PAGY */

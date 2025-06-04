@@ -7,8 +7,6 @@ Money.rounding_mode = BigDecimal::ROUND_HALF_EVEN # Or any other rounding mode y
 MoneyRails.configure do |config|
   config.default_currency = :eur
   # To set the default currency
-  #
-  # config.default_currency = :usd
 
   # Set default bank object
   #
@@ -50,17 +48,17 @@ MoneyRails.configure do |config|
   # Register a custom currency
   #
   # Example:
-  # config.register_currency = {
-  #   priority:            1,
-  #   iso_code:            "EU4",
-  #   name:                "Euro with subunit of 4 digits",
-  #   symbol:              "€",
-  #   symbol_first:        true,
-  #   subunit:             "Subcent",
-  #   subunit_to_unit:     10000,
-  #   thousands_separator: ".",
-  #   decimal_mark:        ","
-  # }
+  config.register_currency = {
+    priority:            1,
+    iso_code:            "EU4",
+    name:                "Euro with subunit of 4 digits",
+    symbol:              "€",
+    symbol_first:        false,
+    subunit:             "Subcent",
+    subunit_to_unit:     10000,
+    thousands_separator: ".",
+    decimal_mark:        ","
+  }
 
   # Specify a rounding mode
   # Any one of:
