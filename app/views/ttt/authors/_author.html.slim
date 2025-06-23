@@ -2,21 +2,29 @@
   = tag.div data: { controller: "turbo-modal",
                     turbo_modal_target: "modal",
                     action: "turbo:submit-end->turbo-modal#submitEnd keyup@window->turbo-modal#closeWithKeyboard click@window->turbo-modal#closeBackground" },
-                    class: "py-12 backdrop-blur-sm fixed top-0 bottom-0 overflow-y-scroll right-0  w-screen break-words z-[1000] md:flex items-top justify-center" do
-    .bg-form-input.shadow-lg.overflow-y-scroll.w-full.max-w-4xl.px-6.py-6.relative.h-fit
+                    class: "py-20 backdrop-blur-sm fixed top-0 bottom-0 right-0  w-screen break-words z-[1000] md:flex items-top justify-center" do
+    .relative
+      .bg-form-input.shadow-lg.w-full.max-w-4xl.px-6.py-6.relative.border.border-primary.rounded-lg.overflow-y-scroll.mb-48 class="h-[calc(100vh-10rem)]"
+        .flex.items-center.justify-center.mb-2.relative.flex-col.gap-y-4
+          div.flex.flex-col.items-center.border.border-primary.rounded-lg.overflow-hidden
+            - if @author.avatar.attached?
+              = image_tag @author.avatar.variant(resize_to_fill: [200, 200])
+            - else
+              = image_tag "https://placehold.co/200x200?text=No+image", class: "w-full h-full object-cover"
 
-      .flex.items-center.mb-2
-        h1.mr-2.uppercase.font-bold.text-2xl = @author.nickname
-        = link_to @author.website, target: "_blank" do
-          i.fa-brands.fa-instagram.text-2xl.hover:text-secondary
-      p.text-justify.mb-4.text-base = @author.bio
-      h2.mb-2.font-bold.text-xl  Retrouve #{@author.nickname} sur...
+          p.mb-4.text-base.text-center.text-primary class="empty:hidden" = @author.bio
 
-      - @author.items.each do |book|
-        / = book.name
-        / = image_tag book.photos.first.variant(resize_to_fill: [200, 200])
-        .w-1/3
-          = render "stores/item", item: book, store: @store
+          = link_to "SITE PERSO", @author.website, target: "_blank", class: "btn btn-primary"
 
-      = button_tag "Close", data: { action: "turbo-modal#hideModal" }, type: "button", class: "absolute top-6 right-6" do
-        i.fa-solid.fa-times.text-2xl
+        p.text-primary.mb-5 Retrouve #{@author.nickname} dans les livres suivants :
+
+        .flex.flex-wrap.gap-x-8
+          - @author.items.each do |book|
+            .w-1/3.scale-75
+              = render "stores/item", item: book, store: @store
+
+        = button_tag "Close", data: { action: "turbo-modal#hideModal" }, type: "button", class: "absolute top-6 right-6" do
+          i.fa-solid.fa-times.text-2xl
+
+      .-top-6.uppercase.absolute.bg-light.px-2.py-2.rounded-lg.border.border-primary.left-1/2.-translate-x-1/2.w-3/4.text-center.text-primary.w-fit
+        = @author.nickname

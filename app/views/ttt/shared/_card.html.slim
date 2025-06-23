@@ -19,11 +19,13 @@ div class="h-full max-h-[30rem] mx-auto"
           . class="w-full border-t border-primary"
           .py-2.text-primary = "#{item.description.first(100)} ..."
 
-    .w-fit.absolute.-bottom-8.left-1/2.-translate-x-1/2.relative.bg-light.rounded-xl.text-center.py-2.border.border-primary class="group/link"
+    .w-fit.max-w-28.absolute.-bottom-8.left-1/2.-translate-x-1/2.relative.bg-light.rounded-xl.text-center.py-2.max-h-12.min-h-12.border.border-primary.flex.items-center class="overflow-hidden transition-all duration-200 hover:overflow-visible group/link hover:max-w-full"
       .uppercase.cursor-default
-        = button_to add_item_checkout_path(item), class: "flex items-center px-3 gap-x-2 relative", method: :post do
-          . class="text-primary font-[1000] text-2xl"
+        = button_to add_item_checkout_path(item), class: "flex items-center px-3 gap-x-2 relative group/button", method: :post do
+          . class="text-primary font-[1000] text-2xl group-hover/link:w-auto whitespace-nowrap"
             = item.price.format(symbol_position: :after, symbol: '€')
-          span.text-primary.mr-3.hidden class="group-hover/link:block" Ajouter au panier
-          .text-xl.-right-6.absolute.hidden class="group-hover/link:block"
+          span.text-primary.mr-3.transition-all.opacity-0 class="delay-200 whitespace-nowrap group-hover/link:opacity-100" Ajouter au panier
+          .text-xl.-right-6.absolute.transition-all.opacity-0 class="delay-200 group-hover/link:opacity-100"
             = image_tag "ttt/backpack.svg", class: "w-10 h-10"
+          .absolute.-top-5.-right-10.w-10.h-10.hidden class="group-active/button:block group-focus/button:block"
+            = image_tag "ttt/plus_one.png"

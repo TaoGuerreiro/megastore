@@ -488,7 +488,7 @@
   /* ______________________________TTT______________________________ */
 
   .ttt .btn-primary {
-    @apply font-bold transition-all rounded-md cursor-pointer bg-primary text-light hover:scale-95;
+    @apply font-light transition-all border rounded-md cursor-pointer bg-light text-primary hover:scale-95 border-primary;
   }
 
   .ttt .btn-link {
