@@ -1,0 +1,21 @@
+/ Card container
+.div.flex.flex-col.items-start
+  / Badges
+
+  / Product image
+  .w-full.flex.justify-center.mb-4.relative.h-80.bg-center.bg-cover.bg-no-repeat style="background-image: url('#{item.photos.first.url}');"
+    .flex.flex-col.gap-2.mb-4.absolute.top-4.left-4
+      span.bg-midgray/30.text-black.text-sm.font-light.px-3.py-1.rounded 30% off
+
+  / Product title
+  h3.text-2xl.font-black.mb-2 Knife Longsleeve bim bim bap
+
+  / Price section
+  .flex.items-center.gap-3.mb-4
+    span.text-xl = item.price.format(symbol_position: :after, symbol: '€')
+    / span.text-xl.text-gray-400.line-through 20.00€
+
+  / Sizes
+  .flex.gap-2
+    - ["S", "M", "L", "XL"].each do |size|
+      span.bg-midgray/30.text-black.text-base.font-medium.px-3.py-1.rounded = size

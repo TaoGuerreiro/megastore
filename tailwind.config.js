@@ -46,7 +46,7 @@ module.exports = {
         },
       },
       fontFamily: {
-        unsafe: ["'Noto Sans'", ...defaultTheme.fontFamily.sans],
+        unsafe: ["'Druk Text Wide Trial'", ...defaultTheme.fontFamily.sans],
         anemone: ["Avenir", ...defaultTheme.fontFamily.sans],
         kenjosset: ["Scandia", ...defaultTheme.fontFamily.sans],
         "ttt-title": ["Titillium Web", ...defaultTheme.fontFamily.sans],

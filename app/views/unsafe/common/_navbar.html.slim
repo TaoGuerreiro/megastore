@@ -1,14 +1,14 @@
-.fixed.top-1.right-6.z-40 = render "shared/cart"
+.fixed.top-4.right-6.z-50 = render "shared/cart"
 
 .hidden.md:block
-  .justify-around.px-24.items-center.w-full.transition.fixed.top-0.py-6.z-40.bg-contour.flex class=("hidden" if home?(params)) data-scroll-target="links"
-    .absolute.left-6
+  .justify-between.px-24.items-center.w-full.transition.fixed.top-0.py-10.z-40.flex data-scroll-target="links"
+    div
       = link_to root_path do
         = image_tag("#{Current.store.slug}/logo_white.png", class: "h-12")
-
-    = link_to "About", about_path, class: "btn-link uppercase font-unsafe"
-    = link_to "Booking", contact_path, class: "btn-link  uppercase font-unsafe"
-    = link_to "Merch", store_path, class: "btn-link  uppercase font-unsafe"
+    .flex.justify-between.w-1/3
+      = link_to "About", about_path, class: "btn-link uppercase font-unsafe text-base"
+      = link_to "Booking", contact_path, class: "btn-link  uppercase font-unsafe text-base"
+      = link_to "Merch", store_path, class: "btn-link  uppercase font-unsafe text-base"
 
 .h-36.md:hidden
   = label_tag :phonenav, class: "fixed shadow-xl z-40 top-4 left-4 rounded-full" do

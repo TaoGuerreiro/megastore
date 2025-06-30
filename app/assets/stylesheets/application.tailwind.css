@@ -422,7 +422,7 @@
 
   /* Custom Switch CSS___ */
   .switch {
-    @apply relative inline-block h-8 align-middle transition-colors duration-200 rounded-full cursor-pointer bg-midgray w-14;
+    @apply inline-block relative w-14 h-8 align-middle rounded-full transition-colors duration-200 cursor-pointer bg-midgray;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -457,15 +457,15 @@
   }
 
   .btn-menu {
-    @apply font-bold transition-all bg-transparent cursor-pointer text-contrast hover:scale-95;
+    @apply font-bold bg-transparent transition-all cursor-pointer text-contrast hover:scale-95;
   }
 
   .btn-primary {
-    @apply font-bold transition-all rounded-md cursor-pointer bg-primary text-light hover:scale-95;
+    @apply font-bold rounded-md transition-all cursor-pointer bg-primary text-light hover:scale-95;
   }
 
   .btn-secondary {
-    @apply font-bold transition-all rounded-md cursor-pointer bg-secondary text-light hover:scale-95;
+    @apply font-bold rounded-md transition-all cursor-pointer bg-secondary text-light hover:scale-95;
   }
 
   .btn-link {
@@ -488,11 +488,11 @@
   /* ______________________________TTT______________________________ */
 
   .ttt .btn-primary {
-    @apply font-light transition-all border rounded-md cursor-pointer bg-light text-primary hover:scale-95 border-primary;
+    @apply font-light rounded-md border transition-all cursor-pointer bg-light text-primary hover:scale-95 border-primary;
   }
 
   .ttt .btn-link {
-    @apply relative px-6 py-2 text-lg tracking-wide uppercase transition-all border border-midgray text-contour hover:text-primary;
+    @apply relative px-6 py-2 text-lg tracking-wide uppercase border transition-all border-midgray text-contour hover:text-primary;
   }
 
   .ttt .btn-mobile-link {
@@ -501,6 +501,11 @@
 
   .ttt .btn-sublink {
     @apply tracking-wider uppercase transition-all text-contour hover:text-contrast hover:translate-x-3;
+  }
+  /* ______________________________UNSAFE______________________________ */
+
+  .unsafe .btn-primary {
+    @apply font-bold bg-black rounded-md transition-all cursor-pointer text-contrast hover:scale-95;
   }
 
   #logo-navbar {
@@ -553,7 +558,7 @@
 
   /* Floating Label CSS */
   .form-group {
-    @apply relative w-full mb-5;
+    @apply relative mb-5 w-full;
   }
 
   .form-input {
@@ -563,14 +568,14 @@
   }
 
   .floating-label {
-    @apply absolute top-2.5 left-0 py-0 px-3 pointer-events-none transform-gpu transition-all duration-200 ease-in-out text-content;
-    @apply transform ;
+    @apply absolute left-0 top-2.5 px-3 py-0 transition-all duration-200 ease-in-out transform-gpu pointer-events-none text-content;
+    @apply transform;
     @apply z-0; /* Modifiez cette ligne pour ajouter un z-index au label */
   }
 
   .form-input:focus ~ .floating-label,
   .form-input:not(:placeholder-shown) ~ .floating-label {
-    @apply scale-75 -translate-y-6 border rounded-full transform-gpu text-contrast bg-form-input border-secondary;
+    @apply rounded-full border transform-gpu scale-75 -translate-y-6 text-contrast bg-form-input border-secondary;
   }
 
   .has-error .form-input {
@@ -586,14 +591,14 @@
   }
 
   .spinner {
-    @apply relative inline-block w-full align-middle border-none cursor-pointer;
+    @apply inline-block relative w-full align-middle border-none cursor-pointer;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
   }
 
   .spinner:after {
-    @apply absolute block w-12 transition-transform duration-200 text-contrast animate-spin;
+    @apply block absolute w-12 transition-transform duration-200 animate-spin text-contrast;
     content: "\f110";
     font-family: "Font Awesome 6 Pro";
     display: inline-block;
@@ -758,10 +763,18 @@
       &.gap { }
     }
     .pagy-combo-input, &.pagy-items-selector-js {
-      @apply inline-block whitespace-nowrap bg-midgray rounded-lg px-3 py-0.5;
+      @apply inline-block px-3 py-0.5 whitespace-nowrap rounded-lg bg-midgray;
       input {
-        @apply border-none rounded-md bg-midgray;
+        @apply rounded-md border-none bg-midgray;
       }
     }
+  }
+
+  /* NOISE EFFECT */
+  .bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.3' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 300px 300px;
+    mix-blend-mode: multiply;
   }
 }

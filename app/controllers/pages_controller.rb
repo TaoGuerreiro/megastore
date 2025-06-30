@@ -9,7 +9,12 @@ class PagesController < ApplicationController
   def home
     redirect_to root_path if @store.nil?
 
-    render "#{@store.slug}/home"
+    if @store.slug == "unsafe"
+      @items = @store.items.active
+      @contact = Contact.new
+    end
+
+    render template: "#{@store.slug}/home"
   end
 
   def contact
