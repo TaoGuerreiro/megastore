@@ -1,0 +1,3 @@
+= turbo_stream.prepend "notifications" do
+  = render(Notifications::Component.new(type: "success", data: {title: "Effectué", body: "Lieu bien effacé."}))
+= turbo_stream.remove dom_id(@venue)

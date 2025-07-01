@@ -1,0 +1,12 @@
+Herinnering - <%= @venue&.name || 'Uw zaal' %>
+
+Hallo <%= @contact&.name || @venue&.name || 'gast' %>,
+
+We nemen contact met u op over ons reserveringsverzoek voor de datum <%= l(@booking.gig.date, format: :long) %>.
+
+Laat ons alstublieft weten of de zaal beschikbaar is of wat de status van het verzoek is.
+
+Voor vragen staan wij tot uw beschikking.
+
+Met vriendelijke groet,
+Het booking team

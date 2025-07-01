@@ -1,0 +1,4 @@
+= turbo_stream.prepend :venues, partial: "admin/venues/venue", locals: { venue: @venue }
+= turbo_stream.update :new_venue, ""
+= turbo_stream.prepend "notifications" do
+  = render(Notifications::Component.new(type: "success", data: {title: "Effectué", body: "Lieu bien ajouté."}))

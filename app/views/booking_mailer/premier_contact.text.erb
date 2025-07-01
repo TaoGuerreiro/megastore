@@ -1,0 +1,17 @@
+Bonjour <%= @contact.name %>,
+
+Nous vous contactons concernant une demande de réservation pour une date au <%= @venue.name %>.
+
+Détails de la demande :
+- Date : <%= l(@booking.gig.date, format: :long) %>
+- Heure : <%= l(@booking.gig.time, format: :time) %>
+- Durée : <%= @booking.gig.duration %>
+- Description : <%= @booking.gig.description %>
+- Budget : <%= number_to_currency(@booking.gig.price, unit: "€") %>
+
+Pouvez-vous nous confirmer la disponibilité de votre salle pour cette date ?
+
+Nous restons à votre disposition pour toute question.
+
+Cordialement,
+L'équipe de booking

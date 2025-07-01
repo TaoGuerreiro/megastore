@@ -1,0 +1,12 @@
+Recordatorio - <%= @venue&.name || 'Su sala' %>
+
+Hola <%= @contact&.name || @venue&.name || 'invitado' %>,
+
+Le escribimos para recordarle nuestra solicitud de reserva para la fecha <%= l(@booking.gig.date, format: :long) %>.
+
+Por favor, infórmenos sobre la disponibilidad o el estado de la solicitud.
+
+Quedamos a su disposición para cualquier consulta.
+
+Saludos cordiales,
+El equipo de reservas

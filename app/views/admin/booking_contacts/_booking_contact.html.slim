@@ -1,0 +1,8 @@
+= turbo_frame_tag dom_id(booking_contact), class: "table-row" do
+  .table-cell.truncate.max-w-36.px-2.align-middle = booking_contact.name
+  .table-cell.px-2.align-middle = booking_contact.email
+  .table-cell.px-2.align-middle = booking_contact.phone
+  .table-cell.px-2.align-middle = booking_contact.city
+  .table-cell.relative.px-2.align-middle.text-center
+    = render List::Component.new(item: booking_contact, links: [{ icon: "fas fa-trash", label: "Supprimer", path: admin_booking_contact_path(booking_contact), options: { data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer ce contact ?" } } },
+      { icon: "fas fa-pen", label: "Modifier", path: edit_admin_booking_contact_path(booking_contact), options: { data: { turbo_frame: :modal } } }])

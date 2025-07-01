@@ -1,0 +1,7 @@
+es:
+  hello: "Hola mundo"
+  booking_mailer:
+    premier_contact:
+      subject: "Primer contacto para una fecha en %{venue}"
+    relance:
+      subject: "Recordatorio - Disponibilidad de su sala %{venue}"

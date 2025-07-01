@@ -1,0 +1,9 @@
+= turbo_frame_tag dom_id(venue), class: "table-row" do
+  .table-cell.truncate.max-w-36.px-2.align-middle = venue.name
+  .table-cell.px-2.align-middle = venue.address
+  .table-cell.px-2.align-middle = venue.city
+  .table-cell.px-2.align-middle = venue.capacity
+  .table-cell.px-2.align-middle = venue.language
+  .table-cell.relative.px-2.align-middle.text-center
+    = render List::Component.new(item: venue, links: [{ icon: "fas fa-trash", label: "Supprimer", path: admin_venue_path(venue), options: { data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer ce lieu ?" } } },
+        { icon: "fas fa-pen", label: "Modifier", path: edit_admin_venue_path(venue), options: { data: { turbo_frame: :modal } } }])

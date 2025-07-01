@@ -73,6 +73,11 @@ Rails.application.routes.draw do
         end
 
         resources :orders, only: %i[index show destroy]
+        resources :bookings, only: %i[index new create show edit update destroy] do
+          post :add_step, on: :member
+        end
+        resources :venues
+        resources :booking_contacts
         resource :account, only: %i[show edit update]
       end
     end

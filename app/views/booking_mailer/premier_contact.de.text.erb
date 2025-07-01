@@ -1,0 +1,12 @@
+Erster Kontakt - <%= @venue&.name || 'Ihr Saal' %>
+
+Hallo <%= @contact.name %>,
+
+Wir möchten uns erkundigen, ob Ihr Saal am <%= l(@booking.gig.date, format: :long) %> verfügbar ist.
+
+Könnten Sie uns bitte mitteilen, ob der Saal verfügbar ist?
+
+Für Rückfragen stehen wir Ihnen gerne zur Verfügung.
+
+Mit freundlichen Grüßen,
+Das Booking-Team

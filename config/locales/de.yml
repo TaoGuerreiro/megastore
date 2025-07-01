@@ -1,0 +1,6 @@
+de:
+  booking_mailer:
+    relance:
+      subject: "Erinnerung - Verfügbarkeit Ihres Saals %{venue}"
+    premier_contact:
+      subject: "Erster Kontakt - Verfügbarkeit Ihres Saals %{venue}"

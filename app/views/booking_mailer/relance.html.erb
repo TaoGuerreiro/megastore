@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+  <h1>Relance - <%= @venue&.name || 'Votre salle' %></h1>
+
+  <p>Bonjour <%= @contact&.name || @venue&.name || 'invité' %>,</p>
+
+  <p>Nous revenons vers vous concernant notre demande de réservation pour la date du <strong><%= l(@booking.gig.date, format: :long) %></strong>.
+  </p>
+
+  <p>Merci de nous tenir informés de la disponibilité ou de l'avancement de la demande.</p>
+
+  <p>Restant à votre disposition pour toute question.</p>
+
+  <p>Cordialement,<br>
+  L'équipe booking</p>
+</body>
+</html>

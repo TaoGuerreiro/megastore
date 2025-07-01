@@ -1,0 +1,19 @@
+= turbo_frame_tag dom_id(booking, "form") do
+  = simple_form_for [:admin, booking], data: { turbo: false } do |f|
+    h2 class="text-base font-semibold leading-7 text-gray-900" Réservation
+    p class="mt-1 mb-8 text-sm leading-6 text-gray-700" #{booking.new_record? ? 'Créer' : 'Modifier'} les informations de la réservation
+
+    .flex.flex-col.gap-3.sm:flex-row
+      = f.association :booking_contact, label: "Contact", collection: BookingContact.order(:name), prompt: "Sélectionner un contact"
+      = f.association :venue, label: "Lieu", collection: Venue.order(:name), prompt: "Sélectionner un lieu"
+
+    - if booking.gig
+      = f.simple_fields_for :gig, booking.gig do |gig_fields|
+        = gig_fields.input :date, as: :date, label: "Date du spectacle", html5: true
+
+    = f.input :notes, label: "Notes", as: :text, input_html: { rows: 4 }
+
+    .flex.justify-end.gap-3.mt-6
+      = button_tag type: :submit, class: "btn btn-primary" do
+        i.fa-solid.fa-check.mr-2
+        span = booking.new_record? ? "Créer" : "Modifier"

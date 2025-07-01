@@ -1,0 +1,5 @@
+= turbo_frame_tag :bookings, class: "table-row-group w-full relative" do
+  - if bookings.empty?
+    = render EmptyFolder::Component.new(title: "Aucun booking", subtitle: "Ajoute un booking pour commencer.")
+  - bookings.each do |booking|
+    = render "admin/bookings/booking", booking: booking

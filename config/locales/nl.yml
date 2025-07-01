@@ -1,0 +1,6 @@
+nl:
+  booking_mailer:
+    relance:
+      subject: "Herinnering - Beschikbaarheid van uw zaal %{venue}"
+    premier_contact:
+      subject: "Eerste contact - Beschikbaarheid van uw zaal %{venue}"

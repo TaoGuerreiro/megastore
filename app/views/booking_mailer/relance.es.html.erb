@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+  <h1>Recordatorio - <%= @venue&.name || 'Su sala' %></h1>
+
+  <p>Hola <%= @contact&.name || @venue&.name || 'invitado' %>,</p>
+
+  <p>Le escribimos para recordarle nuestra solicitud de reserva para la fecha <strong><%= l(@booking.gig.date, format: :long) %></strong>.</p>
+
+  <p>Por favor, infórmenos sobre la disponibilidad o el estado de la solicitud.</p>
+
+  <p>Quedamos a su disposición para cualquier consulta.</p>
+
+  <p>Saludos cordiales,<br>
+  El equipo de reservas</p>
+</body>
+</html>

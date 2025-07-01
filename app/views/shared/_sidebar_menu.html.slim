@@ -10,7 +10,12 @@
         / = render MenuItem::Component.new(path: admin_account_path, icon_classes: "fa-solid fa-envelope", title: "Emails")
 
       - if Current.store.slug == "unsafe"
+      ul.mb-4.space-y-1
         = render MenuItem::Component.new(path: admin_instagram_path, icon_classes: "fa-brands fa-instagram", title: "Insta")
+        = render MenuItem::Component.new(path: admin_bookings_path, icon_classes: "fa-solid fa-calendar", title: "Booking")
+        = render MenuItem::Component.new(path: admin_venues_path, icon_classes: "fa-solid fa-location-dot", title: "Venues")
+        = render MenuItem::Component.new(path: admin_booking_contacts_path, icon_classes: "fa-solid fa-address-book", title: "Contacts")
+
 
       - if Current.store.slug == "ttt"
         = render MenuItem::Component.new(path: admin_authors_path, icon_classes: "fa-solid fa-users", title: "Auteur.ices")

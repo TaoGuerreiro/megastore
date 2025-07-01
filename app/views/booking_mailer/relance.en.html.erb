@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+  <h1>Follow-up - <%= @venue&.name || 'Your venue' %></h1>
+
+  <p>Hello <%= @contact&.name || @venue&.name || 'there' %>,</p>
+
+  <p>We are following up regarding our booking request for the date <strong><%= l(@booking.gig.date, format: :long) %></strong>.</p>
+
+  <p>Please let us know about the availability or the status of our request.</p>
+
+  <p>We remain at your disposal for any questions.</p>
+
+  <p>Best regards,<br>
+  The booking team</p>
+</body>
+</html>

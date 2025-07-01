@@ -1,0 +1,100 @@
+= render Header::Component.new do |header|
+  - header.with_backlink do
+    = link_to admin_bookings_path do
+      = render Buttons::Option::Component.new(label: "Retour", icon: "fa-solid fa-arrow-left")
+  - header.with_action_link do
+    - actions = []
+    - icons = {premier_contact: "fa-regular fa-handshake",
+        relance: "fa-solid fa-rotate-right",
+        nrp: "fa-regular fa-envelope-open",
+        indisponible: "fa-regular fa-calendar-xmark",
+        booke: "fa-solid fa-check",
+        incompatible: "fa-solid fa-ban"}
+    - if @booking.last_step.nil?
+      - actions = [:premier_contact]
+    - elsif @booking.last_step.premier_contact? || @booking.last_step.relance? || @booking.last_step.nrp?
+      - actions = [:relance, :nrp, :indisponible, :booke, :incompatible]
+    - elsif @booking.last_step.booke?
+      - actions = []
+    - elsif @booking.last_step.indisponible? || @booking.last_step.incompatible?
+      - actions = []
+    - else
+      - actions = [:relance, :nrp, :indisponible, :booke, :incompatible]
+    - if actions.any?
+      .flex.flex-wrap.gap-2
+        - actions.each do |step|
+          = button_to add_step_admin_booking_path(@booking, step_type: step), method: :post, class: "p-0 border-0 bg-transparent" do
+            = render Buttons::Option::Component.new(label: t("booking_steps.types.#{step}"), icon: icons[step])
+  h1.text-2xl.font-bold.leading-6.text-contrast Réservation ##{@booking.id}
+  - if @booking.last_step
+    p.mt-2.text-sm.text-midgray
+      | Dernière étape :
+      span.inline-flex.items-center.rounded-md.px-2.py-1.text-xs.font-medium.bg-light.text-contrast
+        = t("booking_steps.types.#{@booking.last_step.step_type}")
+
+  .px-4.sm:px-6.lg:px-0.mt-8.grid.grid-cols-1.md:grid-cols-2.gap-8
+    .bg-white.shadow.rounded-lg.p-6
+      h2.text-lg.font-semibold.mb-4 Informations du contact
+      - if @booking.booking_contact
+        dl
+          dt.text-sm.font-medium.text-gray-500 Nom
+          dd.text-base.text-gray-900.mb-2 = @booking.booking_contact.name
+          dt.text-sm.font-medium.text-gray-500 Email
+          dd.text-base.text-gray-900.mb-2 = @booking.booking_contact.email
+          dt.text-sm.font-medium.text-gray-500 Téléphone
+          dd.text-base.text-gray-900.mb-2 = @booking.booking_contact.phone
+          dt.text-sm.font-medium.text-gray-500 Adresse
+          dd.text-base.text-gray-900.mb-2 = @booking.booking_contact.full_address
+          - if @booking.booking_contact.notes.present?
+            dt.text-sm.font-medium.text-gray-500 Notes contact
+            dd.text-base.text-gray-900.mb-2 = @booking.booking_contact.notes
+      - else
+        p.text-midgray Aucune information de contact.
+
+    .bg-white.shadow.rounded-lg.p-6
+      h2.text-lg.font-semibold.mb-4 Détails du spectacle
+      - if @booking.gig
+        dl
+          dt.text-sm.font-medium.text-gray-500 Spectacle
+          dd.text-base.text-gray-900.mb-2 = @booking.gig.description
+          dt.text-sm.font-medium.text-gray-500 Lieu
+          dd.text-base.text-gray-900.mb-2 = @booking.venue&.name || '—'
+          dt.text-sm.font-medium.text-gray-500 Date
+          dd.text-base.text-gray-900.mb-2 = l(@booking.gig.date, format: :long)
+          dt.text-sm.font-medium.text-gray-500 Heure
+          dd.text-base.text-gray-900.mb-2 = @booking.gig&.time ? l(@booking.gig&.time, format: :time) : '—'
+          dt.text-sm.font-medium.text-gray-500 Prix
+          dd.text-base.text-gray-900.mb-2 = number_to_currency(@booking.gig.price)
+          dt.text-sm.font-medium.text-gray-500 Capacité du lieu
+          dd.text-base.text-gray-900.mb-2 = @booking.venue&.capacity || '—'
+      - elsif @booking.venue
+        dl
+          dt.text-sm.font-medium.text-gray-500 Lieu
+          dd.text-base.text-gray-900.mb-2 = @booking.venue.name
+          dt.text-sm.font-medium.text-gray-500 Adresse
+          dd.text-base.text-gray-900.mb-2 = @booking.venue.full_address
+      - else
+        p.text-midgray Aucune information de spectacle ou de lieu.
+
+    .bg-white.shadow.rounded-lg.p-6.mt-8
+      h2.text-lg.font-semibold.mb-4 Frise chronologique du booking
+      - if @booking.booking_steps.any?
+        ul.timeline.flex.flex-col.gap-4
+          - @booking.booking_steps.order(:created_at).each do |step|
+            li.flex.items-center.gap-4
+              .w-32.text-xs.text-midgray = l(step.created_at, format: :short)
+              .flex-1
+                span.inline-flex.items-center.rounded-md.px-2.py-1.text-xs.font-medium.bg-light.text-contrast = t("booking_steps.types.#{step.step_type}")
+                - if step.comment.present?
+                  span.ml-2.text-sm.text-gray-700 = step.comment
+      - else
+        p.text-midgray Aucune étape enregistrée pour ce booking.
+
+    .bg-white.shadow.rounded-lg.p-6.mt-8
+      h2.text-lg.font-semibold.mb-4 Informations de la réservation
+      dl
+        dt.text-sm.font-medium.text-gray-500 Date de réservation
+        dd.text-base.text-gray-900.mb-2 = @booking.gig&.date ? l(@booking.gig.date, format: :long) : '—'
+        - if @booking.notes.present?
+          dt.text-sm.font-medium.text-gray-500 Notes réservation
+          dd.text-base.text-gray-900.mb-2 = @booking.notes

@@ -1,0 +1,12 @@
+Relance - <%= @venue&.name || 'Votre salle' %>
+
+Bonjour <%= @contact&.name || @venue&.name || 'invité' %>,
+
+Nous revenons vers vous concernant notre demande de réservation pour la date du <%= l(@booking.gig.date, format: :long) %>.
+
+Merci de nous tenir informés de la disponibilité ou de l'avancement de la demande.
+
+Restant à votre disposition pour toute question.
+
+Cordialement,
+L'équipe booking
