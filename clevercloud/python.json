@@ -1,0 +1,9 @@
+{
+  "deploy": {
+    "module": "python",
+    "requirements": "requirements.txt"
+  },
+  "build": {
+    "cache_dependencies": true
+  }
+}
