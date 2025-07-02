@@ -4,14 +4,13 @@
   <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
 </head>
 <body>
-  <h1>Hola <%= @contact.name %>,</h1>
+  <h1>Hola <%= @contact&.name || @venue&.name || 'invitado' %>,</h1>
 
-  <p>Te contactamos con respecto a una solicitud de reserva para una fecha en <strong><%= @venue.name %></strong>.</p>
+  <p>Te contactamos con respecto a una solicitud de reserva para una fecha en <strong><%= @venue&.name || 'su sala' %></strong>.</p>
 
   <h2>Detalles de la solicitud:</h2>
   <ul>
     <li><strong>Fecha:</strong> <%= l(@booking.gig.date, format: :long) %></li>
-    <li><strong>Hora:</strong> <%= l(@booking.gig.time, format: :time) %></li>
     <li><strong>Duración:</strong> <%= @booking.gig.duration %></li>
     <li><strong>Descripción:</strong> <%= @booking.gig.description %></li>
     <li><strong>Presupuesto:</strong> <%= number_to_currency(@booking.gig.price, unit: "€") %></li>

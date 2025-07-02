@@ -6,9 +6,9 @@
 <body>
   <h1>Eerste contact - <%= @venue&.name || 'Uw zaal' %></h1>
 
-  <p>Hallo <%= @contact.name %>,</p>
+  <p>Hallo <%= @contact&.name || @venue&.name || 'gast' %>,</p>
 
-  <p>Wij nemen contact met u op om te informeren naar de beschikbaarheid van uw zaal voor de datum <strong><%= l(@booking.gig.date, format: :long) %></strong>.</p>
+  <p>We nemen contact met u op over een boekingsaanvraag voor een datum in <strong><%= @venue&.name || 'Uw zaal' %></strong>.</p>
 
   <p>Kunt u ons laten weten of de zaal beschikbaar is?</p>
 

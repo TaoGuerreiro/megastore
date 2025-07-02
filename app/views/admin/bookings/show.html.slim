@@ -25,6 +25,8 @@
         - actions.each do |step|
           = button_to add_step_admin_booking_path(@booking, step_type: step), method: :post, class: "p-0 border-0 bg-transparent" do
             = render Buttons::Option::Component.new(label: t("booking_steps.types.#{step}"), icon: icons[step])
+    = button_to reset_steps_admin_booking_path(@booking), method: :post, class: "p-0 border-0 bg-transparent", data: { turbo_confirm: "Es-tu sûr de vouloir réinitialiser toutes les étapes de ce booking ?" } do
+      = render Buttons::Option::Component.new(label: "Réinitialiser les étapes", icon: "fa-solid fa-rotate-left")
   h1.text-2xl.font-bold.leading-6.text-contrast Réservation ##{@booking.id}
   - if @booking.last_step
     p.mt-2.text-sm.text-midgray

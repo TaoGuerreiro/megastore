@@ -1,8 +1,8 @@
 Eerste contact - <%= @venue&.name || 'Uw zaal' %>
 
-Hallo <%= @contact.name %>,
+Hallo <%= @contact&.name || @venue&.name || 'gast' %>,
 
-Wij nemen contact met u op om te informeren naar de beschikbaarheid van uw zaal voor de datum <%= l(@booking.gig.date, format: :long) %>.
+We nemen contact met u op over een boekingsaanvraag voor een datum in <%= @venue&.name || 'Uw zaal' %>.
 
 Kunt u ons laten weten of de zaal beschikbaar is?
 

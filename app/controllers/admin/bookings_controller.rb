@@ -2,7 +2,7 @@
 
 module Admin
   class BookingsController < AdminController
-    before_action :set_booking, only: %i[show edit update destroy add_step]
+    before_action :set_booking, only: %i[show edit update destroy add_step reset_steps]
     # verify_authorized
 
     def index
@@ -57,6 +57,12 @@ module Admin
       authorize! @booking
       @booking.destroy
       redirect_to admin_bookings_path, status: :see_other, notice: t(".success")
+    end
+
+    def reset_steps
+      authorize! @booking
+      @booking.booking_steps.destroy_all
+      redirect_to admin_booking_path(@booking), notice: t("admin.bookings.steps_reset")
     end
 
     private

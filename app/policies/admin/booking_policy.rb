@@ -33,5 +33,9 @@ module Admin
     def add_step?
       queen_or_admin?
     end
+
+    def reset_steps?
+      queen_or_admin?
+    end
   end
 end
