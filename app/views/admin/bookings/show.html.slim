@@ -103,6 +103,25 @@
 
     .bg-white.shadow.rounded-lg.p-6.mt-8.col-span-2
       h2.text-lg.font-semibold.mb-4 Discussion
+      - if current_user
+        style
+          | body[data-current-user-id] .chat-message[data-user-id="#{current_user.id}"] {
+          |   justify-content: flex-end;
+          | }
+          | body[data-current-user-id] .chat-message[data-user-id="#{current_user.id}"] .chat-message-bubble {
+          |   background-color: rgb(59 130 246);
+          |   color: white;
+          | }
+          | body[data-current-user-id] .chat-message[data-user-id="#{current_user.id}"] .chat-message-status {
+          |   display: block;
+          | }
+          | body[data-current-user-id] .chat-message:not([data-user-id="#{current_user.id}"]) .chat-message-bubble {
+          |   background-color: rgb(229 231 235);
+          |   color: rgb(17 24 39);
+          | }
+          | body[data-current-user-id] .chat-message:not([data-user-id="#{current_user.id}"]) .chat-message-status {
+          |   display: none;
+          | }
       = turbo_stream_from "booking_#{@booking.id}_messages"
       #chat_messages
         - @booking.booking_messages.order(:created_at).each do |msg|

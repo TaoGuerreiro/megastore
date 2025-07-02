@@ -1,11 +1,10 @@
-div id="booking_message_#{msg.id}" class="flex mb-3 justify-#{msg.user == current_user ? 'end' : 'start'}"
-  .inline-block.px-4.py-2.rounded-lg.max-w-xs.text-sm.font-medium.relative class=(msg.user == current_user ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-900')
+div id="booking_message_#{msg.id}" class="flex mb-3 chat-message" data-user-id="#{msg.user_id}"
+  .inline-block.px-4.py-2.rounded-lg.max-w-xs.text-sm.font-medium.relative.chat-message-bubble
     = msg.text
-    - if msg.user == current_user
-      .absolute.-top-3.-right-3.text-xs.bg-midgray.rounded-full.px-2.py-1.text-white
-        - if msg.pending?
-          i.fas.fa-hourglass-half
-        - elsif msg.sent?
-          i.fas.fa-check
-        - elsif msg.failed?
-          i.fas.fa-times
+    .absolute.-top-3.-right-3.bg-gray-300.rounded-full.text-white.chat-message-status class="text-[8px] py-[0.2px] px-[7px]"
+      - if msg.pending?
+        i.fas.fa-hourglass-half
+      - elsif msg.sent?
+        i.fas.fa-check
+      - elsif msg.failed?
+        i.fas.fa-times

@@ -20,7 +20,7 @@ class SendInstagramMessageJob < ApplicationJob
       ).call
       message.update!(status: :sent, sent_via_instagram: true)
     rescue StandardError => e
-      Rails.logger.error("Erreur Instagram async: #{e}")
+      Rails.logger.error("SendInstagramMessageJob: Erreur Instagram async: #{e}")
       message.update!(status: :failed)
     end
   end

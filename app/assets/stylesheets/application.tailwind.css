@@ -765,3 +765,16 @@
     }
   }
 }
+
+/* Chat message alignment dynamique selon l'utilisateur courant */
+body[data-current-user-id] .chat-message {
+  justify-content: flex-start;
+}
+body[data-current-user-id] .chat-message[data-user-id] {
+  justify-content: flex-start;
+}
+body[data-current-user-id] .chat-message[data-user-id="REPLACE_CURRENT_USER_ID"] {
+  justify-content: flex-end;
+}
+
+/* Astuce : ce bloc sera remplacé dynamiquement dans la vue pour injecter la bonne valeur d'user id */
