@@ -1,0 +1,21 @@
+fr:
+  admin:
+    booking_contacts:
+      create:
+        success: "Contact ajouté"
+        error: "Une erreur est survenue"
+      update:
+        success: "Contact mis à jour"
+        error: "Une erreur est survenue"
+      destroy:
+        success: "Contact supprimé"
+        error: "Une erreur est survenue"
+      new:
+        title: "Nouveau contact"
+      edit:
+        title: "Modifier le contact"
+      index:
+        title: "Contacts"
+        empty_folder:
+          title: "Aucun contact"
+          subtitle: "Ajoute un contact pour commencer."

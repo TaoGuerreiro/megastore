@@ -1,0 +1,21 @@
+fr:
+  admin:
+    venues:
+      create:
+        success: "Lieu ajouté"
+        error: "Une erreur est survenue"
+      update:
+        success: "Lieu mis à jour"
+        error: "Une erreur est survenue"
+      destroy:
+        success: "Lieu supprimé"
+        error: "Une erreur est survenue"
+      new:
+        title: "Nouveau lieu"
+      edit:
+        title: "Modifier le lieu"
+      index:
+        title: "Lieux"
+        empty_folder:
+          title: "Aucun lieu"
+          subtitle: "Ajoute un lieu pour commencer."

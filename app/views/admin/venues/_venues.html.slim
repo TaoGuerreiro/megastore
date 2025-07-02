@@ -1,0 +1,5 @@
+= turbo_frame_tag :venues, class: "table-row-group w-full relative" do
+  - if venues.empty?
+    = render EmptyFolder::Component.new(title: "Aucun lieu", subtitle: "Ajoute un lieu pour commencer.")
+  - venues.each do |venue|
+    = render "admin/venues/venue", venue: venue

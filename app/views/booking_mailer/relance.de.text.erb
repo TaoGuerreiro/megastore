@@ -1,0 +1,12 @@
+Erinnerung - <%= @venue&.name || 'Ihr Saal' %>
+
+Hallo <%= @contact&.name || @venue&.name || 'Gast' %>,
+
+Wir möchten Sie an unsere Buchungsanfrage für den <%= l(@booking.gig.date, format: :long) %> erinnern.
+
+Bitte teilen Sie uns die Verfügbarkeit oder den Stand der Anfrage mit.
+
+Für Rückfragen stehen wir Ihnen gerne zur Verfügung.
+
+Mit freundlichen Grüßen,
+Das Booking-Team

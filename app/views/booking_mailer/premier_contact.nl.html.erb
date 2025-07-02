@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+  <h1>Eerste contact - <%= @venue&.name || 'Uw zaal' %></h1>
+
+  <p>Hallo <%= @contact&.name || @venue&.name || 'gast' %>,</p>
+
+  <p>We nemen contact met u op over een boekingsaanvraag voor een datum in <strong><%= @venue&.name || 'Uw zaal' %></strong>.</p>
+
+  <p>Kunt u ons laten weten of de zaal beschikbaar is?</p>
+
+  <p>Voor vragen staan wij tot uw beschikking.</p>
+
+  <p>Met vriendelijke groet,<br>
+  Het booking team</p>
+</body>
+</html>

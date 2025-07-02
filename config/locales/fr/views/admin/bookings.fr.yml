@@ -1,0 +1,26 @@
+fr:
+  admin:
+    bookings:
+      index:
+        title: "Réservations"
+      show:
+        title: "Détails de la réservation"
+      edit:
+        title: "Modifier la réservation"
+      update:
+        success: "Réservation mise à jour avec succès"
+        error: "Une erreur est survenue lors de la mise à jour"
+      new:
+        title: "Nouveau booking"
+      create:
+        success: "Booking créé avec succès"
+        error: "Une erreur est survenue lors de la création"
+      destroy:
+        success: "Réservation supprimée avec succès"
+        error: "Une erreur est survenue lors de la suppression"
+      pending: "En attente"
+      confirmed: "Confirmée"
+      cancelled: "Annulée"
+      completed: "Terminée"
+      step_added: "Étape ajoutée avec succès."
+      steps_reset: "Toutes les étapes du booking ont été réinitialisées."

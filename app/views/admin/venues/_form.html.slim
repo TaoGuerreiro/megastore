@@ -1,0 +1,15 @@
+.px-4.sm:px-0
+  = simple_form_for [:admin, venue], html: { class: "flex flex-col gap-4" } do |f|
+    = f.input :name, label: "Nom", placeholder: "Nom du lieu"
+    = f.input :address, label: "Adresse", placeholder: "Adresse"
+    = f.input :city, label: "Ville", placeholder: "Ville"
+    = f.input :state, label: "Région", placeholder: "Région"
+    = f.input :zip_code, label: "Code postal", placeholder: "Code postal"
+    = f.input :country, label: "Pays", placeholder: "Pays"
+    = f.input :phone, label: "Téléphone", placeholder: "Téléphone"
+    = f.input :email, label: "Email", placeholder: "Email"
+    = f.input :capacity, label: "Capacité", placeholder: "Capacité"
+    = f.input :language, label: "Langue", as: :select, collection: [["Français", "fr"], ["Anglais", "en"], ["Espagnol", "es"]], include_blank: "Choisir..."
+    = f.input :instagram_handle, label: "Compte Instagram", placeholder: "@compteinstagram"
+    = button_tag type: :submit do
+      i.fa-solid.fa-check.text-2xl.text-midgray

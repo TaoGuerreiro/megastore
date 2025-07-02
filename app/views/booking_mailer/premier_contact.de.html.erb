@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+  <h1>Erster Kontakt - <%= @venue&.name || 'Ihr Saal' %></h1>
+
+  <p>Hallo <%= @contact&.name || @venue&.name || 'Gast' %>,</p>
+
+  <p>Wir möchten uns erkundigen, ob Ihr Saal am <strong><%= l(@booking.gig.date, format: :long) %></strong> verfügbar ist.</p>
+
+  <p>Könnten Sie uns bitte mitteilen, ob der Saal verfügbar ist?</p>
+
+  <p>Für Rückfragen stehen wir Ihnen gerne zur Verfügung.</p>
+
+  <p>Mit freundlichen Grüßen,<br>
+  Das Booking-Team</p>
+</body>
+</html>

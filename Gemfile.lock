@@ -161,6 +161,8 @@ GEM
     enumerize (2.8.1)
       activesupport (>= 3.2)
     erubi (1.12.0)
+    et-orbi (1.2.11)
+      tzinfo
     factory_bot (6.4.6)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.4.3)
@@ -174,6 +176,9 @@ GEM
       webrick (~> 1.7)
       websocket-driver (>= 0.6, < 0.8)
     ffi (1.16.3)
+    fugit (1.11.1)
+      et-orbi (~> 1, >= 1.2.11)
+      raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashdiff (1.1.0)
@@ -288,6 +293,7 @@ GEM
     public_suffix (5.0.5)
     puma (5.6.8)
       nio4r (~> 2.0)
+    raabro (1.4.0)
     racc (1.7.3)
     rack (2.2.9)
     rack-test (2.1.0)
@@ -377,6 +383,8 @@ GEM
     ruby-vips (2.2.1)
       ffi (~> 1.12)
     rubyntlm (0.6.3)
+    rufus-scheduler (3.9.2)
+      fugit (~> 1.1, >= 1.11.1)
     sidekiq (7.2.4)
       concurrent-ruby (< 2)
       connection_pool (>= 2.3.0)
@@ -384,6 +392,10 @@ GEM
       redis-client (>= 0.19.0)
     sidekiq-failures (1.0.4)
       sidekiq (>= 4.0.0)
+    sidekiq-scheduler (5.0.6)
+      rufus-scheduler (~> 3.2)
+      sidekiq (>= 6, < 8)
+      tilt (>= 1.4.0, < 3)
     simple_form (5.3.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -496,6 +508,7 @@ DEPENDENCIES
   rubocop-rails
   sidekiq
   sidekiq-failures (~> 1.0)
+  sidekiq-scheduler
   simple_form (~> 5.2)
   simplecov
   slim-rails

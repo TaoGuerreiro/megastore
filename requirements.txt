@@ -1,0 +1,2 @@
+aiograpi==0.0.4
+httpx==0.28.1

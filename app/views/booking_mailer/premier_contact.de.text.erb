@@ -1,0 +1,12 @@
+Erster Kontakt - <%= @venue&.name || 'Ihr Saal' %>
+
+Hallo <%= @contact&.name || @venue&.name || 'Gast' %>,
+
+Wir kontaktieren Sie bezüglich einer Buchungsanfrage für ein Datum im <%= @venue&.name || 'Ihr Saal' %>.
+
+Könnten Sie uns bitte mitteilen, ob der Saal verfügbar ist?
+
+Für Rückfragen stehen wir Ihnen gerne zur Verfügung.
+
+Mit freundlichen Grüßen,
+Das Booking-Team

@@ -1,0 +1,24 @@
+= render Header::Component.new do |header|
+  - header.with_action_link do
+    = link_to new_admin_booking_contact_path, data: { turbo_frame: "modal" } do
+      = render Buttons::Option::Component.new(label: "Ajouter un contact", icon: "fa-solid fa-plus")
+
+  .px-4.sm:px-6.lg:px-0
+    .sm:flex.sm:items-center.mb-6
+      .sm:flex-auto
+        h1.text-base.font-semibold.leading-6.text-contrast
+          | Contacts
+        p.mt-2.text-sm.text-midgray
+          | Gère les contacts pour les réservations.
+
+    .table.w-full.pb-36
+      .table-header-group
+        .table-row
+          .table-cell.px-2.text-left.text-sm.font-semibold.text-contrast Nom
+          .table-cell.px-2.text-left.text-sm.font-semibold.text-contrast Email
+          .table-cell.px-2.text-left.text-sm.font-semibold.text-contrast Téléphone
+          .table-cell.px-2.text-left.text-sm.font-semibold.text-contrast Ville
+          .table-cell.w-8
+            span.sr-only Actions
+
+      = render "booking_contacts", booking_contacts: @booking_contacts

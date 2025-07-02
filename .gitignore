@@ -37,3 +37,4 @@
 /db/keys.yml
 coverage
 .env
+/venv

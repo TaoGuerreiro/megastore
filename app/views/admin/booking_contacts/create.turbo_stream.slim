@@ -1,0 +1,4 @@
+= turbo_stream.prepend :booking_contacts, partial: "admin/booking_contacts/booking_contact", locals: { booking_contact: @booking_contact }
+= turbo_stream.update :new_booking_contact, ""
+= turbo_stream.prepend "notifications" do
+  = render(Notifications::Component.new(type: "success", data: {title: "Effectué", body: "Contact bien ajouté."}))

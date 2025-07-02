@@ -1,0 +1,15 @@
+= turbo_frame_tag dom_id(booking), class: "table-row" do
+  .table-cell.px-2.align-middle = booking.booking_contact&.name || '—'
+  .table-cell.px-2.align-middle = booking.venue&.name || '—'
+  .table-cell.px-2.align-middle = booking.gig&.date ? l(booking.gig.date, format: :short) : '—'
+  .table-cell.px-2.align-middle = booking.gig&.time ? l(booking.gig.time, format: :time) : '—'
+  .table-cell.px-2.align-middle
+    - status = booking.status
+    span.inline-flex.items-center.rounded-md.px-2.py-1.text-xs.font-medium class=(status_color_class(status))
+      = t("admin.bookings.#{status}")
+  .table-cell.px-2.align-middle = booking.gig&.price ? number_to_currency(booking.gig.price) : '—'
+  .table-cell.relative.px-2.align-middle.text-center
+    = render List::Component.new(item: booking,
+      links: [{ icon: "fas fa-eye", label: "Voir", path: admin_booking_path(booking), options: { data: { turbo: false } } },
+        { icon: "fas fa-pen", label: "Éditer", path: edit_admin_booking_path(booking), options: { data: { turbo_frame: :modal } } },
+        { icon: "fas fa-trash", label: "Supprimer", path: admin_booking_path(booking), options: { data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer ce booking ?" } } }])

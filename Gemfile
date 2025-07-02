@@ -33,6 +33,7 @@ gem "rails-i18n", "~> 7.0.0"
 gem "redis", "~> 4.0"
 gem "sidekiq-failures", "~> 1.0"
 gem "sidekiq"
+gem "sidekiq-scheduler"
 gem "simple_form", "~> 5.2"
 gem "slim-rails"
 gem "sprockets-rails"
@@ -65,3 +66,8 @@ group :test do
   gem "webmock"
   gem "simplecov"
 end
+
+# ---
+# Pour les interactions Instagram, installer la dépendance Python suivante :
+# pip install aiograpi
+# ---

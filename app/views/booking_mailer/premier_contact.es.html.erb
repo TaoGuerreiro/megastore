@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+  <h1>Hola <%= @contact&.name || @venue&.name || 'invitado' %>,</h1>
+
+  <p>Te contactamos con respecto a una solicitud de reserva para una fecha en <strong><%= @venue&.name || 'su sala' %></strong>.</p>
+
+  <h2>Detalles de la solicitud:</h2>
+  <ul>
+    <li><strong>Fecha:</strong> <%= l(@booking.gig.date, format: :long) %></li>
+    <li><strong>Duración:</strong> <%= @booking.gig.duration %></li>
+    <li><strong>Descripción:</strong> <%= @booking.gig.description %></li>
+    <li><strong>Presupuesto:</strong> <%= number_to_currency(@booking.gig.price, unit: "€") %></li>
+  </ul>
+
+  <p>¿Puedes confirmar la disponibilidad de tu local para esta fecha?</p>
+
+  <p>Quedamos a tu disposición para cualquier pregunta.</p>
+
+  <p>Saludos cordiales,<br>
+  El equipo de reservas</p>
+</body>
+</html>

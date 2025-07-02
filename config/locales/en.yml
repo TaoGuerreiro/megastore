@@ -31,3 +31,8 @@
 
 en:
   hello: "Hello world"
+  booking_mailer:
+    premier_contact:
+      subject: "First contact for a date at %{venue}"
+    relance:
+      subject: "Follow-up - Availability of your venue %{venue}"

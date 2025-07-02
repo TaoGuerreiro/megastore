@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+  <h1>Erinnerung - <%= @venue&.name || 'Ihr Saal' %></h1>
+
+  <p>Hallo <%= @contact&.name || @venue&.name || 'Gast' %>,</p>
+
+  <p>Wir möchten Sie an unsere Buchungsanfrage für den <strong><%= l(@booking.gig.date, format: :long) %></strong> erinnern.</p>
+
+  <p>Bitte teilen Sie uns die Verfügbarkeit oder den Stand der Anfrage mit.</p>
+
+  <p>Für Rückfragen stehen wir Ihnen gerne zur Verfügung.</p>
+
+  <p>Mit freundlichen Grüßen,<br>
+  Das Booking-Team</p>
+</body>
+</html>

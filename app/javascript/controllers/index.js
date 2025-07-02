@@ -81,3 +81,6 @@ application.register("scroll-down", ScrollDownController)
 
 import ImageBgController from "./ttt/image_bg_controller"
 application.register("image-bg", ImageBgController)
+
+import ChatController from "./chat_controller"
+application.register("chat", ChatController)

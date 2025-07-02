@@ -1,0 +1,17 @@
+fr:
+  time:
+    formats:
+      time: "%H:%M"
+  booking_steps:
+    types:
+      premier_contact: "Premier contact"
+      relance: "Relance"
+      nrp: "NRP (Non répondu)"
+      indisponible: "Indisponible à la date"
+      booke: "Booké"
+      incompatible: "Incompatible"
+  booking_mailer:
+    premier_contact:
+      subject: "Premier contact pour une date au %{venue}"
+    relance:
+      subject: "Relance - Disponibilité de votre salle %{venue}"

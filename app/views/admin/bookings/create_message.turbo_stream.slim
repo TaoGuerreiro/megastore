@@ -1,0 +1,8 @@
+= turbo_stream.append "chat_messages" do
+  = render partial: "admin/bookings/chat_message", locals: { msg: @message, current_user: }
+
+= turbo_stream.replace "new_message_form" do
+  = render partial: "admin/bookings/new_message_form", locals: { booking: @booking }
+
+= turbo_stream.update "chat_errors" do
+  = ""

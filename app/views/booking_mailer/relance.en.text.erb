@@ -1,0 +1,12 @@
+Follow-up - <%= @venue&.name || 'Your venue' %>
+
+Hello <%= @contact&.name || @venue&.name || 'there' %>,
+
+We are following up regarding our booking request for the date <%= l(@booking.gig.date, format: :long) %>.
+
+Please let us know about the availability or the status of our request.
+
+We remain at your disposal for any questions.
+
+Best regards,
+The booking team

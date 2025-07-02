@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_03_10_121419) do
+ActiveRecord::Schema[7.0].define(version: 2025_07_02_182027) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "adminpack"
   enable_extension "autoinc"
@@ -99,6 +99,61 @@ ActiveRecord::Schema[7.0].define(version: 2025_03_10_121419) do
     t.index ["store_id"], name: "index_authors_on_store_id"
   end
 
+  create_table "booking_contacts", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "phone"
+    t.string "address"
+    t.string "city"
+    t.string "state"
+    t.string "zip_code"
+    t.string "country"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "language"
+    t.string "instagram_handle"
+    t.string "instagram_user_id"
+  end
+
+  create_table "booking_messages", force: :cascade do |t|
+    t.bigint "booking_id", null: false
+    t.bigint "user_id", null: false
+    t.text "text", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "status", default: "pending", null: false
+    t.string "instagram_message_id"
+    t.string "instagram_sender_username"
+    t.string "instagram_sender_full_name"
+    t.datetime "instagram_timestamp"
+    t.string "instagram_sender_id"
+    t.index ["booking_id"], name: "index_booking_messages_on_booking_id"
+    t.index ["status"], name: "index_booking_messages_on_status"
+    t.index ["user_id"], name: "index_booking_messages_on_user_id"
+  end
+
+  create_table "booking_steps", force: :cascade do |t|
+    t.bigint "booking_id", null: false
+    t.string "step_type"
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_booking_steps_on_booking_id"
+  end
+
+  create_table "bookings", force: :cascade do |t|
+    t.bigint "gig_id"
+    t.bigint "booking_contact_id"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "venue_id"
+    t.index ["booking_contact_id"], name: "index_bookings_on_booking_contact_id"
+    t.index ["gig_id"], name: "index_bookings_on_gig_id"
+    t.index ["venue_id"], name: "index_bookings_on_venue_id"
+  end
+
   create_table "carousel_cards", force: :cascade do |t|
     t.string "title"
     t.string "url"
@@ -156,6 +211,16 @@ ActiveRecord::Schema[7.0].define(version: 2025_03_10_121419) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["owner_type", "owner_id"], name: "index_filterable_views_on_owner"
+  end
+
+  create_table "gigs", force: :cascade do |t|
+    t.date "date"
+    t.time "time"
+    t.interval "duration"
+    t.decimal "price"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "item_authors", force: :cascade do |t|
@@ -365,13 +430,39 @@ ActiveRecord::Schema[7.0].define(version: 2025_03_10_121419) do
     t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
+    t.string "instagram_username"
+    t.string "instagram_password"
+    t.string "instagram_user_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "venues", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.string "city"
+    t.string "state"
+    t.string "zip_code"
+    t.string "country"
+    t.string "phone"
+    t.string "email"
+    t.integer "capacity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "language"
+    t.string "instagram_handle"
+    t.string "instagram_user_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "authors", "stores"
+  add_foreign_key "booking_messages", "bookings"
+  add_foreign_key "booking_messages", "users"
+  add_foreign_key "booking_steps", "bookings"
+  add_foreign_key "bookings", "booking_contacts"
+  add_foreign_key "bookings", "gigs"
+  add_foreign_key "bookings", "venues"
   add_foreign_key "categories", "stores"
   add_foreign_key "collections", "items", column: "cover_id"
   add_foreign_key "collections", "stores"

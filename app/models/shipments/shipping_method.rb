@@ -62,7 +62,7 @@ module Shipments
       # TODO: add whiteliste to store config
       {
         mondial_relay: { service_point_input: true, home_input: false },
-        colissimo: { service_point_input: false, home_input: true },
+        colissimo: { service_point_input: false, home_input: true }
       }
     end
 
@@ -79,7 +79,6 @@ module Shipments
     end
 
     def filter_and_group_shipping_methods(methods)
-      # binding.pry
       filtered_methods = filter_methods_by_weight(methods)
       white_listed = filtered_methods.select do |method|
         white_list[method["carrier"].to_sym].present?

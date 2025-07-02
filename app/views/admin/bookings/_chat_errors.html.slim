@@ -1,0 +1,5 @@
+- if message.errors.any?
+  .bg-red-50.border.border-red-200.rounded-md.p-3.mt-2
+    .text-sm.text-red-800
+      - message.errors.full_messages.each do |error|
+        p = error

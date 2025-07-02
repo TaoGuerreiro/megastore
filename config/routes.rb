@@ -73,6 +73,14 @@ Rails.application.routes.draw do
         end
 
         resources :orders, only: %i[index show destroy]
+        resources :bookings, only: %i[index new create show edit update destroy] do
+          post :add_step, on: :member
+          post :reset_steps, on: :member
+          post :create_message, on: :member
+          post :fetch_instagram_messages, on: :member
+        end
+        resources :venues
+        resources :booking_contacts
         resource :account, only: %i[show edit update]
       end
     end
