@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_07_02_111533) do
+ActiveRecord::Schema[7.0].define(version: 2025_07_02_182027) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "adminpack"
   enable_extension "autoinc"
@@ -120,14 +120,14 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_02_111533) do
     t.bigint "booking_id", null: false
     t.bigint "user_id", null: false
     t.text "text", null: false
-    t.boolean "sent_via_instagram", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status", default: "pending", null: false
     t.string "instagram_message_id"
     t.string "instagram_sender_username"
     t.string "instagram_sender_full_name"
-    t.boolean "is_incoming"
+    t.datetime "instagram_timestamp"
+    t.string "instagram_sender_id"
     t.index ["booking_id"], name: "index_booking_messages_on_booking_id"
     t.index ["status"], name: "index_booking_messages_on_status"
     t.index ["user_id"], name: "index_booking_messages_on_user_id"
@@ -432,6 +432,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_02_111533) do
     t.string "last_sign_in_ip"
     t.string "instagram_username"
     t.string "instagram_password"
+    t.string "instagram_user_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

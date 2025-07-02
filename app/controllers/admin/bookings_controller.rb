@@ -70,7 +70,8 @@ module Admin
       authorize! @booking
       @message = @booking.booking_messages.build(
         user: current_user,
-        text: params[:text]
+        text: params[:text],
+        instagram_sender_id: current_user.instagram_user_id
       )
 
       if @message.save

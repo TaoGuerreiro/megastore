@@ -5,7 +5,6 @@ class BookingMailer < ApplicationMailer
   #   en.booking_mailer.premier_contact.subject
   #
   def premier_contact(booking)
-    binding.pry
     @booking = booking
     @contact = booking.booking_contact
     @venue = booking.venue

@@ -101,39 +101,41 @@
           dt.text-sm.font-medium.text-gray-500 Notes réservation
           dd.text-base.text-gray-900.mb-2 = @booking.notes
 
-    .bg-white.shadow.rounded-lg.p-6.mt-8.col-span-2
+    #chat-container.bg-white.shadow.rounded-lg.p-6.mt-8.col-span-2 class='max-h-[500px] overflow-y-auto' data-controller="chat" data-chat-target="container"
       h2.text-lg.font-semibold.mb-4 Discussion
-      - if @booking.booking_contact&.instagram_handle.present? && current_user.instagram_username.present? && current_user.instagram_password.present?
-        = button_to 'Récupérer les messages Instagram', fetch_instagram_messages_admin_booking_path(@booking), method: :post, class: 'btn btn-secondary mb-4'
       - if current_user
         style
-          | body[data-current-user-id] .chat-message[data-user-id="#{current_user.id}"]:not([data-incoming="true"]) {
-          |   justify-content: flex-end;
-          | }
-          | body[data-current-user-id] .chat-message[data-user-id="#{current_user.id}"]:not([data-incoming="true"]) .chat-message-bubble {
-          |   background-color: rgb(59 130 246);
-          |   color: white;
-          | }
-          | body[data-current-user-id] .chat-message[data-user-id="#{current_user.id}"]:not([data-incoming="true"]) .chat-message-status {
-          |   display: block;
-          | }
-          | body[data-current-user-id] .chat-message[data-incoming="true"] .chat-message-bubble {
-          |   background-color: rgb(229 231 235);
-          |   color: rgb(17 24 39);
-          | }
-          | body[data-current-user-id] .chat-message[data-incoming="true"] .chat-message-status {
-          |   display: none;
-          | }
-          | body[data-current-user-id] .chat-message:not([data-user-id="#{current_user.id}"]):not([data-incoming="true"]) .chat-message-bubble {
-          |   background-color: rgb(229 231 235);
-          |   color: rgb(17 24 39);
-          | }
-          | body[data-current-user-id] .chat-message:not([data-user-id="#{current_user.id}"]):not([data-incoming="true"]) .chat-message-status {
-          |   display: none;
-          | }
+          | /* Debug: current_user.instagram_user_id = #{current_user.instagram_user_id} */
+          - if current_user.instagram_user_id.present?
+            | body[data-current-user-id] .chat-message[data-sender-id="#{current_user.instagram_user_id}"] {
+            |   justify-content: flex-end;
+            | }
+            | body[data-current-user-id] .chat-message[data-sender-id="#{current_user.instagram_user_id}"] .chat-message-bubble {
+            |   background-color: rgb(59 130 246);
+            |   color: white;
+            | }
+            | body[data-current-user-id] .chat-message[data-sender-id="#{current_user.instagram_user_id}"] .chat-message-status {
+            |   display: block;
+            | }
+            | body[data-current-user-id] .chat-message:not([data-sender-id="#{current_user.instagram_user_id}"]) .chat-message-bubble {
+            |   background-color: rgb(229 231 235);
+            |   color: rgb(17 24 39);
+            | }
+            | body[data-current-user-id] .chat-message:not([data-sender-id="#{current_user.instagram_user_id}"]) .chat-message-status {
+            |   display: none;
+            | }
+          - else
+            | /* Pas d'instagram_user_id, tous les messages à gauche */
+            | body[data-current-user-id] .chat-message .chat-message-bubble {
+            |   background-color: rgb(229 231 235);
+            |   color: rgb(17 24 39);
+            | }
+            | body[data-current-user-id] .chat-message .chat-message-status {
+            |   display: none;
+            | }
       = turbo_stream_from "booking_#{@booking.id}_messages"
-      #chat_messages
-        - @booking.booking_messages.order(:created_at).each do |msg|
+      #chat_messages data-chat-target="messages"
+        - @booking.booking_messages.ordered_by_timestamp.each do |msg|
           = render partial: "admin/bookings/chat_message", locals: { msg: msg, current_user: current_user }
       = render partial: "admin/bookings/new_message_form", locals: { booking: @booking }
       #chat_errors

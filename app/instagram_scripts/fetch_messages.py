@@ -68,7 +68,6 @@ async def fetch_messages(username, password, hours_back=0.5, recipient_id=None):
         for message in messages:
             message_time = message.timestamp
             if message_time >= cutoff_time:
-                is_incoming = message.user_id != cl.user_id
                 message_data = {
                     "thread_id": str(target_thread.id),
                     "message_id": str(message.id),
@@ -77,8 +76,7 @@ async def fetch_messages(username, password, hours_back=0.5, recipient_id=None):
                     "sender_full_name": None,
                     "text": message.text,
                     "timestamp": str(message.timestamp),
-                    "datetime": message_time.isoformat(),
-                    "is_incoming": is_incoming
+                    "datetime": message_time.isoformat()
                 }
                 messages_data.append(message_data)
         print(json.dumps(messages_data, ensure_ascii=False))

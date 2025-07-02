@@ -51,8 +51,19 @@ async def send_message(username, password, recipient, message):
             return
 
         # Envoi du message
-        await cl.direct_send(message, [user_id])
-        print(json.dumps({"success": True, "message": "Message envoyé avec succès"}))
+        result = await cl.direct_send(message, [user_id])
+
+        # Récupération des informations du message envoyé
+        message_info = {
+            "success": True,
+            "message": "Message envoyé avec succès",
+            "instagram_message_id": str(result.id) if hasattr(result, 'id') else None,
+            "instagram_sender_id": str(cl.user_id) if hasattr(cl, 'user_id') else None,
+            "instagram_sender_username": username,
+            "instagram_timestamp": result.taken_at.isoformat() if hasattr(result, 'taken_at') and result.taken_at else None
+        }
+
+        print(json.dumps(message_info))
 
     except Exception as e:
         print(json.dumps({"error": str(e)}))

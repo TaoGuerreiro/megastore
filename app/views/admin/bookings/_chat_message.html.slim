@@ -1,9 +1,5 @@
-div id="booking_message_#{msg.id}" class="flex mb-3 chat-message" data-user-id="#{msg.user_id}" data-incoming="#{msg.incoming?}"
+div id="booking_message_#{msg.id}" class="flex mb-3 chat-message" data-user-id="#{msg.user_id}" data-sender-id="#{msg.instagram_sender_id}"
   .inline-block.px-4.py-2.rounded-lg.max-w-xs.text-sm.font-medium.relative.chat-message-bubble
-    - if msg.incoming? && msg.instagram?
-      .text-xs.text-gray-500.mb-1
-        i.fab.fa-instagram.mr-1
-        = msg.sender_display_name
     = msg.text
     .absolute.-top-3.-right-3.bg-gray-300.rounded-full.text-white.chat-message-status class="text-[8px] py-[0.2px] px-[7px]"
       - if msg.pending?
@@ -12,3 +8,5 @@ div id="booking_message_#{msg.id}" class="flex mb-3 chat-message" data-user-id="
         i.fas.fa-check
       - elsif msg.failed?
         i.fas.fa-times
+    .text-xs.text-gray-300.mt-1
+      = l(msg.display_timestamp, format: :short)

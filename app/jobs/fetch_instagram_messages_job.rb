@@ -113,12 +113,12 @@ class FetchInstagramMessagesJob < ApplicationJob
           booking:,
           user:,
           text: message_data["text"],
-          sent_via_instagram: true,
-          status: message_data["is_incoming"] ? "sent" : "sent", # Les messages reçus sont considérés comme "envoyés"
+          status: "sent", # Tous les messages Instagram récupérés sont considérés comme envoyés
           instagram_message_id: message_data["message_id"],
+          instagram_sender_id: message_data["sender_id"],
           instagram_sender_username: message_data["sender_username"],
           instagram_sender_full_name: message_data["sender_full_name"],
-          is_incoming: message_data["is_incoming"],
+          instagram_timestamp: Time.parse(message_data["timestamp"]),
           created_at: Time.parse(message_data["datetime"]),
           updated_at: Time.parse(message_data["datetime"])
         )

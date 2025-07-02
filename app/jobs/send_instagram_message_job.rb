@@ -13,13 +13,33 @@ class SendInstagramMessageJob < ApplicationJob
     end
 
     begin
-      Instagram::SendMessage.call(
+      result = Instagram::SendMessage.call(
         username: user.instagram_username,
         password: user.instagram_password,
         recipient_id:,
         message: message.text
       )
-      message.update!(status: :sent, sent_via_instagram: true)
+
+      # Mise à jour du message avec les informations Instagram
+      update_params = {
+        status: :sent
+      }
+
+      # Ajout des informations Instagram si disponibles
+      if result.is_a?(Hash)
+        update_params[:instagram_message_id] = result["instagram_message_id"] if result["instagram_message_id"].present?
+        update_params[:instagram_sender_id] = result["instagram_sender_id"] if result["instagram_sender_id"].present?
+        if result["instagram_sender_username"].present?
+          update_params[:instagram_sender_username] =
+            result["instagram_sender_username"]
+        end
+        if result["instagram_timestamp"].present?
+          update_params[:instagram_timestamp] =
+            Time.parse(result["instagram_timestamp"])
+        end
+      end
+
+      message.update!(update_params)
     rescue StandardError => e
       Rails.logger.error("SendInstagramMessageJob: Erreur Instagram async: #{e}")
       message.update!(status: :failed)
