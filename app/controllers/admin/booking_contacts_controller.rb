@@ -62,7 +62,7 @@ module Admin
 
     def booking_contact_params
       params.require(:booking_contact).permit(:name, :email, :phone, :address, :city, :state, :zip_code, :country,
-                                              :notes, :language)
+                                              :notes, :language, :instagram_handle)
     end
   end
 end

@@ -65,3 +65,8 @@ group :test do
   gem "webmock"
   gem "simplecov"
 end
+
+# ---
+# Pour les interactions Instagram, installer la dépendance Python suivante :
+# pip install aiograpi
+# ---

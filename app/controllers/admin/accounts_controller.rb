@@ -25,10 +25,11 @@ module Admin
 
     def user_params
       if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
-        params.require(:user).permit(:first_name, :last_name, :username, :email, :avatar, :phone)
+        params.require(:user).permit(:first_name, :last_name, :username, :email, :avatar, :phone, :instagram_username,
+                                     :instagram_password)
       else
         params.require(:user).permit(:first_name, :last_name, :username, :email,
-                                     :avatar, :password, :password_confirmation, :phone)
+                                     :avatar, :password, :password_confirmation, :phone, :instagram_username, :instagram_password)
       end
     end
   end

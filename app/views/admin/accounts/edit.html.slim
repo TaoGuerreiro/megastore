@@ -29,6 +29,8 @@
 
           = field.input :password, label: "Mot de passe", placeholder: "Mot de passe"
           = field.input :password_confirmation, label: "Confirmation du mot de passe", placeholder: "Confirmation du mot de passe"
+          = field.input :instagram_username, label: "Identifiant Instagram", placeholder: "Identifiant Instagram"
+          = field.input :instagram_password, label: "Mot de passe Instagram", placeholder: "Mot de passe Instagram", input_html: { type: "password" }
 
 
               / = button_to remove_photo_admin_item_path(@item, photo_id: photo), method: :delete, class: "absolute top-1 right-1 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-contrast hover:bg-red-600" do

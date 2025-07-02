@@ -17,6 +17,10 @@ class User < ApplicationRecord
 
   accepts_nested_attributes_for :store
 
+  # Champs Instagram
+  validates :instagram_username, length: { maximum: 255 }, allow_blank: true
+  validates :instagram_password, length: { maximum: 255 }, allow_blank: true
+
   def is_current_store_admin?
     self&.store&.admin == self || self&.queen?
   end

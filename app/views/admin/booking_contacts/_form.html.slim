@@ -12,6 +12,7 @@
       = f.input :zip_code, label: "Code postal", placeholder: "Code postal"
       = f.input :country, label: "Pays", placeholder: "Pays"
     = f.input :language, label: "Langue", as: :select, collection: [["Français", "fr"], ["Anglais", "en"], ["Espagnol", "es"]], include_blank: "Choisir..."
+    = f.input :instagram_handle, label: "Compte Instagram", placeholder: "@compteinstagram"
     = f.input :notes, label: "Notes", as: :text, input_html: { rows: 2 }
     = button_tag type: :submit do
       i.fa-solid.fa-check.text-2xl.text-midgray

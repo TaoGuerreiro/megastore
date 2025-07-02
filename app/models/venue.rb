@@ -7,6 +7,7 @@ class Venue < ApplicationRecord
   validates :country, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
   validates :language, inclusion: { in: %w[fr en es] }, allow_blank: true
+  validates :instagram_handle, length: { maximum: 255 }, allow_blank: true
 
   def full_address
     [address, city, state, zip_code, country].compact.join(", ")
