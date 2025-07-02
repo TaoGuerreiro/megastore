@@ -5,19 +5,20 @@ class SendInstagramMessageJob < ApplicationJob
     message = BookingMessage.find(booking_message_id)
     booking = message.booking
     user = message.user
-    recipient_handle = booking.booking_contact&.instagram_handle&.delete_prefix("@")
+    recipient_id = booking.booking_contact&.instagram_user_id
 
-    unless recipient_handle.present?
+    unless recipient_id.present?
       message.update!(status: :failed)
       return
     end
 
     begin
-      Instagram::SendMessage.new(
-        sender: user,
-        recipient_handle:,
+      Instagram::SendMessage.call(
+        username: user.instagram_username,
+        password: user.instagram_password,
+        recipient_id:,
         message: message.text
-      ).call
+      )
       message.update!(status: :sent, sent_via_instagram: true)
     rescue StandardError => e
       Rails.logger.error("SendInstagramMessageJob: Erreur Instagram async: #{e}")

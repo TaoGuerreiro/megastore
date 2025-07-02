@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_07_01_133826) do
+ActiveRecord::Schema[7.0].define(version: 2025_07_02_111533) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "adminpack"
   enable_extension "autoinc"
@@ -113,6 +113,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_01_133826) do
     t.datetime "updated_at", null: false
     t.string "language"
     t.string "instagram_handle"
+    t.string "instagram_user_id"
   end
 
   create_table "booking_messages", force: :cascade do |t|
@@ -123,6 +124,10 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_01_133826) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status", default: "pending", null: false
+    t.string "instagram_message_id"
+    t.string "instagram_sender_username"
+    t.string "instagram_sender_full_name"
+    t.boolean "is_incoming"
     t.index ["booking_id"], name: "index_booking_messages_on_booking_id"
     t.index ["status"], name: "index_booking_messages_on_status"
     t.index ["user_id"], name: "index_booking_messages_on_user_id"
@@ -445,6 +450,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_01_133826) do
     t.datetime "updated_at", null: false
     t.string "language"
     t.string "instagram_handle"
+    t.string "instagram_user_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

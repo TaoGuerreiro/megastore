@@ -1,4 +1,5 @@
 class Venue < ApplicationRecord
+  has_many :bookings, dependent: :destroy
   # has_many :gigs, dependent: :destroy
 
   validates :name, presence: true

@@ -103,23 +103,32 @@
 
     .bg-white.shadow.rounded-lg.p-6.mt-8.col-span-2
       h2.text-lg.font-semibold.mb-4 Discussion
+      - if @booking.booking_contact&.instagram_handle.present? && current_user.instagram_username.present? && current_user.instagram_password.present?
+        = button_to 'Récupérer les messages Instagram', fetch_instagram_messages_admin_booking_path(@booking), method: :post, class: 'btn btn-secondary mb-4'
       - if current_user
         style
-          | body[data-current-user-id] .chat-message[data-user-id="#{current_user.id}"] {
+          | body[data-current-user-id] .chat-message[data-user-id="#{current_user.id}"]:not([data-incoming="true"]) {
           |   justify-content: flex-end;
           | }
-          | body[data-current-user-id] .chat-message[data-user-id="#{current_user.id}"] .chat-message-bubble {
+          | body[data-current-user-id] .chat-message[data-user-id="#{current_user.id}"]:not([data-incoming="true"]) .chat-message-bubble {
           |   background-color: rgb(59 130 246);
           |   color: white;
           | }
-          | body[data-current-user-id] .chat-message[data-user-id="#{current_user.id}"] .chat-message-status {
+          | body[data-current-user-id] .chat-message[data-user-id="#{current_user.id}"]:not([data-incoming="true"]) .chat-message-status {
           |   display: block;
           | }
-          | body[data-current-user-id] .chat-message:not([data-user-id="#{current_user.id}"]) .chat-message-bubble {
+          | body[data-current-user-id] .chat-message[data-incoming="true"] .chat-message-bubble {
           |   background-color: rgb(229 231 235);
           |   color: rgb(17 24 39);
           | }
-          | body[data-current-user-id] .chat-message:not([data-user-id="#{current_user.id}"]) .chat-message-status {
+          | body[data-current-user-id] .chat-message[data-incoming="true"] .chat-message-status {
+          |   display: none;
+          | }
+          | body[data-current-user-id] .chat-message:not([data-user-id="#{current_user.id}"]):not([data-incoming="true"]) .chat-message-bubble {
+          |   background-color: rgb(229 231 235);
+          |   color: rgb(17 24 39);
+          | }
+          | body[data-current-user-id] .chat-message:not([data-user-id="#{current_user.id}"]):not([data-incoming="true"]) .chat-message-status {
           |   display: none;
           | }
       = turbo_stream_from "booking_#{@booking.id}_messages"

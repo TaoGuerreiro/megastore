@@ -21,6 +21,15 @@ module Admin
       @venue = Venue.new(venue_params)
       authorize! @venue
       if @venue.save
+        if @venue.instagram_handle.present?
+          InstagramUserIdJob.perform_async(
+            "Venue",
+            @venue.id,
+            current_user.instagram_username,
+            current_user.instagram_password,
+            @venue.instagram_handle
+          )
+        end
         respond_to do |format|
           format.html { redirect_to admin_venues_path, notice: t(".success") }
           format.turbo_stream
@@ -32,7 +41,17 @@ module Admin
 
     def update
       authorize! @venue
+      old_handle = @venue.instagram_handle_was
       if @venue.update(venue_params)
+        if @venue.instagram_handle.present? && @venue.instagram_handle != old_handle
+          InstagramUserIdJob.perform_async(
+            "Venue",
+            @venue.id,
+            current_user.instagram_username,
+            current_user.instagram_password,
+            @venue.instagram_handle
+          )
+        end
         respond_to do |format|
           format.html { redirect_to admin_venues_path, notice: t(".success") }
           format.turbo_stream do

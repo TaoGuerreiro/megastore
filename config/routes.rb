@@ -77,6 +77,7 @@ Rails.application.routes.draw do
           post :add_step, on: :member
           post :reset_steps, on: :member
           post :create_message, on: :member
+          post :fetch_instagram_messages, on: :member
         end
         resources :venues
         resources :booking_contacts

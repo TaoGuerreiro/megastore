@@ -1,16 +1,32 @@
+# frozen_string_literal: true
+
+require "open3"
+
 module Instagram
   class SendMessage
-    def initialize(sender:, recipient_handle:, message:)
-      @sender = sender # instance User
-      @recipient_handle = recipient_handle
-      @message = message
-    end
+    def self.call(username:, password:, recipient_id:, message:)
+      raise ArgumentError, "send_message attend un user_id numérique" unless recipient_id.to_s =~ /^\d+$/
 
-    def call
-      raise "Identifiants Instagram manquants" if @sender.instagram_username.blank? || @sender.instagram_password.blank?
+      cmd = [
+        "venv/bin/python",
+        Rails.root.join("app/instagram_scripts/send_message.py").to_s,
+        username,
+        password,
+        recipient_id.to_s,
+        message
+      ]
 
-      client = Instagram::Client.new(username: @sender.instagram_username, password: @sender.instagram_password)
-      client.send_message(@recipient_handle, @message)
+      stdout, stderr, status = Open3.capture3(*cmd)
+      raise "Erreur envoi message Instagram: #{stderr}" unless status.success?
+
+      result = begin
+        JSON.parse(stdout)
+      rescue StandardError
+        nil
+      end
+      raise "Erreur envoi message Instagram: #{result['error']}" if result.is_a?(Hash) && result["error"]
+
+      result
     end
   end
 end

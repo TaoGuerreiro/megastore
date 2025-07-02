@@ -21,6 +21,15 @@ module Admin
       @booking_contact = BookingContact.new(booking_contact_params)
       authorize! @booking_contact
       if @booking_contact.save
+        if @booking_contact.instagram_handle.present?
+          InstagramUserIdJob.perform_async(
+            "BookingContact",
+            @booking_contact.id,
+            current_user.instagram_username,
+            current_user.instagram_password,
+            @booking_contact.instagram_handle
+          )
+        end
         respond_to do |format|
           format.html { redirect_to admin_booking_contacts_path, notice: t(".success") }
           format.turbo_stream
@@ -32,7 +41,17 @@ module Admin
 
     def update
       authorize! @booking_contact
+      old_handle = @booking_contact.instagram_handle_was
       if @booking_contact.update(booking_contact_params)
+        if @booking_contact.instagram_handle.present? && @booking_contact.instagram_handle != old_handle
+          InstagramUserIdJob.perform_async(
+            "BookingContact",
+            @booking_contact.id,
+            current_user.instagram_username,
+            current_user.instagram_password,
+            @booking_contact.instagram_handle
+          )
+        end
         respond_to do |format|
           format.html { redirect_to admin_booking_contacts_path, notice: t(".success") }
           format.turbo_stream do

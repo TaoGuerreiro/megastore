@@ -41,5 +41,9 @@ module Admin
     def create_message?
       queen_or_admin?
     end
+
+    def fetch_instagram_messages?
+      queen_or_admin?
+    end
   end
 end

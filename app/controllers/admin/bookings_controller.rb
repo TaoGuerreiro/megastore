@@ -2,7 +2,8 @@
 
 module Admin
   class BookingsController < AdminController
-    before_action :set_booking, only: %i[show edit update destroy add_step reset_steps create_message]
+    before_action :set_booking,
+                  only: %i[show edit update destroy add_step reset_steps create_message fetch_instagram_messages]
     # verify_authorized
 
     def index
@@ -74,7 +75,7 @@ module Admin
 
       if @message.save
         # Envoi Instagram en arrière-plan
-        SendInstagramMessageJob.perform_later(@message.id) if @booking.booking_contact&.instagram_handle.present?
+        SendInstagramMessageJob.perform_later(@message.id) if @booking.booking_contact&.instagram_user_id.present?
 
         respond_to do |format|
           format.turbo_stream
@@ -85,6 +86,17 @@ module Admin
           format.turbo_stream { render :create_message_error }
           format.html { redirect_to admin_booking_path(@booking), alert: "Erreur lors de l'envoi du message" }
         end
+      end
+    end
+
+    def fetch_instagram_messages
+      authorize! @booking
+      if @booking.booking_contact&.instagram_user_id.present? && current_user.instagram_username.present? && current_user.instagram_password.present?
+        FetchInstagramMessagesJob.perform_later(current_user.id, 24, @booking.booking_contact.instagram_user_id)
+        redirect_to admin_booking_path(@booking),
+                    notice: "Récupération des messages Instagram lancée. Rafraîchissez la page dans quelques secondes."
+      else
+        redirect_to admin_booking_path(@booking), alert: "Aucun id Instagram ou credentials manquants."
       end
     end
 
