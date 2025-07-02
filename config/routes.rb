@@ -76,6 +76,7 @@ Rails.application.routes.draw do
         resources :bookings, only: %i[index new create show edit update destroy] do
           post :add_step, on: :member
           post :reset_steps, on: :member
+          post :create_message, on: :member
         end
         resources :venues
         resources :booking_contacts

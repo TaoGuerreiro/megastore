@@ -2,7 +2,7 @@
 
 module Admin
   class BookingsController < AdminController
-    before_action :set_booking, only: %i[show edit update destroy add_step reset_steps]
+    before_action :set_booking, only: %i[show edit update destroy add_step reset_steps create_message]
     # verify_authorized
 
     def index
@@ -63,6 +63,29 @@ module Admin
       authorize! @booking
       @booking.booking_steps.destroy_all
       redirect_to admin_booking_path(@booking), notice: t("admin.bookings.steps_reset")
+    end
+
+    def create_message
+      authorize! @booking
+      @message = @booking.booking_messages.build(
+        user: current_user,
+        text: params[:text]
+      )
+
+      if @message.save
+        # Envoi Instagram en arrière-plan
+        SendInstagramMessageJob.perform_later(@message.id) if @booking.booking_contact&.instagram_handle.present?
+
+        respond_to do |format|
+          format.turbo_stream
+          format.html { redirect_to admin_booking_path(@booking) }
+        end
+      else
+        respond_to do |format|
+          format.turbo_stream { render :create_message_error }
+          format.html { redirect_to admin_booking_path(@booking), alert: "Erreur lors de l'envoi du message" }
+        end
+      end
     end
 
     private

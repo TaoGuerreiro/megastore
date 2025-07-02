@@ -115,6 +115,19 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_01_133826) do
     t.string "instagram_handle"
   end
 
+  create_table "booking_messages", force: :cascade do |t|
+    t.bigint "booking_id", null: false
+    t.bigint "user_id", null: false
+    t.text "text", null: false
+    t.boolean "sent_via_instagram", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "status", default: "pending", null: false
+    t.index ["booking_id"], name: "index_booking_messages_on_booking_id"
+    t.index ["status"], name: "index_booking_messages_on_status"
+    t.index ["user_id"], name: "index_booking_messages_on_user_id"
+  end
+
   create_table "booking_steps", force: :cascade do |t|
     t.bigint "booking_id", null: false
     t.string "step_type"
@@ -437,6 +450,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_01_133826) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "authors", "stores"
+  add_foreign_key "booking_messages", "bookings"
+  add_foreign_key "booking_messages", "users"
   add_foreign_key "booking_steps", "bookings"
   add_foreign_key "bookings", "booking_contacts"
   add_foreign_key "bookings", "gigs"

@@ -100,3 +100,12 @@
         - if @booking.notes.present?
           dt.text-sm.font-medium.text-gray-500 Notes réservation
           dd.text-base.text-gray-900.mb-2 = @booking.notes
+
+    .bg-white.shadow.rounded-lg.p-6.mt-8.col-span-2
+      h2.text-lg.font-semibold.mb-4 Discussion
+      = turbo_stream_from "booking_#{@booking.id}_messages"
+      #chat_messages
+        - @booking.booking_messages.order(:created_at).each do |msg|
+          = render partial: "admin/bookings/chat_message", locals: { msg: msg, current_user: current_user }
+      = render partial: "admin/bookings/new_message_form", locals: { booking: @booking }
+      #chat_errors

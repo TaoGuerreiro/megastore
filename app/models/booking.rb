@@ -5,6 +5,7 @@ class Booking < ApplicationRecord
   belongs_to :booking_contact, optional: true
   belongs_to :venue, optional: true
   has_many :booking_steps, dependent: :destroy
+  has_many :booking_messages, dependent: :destroy
 
   accepts_nested_attributes_for :gig
 

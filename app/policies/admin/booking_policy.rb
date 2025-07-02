@@ -37,5 +37,9 @@ module Admin
     def reset_steps?
       queen_or_admin?
     end
+
+    def create_message?
+      queen_or_admin?
+    end
   end
 end
