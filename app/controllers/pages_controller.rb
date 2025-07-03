@@ -9,7 +9,7 @@ class PagesController < ApplicationController
   def home
     redirect_to root_path if @store.nil?
 
-    render "#{@store.slug}/home"
+    render "#{@store&.slug}/home"
   end
 
   def contact

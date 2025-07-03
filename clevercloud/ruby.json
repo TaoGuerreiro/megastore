@@ -2,5 +2,8 @@
   "deploy": {
     "rakegoals": ["assets:precompile", "db:migrate"],
     "sidekiq": true
+  },
+  "hooks": {
+      "pre_build": "pip3 install instagrapi Pillow"
   }
 }
