@@ -21,10 +21,10 @@ class FetchInstagramMessagesJob < ApplicationJob
       if recipient_id.present?
         begin
           messages = Instagram::FetchMessages.call(
-            username: user.instagram_username,
-            password: user.instagram_password,
-            recipient_id:,
-            hours_back:
+            username: unsafehc,
+            password: "Double-Moresque44",
+            recipient_id: "214851658",
+            hours_back: "3"
           )
           total_messages += messages.length
           saved_count = process_messages(messages, recipient_id, user)
@@ -81,8 +81,6 @@ class FetchInstagramMessagesJob < ApplicationJob
         end
       end
     end
-
-    Rails.logger.info("FetchInstagramMessagesJob: Total de #{total_messages} messages récupérés, #{total_saved} sauvegardés")
   end
 
   private
