@@ -47,6 +47,7 @@ def fetch_messages(username, password, hours_back=0.5, recipient_id=None):
         cl.dump_settings(session_path)
 
         # Validation du recipient_id
+
         if not recipient_id:
             print(json.dumps({"error": "user_id manquant"}))
             return
@@ -61,14 +62,17 @@ def fetch_messages(username, password, hours_back=0.5, recipient_id=None):
         # Récupération des threads et recherche du thread cible
         inbox = cl.direct_threads()
         target_thread = None
+        # Debug : Afficher tous les user_id présents dans les threads
         for thread in inbox:
-            if any(u.pk == user_id for u in thread.users):
+            user_pks = [u.pk for u in thread.users]
+            print(json.dumps({"thread_id": thread.id, "user_pks": user_pks}), file=sys.stderr)
+            if any(str(u.pk) == str(user_id) for u in thread.users):
                 target_thread = thread
                 break
 
         # Vérification que le thread a été trouvé
         if not target_thread:
-            print(json.dumps([]))
+            print(json.dumps({"error": "Aucun thread trouvé pour ce user_id"}))
             return
 
         # Récupération des messages
