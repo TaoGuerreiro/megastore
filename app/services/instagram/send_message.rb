@@ -7,8 +7,13 @@ module Instagram
     def self.call(username:, password:, recipient_id:, message:)
       raise ArgumentError, "send_message attend un user_id numérique" unless recipient_id.to_s =~ /^\d+$/
 
+      python_executable = if Rails.env.production?
+                            "python3"
+                          else
+                            "venv/bin/python"
+                          end
       cmd = [
-        "venv/bin/python",
+        python_executable,
         Rails.root.join("app/instagram_scripts/send_message.py").to_s,
         username,
         password,
