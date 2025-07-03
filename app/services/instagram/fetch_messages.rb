@@ -8,8 +8,13 @@ module Instagram
     def self.call(username:, password:, recipient_id:, hours_back: 0.5)
       raise ArgumentError, "fetch_messages attend un user_id numérique" unless recipient_id.to_s =~ /^\d+$/
 
+      python_executable = if Rails.env.production?
+                            "python3"
+                          else
+                            "venv/bin/python"
+                          end
       cmd = [
-        "venv/bin/python",
+        python_executable,
         Rails.root.join("app/instagram_scripts/fetch_messages.py").to_s,
         username,
         password,

@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :set_current_store, :clean_checkout_cart
 
   def default_url_options
-    { host: Current.store.domain || "localhost:3000" }
+    { host: Current.store&.domain || "localhost:3000" }
   end
 
   rescue_from ActionPolicy::Unauthorized do |exception|

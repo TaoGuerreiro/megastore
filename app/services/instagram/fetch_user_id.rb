@@ -8,8 +8,13 @@ module Instagram
     SCRIPT_PATH = Rails.root.join("app/instagram_scripts/fetch_user_id.py").to_s
 
     def self.call(username:, password:, handle:)
+      python_executable = if Rails.env.production?
+                            "python3"
+                          else
+                            "venv/bin/python"
+                          end
       cmd = [
-        "venv/bin/python",
+        python_executable,
         SCRIPT_PATH,
         username,
         password,
