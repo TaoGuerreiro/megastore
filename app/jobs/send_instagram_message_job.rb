@@ -28,14 +28,11 @@ class SendInstagramMessageJob < ApplicationJob
       # Ajout des informations Instagram si disponibles
       if result.is_a?(Hash)
         update_params[:instagram_message_id] = result["instagram_message_id"] if result["instagram_message_id"].present?
-        update_params[:instagram_sender_id] = result["instagram_sender_id"] if result["instagram_sender_id"].present?
         if result["instagram_sender_username"].present?
-          update_params[:instagram_sender_username] =
-            result["instagram_sender_username"]
+          update_params[:instagram_sender_username] = result["instagram_sender_username"]
         end
         if result["instagram_timestamp"].present?
-          update_params[:instagram_timestamp] =
-            Time.parse(result["instagram_timestamp"])
+          update_params[:instagram_timestamp] = Time.parse(result["instagram_timestamp"])
         end
       end
 

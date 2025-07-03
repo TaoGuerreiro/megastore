@@ -1,2 +1,2 @@
-aiograpi==0.0.4
+instagrapi==2.0.0
 httpx==0.28.1

@@ -76,7 +76,7 @@ module Admin
 
       if @message.save
         # Envoi Instagram en arrière-plan
-        SendInstagramMessageJob.perform_later(@message.id) if @booking.booking_contact&.instagram_user_id.present?
+        SendInstagramMessageJob.perform_later(@message.id)
 
         respond_to do |format|
           format.turbo_stream

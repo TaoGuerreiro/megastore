@@ -17,6 +17,7 @@ module Instagram
       ]
 
       stdout, stderr, status = Open3.capture3(*cmd)
+
       raise "Erreur envoi message Instagram: #{stderr}" unless status.success?
 
       result = begin

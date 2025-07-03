@@ -7,6 +7,10 @@
     "cache_dependencies": true
   },
   "environment": {
-    "PYTHON_VERSION": "3.11"
+    "PYTHON_VERSION": "3.13",
+    "PYTHONPATH": "/app"
+  },
+  "hooks": {
+    "pre_build": "python3.13 -m pip install --upgrade pip"
   }
 }

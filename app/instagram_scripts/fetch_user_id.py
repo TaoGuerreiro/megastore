@@ -1,15 +1,14 @@
 import sys
-import asyncio
 import json
-from aiograpi import Client
+from instagrapi import Client
 
-async def fetch_user_id(username, password, handle):
+def fetch_user_id(username, password, handle):
     cl = Client()
-    await cl.login(username, password)
+    cl.login(username, password)
     if handle.startswith("@"):  # On enlève le @ si présent
         handle = handle[1:]
     try:
-        user_id = await cl.user_id_from_username(handle)
+        user_id = cl.user_id_from_username(handle)
         print(json.dumps({"user_id": str(user_id)}))
     except Exception as e:
         print(json.dumps({"error": str(e)}))
@@ -21,4 +20,4 @@ if __name__ == "__main__":
     username = sys.argv[1]
     password = sys.argv[2]
     handle = sys.argv[3]
-    asyncio.run(fetch_user_id(username, password, handle))
+    fetch_user_id(username, password, handle)
