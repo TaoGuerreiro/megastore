@@ -35,7 +35,7 @@
 
 /node_modules
 /db/keys.yml
-coverage
-.env
 /venv
+coverage
 test.rb
+.env
