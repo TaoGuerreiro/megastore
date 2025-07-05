@@ -7,7 +7,7 @@ class PagesController < ApplicationController
   def landing; end
 
   def home
-    redirect_to root_path if @store.nil?
+    redirect_to root_path and return if @store.nil?
 
     render "#{@store&.slug}/home"
   end

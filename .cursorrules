@@ -1,0 +1,172 @@
+# Règles Cursor pour Megastore - Application Rails E-commerce
+
+## 🎯 Contexte du Projet
+- Application Rails 7.0.8 avec Ruby 3.2.2
+- Architecture multi-marques (anemone, kenjosset, ttt, unsafe, lecheveublanc, chalky)
+- Système de composants ViewComponent avec structure sidecar
+- Frontend moderne avec Stimulus, Turbo, Tailwind CSS
+- Base de données PostgreSQL avec pg_search
+- Système de paiement Stripe
+- Intégration Instagram et services externes
+
+## 🏗️ Architecture et Conventions
+
+### Structure des Composants ViewComponent
+- Utiliser la structure sidecar (fichiers .rb et .slim dans le même dossier)
+- Hériter de `ApplicationComponent` pour les composants de base
+- Organiser les composants par modules : `module BrandName::ComponentName`
+- Utiliser `renders_many` et `renders_one` pour les composants complexes
+- Toujours inclure `# frozen_string_literal: true` en haut des fichiers Ruby
+
+### Conventions de Nommage
+- **Composants** : `Component` suffix (ex: `CardComponent`)
+- **Modules** : PascalCase (ex: `Dropdown::List`)
+- **Fichiers** : snake_case (ex: `card_component.rb`)
+- **Variables d'instance** : snake_case avec @ (ex: `@card`)
+- **Méthodes privées** : snake_case sans @
+
+### Styles et CSS
+- Utiliser Tailwind CSS avec les couleurs personnalisées du projet
+- Couleurs principales : `primary`, `secondary`, `light`, `content`, `contrast`, `midgray`, `contour`
+- Classes utilitaires : `form-input`, `ttt-logo-bg`
+- Polices personnalisées : `unsafe`, `anemone`, `kenjosset`, `ttt-title`, `ttt-logo`
+- Toujours utiliser les classes CSS personnalisées du projet plutôt que des couleurs hardcodées
+
+## 🎨 Frontend et JavaScript
+
+### Stimulus Controllers
+- Structure standard : `import { Controller } from "@hotwired/stimulus"`
+- Définir les targets avec `static targets = ["targetName"]`
+- Utiliser `static values` pour les données
+- Toujours nettoyer les event listeners dans `disconnect()`
+- Préfixer les méthodes privées avec `#` (ex: `#getValueInput`)
+
+### Turbo et Hotwire
+- Utiliser `data-turbo-frame` pour les mises à jour partielles
+- Implémenter les modals avec `turbo-modal` controller
+- Gérer les formulaires avec `requestSubmit()` plutôt que `submit()`
+
+### Intégrations Externes
+- Mapbox pour la géolocalisation et les cartes
+- Stripe pour les paiements
+- Instagram API pour les interactions sociales
+- Tom Select pour les selects avancés
+
+## 🗄️ Base de Données et Modèles
+
+### Conventions Rails
+- Utiliser `enumerize` pour les énumérations
+- Implémenter `pg_search` pour la recherche full-text
+- Utiliser `money-rails` pour les montants
+- Toujours valider les données avec des validations appropriées
+
+### Relations et Associations
+- Utiliser les bonnes pratiques Rails pour les associations
+- Implémenter les callbacks nécessaires
+- Utiliser les scopes pour les requêtes communes
+
+## 🔧 Configuration et Outils
+
+### RuboCop
+- Respecter la configuration `.rubocop.yml`
+- Utiliser les guillemets doubles pour les chaînes
+- Style trailing pour les points (ex: `object.method`)
+- Désactiver les règles spécifiques si nécessaire avec des commentaires
+
+### Tests
+- Utiliser RSpec pour les tests
+- Factory Bot pour les factories
+- Capybara pour les tests système
+- VCR pour les tests d'intégration API
+
+### Déploiement
+- Configuration Clever Cloud
+- Sidekiq pour les jobs en arrière-plan
+- Redis pour le cache et les sessions
+
+## 📝 Templates et Vues
+
+### Slim Templates
+- Utiliser Slim comme moteur de template principal
+- Structure claire et indentée
+- Utiliser les helpers Rails appropriés
+- Implémenter l'internationalisation avec `rails-i18n`
+
+### Composants ViewComponent
+```ruby
+# Structure recommandée
+module ComponentName
+  class Component < ApplicationComponent
+    attr_reader :param1, :param2
+
+    def initialize(param1:, param2:)
+      super
+      @param1 = param1
+      @param2 = param2
+    end
+
+    private
+
+    def helper_method
+      # logique privée
+    end
+  end
+end
+```
+
+## 🚀 Bonnes Pratiques Générales
+
+### Performance
+- Utiliser `includes` pour éviter les N+1 queries
+- Implémenter le cache approprié
+- Optimiser les requêtes avec `pg_search`
+- Utiliser les background jobs pour les tâches lourdes
+
+### Sécurité
+- Valider toutes les entrées utilisateur
+- Utiliser les policies ActionPolicy
+- Implémenter l'authentification avec Devise
+- Protéger contre les attaques CSRF
+
+### Code Quality
+- Écrire du code lisible et maintenable
+- Ajouter des commentaires pour la logique complexe
+- Utiliser les méthodes privées pour encapsuler la logique
+- Respecter le principe DRY (Don't Repeat Yourself)
+
+## 🎯 Spécificités du Projet
+
+### Multi-marques
+- Organiser le code par marque quand nécessaire
+- Utiliser les namespaces appropriés
+- Implémenter les thèmes spécifiques à chaque marque
+
+### E-commerce
+- Gérer les commandes avec Stripe
+- Implémenter les méthodes de livraison
+- Gérer les stocks et les prix
+- Système de réservation et de contact
+
+### Intégrations
+- Instagram pour les interactions sociales
+- Services de livraison (SendCloud)
+- Services comptables (Endi)
+- Système de notifications
+
+## 🔍 Debugging et Développement
+
+### Outils de Développement
+- Utiliser `pry-byebug` pour le debugging
+- Web Console pour le développement
+- Stimulus debug mode en développement
+- Logs détaillés pour le debugging
+
+### Monitoring
+- AppSignal pour le monitoring
+- Logs structurés
+- Métriques de performance
+- Alertes en cas de problème
+
+---
+
+**Note** : Ces règles sont spécifiques à ce projet et doivent être adaptées selon l'évolution de l'application. Toujours privilégier la cohérence et la maintenabilité du code.

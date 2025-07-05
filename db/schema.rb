@@ -10,46 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_07_02_205909) do
+ActiveRecord::Schema[7.0].define(version: 2025_07_03_150650) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "adminpack"
-  enable_extension "autoinc"
-  enable_extension "btree_gin"
-  enable_extension "btree_gist"
-  enable_extension "citext"
-  enable_extension "cube"
-  enable_extension "dblink"
-  enable_extension "dict_int"
-  enable_extension "dict_xsyn"
-  enable_extension "earthdistance"
-  enable_extension "file_fdw"
-  enable_extension "fuzzystrmatch"
-  enable_extension "hstore"
-  enable_extension "insert_username"
-  enable_extension "intagg"
-  enable_extension "intarray"
-  enable_extension "isn"
-  enable_extension "lo"
-  enable_extension "ltree"
-  enable_extension "moddatetime"
-  enable_extension "pageinspect"
-  enable_extension "pg_buffercache"
-  enable_extension "pg_freespacemap"
-  enable_extension "pg_stat_statements"
-  enable_extension "pg_trgm"
-  enable_extension "pgcrypto"
-  enable_extension "pgrowlocks"
-  enable_extension "pgstattuple"
   enable_extension "plpgsql"
-  enable_extension "postgres_fdw"
-  enable_extension "refint"
-  enable_extension "seg"
-  enable_extension "sslinfo"
-  enable_extension "tablefunc"
-  enable_extension "tcn"
-  enable_extension "unaccent"
-  enable_extension "uuid-ossp"
-  enable_extension "xml2"
 
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
@@ -112,8 +75,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_02_205909) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "language"
-    t.string "instagram_handle"
     t.string "instagram_user_id"
+    t.string "instagram_handle"
   end
 
   create_table "booking_messages", force: :cascade do |t|
@@ -122,14 +85,12 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_02_205909) do
     t.text "text", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "status", default: "pending", null: false
     t.string "instagram_message_id"
     t.string "instagram_sender_username"
     t.string "instagram_sender_full_name"
-    t.datetime "instagram_timestamp"
     t.string "instagram_sender_id"
+    t.datetime "instagram_timestamp"
     t.index ["booking_id"], name: "index_booking_messages_on_booking_id"
-    t.index ["status"], name: "index_booking_messages_on_status"
     t.index ["user_id"], name: "index_booking_messages_on_user_id"
   end
 
@@ -450,8 +411,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_02_205909) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "language"
-    t.string "instagram_handle"
     t.string "instagram_user_id"
+    t.string "instagram_handle"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
