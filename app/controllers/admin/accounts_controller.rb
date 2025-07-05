@@ -9,7 +9,17 @@ module Admin
     def edit; end
 
     def update
+      old_username = @user.instagram_username_was
       if @user.update(user_params)
+        if @user.instagram_username.present? && @user.instagram_username != old_username
+          InstagramUserIdJob.perform_async(
+            "User",
+            @user.id,
+            @user.instagram_username,
+            @user.instagram_password,
+            @user.instagram_username
+          )
+        end
         redirect_to admin_account_path, notice: t(".success")
       else
         render :edit, status: :unprocessable_entity, notice: t(".error")

@@ -172,3 +172,113 @@ D, [2024-09-03T16:50:26.926736 #58514] DEBUG -- : Read 1495 bytes (94108 total)
 D, [2024-09-03T16:50:26.927254 #58514] DEBUG -- : Read 550 bytes (94658 total)
 D, [2024-09-03T16:50:26.927872 #58514] DEBUG -- : gzip response
 D, [2024-09-03T16:50:26.959966 #58514] DEBUG -- : saved cookie: csrftoken=ZjC8o2QpocOifOYsttB_q8
+I, [2025-07-05T15:05:57.923306 #53000]  INFO -- : Net::HTTP::Get: /accounts/login/?force_classic_login
+D, [2025-07-05T15:05:57.923560 #53000] DEBUG -- : request-header: accept-encoding => gzip,deflate,identity
+D, [2025-07-05T15:05:57.923587 #53000] DEBUG -- : request-header: accept => */*
+D, [2025-07-05T15:05:57.923601 #53000] DEBUG -- : request-header: user-agent => Mozilla/5.0 (Macintosh; Intel Mac OS X 14_2_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2 Safari/605.1.15
+D, [2025-07-05T15:05:57.923614 #53000] DEBUG -- : request-header: accept-charset => ISO-8859-1,utf-8;q=0.7,*;q=0.7
+D, [2025-07-05T15:05:57.923626 #53000] DEBUG -- : request-header: accept-language => en-us,en;q=0.5
+D, [2025-07-05T15:05:57.923637 #53000] DEBUG -- : request-header: host => www.instagram.com
+I, [2025-07-05T15:05:58.127488 #53000]  INFO -- : status: Net::HTTPOK 1.1 200 OK
+D, [2025-07-05T15:05:58.127956 #53000] DEBUG -- : response-header: vary => Accept-Encoding
+D, [2025-07-05T15:05:58.127984 #53000] DEBUG -- : response-header: content-encoding => gzip
+D, [2025-07-05T15:05:58.128009 #53000] DEBUG -- : response-header: set-cookie => csrftoken=kUE7P8gz0qnXvtXo-RJBuV; expires=Sun, 09-Aug-2026 13:05:58 GMT; Max-Age=34560000; path=/; domain=.instagram.com; secure
+D, [2025-07-05T15:05:58.128032 #53000] DEBUG -- : response-header: accept-ch-lifetime => 4838400
+D, [2025-07-05T15:05:58.128050 #53000] DEBUG -- : response-header: accept-ch => viewport-width,dpr,Sec-CH-Prefers-Color-Scheme,Sec-CH-UA-Full-Version-List,Sec-CH-UA-Platform-Version,Sec-CH-UA-Model
+D, [2025-07-05T15:05:58.128072 #53000] DEBUG -- : response-header: reporting-endpoints => coop_report="https://www.facebook.com/browser_reporting/coop/?minimize=0", default="https://www.instagram.com/error/ig_web_error_reports/?device_level=unknown&brsid=7523583368926524980&comet_app_key=7&cpp=C3&cv=1024465977&st=1751720758069", permissions_policy="https://www.instagram.com/error/ig_web_error_reports/"
+D, [2025-07-05T15:05:58.128096 #53000] DEBUG -- : response-header: report-to => {"max_age":2592000,"endpoints":[{"url":"https:\/\/www.facebook.com\/browser_reporting\/coop\/?minimize=0"}],"group":"coop_report","include_subdomains":true}, {"max_age":259200,"endpoints":[{"url":"https:\/\/www.instagram.com\/error\/ig_web_error_reports\/?device_level=unknown&brsid=7523583368926524980&comet_app_key=7&cpp=C3&cv=1024465977&st=1751720758069"}]}, {"max_age":21600,"endpoints":[{"url":"https:\/\/www.instagram.com\/error\/ig_web_error_reports\/"}],"group":"permissions_policy"}
+D, [2025-07-05T15:05:58.128132 #53000] DEBUG -- : response-header: content-security-policy => default-src *.facebook.com *.fbcdn.net *.instagram.com blob:;script-src *.instagram.com static.cdninstagram.com *.facebook.com *.fbcdn.net *.facebook.net 127.0.0.1:* 'nonce-zF56RapD' blob: 'self' 'wasm-unsafe-eval' https://accounts.google.com;style-src *.instagram.com static.cdninstagram.com data: blob: 'unsafe-inline' *.fbcdn.net *.facebook.com;connect-src *.instagram.com wss://edge-chat.instagram.com connect.facebook.net *.facebook.com facebook.com *.fbcdn.net *.facebook.net wss://*.facebook.com:* ws://localhost:* blob: *.cdninstagram.com wss://*.instagram.com:* 'self' https://meta.privacy-gateway.cloudflare.com/relay;font-src *.instagram.com static.cdninstagram.com data: *.fbcdn.net *.intern.facebook.com *.facebook.com;img-src *.instagram.com *.facebook.com *.fbcdn.net data: *.cdninstagram.com *.whatsapp.net blob: *.fbsbx.com android-webview-video-poster: *.oculuscdn.com;media-src *.facebook.com *.fbcdn.net *.instagram.com *.cdninstagram.com cdn.fbsbx.com data: blob:;child-src *.facebook.com *.fbcdn.net *.instagram.com data: blob:;frame-src *.instagram.com *.facebook.com *.fbsbx.com fbsbx.com data:;manifest-src *.facebook.com *.fbcdn.net *.instagram.com data: blob:;object-src *.facebook.com *.fbcdn.net *.instagram.com data: blob:;block-all-mixed-content;upgrade-insecure-requests;report-uri https://www.facebook.com/csp/reporting/?m=c&minimize=0;
+D, [2025-07-05T15:05:58.128157 #53000] DEBUG -- : response-header: document-policy => force-load-at-top, include-js-call-stacks-in-crash-reports
+D, [2025-07-05T15:05:58.128179 #53000] DEBUG -- : response-header: permissions-policy => accelerometer=(self), attribution-reporting=(), autoplay=(), bluetooth=(), camera=(self), ch-device-memory=(), ch-downlink=(), ch-dpr=(), ch-ect=(), ch-rtt=(), ch-save-data=(), ch-ua-arch=(), ch-ua-bitness=(), ch-viewport-height=(), ch-viewport-width=(), ch-width=(), clipboard-read=(), clipboard-write=(self), compute-pressure=(), display-capture=(self), encrypted-media=(), fullscreen=(self), gamepad=(), geolocation=(self), gyroscope=(self), hid=(), idle-detection=(), interest-cohort=(), keyboard-map=(), local-fonts=(), magnetometer=(), microphone=(self), midi=(), otp-credentials=(), payment=(), picture-in-picture=(self), private-state-token-issuance=(), publickey-credentials-get=(), screen-wake-lock=(), serial=(), shared-storage=(), shared-storage-select-url=(), private-state-token-redemption=(), usb=(), unload=(self), window-management=(), xr-spatial-tracking=();report-to="permissions_policy"
+D, [2025-07-05T15:05:58.128253 #53000] DEBUG -- : response-header: cross-origin-resource-policy => same-origin
+D, [2025-07-05T15:05:58.128284 #53000] DEBUG -- : response-header: cross-origin-opener-policy => unsafe-none
+D, [2025-07-05T15:05:58.128309 #53000] DEBUG -- : response-header: pragma => no-cache
+D, [2025-07-05T15:05:58.128330 #53000] DEBUG -- : response-header: cache-control => private, no-cache, no-store, must-revalidate
+D, [2025-07-05T15:05:58.128352 #53000] DEBUG -- : response-header: expires => Sat, 01 Jan 2000 00:00:00 GMT
+D, [2025-07-05T15:05:58.128373 #53000] DEBUG -- : response-header: x-content-type-options => nosniff
+D, [2025-07-05T15:05:58.128392 #53000] DEBUG -- : response-header: x-xss-protection => 0
+D, [2025-07-05T15:05:58.128411 #53000] DEBUG -- : response-header: x-frame-options => DENY
+D, [2025-07-05T15:05:58.128429 #53000] DEBUG -- : response-header: origin-agent-cluster => ?1
+D, [2025-07-05T15:05:58.128448 #53000] DEBUG -- : response-header: strict-transport-security => max-age=31536000; preload; includeSubDomains
+D, [2025-07-05T15:05:58.128466 #53000] DEBUG -- : response-header: x-stack => www
+D, [2025-07-05T15:05:58.128484 #53000] DEBUG -- : response-header: content-type => text/html; charset="utf-8"
+D, [2025-07-05T15:05:58.128503 #53000] DEBUG -- : response-header: x-fb-debug => HvEM87MUsXZp+0DR1S9H5FPRX1gC1k82DphmXc0wm8s4WwxpTkQlBVuCC9RVWV8eRuC6bzsyzGnsn5hd4wv7OQ==
+D, [2025-07-05T15:05:58.128531 #53000] DEBUG -- : response-header: date => Sat, 05 Jul 2025 13:05:58 GMT
+D, [2025-07-05T15:05:58.128551 #53000] DEBUG -- : response-header: alt-svc => h3=":443"; ma=86400
+D, [2025-07-05T15:05:58.128570 #53000] DEBUG -- : response-header: x-fb-connection-quality => EXCELLENT; q=0.9, rtt=17, rtx=0, c=15, mss=1380, tbw=4719, tp=-1, tpl=-1, uplat=116, ullat=0
+D, [2025-07-05T15:05:58.128590 #53000] DEBUG -- : response-header: transfer-encoding => chunked
+D, [2025-07-05T15:05:58.128608 #53000] DEBUG -- : response-header: connection => keep-alive
+D, [2025-07-05T15:05:58.128899 #53000] DEBUG -- : Read 1496 bytes (1496 total)
+D, [2025-07-05T15:05:58.128943 #53000] DEBUG -- : Read 4 bytes (1500 total)
+D, [2025-07-05T15:05:58.128998 #53000] DEBUG -- : Read 1495 bytes (2995 total)
+D, [2025-07-05T15:05:58.129077 #53000] DEBUG -- : Read 1955 bytes (4950 total)
+D, [2025-07-05T15:05:58.129124 #53000] DEBUG -- : Read 1495 bytes (6445 total)
+D, [2025-07-05T15:05:58.129515 #53000] DEBUG -- : Read 2569 bytes (9014 total)
+D, [2025-07-05T15:05:58.132126 #53000] DEBUG -- : Read 1494 bytes (10508 total)
+D, [2025-07-05T15:05:58.132855 #53000] DEBUG -- : Read 2570 bytes (13078 total)
+D, [2025-07-05T15:05:58.142392 #53000] DEBUG -- : Read 1534 bytes (14612 total)
+D, [2025-07-05T15:05:58.142718 #53000] DEBUG -- : Read 1507 bytes (16119 total)
+D, [2025-07-05T15:05:58.183252 #53000] DEBUG -- : Read 1491 bytes (17610 total)
+D, [2025-07-05T15:05:58.184845 #53000] DEBUG -- : Read 1494 bytes (19104 total)
+D, [2025-07-05T15:05:58.187444 #53000] DEBUG -- : Read 4096 bytes (23200 total)
+D, [2025-07-05T15:05:58.188601 #53000] DEBUG -- : Read 4096 bytes (27296 total)
+D, [2025-07-05T15:05:58.194183 #53000] DEBUG -- : Read 4096 bytes (31392 total)
+D, [2025-07-05T15:05:58.194764 #53000] DEBUG -- : Read 1500 bytes (32892 total)
+D, [2025-07-05T15:05:58.194825 #53000] DEBUG -- : Read 1111 bytes (34003 total)
+D, [2025-07-05T15:05:58.219212 #53000] DEBUG -- : Read 1494 bytes (35497 total)
+D, [2025-07-05T15:05:58.220478 #53000] DEBUG -- : Read 4096 bytes (39593 total)
+D, [2025-07-05T15:05:58.220670 #53000] DEBUG -- : Read 4096 bytes (43689 total)
+D, [2025-07-05T15:05:58.220734 #53000] DEBUG -- : Read 4096 bytes (47785 total)
+D, [2025-07-05T15:05:58.220794 #53000] DEBUG -- : Read 1500 bytes (49285 total)
+D, [2025-07-05T15:05:58.220875 #53000] DEBUG -- : Read 1102 bytes (50387 total)
+D, [2025-07-05T15:05:58.221612 #53000] DEBUG -- : Read 1494 bytes (51881 total)
+D, [2025-07-05T15:05:58.224291 #53000] DEBUG -- : Read 4096 bytes (55977 total)
+D, [2025-07-05T15:05:58.241756 #53000] DEBUG -- : Read 4096 bytes (60073 total)
+D, [2025-07-05T15:05:58.242101 #53000] DEBUG -- : Read 4096 bytes (64169 total)
+D, [2025-07-05T15:05:58.245873 #53000] DEBUG -- : Read 1500 bytes (65669 total)
+D, [2025-07-05T15:05:58.250514 #53000] DEBUG -- : Read 1102 bytes (66771 total)
+D, [2025-07-05T15:05:58.251232 #53000] DEBUG -- : Read 1495 bytes (68266 total)
+D, [2025-07-05T15:05:58.251286 #53000] DEBUG -- : Read 490 bytes (68756 total)
+D, [2025-07-05T15:05:58.251342 #53000] DEBUG -- : Read 1495 bytes (70251 total)
+D, [2025-07-05T15:05:58.253212 #53000] DEBUG -- : Read 1500 bytes (71751 total)
+D, [2025-07-05T15:05:58.253412 #53000] DEBUG -- : Read 944 bytes (72695 total)
+D, [2025-07-05T15:05:58.253479 #53000] DEBUG -- : Read 81 bytes (72776 total)
+D, [2025-07-05T15:05:58.253618 #53000] DEBUG -- : Read 1491 bytes (74267 total)
+D, [2025-07-05T15:05:58.253700 #53000] DEBUG -- : Read 1494 bytes (75761 total)
+D, [2025-07-05T15:05:58.253812 #53000] DEBUG -- : Read 4096 bytes (79857 total)
+D, [2025-07-05T15:05:58.253873 #53000] DEBUG -- : Read 4096 bytes (83953 total)
+D, [2025-07-05T15:05:58.255210 #53000] DEBUG -- : Read 4096 bytes (88049 total)
+D, [2025-07-05T15:05:58.255406 #53000] DEBUG -- : Read 1500 bytes (89549 total)
+D, [2025-07-05T15:05:58.255455 #53000] DEBUG -- : Read 1111 bytes (90660 total)
+D, [2025-07-05T15:05:58.255628 #53000] DEBUG -- : Read 1494 bytes (92154 total)
+D, [2025-07-05T15:05:58.255680 #53000] DEBUG -- : Read 4096 bytes (96250 total)
+D, [2025-07-05T15:05:58.257562 #53000] DEBUG -- : Read 4096 bytes (100346 total)
+D, [2025-07-05T15:05:58.257764 #53000] DEBUG -- : Read 4096 bytes (104442 total)
+D, [2025-07-05T15:05:58.257968 #53000] DEBUG -- : Read 1142 bytes (105584 total)
+D, [2025-07-05T15:05:58.314106 #53000] DEBUG -- : Read 1491 bytes (107075 total)
+D, [2025-07-05T15:05:58.314613 #53000] DEBUG -- : Read 1494 bytes (108569 total)
+D, [2025-07-05T15:05:58.314908 #53000] DEBUG -- : Read 4096 bytes (112665 total)
+D, [2025-07-05T15:05:58.314968 #53000] DEBUG -- : Read 4096 bytes (116761 total)
+D, [2025-07-05T15:05:58.315071 #53000] DEBUG -- : Read 4096 bytes (120857 total)
+D, [2025-07-05T15:05:58.315120 #53000] DEBUG -- : Read 1500 bytes (122357 total)
+D, [2025-07-05T15:05:58.315172 #53000] DEBUG -- : Read 1102 bytes (123459 total)
+D, [2025-07-05T15:05:58.318248 #53000] DEBUG -- : Read 1491 bytes (124950 total)
+D, [2025-07-05T15:05:58.319022 #53000] DEBUG -- : Read 1494 bytes (126444 total)
+D, [2025-07-05T15:05:58.319284 #53000] DEBUG -- : Read 4096 bytes (130540 total)
+D, [2025-07-05T15:05:58.319347 #53000] DEBUG -- : Read 4096 bytes (134636 total)
+D, [2025-07-05T15:05:58.319401 #53000] DEBUG -- : Read 3716 bytes (138352 total)
+D, [2025-07-05T15:05:58.319488 #53000] DEBUG -- : Read 1500 bytes (139852 total)
+D, [2025-07-05T15:05:58.319543 #53000] DEBUG -- : Read 2166 bytes (142018 total)
+D, [2025-07-05T15:05:58.319791 #53000] DEBUG -- : Read 1494 bytes (143512 total)
+D, [2025-07-05T15:05:58.320583 #53000] DEBUG -- : Read 2570 bytes (146082 total)
+D, [2025-07-05T15:05:58.320762 #53000] DEBUG -- : Read 4064 bytes (150146 total)
+D, [2025-07-05T15:05:58.321543 #53000] DEBUG -- : Read 1422 bytes (151568 total)
+D, [2025-07-05T15:05:58.338905 #53000] DEBUG -- : Read 1495 bytes (153063 total)
+D, [2025-07-05T15:05:58.339163 #53000] DEBUG -- : Read 2533 bytes (155596 total)
+D, [2025-07-05T15:05:58.339231 #53000] DEBUG -- : Read 1494 bytes (157090 total)
+D, [2025-07-05T15:05:58.341809 #53000] DEBUG -- : Read 2570 bytes (159660 total)
+D, [2025-07-05T15:05:58.341931 #53000] DEBUG -- : Read 302 bytes (159962 total)
+D, [2025-07-05T15:05:58.342015 #53000] DEBUG -- : Read 1495 bytes (161457 total)
+D, [2025-07-05T15:05:58.342212 #53000] DEBUG -- : Read 1400 bytes (162857 total)
+D, [2025-07-05T15:05:58.342977 #53000] DEBUG -- : gzip response
+D, [2025-07-05T15:05:58.396343 #53000] DEBUG -- : saved cookie: csrftoken=kUE7P8gz0qnXvtXo-RJBuV

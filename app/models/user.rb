@@ -41,4 +41,8 @@ class User < ApplicationRecord
     update!(customer_id: customer.id)
     customer.id
   end
+
+  def self.queen
+    find_by(email: "hello@chalky.fr")
+  end
 end
