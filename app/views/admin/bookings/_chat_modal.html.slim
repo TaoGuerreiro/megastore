@@ -1,0 +1,37 @@
+- if current_user
+  style
+    | /* Debug: current_user.instagram_user_id = #{current_user.instagram_user_id} */
+    - if current_user.instagram_user_id.present?
+      | body[data-current-user-id] .chat-message[data-sender-id="#{current_user.instagram_user_id}"] {
+      |   justify-content: flex-end;
+      | }
+      | body[data-current-user-id] .chat-message[data-sender-id="#{current_user.instagram_user_id}"] .chat-message-bubble {
+      |   background-color: rgb(59 130 246);
+      |   color: white;
+      | }
+      | body[data-current-user-id] .chat-message[data-sender-id="#{current_user.instagram_user_id}"] .chat-message-status {
+      |   display: block;
+      | }
+      | body[data-current-user-id] .chat-message:not([data-sender-id="#{current_user.instagram_user_id}"]) .chat-message-bubble {
+      |   background-color: rgb(229 231 235);
+      |   color: rgb(17 24 39);
+      | }
+      | body[data-current-user-id] .chat-message:not([data-sender-id="#{current_user.instagram_user_id}"]) .chat-message-status {
+      |   display: none;
+      | }
+    - else
+      | /* Pas d'instagram_user_id, tous les messages à gauche */
+      | body[data-current-user-id] .chat-message .chat-message-bubble {
+      |   background-color: rgb(229 231 235);
+      |   color: rgb(17 24 39);
+      | }
+      | body[data-current-user-id] .chat-message .chat-message-status {
+      |   display: none;
+      | }
+#chat-container.bg-white.p-4
+  = turbo_stream_from "booking_#{booking.id}_messages"
+  #chat_messages.overflow-y-scroll clas="max-h-[70vh]" data-chat-target="messages"
+    - booking.booking_messages.ordered_by_timestamp.each do |msg|
+      = render partial: "admin/bookings/chat_message", locals: { msg: msg, current_user: current_user }
+  = render partial: "admin/bookings/new_message_form", locals: { booking: booking }
+  #chat_errors

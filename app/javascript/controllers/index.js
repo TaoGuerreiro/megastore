@@ -84,3 +84,6 @@ application.register("image-bg", ImageBgController)
 
 import ChatController from "./chat_controller"
 application.register("chat", ChatController)
+
+import ChatBubbleController from "./chat_bubble_controller"
+application.register("chat-bubble", ChatBubbleController)
