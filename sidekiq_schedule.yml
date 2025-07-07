@@ -1,5 +1,5 @@
 fetch_instagram_messages:
-  cron: '*/1 * * * *'  # Toutes les 1 minutes
+  cron: '*/10 * * * *'  # Toutes les 10 minutes
   class: FetchInstagramMessagesJob
   queue: instagram
   args: []

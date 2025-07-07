@@ -24,7 +24,7 @@ class InstagramEngagementJob < ApplicationJob
       }
     end
 
-    Instagram::EngagementController.call_from_user(
+    Instagram::EngagementService.call_from_user(
       user,
       user.instagram_username,
       user.instagram_password,

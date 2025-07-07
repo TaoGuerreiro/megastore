@@ -13,7 +13,7 @@ class SendInstagramMessageJob < ApplicationJob
     end
 
     begin
-      result = Instagram::SendMessage.call(
+      result = Instagram::SendMessageService.call(
         username: user.instagram_username,
         password: user.instagram_password,
         recipient_id:,
