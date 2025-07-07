@@ -15,6 +15,7 @@ class User < ApplicationRecord
   validates :first_name, :last_name, :phone, presence: true
   has_one_attached :avatar
   has_one :social_campagne, dependent: :destroy
+
   has_many :social_targets, dependent: :destroy
 
   accepts_nested_attributes_for :store
