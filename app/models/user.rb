@@ -16,8 +16,6 @@ class User < ApplicationRecord
   has_one_attached :avatar
   has_one :social_campagne, dependent: :destroy
 
-  has_many :social_targets, dependent: :destroy
-
   accepts_nested_attributes_for :store
 
   # Champs Instagram
