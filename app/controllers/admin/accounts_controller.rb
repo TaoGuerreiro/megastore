@@ -10,8 +10,10 @@ module Admin
 
     def update
       old_username = @user.instagram_username_was
+      old_password = @user.instagram_password_was
       if @user.update(user_params)
-        if @user.instagram_username.present? && @user.instagram_username != old_username
+        # raise
+        if (@user.instagram_username.present? && @user.instagram_username != old_username) || @user.password != old_password
           InstagramUserIdJob.perform_async(
             "User",
             @user.id,

@@ -51,8 +51,8 @@ def main():
         # Afficher le résultat
         client.print_json_result(result_with_timestamp)
 
-        # Afficher le résumé des logs
-        logger.print_summary()
+        # Afficher le résumé des logs sur stderr pour éviter de polluer stdout
+        logger.print_summary_to_stderr()
 
     except Exception as e:
         print(f'{{"error": "{str(e)}"}}')

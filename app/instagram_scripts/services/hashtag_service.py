@@ -5,8 +5,8 @@ Service pour la gestion des hashtags Instagram
 
 import json
 from typing import List, Dict, Any, Optional, Tuple
-from ..core.client import InstagramClient, MediaInfo
-from ..core.logger import InstagramLogger
+from core.client import InstagramClient, MediaInfo
+from core.logger import InstagramLogger
 
 
 class HashtagService:

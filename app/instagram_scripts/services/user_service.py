@@ -5,8 +5,8 @@ Service pour la gestion des utilisateurs Instagram
 
 import json
 from typing import List, Dict, Any, Optional, Union
-from ..core.client import InstagramClient, UserInfo, MediaInfo
-from ..core.logger import InstagramLogger
+from core.client import InstagramClient, UserInfo, MediaInfo
+from core.logger import InstagramLogger
 
 
 class UserService:

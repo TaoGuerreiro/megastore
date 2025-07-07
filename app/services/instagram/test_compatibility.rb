@@ -115,14 +115,8 @@ module Instagram
         end
       end
 
-      # Vérifier aussi l'ancien script d'engagement
-      old_engagement_script = Rails.root.join("app/instagram_scripts/instagram_engagement_controller.py")
-      if File.exist?(old_engagement_script)
-        puts "    ✅ instagram_engagement_controller.py (ancien)"
-      else
-        missing_scripts << "instagram_engagement_controller.py"
-        puts "    ❌ instagram_engagement_controller.py - MANQUANT"
-      end
+      # L'ancien script d'engagement a été remplacé par engagement.py
+      puts "    ✅ instagram_engagement_controller.py remplacé par engagement.py"
 
       {
         name: "Scripts Python",

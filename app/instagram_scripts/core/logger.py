@@ -203,3 +203,20 @@ class InstagramLogger:
         }
 
         print(json.dumps(summary, ensure_ascii=False, indent=2))
+
+    def print_summary_to_stderr(self):
+        """Afficher un résumé des actions sur stderr"""
+        stats = self.get_stats()
+        success_rate = (stats["successful_actions"] / stats["total_actions"] * 100) if stats["total_actions"] > 0 else 0
+
+        summary = {
+            "username": self.username,
+            "log_file": str(self.log_file),
+            "total_actions": stats["total_actions"],
+            "successful_actions": stats["successful_actions"],
+            "failed_actions": stats["failed_actions"],
+            "success_rate": f"{success_rate:.1f}%",
+            "errors_count": len(stats["errors"])
+        }
+
+        print(json.dumps(summary, ensure_ascii=False, indent=2), file=os.sys.stderr)

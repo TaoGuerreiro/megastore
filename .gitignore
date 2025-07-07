@@ -39,3 +39,4 @@
 coverage
 test.rb
 .env
+app/instagram_scripts/services/__pycache__

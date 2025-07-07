@@ -15,6 +15,11 @@ Sidekiq.configure_server do |config|
     end
     Sidekiq::Scheduler.reload_schedule!
   end
+
+  # Configuration pour l'interface web du scheduler
+  config.on(:startup) do
+    Sidekiq::Scheduler.reload_schedule!
+  end
 end
 
 Sidekiq.configure_client do |config|

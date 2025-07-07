@@ -5,8 +5,8 @@ Service pour la gestion des messages Instagram
 
 from datetime import datetime, timedelta
 from typing import List, Dict, Any, Optional, Union
-from ..core.client import InstagramClient
-from ..core.logger import InstagramLogger
+from core.client import InstagramClient
+from core.logger import InstagramLogger
 
 
 class MessageService:

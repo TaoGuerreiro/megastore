@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   post "/webhooks/:source", to: "webhooks#create"
 
   require "sidekiq/web"
+  require "sidekiq-scheduler/web"
   authenticate :user, -> (user) { user.queen? } do
     mount Sidekiq::Web => "/sidekiq"
   end
