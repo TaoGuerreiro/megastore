@@ -333,7 +333,7 @@ module Instagram
 
       # Déterminer l'URL de l'API
       api_url = if Rails.env.production?
-                  "https://votre-domaine.com" # À adapter selon votre domaine
+                  "https://www.unsafehxc.fr/" # À adapter selon votre domaine
                 elsif Rails.env.development?
                   # Utiliser l'URL ngrok si disponible, sinon localhost
                   ENV.fetch("NGROK_URL", "http://localhost:3000")
