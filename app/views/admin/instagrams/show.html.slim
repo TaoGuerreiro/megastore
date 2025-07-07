@@ -1,0 +1,111 @@
+.bg-light.min-h-screen.pt-12.md:pt-0
+  .mx-auto.max-w-7xl.px-4.sm:px-6.lg:px-8.py-12
+    .mb-8
+      h1.text-3xl.font-bold.text-contrast Gestion Instagram
+      p.mt-2.text-midgray Configuration de l'engagement automatique Instagram
+
+    .grid.grid-cols-1.lg:grid-cols-2.gap-8
+      / Affichage de la campagne d'engagement
+      .bg-white.rounded-lg.shadow.p-6
+        h2.text-xl.font-semibold.text-contrast.mb-4 Campagne d'engagement
+        - if @campagne
+          .mb-2
+            strong Nom de la campagne :
+            = @campagne.name.presence || "Campagne principale"
+          .mb-2
+            strong Statut :
+            span.badge.rounded-full.px-2.py-1.text-xs.font-semibold.bg-gray-200.text-gray-800 = @campagne.status.titleize
+            = button_to (@campagne.active? ? "Pause" : "Lancer"), toggle_status_admin_instagram_path, method: :patch, class: (@campagne.active? ? "ml-4 bg-yellow-500 text-white px-3 py-1 rounded" : "ml-4 bg-green-500 text-white px-3 py-1 rounded")
+          .mb-2
+            strong Hashtags :
+            span = @hashtags.any? ? @hashtags.join(", ") : "Aucun"
+          .mb-2
+            strong Comptes ciblés :
+            span = @targeted_accounts.any? ? @targeted_accounts.join(", ") : "Aucun"
+        - else
+          p.text-midgray Aucune campagne d'engagement configurée.
+
+        = form_with url: update_engagement_config_admin_instagram_path, method: :patch, local: true do |f|
+          .mb-4
+            = f.label :hashtags, "Hashtags à cibler", class: "block text-sm font-medium text-contrast mb-2"
+            = f.text_area :hashtags,
+                         value: @hashtags.join(", "),
+                         rows: 4,
+                         class: "w-full px-3.py-2.border.border-contour.rounded-md.shadow-sm.focus:outline-none.focus:ring-2.focus:ring-primary.focus:border-primary",
+                         placeholder: "hashtag1, hashtag2, hashtag3"
+            p.text-xs.text-midgray.mt-1 Séparez les hashtags par des virgules (sans le #)
+
+          .mb-4
+            = f.label :targeted_accounts, "Comptes à cibler", class: "block text-sm font-medium text-contrast mb-2"
+            = f.text_area :targeted_accounts,
+                         value: @targeted_accounts.join(", "),
+                         rows: 4,
+                         class: "w-full px-3.py-2.border.border-contour.rounded-md.shadow-sm.focus:outline-none.focus:ring-2.focus:ring-primary.focus:border-primary",
+                         placeholder: "compte1, compte2, compte3"
+            p.text-xs.text-midgray.mt-1 Séparez les comptes par des virgules (sans le @)
+
+          = f.submit "Sauvegarder la configuration", class: "w-full bg-primary.text-white.py-2.px-4.rounded-md.hover:bg-primary-dark.transition-colors.duration-200"
+
+      / Lancement de l'engagement
+      .bg-white.rounded-lg.shadow.p-6
+        h2.text-xl.font-semibold.text-contrast.mb-4 Lancement de l'engagement
+        p.text-sm.text-midgray.mb-4
+          | Lancez le processus d'engagement automatique avec la configuration actuelle.
+
+        .mb-4.p-4.bg-light.rounded-md
+          h3.text-lg.font-medium.text-contrast.mb-2 Configuration actuelle
+          - if @instagram_configured
+            .mb-2
+              strong.text-contrast Compte Instagram :
+              span.text-midgray = current_user.instagram_username
+            .mb-2
+              strong.text-contrast Hashtags :
+              span.text-midgray = @hashtags.any? ? @hashtags.join(", ") : "Aucun"
+            .mb-2
+              strong.text-contrast Comptes ciblés :
+              span.text-midgray = @targeted_accounts.any? ? @targeted_accounts.join(", ") : "Aucun"
+
+            - if @hashtags.empty? && @targeted_accounts.empty?
+              .mt-3.p-3.bg-yellow-50.border.border-yellow-200.rounded-md
+                p.text-yellow-700.text-sm
+                  i.fa-solid.fa-exclamation-triangle.mr-2
+                  | Aucun hashtag ou compte cible configuré. Ajoutez au moins un hashtag ou un compte à cibler.
+          - else
+            .p-3.bg-red-50.border.border-red-200.rounded-md
+              p.text-red-700.text-sm
+                i.fa-solid.fa-exclamation-triangle.mr-2
+                | Vos credentials Instagram ne sont pas configurés.
+                = link_to "Configurez-les ici", admin_account_path, class: "underline"
+
+        = button_to (@campagne&.active? ? "Pause" : "Lancer"), toggle_status_admin_instagram_path, method: :patch, class: ((@campagne&.active? ? "w-full bg-yellow-500 text-white py-3 px-4 rounded-md hover:bg-yellow-600" : "w-full bg-green-500 text-white py-3 px-4 rounded-md hover:bg-green-600") + " transition-colors duration-200 font-medium"), disabled: !@instagram_configured || (@hashtags.empty? && @targeted_accounts.empty?)
+
+    / Instructions et aide
+    .mt-8.bg-white.rounded-lg.shadow.p-6
+      h2.text-xl.font-semibold.text-contrast.mb-4 Instructions
+      .prose.text-sm.text-midgray
+        h3.text-lg.font-medium.text-contrast.mb-2 Comment ça marche
+        ul.list-disc.list-inside.space-y-1
+          li Assurez-vous que vos credentials Instagram sont configurés dans vos paramètres
+          li Ajoutez les hashtags que vous souhaitez cibler
+          li Ajoutez les comptes Instagram que vous voulez cibler
+          li Sauvegardez la configuration
+          li Lancez le processus d'engagement
+
+        h3.text-lg.font-medium.text-contrast.mt-4.mb-2 Gestion automatique
+        ul.list-disc.list-inside.space-y-1
+          li Les cursors de pagination sont gérés automatiquement
+          li Le système reprend là où il s'était arrêté lors de la prochaine session
+          li Aucune configuration manuelle des cursors nécessaire
+          li Vous pouvez mettre en pause ou relancer la campagne à tout moment via l'interface
+
+        h3.text-lg.font-medium.text-contrast.mt-4.mb-2 Sécurité
+        ul.list-disc.list-inside.space-y-1
+          li Vos credentials Instagram sont récupérés depuis votre profil
+          li Le processus s'exécute en arrière-plan via Sidekiq
+          li Les logs sont disponibles dans les logs de l'application
+
+        h3.text-lg.font-medium.text-contrast.mt-4.mb-2 Configuration des credentials
+        p.text-sm
+          | Si vos credentials Instagram ne sont pas configurés,
+          = link_to "cliquez ici pour les configurer", admin_account_path, class: "text-primary underline"
+          |  dans vos paramètres de compte.

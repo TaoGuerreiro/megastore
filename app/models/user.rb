@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_one :store, foreign_key: :admin_id, inverse_of: :admin, dependent: :nullify
   validates :first_name, :last_name, :phone, presence: true
   has_one_attached :avatar
+  has_one :social_campagne, dependent: :destroy
 
   accepts_nested_attributes_for :store
 

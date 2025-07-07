@@ -40,7 +40,11 @@ Rails.application.routes.draw do
 
     namespace :admin do
       authenticate :user, -> (user) { user.queen? || user.admin? } do
-        resource :instagram, only: [:show]
+        resource :instagram, only: [:show, :update] do
+          patch :update_engagement_config, on: :member
+          post :launch_engagement, on: :member
+          patch :toggle_status, on: :member
+        end
         resources :authors do
           delete :remove_avatar, on: :member, controller: :avatars
         end
@@ -114,6 +118,15 @@ Rails.application.routes.draw do
       patch :undo_service_point, on: :member
       patch :shipping_method, on: :member
       patch :service_point, on: :member
+    end
+  end
+
+  namespace :api do
+    resources :social_campagnes, only: [] do
+      member do
+        get :status
+        patch :status
+      end
     end
   end
 end
