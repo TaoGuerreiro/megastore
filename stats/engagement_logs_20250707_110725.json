@@ -1,0 +1,20 @@
+{
+  "session_start": "2025-07-07T11:07:25.123613",
+  "accounts_count": 1,
+  "accounts": [
+    "unsafehc"
+  ],
+  "logs": [
+    {
+      "timestamp": "2025-07-07T11:07:25.123820",
+      "level": "info",
+      "message": "Démarrage des sessions d'engagement pour 1 comptes"
+    },
+    {
+      "timestamp": "2025-07-07T11:07:25.123971",
+      "level": "info",
+      "message": "Dossier de logs: /Users/florentguilbaud/code/ecommerce/megastore/app/instagram_scripts/../../stats"
+    }
+  ],
+  "sessions": []
+}

@@ -15,3 +15,19 @@ fr:
       subject: "Premier contact pour une date au %{venue}"
     relance:
       subject: "Relance - Disponibilité de votre salle %{venue}"
+
+  admin:
+    instagrams:
+      update_engagement_config:
+        success: "Configuration d'engagement mise à jour avec succès"
+        error: "Erreur lors de la sauvegarde"
+        json_error: "Erreur dans le format JSON des comptes"
+      launch_engagement:
+        success: "Processus d'engagement Instagram lancé en arrière-plan. Consultez les logs pour suivre l'avancement."
+        no_credentials: "Vos credentials Instagram ne sont pas configurés. Veuillez les configurer dans vos paramètres de compte."
+        no_targets: "Aucun hashtag ou compte cible configuré. Veuillez ajouter au moins un hashtag ou un compte à cibler."
+      launch_engagement:
+        success_background: "La campagne d'engagement a été lancée en arrière-plan. Vous recevrez une notification ou pourrez consulter les logs une fois terminée."
+      status_paused: "La campagne a été mise en pause."
+      status_activated_and_launched: "La campagne a été lancée et activée."
+      no_campaign: "Aucune campagne trouvée."

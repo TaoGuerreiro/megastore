@@ -1,0 +1,50 @@
+{
+  "session_start": "2025-07-07T11:07:25.123613",
+  "username": "unsafehc",
+  "hashtags": [
+    {
+      "hashtag": "nantes",
+      "cursor": null,
+      "stats": {
+        "total_likes": 0,
+        "posts_liked": [],
+        "last_activity": null
+      }
+    }
+  ],
+  "targeted_accounts": [
+    {
+      "account": "chalky_mood",
+      "cursor": null,
+      "stats": {
+        "total_likes": 0,
+        "followers_processed": 0,
+        "posts_liked": [],
+        "last_activity": null
+      }
+    }
+  ],
+  "global_stats": {
+    "total_likes": 0,
+    "total_sessions": 0,
+    "last_session": null
+  },
+  "logs": [
+    {
+      "timestamp": "2025-07-07T11:07:25.124369",
+      "level": "info",
+      "message": "Démarrage session pour unsafehc"
+    },
+    {
+      "timestamp": "2025-07-07T11:07:27.715972",
+      "level": "info",
+      "message": "Session unsafehc: 11:10 - 22:27"
+    },
+    {
+      "timestamp": "2025-07-07T11:07:27.716685",
+      "level": "info",
+      "message": "Attente de 0.0 heures jusqu'à 11:10"
+    }
+  ],
+  "sessions": []
+}
