@@ -5,6 +5,7 @@ Script pour récupérer les messages Instagram
 
 import sys
 import argparse
+import json
 from pathlib import Path
 
 # Ajouter le répertoire parent au path pour les imports
@@ -18,8 +19,7 @@ from services.message_service import MessageService
 def main():
     """Fonction principale du script"""
     parser = argparse.ArgumentParser(description="Récupérer les messages Instagram")
-    parser.add_argument("username", help="Nom d'utilisateur Instagram")
-    parser.add_argument("password", help="Mot de passe Instagram")
+    parser.add_argument("config_file", help="Fichier de configuration JSON")
     parser.add_argument("recipient_id", help="ID de l'utilisateur destinataire")
     parser.add_argument("--hours-back", type=float, default=24,
                        help="Nombre d'heures en arrière pour filtrer (défaut: 24)")
@@ -29,9 +29,20 @@ def main():
     args = parser.parse_args()
 
     try:
+        # Charger la configuration
+        with open(args.config_file, 'r', encoding='utf-8') as f:
+            config = json.load(f)
+
+        username = config.get("username")
+        password = config.get("password")
+        challenge_config = config.get("challenge_config", {})
+
+        if not username or not password:
+            raise ValueError("Username et password requis dans le fichier de configuration")
+
         # Initialiser le client et le logger
-        client = InstagramClient(args.username, args.password)
-        logger = InstagramLogger(args.username, args.log_dir)
+        client = InstagramClient(username, password, challenge_config=challenge_config)
+        logger = InstagramLogger(username, args.log_dir)
 
         # Initialiser le service message
         message_service = MessageService(client, logger)
