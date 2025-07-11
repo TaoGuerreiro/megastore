@@ -28,13 +28,23 @@ module Instagram
     def self.call_from_user(user, username, password, hashtags: nil, targeted_accounts: nil, social_campagne: nil)
       campagne = social_campagne || user.social_campagne
 
-      # Récupérer les hashtags et comptes ciblés
+      # Récupérer les hashtags et comptes ciblés avec leurs IDs
       hashtags ||= campagne&.social_targets&.where(kind: "hashtag")&.map do |h|
-        { "hashtag" => h.name, "cursor" => h.cursor }
+        {
+          "hashtag" => h.name,
+          "cursor" => h.cursor,
+          "social_target_id" => h.id,
+          "social_campagne_id" => campagne.id
+        }
       end || []
 
       targeted_accounts ||= campagne&.social_targets&.where(kind: "account")&.map do |a|
-        { "account" => a.name, "cursor" => a.cursor }
+        {
+          "account" => a.name,
+          "cursor" => a.cursor,
+          "social_target_id" => a.id,
+          "social_campagne_id" => campagne.id
+        }
       end || []
 
       config = [
@@ -42,7 +52,8 @@ module Instagram
           "username" => username,
           "password" => password,
           "hashtags" => hashtags,
-          "targeted_accounts" => targeted_accounts
+          "targeted_accounts" => targeted_accounts,
+          "social_campagne_id" => campagne&.id
         }
       ]
 
@@ -57,8 +68,22 @@ module Instagram
       targeted_accounts = user.social_targets.where(kind: "account")
 
       {
-        "hashtags" => hashtags.map { |st| { "hashtag" => st.name, "cursor" => st.cursor } },
-        "targeted_accounts" => targeted_accounts.map { |st| { "account" => st.name, "cursor" => st.cursor } }
+        "hashtags" => hashtags.map do |st|
+                        {
+                          "hashtag" => st.name,
+                          "cursor" => st.cursor,
+                          "social_target_id" => st.id,
+                          "social_campagne_id" => st.social_campagne_id
+                        }
+                      end,
+        "targeted_accounts" => targeted_accounts.map do |st|
+                                 {
+                                   "account" => st.name,
+                                   "cursor" => st.cursor,
+                                   "social_target_id" => st.id,
+                                   "social_campagne_id" => st.social_campagne_id
+                                 }
+                               end
       }
     end
 
@@ -181,11 +206,15 @@ module Instagram
           social_target = campagne.social_targets.find_by(kind: "hashtag", name: hashtag_name)
           next unless social_target
 
-          # Ici on pourrait ajouter des champs pour les statistiques si nécessaire
-          # social_target.update(
-          #   total_likes: data["successful"],
-          #   last_activity: Time.current
-          # )
+          # Mettre à jour les statistiques
+          posts_liked = data["posts_liked"] || []
+          total_likes = data["successful"] || 0
+
+          social_target.update!(
+            total_likes:,
+            posts_liked:,
+            last_activity: Time.current
+          )
         end
       end
 
@@ -196,12 +225,15 @@ module Instagram
         social_target = campagne.social_targets.find_by(kind: "account", name: account_name)
         next unless social_target
 
-        # Ici on pourrait ajouter des champs pour les statistiques si nécessaire
-        # social_target.update(
-        #   total_likes: data["likes"],
-        #   followers_processed: data["followers_processed"],
-        #   last_activity: Time.current
-        # )
+        # Mettre à jour les statistiques
+        posts_liked = data["posts_liked"] || []
+        total_likes = data["likes"] || 0
+
+        social_target.update!(
+          total_likes:,
+          posts_liked:,
+          last_activity: Time.current
+        )
       end
     end
 

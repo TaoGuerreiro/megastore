@@ -1,0 +1,17 @@
+= render Header::Component.new do |header|
+  - header.with_tabs do
+    = render Tabs::Component.new(tabs: [{name: "Campagne", path: admin_instagram_path},
+      {name: "Logs", path: "/admin/instagram/logs"}])
+  - if @logs.any?
+    table.w-full.text-left.bg-white.rounded-lg.shadow
+      thead
+        tr
+          th.px-4.py-2.text-contrast Date
+          th.px-4.py-2.text-contrast Type d'événement
+          th.px-4.py-2.text-contrast Détail
+      tbody
+        - @logs.each do |log|
+          = render Log::Component.new(log: log)
+  - else
+    .p-8.text-center.text-midgray
+      | Aucun log de campagne trouvé pour ce compte.

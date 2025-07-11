@@ -1,0 +1,63 @@
+- badge = event_type_badge
+tr.border-b
+  td.px-4.py-2.text-midgray = l(log.created_at, format: :short)
+  td.px-4.py-2
+    span.inline-block.rounded.px-2.py-1.text-xs.font-semibold.whitespace-nowrap class=(badge[:class_name]) = badge[:label]
+  td.px-4.py-2
+    - case log.event_type
+    - when "wait_like"
+      = t(".detail.wait_until")
+      b = formatted_wait_until
+      |  (#{log.payload["seconds"]}s)
+    - when "like_follower_post"
+      = t(".detail.account")
+      b = log.payload["follower"]
+      br
+      = t(".detail.post")
+      b = log.payload["post_id"]
+      - if log.payload["targeted_account"]
+        br
+        = t(".detail.target")
+        b = log.payload["targeted_account"]
+    - when "like_hashtag"
+      = t(".detail.hashtag")
+      b = log.payload["hashtag"]
+      br
+      = t(".detail.post")
+      b = log.payload["post_id"]
+    - when "hashtag_cursor_debug"
+      = t(".detail.hashtag")
+      b = log.payload["hashtag"]
+      br
+      = t(".detail.posts_found")
+      b = log.payload["posts_count"]
+      br
+      = t(".detail.next_cursor")
+      span.text-xs.text-midgray = log.payload["next_cursor"]
+      br
+      = t(".detail.has_more")
+      b = log.payload["has_more"] ? t(".detail.yes") : t(".detail.no")
+    - when "session_start"
+      = t(".detail.from_to", from: log.payload["start_hour"], to: log.payload["end_hour"])
+    - when "campaign_paused"
+      = t(".detail.campaign_paused")
+    - when "hashtag_error"
+      = t("log.detail.hashtag")
+      b = log.payload["hashtag"]
+      br
+      = t("log.detail.error")
+      b = log.payload["error"]
+    - when "error"
+      = t("log.detail.error")
+      b = log.payload["error"] || log.payload["error_message"]
+    - when "info"
+      = t("log.detail.info")
+      b = log.payload["message"]
+    - else
+      - if log.payload["reason"]
+        span.font-semibold = t("admin.instagram_logs.reason.#{log.payload["reason"]}", default: log.payload["reason"].humanize)
+      - if log.payload["duration_sec"]
+        span.ml-2.text-xs.text-midgray = t(".detail.duration", duration: log.payload["duration_sec"])
+      - if log.payload["details"]
+        br
+        span.text-xs.text-midgray = log.payload["details"]

@@ -6,11 +6,20 @@ Client Instagram de base avec gestion d'authentification et utilitaires
 import os
 import json
 import logging
+import uuid
+import random
 from datetime import datetime
 from typing import Optional, Dict, Any, List, Union
 from dataclasses import dataclass, asdict
 from instagrapi import Client
 from instagrapi.exceptions import LoginRequired
+
+# Import du service de challenge
+try:
+    from services.challenge_service import ChallengeService
+    CHALLENGE_SERVICE_AVAILABLE = True
+except ImportError:
+    CHALLENGE_SERVICE_AVAILABLE = False
 
 
 @dataclass
@@ -47,7 +56,7 @@ class UserInfo:
 class InstagramClient:
     """Client Instagram avec gestion d'authentification et méthodes utilitaires"""
 
-    def __init__(self, username: str, password: str, session_dir: str = "sessions"):
+    def __init__(self, username: str, password: str, session_dir: str = "sessions", challenge_config: Optional[Dict[str, Any]] = None):
         """
         Initialiser le client Instagram
 
@@ -55,20 +64,143 @@ class InstagramClient:
             username: Nom d'utilisateur Instagram
             password: Mot de passe Instagram
             session_dir: Répertoire pour sauvegarder les sessions
+            challenge_config: Configuration pour la gestion des challenges
         """
         self.username = username
         self.password = password
         self.client = Client()
         self.session_dir = session_dir
+        self.challenge_config = challenge_config or {}
 
         # Créer le répertoire de sessions s'il n'existe pas
         os.makedirs(session_dir, exist_ok=True)
 
+        # Configurer les métadonnées pour être plus naturelles
+        self._setup_natural_metadata()
+
         # Configurer le logging
         self._setup_logging()
 
+        # Configurer les handlers de challenge
+        self._setup_challenge_handlers()
+
         # Authentification
         self._authenticate()
+
+    def _setup_natural_metadata(self):
+        """Configurer les métadonnées pour être plus naturelles et éviter les détections"""
+        # Générer des UUIDs aléatoires mais cohérents pour cette session
+        session_uuids = self._generate_session_uuids()
+
+        # Configuration d'appareil réaliste (OnePlus 6T)
+        device_config = self._get_natural_device_config()
+
+        # User-Agent réaliste pour iPhone
+        user_agent = f"Instagram {device_config['app_version']} iOS ({device_config['ios_version']}/{device_config['ios_release']}; {device_config['dpi']}; {device_config['resolution']}; {device_config['manufacturer']}; {device_config['device']}; {device_config['model']}; {device_config['cpu']}; fr_FR; {device_config['version_code']})"
+
+        # Configuration des paramètres de requête
+        nantes_offset = self._get_nantes_timezone_offset()
+
+        settings = {
+            "uuids": session_uuids,
+            "mid": "aGvTYwABAAFtwoS1UAy4mvV_jEU4",
+            "ig_u_rur": None,
+            "ig_www_claim": None,
+            "cookies": {},
+            "last_login": None,
+            "device_settings": device_config,
+            "user_agent": user_agent,
+            "country": "FR",
+            "country_code": 33,
+            "locale": "fr_FR",
+            "timezone_offset": nantes_offset
+        }
+
+        # Appliquer les configurations
+        self.client.set_device(device_config)
+        self.client.set_user_agent(user_agent)
+        self.client.set_locale("fr_FR")
+        self.client.set_country("FR")
+        self.client.set_timezone_offset(nantes_offset)
+        self.client.set_settings(settings)
+
+    def _generate_session_uuids(self) -> Dict[str, str]:
+        """Générer des UUIDs aléatoires mais cohérents pour cette session"""
+        # Utiliser un seed basé sur le username pour avoir des UUIDs cohérents
+        random.seed(hash(self.username) % 2**32)
+
+        return {
+            "phone_id": str(uuid.uuid4()),
+            "uuid": str(uuid.uuid4()),
+            "client_session_id": str(uuid.uuid4()),
+            "advertising_id": str(uuid.uuid4()),
+            "android_device_id": f"android-{uuid.uuid4().hex[:16]}",
+            "request_id": str(uuid.uuid4()),
+            "tray_session_id": str(uuid.uuid4())
+        }
+
+    def _get_nantes_timezone_offset(self) -> int:
+        """Obtenir le timezone offset pour Nantes (heure d'été/hiver)"""
+        from datetime import datetime
+
+        # Heure d'été en France : UTC+2 (mars à octobre)
+        # Heure d'hiver en France : UTC+1 (octobre à mars)
+
+        now = datetime.now()
+
+        # Règle simplifiée : heure d'été de mars à octobre
+        # En réalité, les dates exactes varient selon les années
+        if now.month >= 3 and now.month <= 10:
+            return 7200  # UTC+2 (heure d'été)
+        else:
+            return 3600  # UTC+1 (heure d'hiver)
+
+    def _get_natural_device_config(self) -> Dict[str, Any]:
+        """Obtenir une configuration d'appareil naturelle avec variations"""
+        # Utiliser un seed basé sur le username pour avoir des variations cohérentes
+        random.seed(hash(self.username) % 2**32)
+
+        # Configuration iPhone 13 pour Nantes
+        iphone_configs = [
+            {
+                "app_version": "269.0.0.18.75",
+                "ios_version": 17,
+                "ios_release": "17.0.0",
+                "dpi": "460dpi",
+                "resolution": "1170x2532",
+                "manufacturer": "Apple",
+                "device": "iPhone14,2",
+                "model": "iPhone 13",
+                "cpu": "apple",
+                "version_code": "314665256"
+            },
+            {
+                "app_version": "268.0.0.18.74",
+                "ios_version": 17,
+                "ios_release": "17.1.0",
+                "dpi": "460dpi",
+                "resolution": "1170x2532",
+                "manufacturer": "Apple",
+                "device": "iPhone14,2",
+                "model": "iPhone 13",
+                "cpu": "apple",
+                "version_code": "314665256"
+            },
+            {
+                "app_version": "267.0.0.18.73",
+                "ios_version": 16,
+                "ios_release": "16.6.0",
+                "dpi": "460dpi",
+                "resolution": "1170x2532",
+                "manufacturer": "Apple",
+                "device": "iPhone14,2",
+                "model": "iPhone 13",
+                "cpu": "apple",
+                "version_code": "314665256"
+            }
+        ]
+
+        return random.choice(iphone_configs)
 
     def _setup_logging(self):
         """Configurer le système de logging"""
@@ -77,6 +209,21 @@ class InstagramClient:
             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
         )
         self.logger = logging.getLogger(f"InstagramClient.{self.username}")
+
+    def _setup_challenge_handlers(self):
+        """Configurer les handlers de challenge si le service est disponible"""
+        if CHALLENGE_SERVICE_AVAILABLE and self.challenge_config:
+            try:
+                challenge_service = ChallengeService(self.challenge_config)
+                challenge_service.setup_challenge_handlers(self.client)
+                self.logger.info("Handlers de challenge configurés")
+            except Exception as e:
+                self.logger.warning(f"Impossible de configurer les handlers de challenge: {e}")
+        else:
+            if not CHALLENGE_SERVICE_AVAILABLE:
+                self.logger.warning("Service de challenge non disponible")
+            if not self.challenge_config:
+                self.logger.info("Aucune configuration de challenge fournie")
 
     def _get_session_path(self) -> str:
         """Obtenir le chemin du fichier de session"""

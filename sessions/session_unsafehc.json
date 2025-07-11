@@ -1,37 +1,37 @@
 {
     "uuids": {
-        "phone_id": "39e35c57-1dcc-4e74-a9ad-9bbacbf55d95",
-        "uuid": "884d6e08-45b9-43c6-8abe-c94f580567e1",
-        "client_session_id": "fa0d4002-abe3-456b-8170-b50c8400ae54",
-        "advertising_id": "0baa83c1-c513-4fa6-ae61-631ec01a1e71",
-        "android_device_id": "android-cb1a97b0b0c45571",
-        "request_id": "5b2c6cd8-7a4e-42de-8aad-e97c4f2e4cd4",
-        "tray_session_id": "f23eb977-f3ea-4950-bff5-8d8a9980aeda"
+        "phone_id": "c04bde28-da12-44b3-9a57-9e8404dee84e",
+        "uuid": "24dbcb72-bd30-4cb0-afe6-ede0470ba87c",
+        "client_session_id": "cb1166ba-d8af-4fde-9561-1a5c7708a73d",
+        "advertising_id": "8cfcdd66-528d-45e4-b9e1-f0d18c76d496",
+        "android_device_id": "android-64743b01b7614c26",
+        "request_id": "f619a95e-f0cf-4611-aa8c-22f45c37b6be",
+        "tray_session_id": "38c08765-b4ef-4c5c-99f5-f66eccf2fec2"
     },
     "mid": "aGvTYwABAAFtwoS1UAy4mvV_jEU4",
     "ig_u_rur": null,
     "ig_www_claim": null,
     "authorization_data": {
         "ds_user_id": "57428122113",
-        "sessionid": "57428122113%3Aen8lBO9gwPKNIH%3A21%3AAYfTWlFYkKw7OyHk3nRqAd6MYm5EG1ZS_yektNCEwg"
+        "sessionid": "57428122113%3AI2TFpOxO8w4CBz%3A8%3AAYcC_7lbY-CNvLtPchYFZt7C2bVUM6TfC6_UDuk89w"
     },
     "cookies": {},
-    "last_login": 1751896947.795039,
+    "last_login": 1752170309.205825,
     "device_settings": {
         "app_version": "269.0.0.18.75",
-        "android_version": 26,
-        "android_release": "8.0.0",
-        "dpi": "480dpi",
-        "resolution": "1080x1920",
-        "manufacturer": "OnePlus",
-        "device": "devitron",
-        "model": "6T Dev",
-        "cpu": "qcom",
+        "ios_version": 17,
+        "ios_release": "17.0.0",
+        "dpi": "460dpi",
+        "resolution": "1170x2532",
+        "manufacturer": "Apple",
+        "device": "iPhone14,2",
+        "model": "iPhone 13",
+        "cpu": "apple",
         "version_code": "314665256"
     },
-    "user_agent": "Instagram 269.0.0.18.75 Android (26/8.0.0; 480dpi; 1080x1920; OnePlus; 6T Dev; devitron; qcom; en_US; 314665256)",
-    "country": "US",
-    "country_code": 1,
-    "locale": "en_US",
-    "timezone_offset": -14400
+    "user_agent": "Instagram 269.0.0.18.75 iOS (17/17.0.0; 460dpi; 1170x2532; Apple; iPhone14,2; iPhone 13; apple; fr_FR; 314665256)",
+    "country": "FR",
+    "country_code": 33,
+    "locale": "fr_FR",
+    "timezone_offset": 7200
 }

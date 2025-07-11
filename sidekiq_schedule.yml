@@ -3,3 +3,9 @@ fetch_instagram_messages:
   class: FetchInstagramMessagesJob
   queue: instagram
   args: []
+
+instagram_engagement:
+  cron: '0 5 * * *'  # Tous les jours à 5h00 du matin
+  class: InstagramEngagementJob
+  queue: instagram
+  args: []

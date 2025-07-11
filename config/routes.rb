@@ -46,6 +46,7 @@ Rails.application.routes.draw do
           post :launch_engagement, on: :member
           patch :toggle_status, on: :member
         end
+        get "instagram/logs", to: "instagram_logs#index", as: :instagram_logs
         resources :authors do
           delete :remove_avatar, on: :member, controller: :avatars
         end
@@ -127,6 +128,13 @@ Rails.application.routes.draw do
       member do
         get :status
         patch :status
+        post :logs
+      end
+      resources :social_targets, only: [] do
+        member do
+          post :like
+          patch :update
+        end
       end
     end
   end
