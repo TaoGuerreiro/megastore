@@ -44,11 +44,13 @@ module Instagram
     end
 
     def self.execute_script_with_config(script_name, config_file_path, *args)
-      script_path = File.join(SCRIPTS_DIR, script_name)
+      # Utiliser les constantes de BaseService
+      scripts_dir = Instagram::BaseService::SCRIPTS_DIR
+      script_path = File.join(scripts_dir, script_name)
 
       raise "Script non trouvé: #{script_path}" unless File.exist?(script_path)
 
-      cmd = [python_executable, script_path, config_file_path, *args]
+      cmd = [Instagram::BaseService.python_executable, script_path, config_file_path, *args]
 
       Rails.logger.info("Instagram::ChallengeConfigurable: Exécution de #{script_name} avec config")
 
