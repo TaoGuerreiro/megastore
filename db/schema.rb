@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_07_10_160300) do
+ActiveRecord::Schema[7.0].define(version: 2025_07_10_160303) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "adminpack"
   enable_extension "autoinc"
@@ -178,6 +178,16 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_10_160300) do
     t.index ["booking_contact_id"], name: "index_bookings_on_booking_contact_id"
     t.index ["gig_id"], name: "index_bookings_on_gig_id"
     t.index ["venue_id"], name: "index_bookings_on_venue_id"
+  end
+
+  create_table "campagne_logs", force: :cascade do |t|
+    t.bigint "social_campagne_id", null: false
+    t.string "event_type", null: false
+    t.jsonb "payload"
+    t.datetime "logged_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["social_campagne_id"], name: "index_campagne_logs_on_social_campagne_id"
   end
 
   create_table "carousel_cards", force: :cascade do |t|
@@ -531,6 +541,9 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_10_160300) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "social_campagne_id"
+    t.integer "total_likes", default: 0, null: false
+    t.text "posts_liked", default: "[]", null: false
+    t.datetime "last_activity"
     t.index ["social_campagne_id"], name: "index_social_targets_on_social_campagne_id"
   end
 
@@ -760,6 +773,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_10_160300) do
   add_foreign_key "bookings", "booking_contacts"
   add_foreign_key "bookings", "gigs"
   add_foreign_key "bookings", "venues"
+  add_foreign_key "campagne_logs", "social_campagnes"
   add_foreign_key "categories", "stores"
   add_foreign_key "collections", "items", column: "cover_id"
   add_foreign_key "collections", "stores"

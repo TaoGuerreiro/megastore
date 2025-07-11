@@ -6,7 +6,7 @@ module Api
     protect_from_forgery with: :null_session
 
     before_action :authenticate_token
-    before_action :set_social_campagne, only: [:status]
+    before_action :set_social_campagne, only: [:status, :logs]
 
     def status
       if request.patch?
@@ -19,6 +19,24 @@ module Api
       else
         # Lecture du statut
         render json: { status: @social_campagne.status }
+      end
+    end
+
+    def logs
+      # POST /api/social_campagnes/:id/logs
+      event_type = params[:event] || params[:event_type]
+      logged_at = params[:timestamp] || Time.current
+      payload = params[:payload] || params.except(:event, :event_type, :timestamp, :controller, :action, :id)
+
+      log = @social_campagne.campagne_logs.new(
+        event_type:,
+        payload:,
+        logged_at:
+      )
+      if log.save
+        render json: { status: "ok", id: log.id }, status: :created
+      else
+        render json: { error: log.errors.full_messages }, status: :unprocessable_entity
       end
     end
 

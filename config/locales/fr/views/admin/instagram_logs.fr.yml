@@ -1,0 +1,14 @@
+fr:
+  admin:
+    instagram_logs:
+      event_type:
+        pause: "Mise en pause"
+        start: "Démarrage"
+        like: "Like effectué"
+        error: "Erreur"
+        # Ajoute ici d'autres types d'événements si besoin
+      reason:
+        after_hashtag_like: "Après un like sur hashtag"
+        after_account_like: "Après un like sur compte"
+        manual: "Action manuelle"
+        # Ajoute ici d'autres raisons si besoin

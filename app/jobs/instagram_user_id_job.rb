@@ -7,7 +7,7 @@ class InstagramUserIdJob
     return unless record && ig_handle.present?
 
     begin
-      user_id = Instagram::FetchUserId.call(username: ig_username, password: ig_password, handle: ig_handle)
+      user_id = Instagram::FetchUserIdService.call(username: ig_username, password: ig_password, handle: ig_handle)
       record.update_column(:instagram_user_id, user_id)
     rescue StandardError => e
       Rails.logger.error("InstagramUserIdJob: Erreur récupération user_id Instagram: #{e}")

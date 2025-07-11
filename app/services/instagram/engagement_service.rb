@@ -1,43 +1,19 @@
 # frozen_string_literal: true
 
-require "open3"
-require "json"
+require "tempfile"
 
 module Instagram
-  # Service pour lancer le contrôleur d'engagement Instagram
-  #
-  # Exemple d'utilisation :
-  #
-  # # Avec des SocialTargets (recommandé)
-  # user = User.find(1)
-  # result = Instagram::EngagementController.call_from_user(user, "username", "password")
-  #
-  # # Avec une configuration manuelle
-  # config = [
-  #   {
-  #     "username" => "unsafehc",
-  #     "password" => "password123",
-  #     "hashtags" => ["counterparts", "nantes"],
-  #     "targeted_accounts" => ["counterpartsband", "chalky_mood"]
-  #   }
-  # ]
-  # result = Instagram::EngagementController.call(config)
-  class EngagementController
-    SCRIPT_PATH = Rails.root.join("app/instagram_scripts/instagram_engagement_controller.py").to_s
-
+  # Service pour l'engagement Instagram
+  class EngagementService < BaseService
     def self.call(accounts_config, campagne_id = nil)
-      # Validation de la configuration
       validate_config(accounts_config)
 
-      # Formater la configuration selon le nouveau format
-      formatted_config = format_config(accounts_config)
-
       # Créer un fichier de configuration temporaire
-      config_file = create_temp_config(formatted_config)
+      config_file = create_temp_config(accounts_config)
 
       begin
-        # Lancer le script Python
-        result = execute_script(config_file.path, campagne_id)
+        # Lancer le script Python avec la nouvelle architecture
+        result = execute_engagement_script(config_file.path, campagne_id)
 
         # Parser et retourner le résultat
         parse_result(result)
@@ -48,25 +24,36 @@ module Instagram
       end
     end
 
-    # Nouvelle méthode pour utiliser les SocialTargets
+    # Méthode pour utiliser les SocialTargets
     def self.call_from_user(user, username, password, hashtags: nil, targeted_accounts: nil, social_campagne: nil)
-      # Si social_campagne est fourni, l'utiliser, sinon utiliser la campagne par défaut de l'utilisateur
       campagne = social_campagne || user.social_campagne
 
-      # hashtags et targeted_accounts sont maintenant des arrays de hashes {"name", "kind", "cursor"}
+      # Récupérer les hashtags et comptes ciblés avec leurs IDs
       hashtags ||= campagne&.social_targets&.where(kind: "hashtag")&.map do |h|
-        h.slice("name", "kind", "cursor")
+        {
+          "hashtag" => h.name,
+          "cursor" => h.cursor,
+          "social_target_id" => h.id,
+          "social_campagne_id" => campagne.id
+        }
       end || []
+
       targeted_accounts ||= campagne&.social_targets&.where(kind: "account")&.map do |a|
-        a.slice("name", "kind", "cursor")
+        {
+          "account" => a.name,
+          "cursor" => a.cursor,
+          "social_target_id" => a.id,
+          "social_campagne_id" => campagne.id
+        }
       end || []
 
       config = [
         {
           "username" => username,
           "password" => password,
-          "hashtags" => hashtags.map { |h| { "hashtag" => h["name"], "cursor" => h["cursor"] } },
-          "targeted_accounts" => targeted_accounts.map { |a| { "account" => a["name"], "cursor" => a["cursor"] } }
+          "hashtags" => hashtags,
+          "targeted_accounts" => targeted_accounts,
+          "social_campagne_id" => campagne&.id
         }
       ]
 
@@ -81,8 +68,22 @@ module Instagram
       targeted_accounts = user.social_targets.where(kind: "account")
 
       {
-        "hashtags" => hashtags.map { |st| { "hashtag" => st.name, "cursor" => st.cursor } },
-        "targeted_accounts" => targeted_accounts.map { |st| { "account" => st.name, "cursor" => st.cursor } }
+        "hashtags" => hashtags.map do |st|
+                        {
+                          "hashtag" => st.name,
+                          "cursor" => st.cursor,
+                          "social_target_id" => st.id,
+                          "social_campagne_id" => st.social_campagne_id
+                        }
+                      end,
+        "targeted_accounts" => targeted_accounts.map do |st|
+                                 {
+                                   "account" => st.name,
+                                   "cursor" => st.cursor,
+                                   "social_target_id" => st.id,
+                                   "social_campagne_id" => st.social_campagne_id
+                                 }
+                               end
       }
     end
 
@@ -111,14 +112,59 @@ module Instagram
 
     private
 
+    def self.execute_engagement_script(config_file_path, campagne_id = nil)
+      # Utiliser le nouveau script d'engagement unifié
+      script_path = Rails.root.join("app/instagram_scripts/scripts/engagement.py").to_s
+
+      cmd = [python_executable, script_path, config_file_path]
+      cmd << "--campagne-id" << campagne_id.to_s if campagne_id.present?
+
+      Rails.logger.info("Instagram::EngagementService: Exécution du script d'engagement unifié")
+
+      stdout, stderr, status = Open3.capture3(*cmd)
+
+      unless status.success?
+        Rails.logger.error("Instagram::EngagementService: Erreur lors de l'exécution: #{stderr}")
+        raise "Erreur lors de l'exécution du script d'engagement: #{stderr}"
+      end
+
+      stdout
+    end
+
+    def self.create_temp_config(accounts_config)
+      config_file = Tempfile.new(["engagement_config", ".json"])
+      config_file.write(accounts_config.to_json)
+      config_file.rewind
+      config_file
+    end
+
+    def self.parse_result(output)
+      # Le script Python affiche plusieurs lignes JSON (logs + rapport final)
+      lines = output.strip.split("\n")
+
+      # Prendre la dernière ligne qui contient le rapport final
+      last_line = lines.last
+
+      begin
+        JSON.parse(last_line)
+      rescue JSON::ParserError
+        # Si le parsing échoue, essayer de parser tout le contenu
+        begin
+          JSON.parse(output)
+        rescue JSON::ParserError => e
+          Rails.logger.error("Instagram::EngagementService: Erreur de parsing JSON: #{e}")
+          Rails.logger.error("Instagram::EngagementService: Sortie brute: #{output}")
+          raise "Erreur de parsing JSON: #{e}"
+        end
+      end
+    end
+
     def self.update_cursors_from_result(result, user, campagne = nil)
       return unless result["sessions"]&.any?
 
-      # Utiliser la campagne fournie ou la campagne par défaut de l'utilisateur
       campagne ||= user.social_campagne
       return unless campagne
 
-      # Prendre la dernière session (la plus récente)
       session = result["sessions"].last
       return unless session
 
@@ -142,14 +188,12 @@ module Instagram
         end
       end
 
-      # Mettre à jour les statistiques si disponibles
       update_stats_from_result(result, user, campagne)
     end
 
     def self.update_stats_from_result(result, user, campagne = nil)
       return unless result["sessions"]&.any?
 
-      # Utiliser la campagne fournie ou la campagne par défaut de l'utilisateur
       campagne ||= user.social_campagne
       return unless campagne
 
@@ -162,11 +206,15 @@ module Instagram
           social_target = campagne.social_targets.find_by(kind: "hashtag", name: hashtag_name)
           next unless social_target
 
-          # Ici on pourrait ajouter des champs pour les statistiques si nécessaire
-          # social_target.update(
-          #   total_likes: data["successful"],
-          #   last_activity: Time.current
-          # )
+          # Mettre à jour les statistiques
+          posts_liked = data["posts_liked"] || []
+          total_likes = data["successful"] || 0
+
+          social_target.update!(
+            total_likes:,
+            posts_liked:,
+            last_activity: Time.current
+          )
         end
       end
 
@@ -177,12 +225,15 @@ module Instagram
         social_target = campagne.social_targets.find_by(kind: "account", name: account_name)
         next unless social_target
 
-        # Ici on pourrait ajouter des champs pour les statistiques si nécessaire
-        # social_target.update(
-        #   total_likes: data["likes"],
-        #   followers_processed: data["followers_processed"],
-        #   last_activity: Time.current
-        # )
+        # Mettre à jour les statistiques
+        posts_liked = data["posts_liked"] || []
+        total_likes = data["likes"] || 0
+
+        social_target.update!(
+          total_likes:,
+          posts_liked:,
+          last_activity: Time.current
+        )
       end
     end
 
@@ -207,18 +258,14 @@ module Instagram
       raise ArgumentError, "Compte #{index}: hashtags doit être un array" unless account["hashtags"].is_a?(Array)
 
       unless account["targeted_accounts"].is_a?(Array)
-        raise ArgumentError,
-              "Compte #{index}: targeted_accounts doit être un array"
+        raise ArgumentError, "Compte #{index}: targeted_accounts doit être un array"
       end
 
       return unless account["hashtags"].empty? && account["targeted_accounts"].empty?
 
       raise ArgumentError, "Compte #{index}: au moins un hashtag ou un compte cible doit être spécifié"
 
-      # Valider la structure des hashtags
       validate_hashtags_structure(account["hashtags"], index)
-
-      # Valider la structure des comptes ciblés
       validate_targeted_accounts_structure(account["targeted_accounts"], index)
     end
 
@@ -230,13 +277,11 @@ module Instagram
           end
 
           if hashtag["hashtag"].blank?
-            raise ArgumentError,
-                  "Compte #{account_index}: hashtag #{hashtag_index}: hashtag ne peut pas être vide"
+            raise ArgumentError, "Compte #{account_index}: hashtag #{hashtag_index}: hashtag ne peut pas être vide"
           end
         elsif hashtag.is_a?(String)
           if hashtag.blank?
-            raise ArgumentError,
-                  "Compte #{account_index}: hashtag #{hashtag_index}: hashtag ne peut pas être vide"
+            raise ArgumentError, "Compte #{account_index}: hashtag #{hashtag_index}: hashtag ne peut pas être vide"
           end
         else
           raise ArgumentError, "Compte #{account_index}: hashtag #{hashtag_index}: doit être un string ou un hash"
@@ -249,121 +294,22 @@ module Instagram
         if account.is_a?(Hash)
           unless account.key?("account")
             raise ArgumentError,
-                  "Compte #{account_index}: compte cible #{account_target_index}: champ 'account' manquant"
+                  "Compte #{account_index}: targeted_account #{account_target_index}: champ 'account' manquant"
           end
+
           if account["account"].blank?
             raise ArgumentError,
-                  "Compte #{account_index}: compte cible #{account_target_index}: account ne peut pas être vide"
+                  "Compte #{account_index}: targeted_account #{account_target_index}: account ne peut pas être vide"
           end
         elsif account.is_a?(String)
           if account.blank?
             raise ArgumentError,
-                  "Compte #{account_index}: compte cible #{account_target_index}: account ne peut pas être vide"
+                  "Compte #{account_index}: targeted_account #{account_target_index}: account ne peut pas être vide"
           end
         else
           raise ArgumentError,
-                "Compte #{account_index}: compte cible #{account_target_index}: doit être un string ou un hash"
+                "Compte #{account_index}: targeted_account #{account_target_index}: doit être un string ou un hash"
         end
-      end
-    end
-
-    def self.format_config(accounts_config)
-      accounts_config.map do |account|
-        {
-          "username" => account["username"],
-          "password" => account["password"],
-          "hashtags" => format_hashtags(account["hashtags"]),
-          "targeted_accounts" => format_targeted_accounts(account["targeted_accounts"])
-        }
-      end
-    end
-
-    def self.format_hashtags(hashtags)
-      hashtags.map do |hashtag|
-        if hashtag.is_a?(Hash)
-          {
-            "hashtag" => hashtag["hashtag"],
-            "cursor" => hashtag["cursor"]
-          }
-        else
-          {
-            "hashtag" => hashtag,
-            "cursor" => nil
-          }
-        end
-      end
-    end
-
-    def self.format_targeted_accounts(targeted_accounts)
-      targeted_accounts.map do |account|
-        if account.is_a?(Hash)
-          {
-            "account" => account["account"],
-            "cursor" => account["cursor"]
-          }
-        else
-          {
-            "account" => account,
-            "cursor" => nil
-          }
-        end
-      end
-    end
-
-    def self.create_temp_config(accounts_config)
-      # Créer un fichier temporaire avec la configuration
-      config_file = Tempfile.new(["engagement_config", ".json"])
-      config_file.write(accounts_config.to_json)
-      config_file.rewind
-      config_file
-    end
-
-    def self.execute_script(config_file_path, campagne_id = nil)
-      python_executable = if Rails.env.production?
-                            "python3"
-                          else
-                            "venv/bin/python"
-                          end
-
-      cmd = [python_executable, SCRIPT_PATH, config_file_path]
-      cmd << campagne_id.to_s if campagne_id
-
-      # Préparer l'environnement avec les variables nécessaires
-      env = ENV.to_hash
-
-      # Déterminer l'URL de l'API
-      api_url = if Rails.env.production?
-                  "https://www.unsafehxc.fr/" # À adapter selon votre domaine
-                elsif Rails.env.development?
-                  # Utiliser l'URL ngrok si disponible, sinon localhost
-                  ENV.fetch("NGROK_URL", "http://localhost:3000")
-                else
-                  ENV.fetch("SOCIAL_CAMPAIGN_API_URL", "http://localhost:3000")
-                end
-
-      env["SOCIAL_CAMPAIGN_API_URL"] = api_url
-      env["SOCIAL_CAMPAIGN_API_TOKEN"] =
-        Rails.application.credentials.social_campaign_token || ENV.fetch("SOCIAL_CAMPAIGN_API_TOKEN", nil)
-
-      # Exécuter le script Python avec l'environnement
-      stdout, stderr, status = Open3.capture3(env, *cmd)
-
-      raise StandardError, "Erreur engagement controller Instagram: #{stderr}" unless status.success?
-
-      stdout
-    end
-
-    def self.parse_result(output)
-      # Le script Python affiche plusieurs lignes JSON (logs + rapport final)
-      lines = output.strip.split("\n")
-
-      # Le dernier JSON est le rapport final
-      final_report = lines.last
-
-      begin
-        JSON.parse(final_report)
-      rescue JSON::ParserError => e
-        raise StandardError, "Erreur parsing rapport final: #{e.message}"
       end
     end
   end

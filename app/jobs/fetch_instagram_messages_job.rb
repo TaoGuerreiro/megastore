@@ -20,7 +20,7 @@ class FetchInstagramMessagesJob < ApplicationJob
       # Si recipient_id est spécifié, on récupère les messages pour ce contact
       if recipient_id.present?
         begin
-          messages = Instagram::FetchMessages.call(
+          messages = Instagram::FetchMessagesService.call(
             username: unsafehc,
             password: "Double-Moresque44",
             recipient_id: "214851658",
@@ -42,7 +42,7 @@ class FetchInstagramMessagesJob < ApplicationJob
           next unless contact.instagram_user_id.present?
 
           begin
-            messages = Instagram::FetchMessages.call(
+            messages = Instagram::FetchMessagesService.call(
               username: user.instagram_username,
               password: user.instagram_password,
               recipient_id: contact.instagram_user_id,
@@ -64,7 +64,7 @@ class FetchInstagramMessagesJob < ApplicationJob
           next unless venue.instagram_user_id.present?
 
           begin
-            messages = Instagram::FetchMessages.call(
+            messages = Instagram::FetchMessagesService.call(
               username: user.instagram_username,
               password: user.instagram_password,
               recipient_id: venue.instagram_user_id,
