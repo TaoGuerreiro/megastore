@@ -1,3 +1,4 @@
+pydantic
 instagrapi
 Pillow
 httpx==0.28.1
