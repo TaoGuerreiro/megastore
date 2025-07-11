@@ -13,14 +13,20 @@ import os
 import requests
 from datetime import datetime, timedelta, time as dtime
 from collections import defaultdict
+from pathlib import Path
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(str(Path(__file__).parent.parent))
 
-from core.client import InstagramClient
-from core.logger import InstagramLogger
+from core import InstagramClient, InstagramLogger, ConfigLoader, ErrorHandler
 from services.hashtag_service import HashtagService
 from services.user_service import UserService
 from services.message_service import MessageService
+
+
+def handle_error(error_message: str):
+    """Gestion d'erreur standardisée"""
+    ErrorHandler.handle_error(error_message)
+
 
 class EngagementService:
     """Service d'engagement Instagram avec comportement humain réaliste"""
@@ -38,8 +44,7 @@ class EngagementService:
 
     def load_config(self):
         try:
-            with open(self.config_file_path, 'r', encoding='utf-8') as f:
-                return json.load(f)
+            return ConfigLoader.load_from_file(self.config_file_path)
         except Exception as e:
             raise Exception(f"Erreur lors du chargement de la configuration: {e}")
 
@@ -184,24 +189,8 @@ class EngagementService:
         Returns:
             Configuration de challenge ou None
         """
-        challenge_config = {}
-
-        # Configuration 2captcha si disponible
-        two_captcha_key = os.getenv("TWOCAPTCHA_API_KEY")
-        if two_captcha_key:
-            challenge_config["two_captcha_api_key"] = two_captcha_key
-
-        # Configuration email pour les codes de vérification
-        challenge_email = account_config.get("challenge_email")
-        if challenge_email:
-            challenge_config["challenge_email"] = challenge_email
-
-        # Configuration SMS pour les codes de vérification
-        challenge_sms = account_config.get("challenge_sms")
-        if challenge_sms:
-            challenge_config["challenge_sms"] = challenge_sms
-
-        return challenge_config if challenge_config else None
+        # Utiliser ConfigLoader pour extraire la configuration de challenge
+        return ConfigLoader.get_challenge_config(account_config)
 
     def fetch_followers_for_targets(self, user_service, targeted_accounts, n_needed, state, username):
         # Pour chaque targeted_account, récupérer le batch de followers nécessaire (avec cursor)
@@ -312,17 +301,17 @@ class EngagementService:
         return schedule, state
 
     def run_engagement(self):
-            print(json.dumps({
-                "status": "started",
-                "message": f"Démarrage de l'engagement pour {len(self.config)} comptes",
-                "timestamp": self.start_time.isoformat()
-            }))
-            for account_config in self.config:
-                result = self.run_account_engagement(account_config)
-                self.session_results.append(result)
-            final_report = self.generate_final_report()
-            print(json.dumps(final_report))
-            return final_report
+        print(json.dumps({
+            "status": "started",
+            "message": f"Démarrage de l'engagement pour {len(self.config)} comptes",
+            "timestamp": self.start_time.isoformat()
+        }))
+        for account_config in self.config:
+            result = self.run_account_engagement(account_config)
+            self.session_results.append(result)
+        final_report = self.generate_final_report()
+        print(json.dumps(final_report))
+        return final_report
 
     def run_account_engagement(self, account_config):
         username = account_config["username"]
@@ -458,7 +447,7 @@ class EngagementService:
 
                 except Exception as e:
                     self.log_event(username, "hashtag_error", hashtag=hashtag_name, error=str(e), social_campagne_id=scid)
-                    print(f"[ERROR] Hashtag: {hashtag_name}: {e}")
+                    print(f'{{"error": "Hashtag {hashtag_name}: {e}"}}')
             elif item["type"] == "target":
                 targeted_account = item["targeted_account"]
                 follower = item["follower"]
@@ -487,7 +476,7 @@ class EngagementService:
                         self.log_event(username, "like_follower_post", targeted_account=targeted_account, follower=follower_username, post_id=post.get("media_id"), status="success", social_campagne_id=scid)
                 except Exception as e:
                     self.log_event(username, "like_follower_post", targeted_account=targeted_account, follower=follower.get("username", str(follower)), error=str(e), status="error", social_campagne_id=scid)
-                    print(f"[ERROR] Like follower post: {e}")
+                    print(f'{{"error": "Like follower post: {e}"}}')
             state["like_index"] = i + 1
             self.save_state(username, state)
         self.log_event(username, "session_end", social_campagne_id=scid_global)
@@ -504,18 +493,20 @@ class EngagementService:
             "campagne_id": self.campagne_id
         }
 
+
 def main():
     parser = argparse.ArgumentParser(description="Service d'engagement Instagram unifié (comportement humain)")
     parser.add_argument("config_file", help="Chemin vers le fichier de configuration JSON")
     parser.add_argument("--campagne-id", help="ID de la campagne (optionnel)")
     args = parser.parse_args()
+
     try:
         service = EngagementService(args.config_file, args.campagne_id)
         result = service.run_engagement()
         sys.exit(0 if result.get("status") == "completed" else 1)
     except Exception as e:
-        print(json.dumps({"status": "error", "message": f"Erreur fatale: {str(e)}", "timestamp": datetime.now().isoformat()}))
-        sys.exit(1)
+        handle_error(f"Erreur fatale: {str(e)}")
+
 
 if __name__ == "__main__":
     main()
