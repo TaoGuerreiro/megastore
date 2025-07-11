@@ -1,11 +1,11 @@
-fetch_instagram_messages:
-  cron: '*/1 * * * *'  # Toutes les 1 minutes
-  class: FetchInstagramMessagesJob
-  queue: instagram
-  args: []
+# fetch_instagram_messages:
+#   cron: '*/1 * * * *'  # Toutes les 1 minutes
+#   class: FetchInstagramMessagesJob
+#   queue: instagram
+#   args: []
 
-instagram_engagement:
-  cron: '0 5 * * *'  # Tous les jours à 5h00 du matin
-  class: InstagramEngagementJob
-  queue: instagram
-  args: []
+# instagram_engagement:
+#   cron: '0 5 * * *'  # Tous les jours à 5h00 du matin
+#   class: InstagramEngagementJob
+#   queue: instagram
+#   args: []

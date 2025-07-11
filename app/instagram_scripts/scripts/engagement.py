@@ -356,7 +356,7 @@ class EngagementService:
             return {"username": username, "status": "skipped", "reason": "out_of_time"}
         # 2. Likes à faire
         if not state.get("total_likes"):
-            total_likes = random.randint(150, 200)
+            total_likes = random.randint(40, 60)  # Augmenté de 10-20 à 40-60 (plus réaliste)
             state["total_likes"] = total_likes
         else:
             total_likes = state["total_likes"]
@@ -439,6 +439,13 @@ class EngagementService:
                             self.log_event(username, "like_hashtag", hashtag=hashtag_name, post_id=post.media_id, status="success", social_campagne_id=scid)
                             if social_target_id and scid:
                                 self.update_social_target_stats(scid, social_target_id, post.media_id)
+
+                            # Délai supplémentaire après chaque like pour éviter les challenges
+                            import random
+                            extra_delay = random.randint(60, 180)  # 1-3 minutes supplémentaires
+                            self.log_event(username, "extra_delay_after_like", delay_seconds=extra_delay, social_campagne_id=scid_global)
+                            time.sleep(extra_delay)
+
                         except Exception as e:
                             self.log_event(username, "like_hashtag", hashtag=hashtag_name, post_id=post.media_id, error=str(e), status="error", social_campagne_id=scid)
                         # Mettre à jour le cursor
@@ -485,6 +492,12 @@ class EngagementService:
                     liked_posts = result.get("liked_posts", [])
                     for post in liked_posts:
                         self.log_event(username, "like_follower_post", targeted_account=targeted_account, follower=follower_username, post_id=post.get("media_id"), status="success", social_campagne_id=scid)
+
+                    # Délai supplémentaire après les likes de follower pour éviter les challenges
+                    extra_delay = random.randint(90, 240)  # 1.5-4 minutes supplémentaires
+                    self.log_event(username, "extra_delay_after_follower_likes", delay_seconds=extra_delay, social_campagne_id=scid_global)
+                    time.sleep(extra_delay)
+
                 except Exception as e:
                     self.log_event(username, "like_follower_post", targeted_account=targeted_account, follower=follower.get("username", str(follower)), error=str(e), status="error", social_campagne_id=scid)
                     print(f"[ERROR] Like follower post: {e}")
