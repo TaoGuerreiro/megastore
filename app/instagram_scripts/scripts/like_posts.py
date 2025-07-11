@@ -5,40 +5,42 @@ Script pour liker des posts Instagram
 
 import sys
 import argparse
-import json
 from pathlib import Path
 
 # Ajouter le répertoire parent au path pour les imports
 sys.path.append(str(Path(__file__).parent.parent))
 
 from core import InstagramClient, InstagramLogger, ConfigLoader, ErrorHandler
-from services.user_service import UserService
 from services.hashtag_service import HashtagService
+from services.user_service import UserService
 
 
 def main():
     """Fonction principale du script"""
     parser = argparse.ArgumentParser(description="Liker des posts Instagram")
 
-    # Arguments spécifiques aux likes
-    parser.add_argument("--mode", choices=["user", "hashtag", "random"], required=True,
-                       help="Mode de like (user, hashtag, random)")
-    parser.add_argument("--target", required=True,
-                       help="Cible: username pour user, hashtag pour hashtag, user_id ou media_ids pour random")
-    parser.add_argument("--count", type=int, default=5,
-                       help="Nombre de posts à liker (défaut: 5)")
-    parser.add_argument("--hashtag-action", choices=["recent", "top"], default="recent",
-                       help="Action pour les hashtags (défaut: recent)")
+    # Arguments de configuration (fichier de config en premier argument positionnel)
+    parser.add_argument("config_file", help="Fichier de configuration JSON")
+
+    # Arguments spécifiques
+    parser.add_argument("--hashtag", help="Hashtag pour liker des posts")
+    parser.add_argument("--user", help="Nom d'utilisateur pour liker ses posts")
+    parser.add_argument("--amount", type=int, default=10,
+                       help="Nombre de posts à liker (défaut: 10)")
     parser.add_argument("--cursor", help="Curseur pour la pagination")
 
-    # Arguments de configuration unifiés
-    ConfigLoader.add_common_args(parser)
+    # Arguments optionnels
+    parser.add_argument(
+        "--log-dir",
+        default="logs",
+        help="Répertoire de logs (défaut: logs)"
+    )
 
     args = parser.parse_args()
 
     try:
-        # Charger la configuration
-        config = ConfigLoader.load_config_from_args(args)
+        # Charger la configuration depuis le fichier
+        config = ConfigLoader.load_from_file(args.config_file)
         ConfigLoader.validate_config(config)
 
         # Extraire les paramètres
@@ -51,37 +53,35 @@ def main():
         logger = InstagramLogger(username, args.log_dir)
 
         # Initialiser les services
-        user_service = UserService(client, logger)
         hashtag_service = HashtagService(client, logger)
+        user_service = UserService(client, logger)
 
-        # Exécuter selon le mode
-        if args.mode == "user":
-            result = user_service.like_user_posts(args.target, args.count)
-        elif args.mode == "hashtag":
-            result = hashtag_service.like_hashtag_posts(
-                args.target, args.count, args.hashtag_action, args.cursor
-            )
-        elif args.mode == "random":
-            # Détecter automatiquement le type de target
-            if args.target.isdigit():
-                # C'est un user_id
-                target = args.target
-            elif args.target.startswith('['):
-                # C'est un JSON array
-                try:
-                    target = json.loads(args.target)
-                except json.JSONDecodeError:
-                    raise ValueError("Format JSON invalide pour target")
-            else:
-                raise ValueError("Pour le mode random, target doit être un user_id ou un JSON array")
-
-            result = user_service.like_random_posts(target, args.count)
+        # Déterminer l'action à effectuer
+        if args.hashtag:
+            # Liker des posts d'un hashtag
+            result = hashtag_service.like_hashtag_posts(args.hashtag, args.amount, args.cursor)
+            action_type = "hashtag"
+            target = args.hashtag
+        elif args.user:
+            # Liker des posts d'un utilisateur
+            result = user_service.like_user_posts(args.user, args.amount, args.cursor)
+            action_type = "user"
+            target = args.user
+        else:
+            raise ValueError("Vous devez spécifier --hashtag ou --user")
 
         # Ajouter l'horodatage
-        result["timestamp"] = client.get_current_timestamp()
+        result_with_timestamp = {
+            "timestamp": client.get_current_timestamp(),
+            "action_type": action_type,
+            "target": target,
+            "amount": args.amount,
+            "cursor": args.cursor,
+            "result": result
+        }
 
         # Afficher le résultat
-        client.print_json_result(result)
+        client.print_json_result(result_with_timestamp)
 
         # Afficher le résumé des logs sur stderr pour éviter de polluer stdout
         logger.print_summary_to_stderr()

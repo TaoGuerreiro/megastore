@@ -18,19 +18,26 @@ def main():
     """Fonction principale du script"""
     parser = argparse.ArgumentParser(description="Récupérer les messages Instagram")
 
+    # Arguments de configuration (fichier de config en premier argument positionnel)
+    parser.add_argument("config_file", help="Fichier de configuration JSON")
+
     # Arguments spécifiques aux messages
     parser.add_argument("recipient_id", help="ID de l'utilisateur destinataire")
     parser.add_argument("--hours-back", type=float, default=24,
                        help="Nombre d'heures en arrière pour filtrer (défaut: 24)")
 
-    # Arguments de configuration unifiés
-    ConfigLoader.add_common_args(parser)
+    # Arguments optionnels
+    parser.add_argument(
+        "--log-dir",
+        default="logs",
+        help="Répertoire de logs (défaut: logs)"
+    )
 
     args = parser.parse_args()
 
     try:
-        # Charger la configuration
-        config = ConfigLoader.load_config_from_args(args)
+        # Charger la configuration depuis le fichier
+        config = ConfigLoader.load_from_file(args.config_file)
         ConfigLoader.validate_config(config)
 
         # Extraire les paramètres

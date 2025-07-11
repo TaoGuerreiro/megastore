@@ -17,17 +17,24 @@ def main():
     """Fonction principale du script"""
     parser = argparse.ArgumentParser(description="Récupérer l'ID d'un utilisateur Instagram")
 
+    # Arguments de configuration (fichier de config en premier argument positionnel)
+    parser.add_argument("config_file", help="Fichier de configuration JSON")
+
     # Arguments spécifiques
     parser.add_argument("handle", help="Nom d'utilisateur cible")
 
-    # Arguments de configuration unifiés
-    ConfigLoader.add_common_args(parser)
+    # Arguments optionnels
+    parser.add_argument(
+        "--log-dir",
+        default="logs",
+        help="Répertoire de logs (défaut: logs)"
+    )
 
     args = parser.parse_args()
 
     try:
-        # Charger la configuration
-        config = ConfigLoader.load_config_from_args(args)
+        # Charger la configuration depuis le fichier
+        config = ConfigLoader.load_from_file(args.config_file)
         ConfigLoader.validate_config(config)
 
         # Extraire les paramètres

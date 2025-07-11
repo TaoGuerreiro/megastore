@@ -495,17 +495,38 @@ class EngagementService:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Service d'engagement Instagram unifié (comportement humain)")
-    parser.add_argument("config_file", help="Chemin vers le fichier de configuration JSON")
-    parser.add_argument("--campagne-id", help="ID de la campagne (optionnel)")
+    """Fonction principale du script"""
+    parser = argparse.ArgumentParser(description="Script d'engagement Instagram unifié")
+
+    # Arguments de configuration (fichier de config en premier argument positionnel)
+    parser.add_argument("config_file", help="Fichier de configuration JSON")
+
+    # Arguments optionnels
+    parser.add_argument(
+        "--campagne-id",
+        type=int,
+        help="ID de la campagne sociale"
+    )
+    parser.add_argument(
+        "--log-dir",
+        default="logs",
+        help="Répertoire de logs (défaut: logs)"
+    )
+
     args = parser.parse_args()
 
     try:
-        service = EngagementService(args.config_file, args.campagne_id)
-        result = service.run_engagement()
-        sys.exit(0 if result.get("status") == "completed" else 1)
+        # Initialiser le service d'engagement
+        engagement_service = EngagementService(args.config_file, args.campagne_id)
+
+        # Exécuter l'engagement
+        result = engagement_service.run_engagement()
+
+        # Afficher le résultat final
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+
     except Exception as e:
-        handle_error(f"Erreur fatale: {str(e)}")
+        ErrorHandler.handle_error(str(e))
 
 
 if __name__ == "__main__":

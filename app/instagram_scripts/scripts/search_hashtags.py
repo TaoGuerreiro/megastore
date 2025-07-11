@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 """
-Script pour la recherche de hashtags Instagram
+Script pour rechercher des hashtags Instagram
 """
 
 import sys
@@ -16,25 +16,28 @@ from services.hashtag_service import HashtagService
 
 def main():
     """Fonction principale du script"""
-    parser = argparse.ArgumentParser(description="Rechercher des informations sur un hashtag Instagram")
+    parser = argparse.ArgumentParser(description="Rechercher des hashtags Instagram")
 
-    # Arguments spécifiques au hashtag
-    parser.add_argument("hashtag_name", help="Nom du hashtag (sans #)")
-    parser.add_argument("--action", default="info",
-                       choices=["info", "recent", "top", "recent_a1", "top_a1", "related"],
-                       help="Type d'action (défaut: info)")
-    parser.add_argument("--amount", type=int, default=20,
-                       help="Nombre de posts à récupérer (défaut: 20)")
-    parser.add_argument("--cursor", help="Curseur pour la pagination")
+    # Arguments de configuration (fichier de config en premier argument positionnel)
+    parser.add_argument("config_file", help="Fichier de configuration JSON")
 
-    # Arguments de configuration unifiés
-    ConfigLoader.add_common_args(parser)
+    # Arguments spécifiques aux hashtags
+    parser.add_argument("query", help="Requête de recherche de hashtag")
+    parser.add_argument("--limit", type=int, default=20,
+                       help="Nombre maximum de résultats (défaut: 20)")
+
+    # Arguments optionnels
+    parser.add_argument(
+        "--log-dir",
+        default="logs",
+        help="Répertoire de logs (défaut: logs)"
+    )
 
     args = parser.parse_args()
 
     try:
-        # Charger la configuration
-        config = ConfigLoader.load_config_from_args(args)
+        # Charger la configuration depuis le fichier
+        config = ConfigLoader.load_from_file(args.config_file)
         ConfigLoader.validate_config(config)
 
         # Extraire les paramètres
@@ -49,24 +52,20 @@ def main():
         # Initialiser le service hashtag
         hashtag_service = HashtagService(client, logger)
 
-        # Exécuter l'action demandée
-        if args.action == "info":
-            result = hashtag_service.get_hashtag_info(args.hashtag_name)
-        elif args.action == "related":
-            result = hashtag_service.get_related_hashtags(args.hashtag_name)
-        else:
-            result = hashtag_service.get_hashtag_posts(
-                args.hashtag_name,
-                args.action,
-                args.amount,
-                args.cursor
-            )
+        # Rechercher les hashtags
+        result = hashtag_service.search_hashtags(args.query, args.limit)
 
         # Ajouter l'horodatage
-        result["timestamp"] = client.get_current_timestamp()
+        result_with_timestamp = {
+            "timestamp": client.get_current_timestamp(),
+            "query": args.query,
+            "limit": args.limit,
+            "hashtags_count": len(result),
+            "hashtags": result
+        }
 
         # Afficher le résultat
-        client.print_json_result(result)
+        client.print_json_result(result_with_timestamp)
 
         # Afficher le résumé des logs sur stderr pour éviter de polluer stdout
         logger.print_summary_to_stderr()

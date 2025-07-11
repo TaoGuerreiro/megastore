@@ -22,25 +22,38 @@ module Instagram
     end
 
     def self.get_challenge_config
-      # Configuration de challenge pour la production
-      if Rails.env.production?
-        {
-          "email_config" => {
-            "email" => Rails.application.credentials.instagram&.email,
-            "password" => Rails.application.credentials.instagram&.email_password,
-            "imap_server" => "imap.gmail.com"
-          }
-        }
-      else
-        # Configuration de challenge pour le développement
-        {
-          "email_config" => {
-            "email" => ENV.fetch("INSTAGRAM_EMAIL", nil),
-            "password" => ENV.fetch("INSTAGRAM_EMAIL_PASSWORD", nil),
-            "imap_server" => "imap.gmail.com"
-          }
+      challenge_config = {}
+
+      # Configuration 2captcha
+      two_captcha_key = Rails.application.credentials.instagram&.two_captcha_api_key
+
+      challenge_config["two_captcha_api_key"] = two_captcha_key if two_captcha_key.present?
+
+      # Configuration email
+      email_config = {
+        "email" => Rails.application.credentials.instagram&.email,
+        "password" => Rails.application.credentials.instagram&.email_password,
+        "imap_server" => "imap.gmail.com"
+      }
+
+      # N'ajouter la config email que si email et password sont présents
+      if email_config["email"].present? && email_config["password"].present?
+        challenge_config["challenge_email"] = email_config
+      end
+
+      # Configuration SMS (optionnelle)
+      sms_phone = Rails.application.credentials.instagram&.sms_phone
+
+      if sms_phone.present?
+        challenge_config["challenge_sms"] = {
+          "phone_number" => sms_phone,
+          "provider" => ENV.fetch("CHALLENGE_SMS_PROVIDER", "twilio"),
+          "account_sid" => ENV.fetch("CHALLENGE_SMS_ACCOUNT_SID", nil),
+          "auth_token" => ENV.fetch("CHALLENGE_SMS_AUTH_TOKEN", nil)
         }
       end
+
+      challenge_config
     end
 
     def self.execute_script_with_config(script_name, config_file_path, *args)

@@ -12,8 +12,11 @@ module Instagram
       config_file = create_temp_config(accounts_config)
 
       begin
-        # Lancer le script Python avec la nouvelle architecture
-        result = execute_engagement_script(config_file.path, campagne_id)
+        # Utiliser la méthode unifiée de BaseService
+        args = [config_file.path]
+        args << "--campagne-id" << campagne_id.to_s if campagne_id.present?
+
+        result = execute_script("engagement.py", *args)
 
         # Parser et retourner le résultat
         parse_result(result)
@@ -112,51 +115,22 @@ module Instagram
 
     private
 
-    def self.execute_engagement_script(config_file_path, campagne_id = nil)
-      # Utiliser le nouveau script d'engagement unifié
-      script_path = Rails.root.join("app/instagram_scripts/scripts/engagement.py").to_s
-
-      cmd = [python_executable, script_path, config_file_path]
-      cmd << "--campagne-id" << campagne_id.to_s if campagne_id.present?
-
-      Rails.logger.info("Instagram::EngagementService: Exécution du script d'engagement unifié")
-
-      stdout, stderr, status = Open3.capture3(*cmd)
-
-      unless status.success?
-        Rails.logger.error("Instagram::EngagementService: Erreur lors de l'exécution: #{stderr}")
-        raise "Erreur lors de l'exécution du script d'engagement: #{stderr}"
+    def self.create_temp_config(accounts_config)
+      # Ajouter la configuration de challenge à chaque compte
+      accounts_with_challenge = accounts_config.map do |account|
+        account.merge("challenge_config" => ChallengeConfigurable.get_challenge_config)
       end
 
-      stdout
-    end
-
-    def self.create_temp_config(accounts_config)
       config_file = Tempfile.new(["engagement_config", ".json"])
-      config_file.write(accounts_config.to_json)
+      config_file.write(accounts_with_challenge.to_json)
       config_file.rewind
       config_file
     end
 
-    def self.parse_result(output)
-      # Le script Python affiche plusieurs lignes JSON (logs + rapport final)
-      lines = output.strip.split("\n")
-
-      # Prendre la dernière ligne qui contient le rapport final
-      last_line = lines.last
-
-      begin
-        JSON.parse(last_line)
-      rescue JSON::ParserError
-        # Si le parsing échoue, essayer de parser tout le contenu
-        begin
-          JSON.parse(output)
-        rescue JSON::ParserError => e
-          Rails.logger.error("Instagram::EngagementService: Erreur de parsing JSON: #{e}")
-          Rails.logger.error("Instagram::EngagementService: Sortie brute: #{output}")
-          raise "Erreur de parsing JSON: #{e}"
-        end
-      end
+    def self.parse_result(result)
+      # Le script Python retourne maintenant directement un hash JSON
+      # Plus besoin de parser plusieurs lignes
+      result
     end
 
     def self.update_cursors_from_result(result, user, campagne = nil)

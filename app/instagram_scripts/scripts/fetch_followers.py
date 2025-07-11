@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 """
-Script pour récupérer les followers d'un utilisateur Instagram
+Script pour récupérer les followers Instagram
 """
 
 import sys
@@ -16,22 +16,29 @@ from services.user_service import UserService
 
 def main():
     """Fonction principale du script"""
-    parser = argparse.ArgumentParser(description="Récupérer les followers d'un utilisateur Instagram")
+    parser = argparse.ArgumentParser(description="Récupérer les followers Instagram")
 
-    # Arguments spécifiques aux followers
-    parser.add_argument("target_username", help="Nom d'utilisateur cible")
-    parser.add_argument("--limit", type=int, help="Nombre de followers à récupérer")
-    parser.add_argument("--offset", type=int, default=0, help="Offset pour la pagination (défaut: 0)")
+    # Arguments de configuration (fichier de config en premier argument positionnel)
+    parser.add_argument("config_file", help="Fichier de configuration JSON")
+
+    # Arguments spécifiques
+    parser.add_argument("target_user", help="Nom d'utilisateur cible")
+    parser.add_argument("--limit", type=int, default=100,
+                       help="Nombre maximum de followers à récupérer (défaut: 100)")
     parser.add_argument("--cursor", help="Curseur pour la pagination")
 
-    # Arguments de configuration unifiés
-    ConfigLoader.add_common_args(parser)
+    # Arguments optionnels
+    parser.add_argument(
+        "--log-dir",
+        default="logs",
+        help="Répertoire de logs (défaut: logs)"
+    )
 
     args = parser.parse_args()
 
     try:
-        # Charger la configuration
-        config = ConfigLoader.load_config_from_args(args)
+        # Charger la configuration depuis le fichier
+        config = ConfigLoader.load_from_file(args.config_file)
         ConfigLoader.validate_config(config)
 
         # Extraire les paramètres
@@ -47,18 +54,20 @@ def main():
         user_service = UserService(client, logger)
 
         # Récupérer les followers
-        result = user_service.get_user_followers(
-            args.target_username,
-            args.limit,
-            args.offset,
-            args.cursor
-        )
+        result = user_service.get_followers(args.target_user, args.limit, args.cursor)
 
         # Ajouter l'horodatage
-        result["timestamp"] = client.get_current_timestamp()
+        result_with_timestamp = {
+            "timestamp": client.get_current_timestamp(),
+            "target_user": args.target_user,
+            "limit": args.limit,
+            "cursor": args.cursor,
+            "followers_count": len(result.get("followers", [])),
+            "result": result
+        }
 
         # Afficher le résultat
-        client.print_json_result(result)
+        client.print_json_result(result_with_timestamp)
 
         # Afficher le résumé des logs sur stderr pour éviter de polluer stdout
         logger.print_summary_to_stderr()
