@@ -1,6 +1,51 @@
+style
+  | .bg-light {
+  |   background-color: #{'#F7FFF5 !important' if params[:library]};
+  | }
+  | .text-primary {
+  |   color: #{'#71D1AF !important' if params[:library]};
+  | }
+
+
 - filters = Current.store.filters
 .bg-light.md:pt-24 class="min-h-[calc(100vh-10rem)]"
   main.mx-auto.max-w-2xl.px-4.lg:max-w-7xl.lg:px-8
+    .
+      - if params[:library]
+        .bg-center.bg-cover.bg-no-repeat.bg-center.h-12.w-1/4.flex.items-center.justify-end.text-light.text-sm.font-bold.mb-6[
+          style="background-image: url(#{asset_path('ttt/green_dot_fade.png')})"]
+          span.pr-3 Espace Librairie
+        .text-primary.bg-white.bg-opacity-80.rounded-xl.shadow-md.p-6.mb-8
+          h2.text-xl.font-bold.mb-2 Cette zone du site est réservée aux libraires
+
+          p.mb-4.text-content
+            | Retrouvez ici toutes les informations utiles pour les professionnels du livre.
+
+          .mb-4
+            h3.font-semibold.mb-1 Tarifs dégressifs :
+            ul.list-disc.list-inside.text-content
+              li 1 livre = 0 %
+              li 2 livres = 10 %
+              li 3 livres = 20 %
+              li 4 livres = 30 %
+              li 5 livres ou plus = 40 %
+
+          .mb-4
+            h3.font-semibold.mb-1 Facturation :
+            p.text-content
+              | Une facture vous sera envoyée par mail au moment de la commande.
+
+          .mb-4
+            h3.font-semibold.mb-1 Besoin d’informations ?
+            p.text-content
+              | Contactez-nous à
+              a.text-contrast.font-semibold.ml-1 href="mailto:turbotimetravel@gmail.com" turbotimetravel@gmail.com
+
+          .mb-2
+            h3.font-semibold.mb-1 Paiement différé :
+            p.text-content
+              | Si vous souhaitez payer en fin de mois ou par virement, contactez-nous par mail. Nous traiterons votre demande dans les plus brefs délais.
+
     .pb-24.pt-12.lg:grid.lg:grid-cols-3.lg:gap-x-8.xl:grid-cols-4 class="#{'xl:!grid-cols-3' unless filters} min-h-[calc(100vh-10rem)]"
       - if filters
         = render "filters"

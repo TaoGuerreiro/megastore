@@ -25,7 +25,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'ttt-logo-bg': "url('ttt/fond.png')",
+        'ttt-logo-bg': "url('ttt/home/fond.png')",
       },
       transitionProperty: {
         'max-height': 'max-height'

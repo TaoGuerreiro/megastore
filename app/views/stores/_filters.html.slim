@@ -11,19 +11,27 @@ aside
           = simple_form_for :filters, url: store_path, method: :get, html: {data: { turbo_stream: true,  controller: "autosave"}} do |f|
             = f.input :query, label: "Recherche", input_html: { value: @query, data: { action: "keyup->autosave#submit" }}
             = f.input :sort, collection: ["Prix croissant", "Prix décroissant", "A-Z", "Nouveautés"], label: false, input_html: {data: { action: "change->autosave#submit" }, id: "sort", class: " rounded border-content text-primary focus:ring-primary"}, wrapper_html: { class: "pb-3 mb-0 flex items-center"}, selected: @default_sort
-            p.text-sm.text-midgray
-              | Prix
-            .flex.gap-3
-              .relative.w-full
-                = f.input :min_price, label: false, input_html: { value: number_with_precision(@min_price, precision: 2), data: { action: "change->autosave#submit" }}
-                span.text-midgray.text-xs.absolute.right-3.top-3
-                  | €
-              .relative.w-full
-                = f.input :max_price, label: false, input_html: { value: number_with_precision(@max_price, precision: 2), data: { action: "change->autosave#submit" }}
-                span.text-midgray.text-xs.absolute.right-3.top-3
-                  | €
+            - unless Current.store.slug == "ttt"
+              p.text-sm.text-midgray
+                | Prix
+              .flex.gap-3
+                .relative.w-full
+                  = f.input :min_price, label: false, input_html: { value: number_with_precision(@min_price, precision: 2), data: { action: "change->autosave#submit" }}
+                  span.text-midgray.text-xs.absolute.right-3.top-3
+                    | €
+                .relative.w-full
+                  = f.input :max_price, label: false, input_html: { value: number_with_precision(@max_price, precision: 2), data: { action: "change->autosave#submit" }}
+                  span.text-midgray.text-xs.absolute.right-3.top-3
+                    | €
 
 
             - Current.store.categories.each_with_index do |category, index|
               .flex.items-center
                 = f.input category.name, as: :boolean, boolean_style: :nested, label: t(category.name), input_html: {data: { action: "change->autosave#submit" },checked: session[:filters][category.name].to_i.positive?, id: "category-#{index}", class: "h-6 w-4 checked:!bg-primary rounded border-content text-primary focus:ring-primary"}, wrapper_html: { class: "pb-3 mb-0 flex items-center"}, label_html: {class: 'top-1 left-6 text-sm text-midgray'}
+
+            - unless params[:library]
+              = link_to store_path(library: true) do
+                .bg-center.bg-cover.bg-no-repeat.bg-center.h-12.w-full.flex.items-center.justify-end.text-light.text-sm.font-bold[
+                  style="background-image: url(#{asset_path('ttt/green_dot_fade.png')})"
+                  class="transition-all duration-300 cursor-pointer hover:-translate-x-10"]
+                    span.pr-3 Acces Librairie
