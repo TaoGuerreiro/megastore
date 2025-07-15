@@ -1,0 +1,228 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Script pour lancer tous les tests Instagram (RSpec + Python)
+# Usage: bin/test_instagram [options]
+
+require "optparse"
+require "fileutils"
+
+class InstagramTestRunner
+  def initialize
+    @options = {
+      rspec: true,
+      python: true,
+      integration: true,
+      verbose: false,
+      format: "documentation"
+    }
+    parse_options
+  end
+
+  def run
+    puts "🧪 Lancement des tests Instagram..."
+    puts "=" * 50
+
+    results = {}
+
+    # Tests RSpec
+    if @options[:rspec]
+      results[:rspec] = run_rspec_tests
+    end
+
+    # Tests Python
+    if @options[:python]
+      results[:python] = run_python_tests
+    end
+
+    # Tests d'intégration
+    if @options[:integration]
+      results[:integration] = run_integration_tests
+    end
+
+    # Résumé final
+    print_summary(results)
+  end
+
+  private
+
+  def parse_options
+    OptionParser.new do |opts|
+      opts.banner = "Usage: bin/test_instagram [options]"
+
+      opts.on("--rspec-only", "Lancer uniquement les tests RSpec") do
+        @options[:rspec] = true
+        @options[:python] = false
+        @options[:integration] = false
+      end
+
+      opts.on("--python-only", "Lancer uniquement les tests Python") do
+        @options[:rspec] = false
+        @options[:python] = true
+        @options[:integration] = false
+      end
+
+      opts.on("--integration-only", "Lancer uniquement les tests d'intégration") do
+        @options[:rspec] = false
+        @options[:python] = false
+        @options[:integration] = true
+      end
+
+      opts.on("--skip-rspec", "Ignorer les tests RSpec") do
+        @options[:rspec] = false
+      end
+
+      opts.on("--skip-python", "Ignorer les tests Python") do
+        @options[:python] = false
+      end
+
+      opts.on("--skip-integration", "Ignorer les tests d'intégration") do
+        @options[:integration] = false
+      end
+
+      opts.on("-v", "--verbose", "Mode verbeux") do
+        @options[:verbose] = true
+      end
+
+      opts.on("-f", "--format FORMAT", "Format de sortie RSpec (documentation, progress, json)") do |format|
+        @options[:format] = format
+      end
+
+      opts.on("-h", "--help", "Afficher cette aide") do
+        puts opts
+        exit
+      end
+    end.parse!
+  end
+
+  def run_rspec_tests
+    puts "\n📋 Tests RSpec..."
+    puts "-" * 30
+
+    rspec_files = [
+      "spec/services/instagram/",
+      "spec/models/social_campagne_spec.rb",
+      "spec/models/social_target_spec.rb"
+    ]
+
+    cmd = [
+      "bundle", "exec", "rspec",
+      "--format", @options[:format],
+      "--color"
+    ]
+
+    if @options[:verbose]
+      cmd << "--format" << "documentation"
+    end
+
+    cmd.concat(rspec_files)
+
+    puts "Commande: #{cmd.join(' ')}" if @options[:verbose]
+
+    result = system(*cmd)
+    { success: result, type: "RSpec" }
+  end
+
+  def run_python_tests
+    puts "\n🐍 Tests Python..."
+    puts "-" * 30
+
+    # Essayer d'abord le script simplifié
+    python_test_file = Rails.root.join("app/instagram_scripts/test_python_scripts.py")
+
+    unless File.exist?(python_test_file)
+      # Fallback vers l'ancien script
+      python_test_file = Rails.root.join("app/instagram_scripts/tests/test_scripts.py")
+
+      unless File.exist?(python_test_file)
+        puts "⚠️  Aucun fichier de tests Python trouvé"
+        return { success: false, type: "Python", error: "Fichiers non trouvés" }
+      end
+    end
+
+    # Déterminer l'exécutable Python
+    python_executable = if Rails.env.production?
+                          "python3"
+                        elsif File.exist?(Rails.root.join("app/instagram_scripts/venv/bin/python"))
+                          "app/instagram_scripts/venv/bin/python"
+                        else
+                          "python3"
+                        end
+
+    cmd = [python_executable, python_test_file.to_s]
+
+    if @options[:verbose]
+      cmd << "--verbose"
+    end
+
+    puts "Commande: #{cmd.join(' ')}" if @options[:verbose]
+
+    result = system(*cmd)
+    { success: result, type: "Python" }
+  end
+
+  def run_integration_tests
+    puts "\n🔗 Tests d'intégration..."
+    puts "-" * 30
+
+    integration_file = "spec/services/instagram/python_scripts_integration_spec.rb"
+
+    unless File.exist?(integration_file)
+      puts "⚠️  Fichier de tests d'intégration non trouvé: #{integration_file}"
+      return { success: false, type: "Intégration", error: "Fichier non trouvé" }
+    end
+
+    cmd = [
+      "bundle", "exec", "rspec",
+      integration_file,
+      "--format", @options[:format],
+      "--color"
+    ]
+
+    if @options[:verbose]
+      cmd << "--format" << "documentation"
+    end
+
+    puts "Commande: #{cmd.join(' ')}" if @options[:verbose]
+
+    result = system(*cmd)
+    { success: result, type: "Intégration" }
+  end
+
+  def print_summary(results)
+    puts "\n" + "=" * 50
+    puts "📊 RÉSUMÉ DES TESTS"
+    puts "=" * 50
+
+    total_tests = results.size
+    successful_tests = results.values.count { |r| r[:success] }
+    failed_tests = total_tests - successful_tests
+
+    results.each do |type, result|
+      status = result[:success] ? "✅" : "❌"
+      error_msg = result[:error] ? " (#{result[:error]})" : ""
+      puts "#{status} #{result[:type]}#{error_msg}"
+    end
+
+    puts "\n📈 Statistiques:"
+    puts "   Total: #{total_tests}"
+    puts "   Réussis: #{successful_tests}"
+    puts "   Échoués: #{failed_tests}"
+
+    if failed_tests > 0
+      puts "\n❌ Certains tests ont échoué!"
+      exit 1
+    else
+      puts "\n✅ Tous les tests sont passés avec succès!"
+    end
+  end
+end
+
+# Point d'entrée
+if __FILE__ == $PROGRAM_NAME
+  # Charger l'environnement Rails
+  require_relative "../config/environment"
+
+  runner = InstagramTestRunner.new
+  runner.run
+end

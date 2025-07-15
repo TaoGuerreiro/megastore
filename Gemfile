@@ -65,6 +65,7 @@ group :test do
   gem "vcr"
   gem "webmock"
   gem "simplecov"
+  gem "shoulda-matchers"
 end
 
 # ---

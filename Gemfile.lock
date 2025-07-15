@@ -385,6 +385,8 @@ GEM
     rubyntlm (0.6.3)
     rufus-scheduler (3.9.2)
       fugit (~> 1.1, >= 1.11.1)
+    shoulda-matchers (6.5.0)
+      activesupport (>= 5.2.0)
     sidekiq (7.2.4)
       concurrent-ruby (< 2)
       connection_pool (>= 2.3.0)
@@ -506,6 +508,7 @@ DEPENDENCIES
   redis (~> 4.0)
   rspec-rails
   rubocop-rails
+  shoulda-matchers
   sidekiq
   sidekiq-failures (~> 1.0)
   sidekiq-scheduler

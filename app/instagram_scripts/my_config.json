@@ -1,0 +1,39 @@
+{
+  "username": "votre_username_instagram",
+  "password": "votre_mot_de_passe_instagram",
+  "social_campagne_id": 123,
+  "hashtags": [
+    {
+      "hashtag": "fashion",
+      "social_target_id": 456
+    },
+    {
+      "hashtag": "style",
+      "social_target_id": 789
+    }
+  ],
+  "targeted_accounts": [
+    {
+      "account": "influenceur1",
+      "social_target_id": 101
+    },
+    {
+      "account": "influenceur2",
+      "social_target_id": 102
+    }
+  ],
+  "challenge_config": {
+    "two_captcha_api_key": "votre_cle_2captcha",
+    "challenge_email": {
+      "email": "votre_email@gmail.com",
+      "password": "mot_de_passe_email",
+      "imap_server": "imap.gmail.com"
+    },
+    "challenge_sms": {
+      "phone_number": "+33123456789",
+      "provider": "twilio",
+      "account_sid": "votre_account_sid",
+      "auth_token": "votre_auth_token"
+    }
+  }
+}

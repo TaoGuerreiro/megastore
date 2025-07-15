@@ -67,8 +67,11 @@ module Instagram
 
     # Méthode pour récupérer la configuration actuelle d'un utilisateur
     def self.get_user_config(user)
-      hashtags = user.social_targets.where(kind: "hashtag")
-      targeted_accounts = user.social_targets.where(kind: "account")
+      campagne = user.social_campagne
+      return { "hashtags" => [], "targeted_accounts" => [] } unless campagne
+
+      hashtags = campagne.social_targets.where(kind: "hashtag")
+      targeted_accounts = campagne.social_targets.where(kind: "account")
 
       {
         "hashtags" => hashtags.map do |st|
@@ -92,23 +95,25 @@ module Instagram
 
     # Méthode pour créer ou mettre à jour les SocialTargets d'un utilisateur
     def self.update_user_targets(user, hashtags: [], targeted_accounts: [])
+      campagne = user.social_campagne || user.create_social_campagne!(status: "active", name: "Campagne principale")
+
       # Mettre à jour les hashtags
       hashtags.each do |hashtag|
         if hashtag.is_a?(Hash)
-          st = user.social_targets.find_or_create_by(kind: "hashtag", name: hashtag["hashtag"])
+          st = campagne.social_targets.find_or_create_by(kind: "hashtag", name: hashtag["hashtag"])
           st.update(cursor: hashtag["cursor"]) if hashtag["cursor"]
         else
-          user.social_targets.find_or_create_by(kind: "hashtag", name: hashtag)
+          campagne.social_targets.find_or_create_by(kind: "hashtag", name: hashtag)
         end
       end
 
       # Mettre à jour les comptes ciblés
       targeted_accounts.each do |account|
         if account.is_a?(Hash)
-          st = user.social_targets.find_or_create_by(kind: "account", name: account["account"])
+          st = campagne.social_targets.find_or_create_by(kind: "account", name: account["account"])
           st.update(cursor: account["cursor"]) if account["cursor"]
         else
-          user.social_targets.find_or_create_by(kind: "account", name: account)
+          campagne.social_targets.find_or_create_by(kind: "account", name: account)
         end
       end
     end

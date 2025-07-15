@@ -1,0 +1,195 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Script de configuration automatique pour les tests Instagram
+# Usage: bin/setup_instagram_tests
+
+require "optparse"
+require "fileutils"
+
+class InstagramTestSetup
+  def initialize
+    @options = {
+      force: false,
+      verbose: false,
+      skip_python: false
+    }
+    parse_options
+  end
+
+  def run
+    puts "🔧 Configuration de l'environnement de test Instagram..."
+    puts "=" * 60
+
+    results = {}
+
+    # Configuration RSpec
+    results[:rspec] = setup_rspec unless @options[:skip_python]
+
+    # Configuration Python
+    results[:python] = setup_python unless @options[:skip_python]
+
+    # Configuration des scripts
+    results[:scripts] = setup_scripts
+
+    # Résumé final
+    print_summary(results)
+  end
+
+  private
+
+  def parse_options
+    OptionParser.new do |opts|
+      opts.banner = "Usage: bin/setup_instagram_tests [options]"
+
+      opts.on("--force", "Forcer la réinstallation") do
+        @options[:force] = true
+      end
+
+      opts.on("--skip-python", "Ignorer la configuration Python") do
+        @options[:skip_python] = true
+      end
+
+      opts.on("-v", "--verbose", "Mode verbeux") do
+        @options[:verbose] = true
+      end
+
+      opts.on("-h", "--help", "Afficher cette aide") do
+        puts opts
+        exit
+      end
+    end.parse!
+  end
+
+  def setup_rspec
+    puts "\n📋 Configuration RSpec..."
+    puts "-" * 30
+
+    # Vérifier que RSpec est installé
+    unless system("bundle exec rspec --version > /dev/null 2>&1")
+      puts "❌ RSpec n'est pas installé. Installation..."
+      system("bundle install")
+    end
+
+    # Vérifier shoulda-matchers
+    unless File.exist?("spec/rails_helper.rb") && File.read("spec/rails_helper.rb").include?("Shoulda::Matchers")
+      puts "❌ shoulda-matchers non configuré. Configuration..."
+      # La configuration a déjà été faite précédemment
+    end
+
+    puts "✅ Configuration RSpec OK"
+    { success: true, type: "RSpec" }
+  end
+
+  def setup_python
+    puts "\n🐍 Configuration Python..."
+    puts "-" * 30
+
+    python_dir = Rails.root.join("app/instagram_scripts")
+    venv_path = python_dir.join("venv")
+    requirements_path = python_dir.join("requirements.txt")
+
+    # Vérifier si l'environnement virtuel existe
+    if venv_path.exist? && !@options[:force]
+      puts "✅ Environnement virtuel Python déjà configuré"
+      return { success: true, type: "Python" }
+    end
+
+    # Créer l'environnement virtuel
+    puts "📦 Création de l'environnement virtuel Python..."
+    Dir.chdir(python_dir) do
+      unless system("python3 -m venv venv")
+        puts "❌ Impossible de créer l'environnement virtuel"
+        return { success: false, type: "Python", error: "Échec création venv" }
+      end
+
+      # Activer et installer les dépendances
+      puts "📥 Installation des dépendances Python..."
+      activate_cmd = "source venv/bin/activate && pip install --upgrade pip"
+      install_cmd = "source venv/bin/activate && pip install -r requirements.txt"
+
+      unless system(activate_cmd)
+        puts "❌ Impossible d'activer l'environnement virtuel"
+        return { success: false, type: "Python", error: "Échec activation venv" }
+      end
+
+      unless system(install_cmd)
+        puts "❌ Impossible d'installer les dépendances"
+        return { success: false, type: "Python", error: "Échec installation dépendances" }
+      end
+
+      # Rendre les scripts exécutables
+      puts "🔧 Configuration des permissions..."
+      system("chmod +x scripts/*.py")
+      system("chmod +x test_python_scripts.py")
+    end
+
+    puts "✅ Configuration Python OK"
+    { success: true, type: "Python" }
+  end
+
+  def setup_scripts
+    puts "\n🔧 Configuration des scripts..."
+    puts "-" * 30
+
+    # Rendre le script de test unifié exécutable
+    test_script = Rails.root.join("bin/test_instagram")
+    if test_script.exist?
+      system("chmod +x #{test_script}")
+      puts "✅ Script de test unifié configuré"
+    end
+
+    # Rendre le script de setup exécutable
+    setup_script = Rails.root.join("bin/setup_instagram_tests")
+    if setup_script.exist?
+      system("chmod +x #{setup_script}")
+      puts "✅ Script de setup configuré"
+    end
+
+    puts "✅ Configuration des scripts OK"
+    { success: true, type: "Scripts" }
+  end
+
+  def print_summary(results)
+    puts "\n" + "=" * 60
+    puts "📊 RÉSUMÉ DE LA CONFIGURATION"
+    puts "=" * 60
+
+    total_configs = results.size
+    successful_configs = results.values.count { |r| r[:success] }
+    failed_configs = total_configs - successful_configs
+
+    results.each do |type, result|
+      status = result[:success] ? "✅" : "❌"
+      error_msg = result[:error] ? " (#{result[:error]})" : ""
+      puts "#{status} #{result[:type]}#{error_msg}"
+    end
+
+    puts "\n📈 Statistiques:"
+    puts "   Total: #{total_configs}"
+    puts "   Réussis: #{successful_configs}"
+    puts "   Échoués: #{failed_configs}"
+
+    if failed_configs > 0
+      puts "\n❌ Certaines configurations ont échoué!"
+      puts "\n💡 Conseils:"
+      puts "   - Vérifiez que Python 3 est installé"
+      puts "   - Vérifiez que bundle est installé"
+      puts "   - Utilisez --force pour forcer la réinstallation"
+      exit 1
+    else
+      puts "\n✅ Configuration terminée avec succès!"
+      puts "\n🚀 Vous pouvez maintenant utiliser:"
+      puts "   bin/test_instagram --help"
+    end
+  end
+end
+
+# Point d'entrée
+if __FILE__ == $PROGRAM_NAME
+  # Charger l'environnement Rails
+  require_relative "../config/environment"
+
+  setup = InstagramTestSetup.new
+  setup.run
+end

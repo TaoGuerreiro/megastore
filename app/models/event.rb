@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Event < ApplicationRecord
-  include Enumerize
+  extend Enumerize
   include PgSearch::Model
 
   enumerize :status, in: %i[pending processed failed], default: :pending
