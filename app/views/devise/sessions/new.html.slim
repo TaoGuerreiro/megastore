@@ -1,12 +1,26 @@
-.max-w-5xl.mx-auto class="min-h-[calc(100vh-12rem)] pt-24 px-8"
-  h2.my-8.text-contrast Connexion
+/!
+/  Refactor de la page de connexion pour harmonisation UI avec la page de reset password
+/!
 
-  = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-    div class="form-inputs"
-      = f.input :email, required: false, autofocus: true, input_html: { autocomplete: "email" }
-      = f.input :password, required: false, input_html: { autocomplete: "current-password" }
-      = f.input :remember_me, as: :boolean, input_html: {class: "w-5 h-5 m-0 p-0 flex"}, wrapper_html: {class: "flex items-center"}, label_html: {class: "top-0 left-6"} if devise_mapping.rememberable?
-
-    div class="form-actions"
-      = f.button :submit, "Log in"
-  = render "devise/shared/links"
+section.flex.items-center.justify-center.min-h-screen.bg-light
+  .w-full.max-w-md.bg-white.bg-opacity-90.rounded-xl.shadow-lg.p-8
+    h2.text-2xl.font-bold.text-primary.mb-6.text-center Connexion
+    = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      = f.error_notification
+      .mb-4
+        = f.input :email, required: false, autofocus: true, input_html: { autocomplete: "email", class: "form-input w-full" }, label: "Adresse e-mail"
+      .mb-4
+        = f.input :password, required: false, input_html: { autocomplete: "current-password", class: "form-input w-full" }, label: "Mot de passe"
+      - if devise_mapping.rememberable?
+        .mb-4
+          = f.input :remember_me,
+            as: :boolean,
+            boolean_style: :inline,
+            wrapper: :default,
+            input_html: { class: "form-input w-5 h-5 shrink-0 checked:!bg-primary align-middle" },
+            wrapper_html: { class: "flex items-center gap-2 m-0 p-0" },
+            label_html: { class: "ml-2 text-content text-base align-middle" }
+      .flex.justify-center
+        = f.button :submit, "Se connecter", class: "btn btn-primary px-6 py-2 rounded font-semibold"
+    .mt-6.text-center
+      = render "devise/shared/links"

@@ -3,11 +3,8 @@
 class User < ApplicationRecord
   extend Enumerize
   delegate :name, to: :store, prefix: true, allow_nil: true
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
 
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :trackable
+  devise :database_authenticatable, :recoverable, :rememberable, :validatable, :trackable
 
   enumerize :role, in: %i[admin user queen], default: :user, predicates: true
 
