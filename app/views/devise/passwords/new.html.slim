@@ -1,0 +1,20 @@
+/!
+/  Conversion de la page de réinitialisation du mot de passe en Slim avec une interface moderne
+/!
+
+section.flex.items-center.justify-center.min-h-screen.bg-light
+  .w-full.max-w-md.bg-white.bg-opacity-90.rounded-xl.shadow-lg.p-8
+    h2.text-2xl.font-bold.text-primary.mb-6.text-center
+      | Mot de passe oublié ?
+    = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+      = f.error_notification
+      .mb-4
+        = f.input :email,
+          required: true,
+          autofocus: true,
+          input_html: { autocomplete: "email", class: "form-input w-full" },
+          label: "Adresse e-mail"
+      .flex.justify-center
+        = f.button :submit, "Recevoir les instructions", class: "btn btn-primary px-6 py-2 rounded font-semibold"
+    .mt-6.text-center
+      = render "devise/shared/links"
