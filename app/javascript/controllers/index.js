@@ -87,3 +87,9 @@ application.register("chat", ChatController)
 
 import ChatBubbleController from "./chat_bubble_controller"
 application.register("chat-bubble", ChatBubbleController)
+
+import ToggleSirenController from "./toggle_siren_controller"
+application.register("toggle-siren", ToggleSirenController)
+
+import BacketPopupController from "./ttt/backet_popup_controller"
+application.register("backet-popup", BacketPopupController)

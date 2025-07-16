@@ -4,9 +4,8 @@
     .flex.px-24.items-center.justify-end.w-full.transition.py-8.z-40
       . data-controller="scroll-down" id=(action_name == "home" ? "logo-navbar" : "home-logo-navbar")
         = link_to root_path do
-          / .w-48 = render Ttt::Logo::Component.new
           = image_tag "ttt/logo.png", class: "w-48"
-      .flex.gap-6
+      .flex.gap-6.h-12.flex.items-center
         = render Ttt::Button::Component.new(path: authors_path, text: "Auteur.ices")
         = render Ttt::Button::Component.new(path: store_path, text: "Shop")
         = render Ttt::Button::Component.new(path: about_path, text: "À propos")
