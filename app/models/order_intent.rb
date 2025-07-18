@@ -5,7 +5,8 @@ class OrderIntent
 
   attr_accessor :email, :first_name, :last_name, :address, :postal_code, :city, :country,
                 :phone, :shipping_method, :service_point, :items_price, :shipping_price,
-                :need_point, :weight, :street_number, :fees_price, :library
+                :need_point, :weight, :street_number, :fees_price, :library, :siren,
+                :discount, :discount_percentage
 
   def initialize(attr = {})
     super
@@ -22,6 +23,7 @@ class OrderIntent
     validates :postal_code, presence: true
     validates :city, presence: true
     validates :need_point, inclusion: { in: [false, "false"] }
+    validate :library_valid?
   end
 
   with_options on: :step_two do
@@ -70,6 +72,12 @@ class OrderIntent
   end
 
   private
+
+  def library_valid?
+    return false unless library == "1" && siren.blank?
+
+    errors.add(:siren, "doit être rempli(e)")
+  end
 
   def split_address
     return [address, ""] if address.size <= 25

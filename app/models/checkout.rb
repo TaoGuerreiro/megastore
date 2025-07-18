@@ -63,6 +63,12 @@ class Checkout
     height
   end
 
+  def total_items_count
+    return if @ids.nil?
+
+    @ids.count
+  end
+
   def all
     Item.where(id: @ids)
   end

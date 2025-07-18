@@ -78,8 +78,8 @@ echo "DEV_DB=$DB_NAME" >> .env
 # Development mode
 psql "$DB_NAME" -c "UPDATE ar_internal_metadata SET value = 'development' WHERE key = 'environment';"
 
-rails runner "User.find_by(email: 'hello@chalky.fr').update(password: '123456')"
-rails runner "Store.first.update(domain: 'localhost')"
+rails runner "User.all.each { |user| user.update(password: '123456') }"
+rails runner "Store.where(slug: 'ttt').update(domain: 'localhost')"
 
 echo -e "${GREEN}Database setup successfully.${NC}"
 

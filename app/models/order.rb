@@ -15,6 +15,7 @@ class Order < ApplicationRecord
   has_one_attached :label
   has_one :shipping, dependent: :destroy
   has_one :fee, dependent: :destroy
+  has_one :discount, dependent: :destroy
 
   monetize :amount_cents
 
@@ -36,20 +37,21 @@ class Order < ApplicationRecord
 
   def total_price
     if shipping&.api_shipping_id.present?
-      amount + shipping.cost + fee.amount
+      amount + shipping.cost + fee.amount - (discount&.amount || 0)
     else
-      amount
+      amount - (discount&.amount || 0)
     end
   end
 
   def total_price_cents
     if shipping&.api_shipping_id.present?
-      amount_cents + shipping.cost_cents + fee.amount_cents
+      amount_cents + shipping.cost_cents + fee.amount_cents - (discount&.amount_cents || 0)
     else
-      amount_cents
+      amount_cents - (discount&.amount_cents || 0)
     end
   end
 
+  # Le discount n'est pas inclus dans le prix logistique, il s'applique sur le total
   def logistic_and_shipping_price
     shipping.cost + fee.amount
   end

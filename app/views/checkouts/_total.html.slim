@@ -16,18 +16,26 @@
           = t('subtotal')
         dd.text-sm.font-medium.text-contrast
           = number_to_currency(@order_intent.items_price, unit: '€', format: '%n %u')
+
       .flex.items-center.justify-between.px-6.pb-2
         dt.text-sm.text-contrast.flex
           .mr-2 = t('shipping')
           . = t('weight', weight: @order_intent.weight&.to_i&.fdiv(1000)) if @order_intent.weight.present?
         dd.text-sm.font-medium.text-contrast
           = number_to_currency(@order_intent.shipping_and_fees_price, unit: '€', format: '%n %u')
+
+      - if @order_intent.discount.present?
+        .flex.items-center.justify-between.px-6.pb-2
+          dt.text-sm.text-contrast.flex
+            .mr-2 = t('discount')
+          dd.text-sm.font-medium.text-contrast
+              = number_to_currency(@order_intent.discount || 0, unit: '€', format: '%n %u')
+
       .flex.items-center.justify-between.border-t.border-content.pt-6.px-6.pb-2
-        dt.text-base.font-medium.text-contrast
+        dt.text-base.font-medium.text-contrasts
           = t('total')
         dd.text-base.font-medium.text-contrast
           = number_to_currency(@order_intent.total_price, unit: '€', format: '%n %u')
-        / - if @order_intent.valid?(:step_two)
       .border-t.border-content.px-4.py-6.sm:px-6
 
         - if @order_intent.completed?

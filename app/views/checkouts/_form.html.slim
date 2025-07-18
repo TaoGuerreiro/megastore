@@ -1,12 +1,12 @@
 = turbo_frame_tag :form do
-  = simple_form_for order_intent, url: order_intents_path, method: :post, id: "order_intent", data: { controller: "address-autocomplete form" } do |field|
+  = simple_form_for order_intent, url: order_intents_path, method: :post, id: "order_intent", data: { controller: "address-autocomplete form toggle-siren" } do |field|
     . class="#{'hidden' if field.object.errors.empty? && params[:controller] != 'checkouts' || params[:action] == 'confirm_payment'}"
       .mb-3 = render Step::Component.new(steps: 3, current_step: 1)
       h2.text-lg.font-medium.text-contrast.mb-4
         | Informations complémentaires
 
       .mb-4 = field.input :email, label: "Email", placeholder: "Email"
-      .flex.gap-4.mb-4s
+      .flex.gap-4.mb-5
         = field.input :first_name, label: "Prénom", placeholder: "Prénom"
         = field.input :last_name, label: "Nom", placeholder: "Nom"
       .mb-6.w-full data-address-autocomplete-target="input"
@@ -16,21 +16,37 @@
       .flex.gap-4.mb-1
         = field.input :postal_code, label: "Code postal", placeholder: "Code postal", input_html: { data: { 'address-autocomplete-target': 'postalCode' } }
         = field.input :city, label: "Ville", placeholder: "Ville", input_html: { data: { 'address-autocomplete-target': 'city' } }
-      .flex.gap-4.mb-4
+      .flex.gap-4.mb-5
         = field.input :country, label: "Pays", placeholder: "Pays", input_html: { data: { 'address-autocomplete-target': 'country' } }
       .mb-4 = field.input :phone, label: "Téléphone", placeholder: "Téléphone"
       .hidden
-        = field.input :items_price, label: "items_price", placeholder: "items_price"
+        = field.input :items_price, label: "items_price", placeholder: "items_price", input_html: { data: { 'toggle-siren-target': 'price' } }
         = field.input :shipping_price, label: "shipping_price", placeholder: "shipping_price"
         = field.input :need_point, label: "need_point", placeholder: "need_point"
         = field.input :weight, label: "weight", placeholder: "weight"
         = field.input :shipping_method, label: "shipping_method", placeholder: "shipping_method"
         = field.input :fees_price, label: "fees_price", placeholder: "fees_price"
+        = field.input :discount, label: "discount", placeholder: "discount"
+        = field.input :discount_percentage, label: "discount_percentage", placeholder: "discount_percentage"
 
       - if Current.store.slug == "ttt"
+        .mb-4.border-b.border-primary
         .mb-4.flex.items-center
-          = field.input :library, label: "Je suis libraire", as: :boolean, input_html: { class: "peer w-5 h-5 m-0 p-0 flex checked:bg-primary" }, label_html: { class: "ml-2" }
-          .text-sm.text-primary.mt-2.hidden.peer-checked:block Des réductions spéciales s'appliquent pour les libraires
+          = field.input :library,
+            as: :boolean,
+            boolean_style: :inline,
+            wrapper: :default,
+            label: "Je suis libraire",
+            input_html: { class: "form-input w-5 h-5 shrink-0 checked:!bg-primary align-middle", data: { action: "toggle-siren#toggle", 'toggle-siren-target': 'checkbox' } },
+            wrapper_html: { class: "flex items-center gap-2 m-0 p-0" },
+            label_html: { class: "ml-0 text-content text-base align-middle" }
+
+        = field.input :siren,
+          label: "SIREN",
+          placeholder: "SIREN",
+          input_html: { class: "form-input w-full" },
+          wrapper_html: { class: "mb-4 '#{field.object.errors.any?(:siren) ? '' : 'hidden'}'", data: { 'toggle-siren-target': 'siren' } }
+      .mb-8.border-b.border-primary
 
       = button_tag type: "submit", class: "btn btn-primary btn-block w-full", data: { "controller": "spinner", action: "click->spinner#spin" } do
         . Continuer

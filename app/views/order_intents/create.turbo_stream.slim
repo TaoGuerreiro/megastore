@@ -1,1 +1,2 @@
 = turbo_stream.update :shipping_methods, partial: "checkouts/form", locals: { shipping_methods: @shipping_methods, order_intent: @order_intent }
+= turbo_stream.update :total, partial: "checkouts/total", locals: { order_intent: @order_intent, order: @order }

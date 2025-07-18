@@ -61,6 +61,7 @@ class CheckoutsController < ApplicationController
       fee:,
       user:,
       shipping:,
+      discount:,
       store: @store,
       order_items: @items.map { |item| OrderItem.new(item: item[:item], quantity: item[:number]) },
       amount: @order_intent.items_price.to_f,
@@ -72,6 +73,13 @@ class CheckoutsController < ApplicationController
     Fee.new({
               amount: @order_intent.shipping_price.to_f * @store.rates
             })
+  end
+
+  def discount
+    Discount.new({
+                   amount: @order_intent.discount.to_f,
+                   percentage: @order_intent.discount_percentage.to_f
+                 })
   end
 
   def find_shipping_method
@@ -104,10 +112,10 @@ class CheckoutsController < ApplicationController
       {
         price_data: {
           currency: "eur",
-          unit_amount: order_item.item.price_cents,
+          unit_amount: (order_item.item.price_cents * (1 - @order.discount.percentage.to_f)).to_i,
           product_data: {
             name: order_item.item.name,
-            description: order_item.item.name,
+            description: "#{order_item.item.name} avec remise de #{@order.discount.percentage.to_f * 100}%",
             images: nil
           }
         },
@@ -177,6 +185,6 @@ class CheckoutsController < ApplicationController
 
     params.require(:order_intent).permit(:email, :first_name, :last_name, :address, :phone, :shipping_method, :city,
                                          :country, :postal_code, :service_point, :items_price, :shipping_price,
-                                         :need_point, :weight, :fees_price)
+                                         :need_point, :weight, :fees_price, :discount, :discount_percentage)
   end
 end

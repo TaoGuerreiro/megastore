@@ -5,9 +5,12 @@ class OrderIntentsController < ApplicationController
   before_action :shipping_methods_from_session, only: %i[shipping_method undo_service_point]
   before_action :set_shipping_method, only: %i[shipping_method]
 
-  def create
+  def create # rubocop:disable Metrics/MethodLength
     @order_intent = OrderIntent.new(order_intent_params)
+    @items = Checkout.new(session[:checkout_items]).cart
+
     set_shipping_methods
+    add_library_discount
 
     respond_to do |format|
       if @order_intent.valid?(:step_one)
@@ -51,6 +54,30 @@ class OrderIntentsController < ApplicationController
   end
 
   private
+
+  def add_library_discount
+    return unless @order_intent.library == "1"
+
+    price = @order_intent.items_price.to_i
+    @order_intent.discount = - (price * discount_by_quantity)
+    @order_intent.discount_percentage = discount_by_quantity
+    @order_intent.items_price = price - @order_intent.discount
+  end
+
+  # TODO: move to a discount model or better, TTT settings
+  def discount_by_quantity
+    quantity = Checkout.new(session[:checkout_items]).total_items_count
+
+    return 0.5 if quantity >= 5
+
+    case quantity
+    when 1 then 0.1
+    when 2 then 0.2
+    when 3 then 0.3
+    when 4 then 0.4
+    else 0
+    end
+  end
 
   def calculate_shipping_and_fees_price
     @order_intent.shipping_price = @shipping_method[:price].to_f * 1.2
@@ -118,6 +145,6 @@ class OrderIntentsController < ApplicationController
 
     params.require(:order_intent).permit(:email, :first_name, :last_name, :address, :phone, :shipping_method, :city,
                                          :country, :postal_code, :service_point, :items_price, :shipping_price,
-                                         :need_point, :weight, :fees_price)
+                                         :need_point, :weight, :fees_price, :siren, :library, :discount, :discount_percentage)
   end
 end
