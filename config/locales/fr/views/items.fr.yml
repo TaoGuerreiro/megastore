@@ -3,3 +3,4 @@ fr:
     empty_folder:
       title: "Ce dossier est vide"
       subtitle: "Ajoutez des articles pour les retrouver ici."
+    soldout: "Épuisé"

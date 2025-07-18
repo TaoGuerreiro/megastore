@@ -54,13 +54,15 @@
     h3.mb-6.text-2xl.text-contrast Affichage
     / - unless item.archived?
     /   = field.input :active, label: "En ligne", as: :boolean, input_html: { checked: item.active?, class: "w-5 h-5 m-0 p-0 flex checked:!bg-primary"}, wrapper_html: {class: "flex items-center"}, label_html: {class: "-top-0.5 left-4"}
-    div.flex.gap-3.
+    div.flex.gap-3.mb-6
       - Item.status.values.each do |status|
         div
           = field.radio_button :status, status, id: status, class: "hidden peer"
           = field.label :status, for: status, class: "block py-3 px-3 first:mx-0 mb-2 border rounded-md cursor-pointer text-content bg-contour peer-checked:bg-tertiary peer-checked:text-contrast transition-colors duration-300 peer-checked:border peer-checked:border-primary" do
             = I18n.t("enumerize.item.status.#{status}")
 
+    - if Current.store.slug == "ttt"
+      = field.input :external_link, label: "Lien financement", placeholder: "Lien financement"
 
     h3.mb-6.text-2xl.text-contrast Spécifications
     = field.association :specifications,

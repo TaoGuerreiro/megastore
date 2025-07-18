@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_07_18_080109) do
+ActiveRecord::Schema[7.0].define(version: 2025_07_18_120747) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -242,6 +242,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_18_080109) do
     t.string "format"
     t.string "pre_sale_url"
     t.string "sub_name"
+    t.string "external_link"
     t.index ["category_id"], name: "index_items_on_category_id"
     t.index ["collection_id"], name: "index_items_on_collection_id"
     t.index ["store_id"], name: "index_items_on_store_id"
