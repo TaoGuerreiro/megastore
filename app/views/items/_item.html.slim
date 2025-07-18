@@ -1,3 +1,4 @@
+- store = Current.store
 = turbo_frame_tag "store-item-show" do
   - @virtual_stock = @virtual_stock || @item.stock
   .
@@ -43,18 +44,20 @@
               - if item.pre_sale?
                 = link_to "Participer au crowdfunding", item.pre_sale_url, target: "_blank", class: "btn btn-primary mb-4"
               - else
-                - if Current.store.display_stock?
-                  - unless @virtual_stock <= 0
-                    = button_to "Ajouter au panier", add_item_checkout_path(@item), method: :post, class: "btn btn-primary mb-4"
-                    p.text-sm.text-midgray
-                      = "(#{@virtual_stock} en stock)"
+                - if store.display_stock?
+                  - if store.holiday?
                   - else
-                    p class="font-bold text-red-500" = "RUPTURE DE STOCK"
+                    - unless @virtual_stock <= 0
+                      = button_to "Ajouter au panier", add_item_checkout_path(@item), method: :post, class: "btn btn-primary mb-4"
+                      p.text-sm.text-midgray
+                        = "(#{@virtual_stock} en stock)"
+                    - else
+                      p class="font-bold text-red-500" = "RUPTURE DE STOCK"
                 - else
-                  - if @virtual_stock > 1
+                  - if store.holiday?
+                  - elsif @virtual_stock > 1
                     = button_to "Ajouter au panier", add_item_checkout_path(@item), method: :post, class: "btn btn-primary mb-4"
                   - elsif @virtual_stock == 1
-
                     = button_to "Ajouter au panier", add_item_checkout_path(@item), method: :post, class: "btn btn-primary mb-4"
                     p.text-sm.text-primary
                       = "Plus qu'un seul exemplaire en stock !"
