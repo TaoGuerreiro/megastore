@@ -49,8 +49,8 @@ module.exports = {
         unsafe: ["'Noto Sans'", ...defaultTheme.fontFamily.sans],
         anemone: ["Avenir", ...defaultTheme.fontFamily.sans],
         kenjosset: ["Scandia", ...defaultTheme.fontFamily.sans],
-        "ttt-title": ["Titillium Web", ...defaultTheme.fontFamily.sans],
-        "ttt-logo": ["Roboto Flex", ...defaultTheme.fontFamily.sans],
+        "ttt": ["Roboto Mono", ...defaultTheme.fontFamily.sans],
+        "ttt-title": ["Roboto", ...defaultTheme.fontFamily.sans],
       },
       colors:{
         primary: withOpacity('--color-primary'),

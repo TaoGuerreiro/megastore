@@ -11,7 +11,7 @@ html
       = yield
     = render "#{Current.store.slug}/common/footer"
 
-    . id="notifications" class="fixed z-50 cursor-pointer left-10 bottom-10 w-96"
+    . id="notifications" class="fixed bottom-10 left-10 z-50 w-96 cursor-pointer"
       - flash.each do |type, data|
         = render Notifications::Component.new(type: type, data: data)
     - if Rails.env.development?

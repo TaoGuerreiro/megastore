@@ -3,8 +3,9 @@
   = label_tag :cart do
     .relative.cursor-pointer
       = image_tag "ttt/backpack.svg", class: "h-8 w-8 text-contrast"
-      #cart-counter.starburst.bg-content.text-light.flex.items-center.justify-center.right-0.-top-3.absolute
-        = "+#{session[:checkout_items]&.count}"
+      - if session[:checkout_items]&.count > 0
+        #cart-counter.starburst.bg-content.text-light.flex.items-center.justify-center.right-0.-top-3.absolute
+          = "+#{session[:checkout_items]&.count}"
   = check_box_tag :cart, nil, nil, {checked: @opened, class: "hidden peer"}
   .hidden.peer-checked:block.relative.z-10[aria-labelledby="slide-over-title" role="dialog" aria-modal="true"]
 

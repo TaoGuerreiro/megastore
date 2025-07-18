@@ -371,9 +371,9 @@
   }
 
   .ttt {
-    --color-primary: 200, 94, 146; /* #CA5E92 */
+    --color-primary: 202, 94, 146; /* #CA5E92 */
     --color-secondary: 48, 115, 81; /* #307351 */
-    --color-light: 255, 250, 255; /* #E8EBEF */
+    --color-light: 255, 245, 247; /* #E8EBEF */
     --color-contrast: 2, 2, 2; /* #020202 */
     --color-midgray: 113, 124, 137; /* #717 */
     --color-content: 44, 242, 186; /* #2CF2BA */
@@ -501,6 +501,10 @@
 
   .ttt .btn-sublink {
     @apply tracking-wider uppercase transition-all text-contour hover:text-contrast hover:translate-x-3;
+  }
+
+  .ttt h1, .ttt h2, .ttt h3, .ttt h4, .ttt h5, .ttt h6 {
+    @apply font-ttt-title;
   }
 
   #logo-navbar {
@@ -716,33 +720,23 @@
     );
   }
 
+  #ttt-logo {
+    transition: transform 0.1s ease, font-variation-settings 0.1s ease;
+  }
 
-  #ttt-anim { animation: mutant 5s cubic-bezier(0.25, 1, 0.5, 1) infinite alternate; }
-    @keyframes mutant {
-        0% { font-variation-settings: "wdth" 0, "wght" 0 }
-        25% { font-variation-settings: "wdth" 1000, "wght" 0 }
-        50% { font-variation-settings: "wdth" 1000, "wght" 1000 }
-        75% { font-variation-settings: "wdth" 0, "wght" 1000 }
-        100% { font-variation-settings: "wdth" 0, "wght" 0 }
-    }
+  .hachures {
+    background: repeating-linear-gradient(
+      -37deg,
+      transparent,
+      transparent 9px,
+      #CA5E92 9px,
+      #CA5E92 10px
+    );
+  }
 
-    #ttt-logo {
-      transition: transform 0.1s ease, font-variation-settings 0.1s ease;
-    }
-
-    .hachures {
-      background: repeating-linear-gradient(
-        -37deg,
-        transparent,
-        transparent 9px,
-        black 9px,
-        black 10px
-      );
-    }
-
-    .clip-diagonal-right {
-      clip-path: polygon(0 0, 100% 0%, 50% 100%, 0% 100%);
-    }
+  .clip-diagonal-right {
+    clip-path: polygon(0 0, 100% 0%, 50% 100%, 0% 100%);
+  }
 
    /* PAGY */
 
