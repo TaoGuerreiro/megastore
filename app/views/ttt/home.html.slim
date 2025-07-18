@@ -1,5 +1,5 @@
 .max-w-7xl.mx-auto.h-screen.flex.justify-center.items-center
-  .relative.w-full.flex.h-screen.gap-12.flex.items-center.justify-between data-controller="t"
+  .relative.w-full.flex.h-screen.gap-12.flex.items-center class="#{@store.items.pre_sale.any? ? 'justify-between' : 'justify-center'}" data-controller="t"
     .flex.items-center.justify-between class="#{@store.items.pre_sale.any? ? 'lg:w-1/3' : 'lg:w-1/2'}"
       = render Ttt::Logo::Component.new
     - if @store.items.pre_sale.any?
