@@ -19,7 +19,7 @@ RSpec.describe "Services d'expédition (SendCloud)", type: :request do
 
   describe "recherche de méthode de livraison" do
     it "retourne 'Chrono 18 0-2kg' si succès" do
-      VCR.use_cassette("find_shipping_method") do
+      VCR.use_cassette("find_shipping_method_v2") do
         @response = Shipments::ShippingMethod.new(@store, { country: "FR", postal_code: "44000" }).find(1345)
       end
       VCR.eject_cassette

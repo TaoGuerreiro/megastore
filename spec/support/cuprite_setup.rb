@@ -5,7 +5,7 @@ require 'capybara/cuprite'
 
 # Configure Capybara to use :cuprite driver by default
 Capybara.default_driver = Capybara.javascript_driver = :cuprite
-
+Capybara.default_max_wait_time = 10
 module CupriteHelpers
   # Drop #pause anywhere in a test to stop the execution.
   # Useful when you want to checkout the contents of a web page in the middle of a test
