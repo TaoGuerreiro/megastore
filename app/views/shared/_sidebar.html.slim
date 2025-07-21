@@ -23,7 +23,8 @@ div.sticky.top-0.z-50
   div class="hidden lg:h-screen lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col"
     div class="flex overflow-y-auto flex-col gap-y-5 pr-3 pl-6 grow bg-contrast"
       div class="flex object-contain items-center my-3 shrink-0"
-        = image_tag "#{Current.store.slug}/logo.png", class: " w-auto"
+        = link_to root_path do
+          = image_tag "#{Current.store.slug}/logo.png", class: " w-auto"
 
       nav.flex.flex-1.flex-col
         = render "shared/sidebar_menu"

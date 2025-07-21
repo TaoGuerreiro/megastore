@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
 module Shipments
-  class Label < Shipment
-    include ActiveModel::Model
+  class Label < BaseShipment
+    attr_accessor :order
 
     def initialize(store, param)
       super(store)
-      @store = store
       @order = param[:order]
     end
 
     def download_pdf
       url = "#{BASE_URL}/labels/normal_printer/#{@order.shipping.parcel_id}"
-      HTTParty.get(url, headers:)
+      response = HTTParty.get(url, headers: sendcloud_headers)
+      handle_api_response(response, context: "Label download")
     end
 
     def attach_to_order
@@ -28,7 +28,7 @@ module Shipments
       @temporary_file = Tempfile.new(["label", ".png"])
 
       Net::HTTP.start(url.host, url.port, use_ssl: url.scheme == "https") do |http|
-        request = Net::HTTP::Get.new(url, headers)
+        request = Net::HTTP::Get.new(url, label_headers)
         response = http.request(request)
 
         File.binwrite(@temporary_file.path, response.body)
@@ -36,7 +36,7 @@ module Shipments
       @temporary_file
     end
 
-    def headers
+    def label_headers
       {
         "Accept" => "application/pdf",
         "Authorization" => "Basic #{@token}"

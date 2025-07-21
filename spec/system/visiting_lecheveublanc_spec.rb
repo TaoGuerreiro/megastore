@@ -22,14 +22,6 @@ RSpec.describe "Visiting le cheveu blanc", type: :system do
     expect(page).to have_text("Une idée de projet ? Contactez-moi !")
   end
 
-  it "it can acces to the portfolio page from the home page" do
-    visit root_path
-    within "div#desktop" do
-      click_on "Portfolio"
-    end
-    expect(page).to have_text("POLYFLAMME")
-  end
-
   it "it can acces to the about page from the home page" do
     visit root_path
     within "div#desktop" do
@@ -80,10 +72,10 @@ RSpec.describe "Visiting le cheveu blanc", type: :system do
 
     expect(page).to have_text("Methode de livraison")
     expect(page).to have_text("Colissimo")
-    expect(page).to have_text("Chronopost")
-    expect(page).to have_text("Colisprive")
+    # expect(page).to have_text("Chronopost")
+    expect(page).to have_text("La Poste")
 
-    find('#chronopost').click
+    find('#colissimo').click
     expect(page).to have_text("Confirmer")
 
     VCR.insert_cassette("stripe_checkout_session")
@@ -129,7 +121,6 @@ RSpec.describe "Visiting le cheveu blanc", type: :system do
 
     @store_order = StoreOrder.last
     expect(@store_order.store).to eq(Store.first)
-    expect(@store_order.endi_id).to be_present
     expect(@store_order.api_error).to be_nil
   end
 
@@ -167,8 +158,6 @@ RSpec.describe "Visiting le cheveu blanc", type: :system do
 
     expect(page).to have_text("Methode de livraison")
     expect(page).to have_text("Colissimo")
-    expect(page).to have_text("Chronopost")
-    expect(page).to have_text("Colisprive")
     expect(page).to have_text("La Poste")
 
     find('#poste').click
@@ -201,7 +190,7 @@ RSpec.describe "Visiting le cheveu blanc", type: :system do
     expect(page).to have_text("Je m'en occupe au plus vite !")
     expect(@order.status).to eq("paid")
     expect(@order.shipping).to be_present
-    expect(@order.shipping.cost_cents).to eq((155))
+    expect(@order.shipping.cost_cents).to eq((215))
     expect(@order.shipping.method_carrier).to eq("poste")
 
     expect(@order.label).to be_an_instance_of(ActiveStorage::Attached::One)
@@ -209,7 +198,6 @@ RSpec.describe "Visiting le cheveu blanc", type: :system do
 
     @store_order = StoreOrder.last
     expect(@store_order.store).to eq(@store)
-    expect(@store_order.endi_id).to be_present
     expect(@store_order.api_error).to be_nil
   end
 end

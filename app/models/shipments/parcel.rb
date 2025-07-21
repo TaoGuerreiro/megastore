@@ -1,18 +1,16 @@
 # frozen_string_literal: true
 
 module Shipments
-  class Parcel < Shipment
-    include ActiveModel::Model
-
-    attr_accessor :store, :order, :items, :user, :shipping
+  class Parcel < BaseShipment
+    attr_accessor :order, :items, :user, :shipping
 
     def initialize(store, param)
       super(store)
-      @store = store
       @order = param[:order]
       @items = @order.items
       @user = @order.user
       @shipping = @order.shipping
+      @postale_service = PostaleService.new(store:, order: @order, user: @user)
     end
 
     def create_label
@@ -35,11 +33,11 @@ module Shipments
 
     def create_label_request
       case @order.shipping.method_carrier
-      when "poste" then postale_label
+      when "poste" then @postale_service.create_label
       else
         url = "#{BASE_URL}/parcels?errors=verbose-carrier"
-        response = HTTParty.post(url, headers:, body: body.to_json)
-        response.parsed_response
+        response = HTTParty.post(url, headers: sendcloud_headers, body: body.to_json)
+        handle_api_response(response, context: "Sendcloud parcel creation")
       end
     end
 
@@ -54,6 +52,7 @@ module Shipments
     end
 
     def handle_error(error)
+      log_operation("parcel_creation_failed", details: { error: error.message })
       @order.shipping.update(api_error: error.to_s, status: "failed")
     end
 
@@ -106,105 +105,12 @@ module Shipments
     end
     # rubocop:enable Naming/VariableNumber
 
-    # POSTALE SERVICES
-
-    def postale_headers
-      {
-        "Content-Type" => "application/json",
-        "Authorization" => "Bearer #{postale_token}",
-        "Accept-Encoding" => "gzip"
-      }
-    end
-
-    # rubocop:disable Metrics/AbcSize
-    def postale_body
-      {
-        order: {
-          custPurchaseOrderNumber: @order.id,
-          invoicing: {
-            contractNumber: Rails.application.credentials.postale.send(Rails.env.to_s).contract_number,
-            custAccNumber: "671775",
-            custInvoice: "46"
-          },
-          offer: {
-            masterOutputOptions: {
-              firstVignettePosition: 1,
-              visualFormatCode: "rollA"
-            },
-            offerCode: "3125",
-            products: [
-              {
-                productCode: "K7",
-                productOptions: {
-                  clientReference: {
-                    cref1: "AK",
-                    cref2: "FX187VA"
-                  },
-                  deliveryTrackingFlag: true,
-                  weight: @order.shipping.weight.to_i
-                },
-                receiver: {
-                  address: {
-                    name1: @order.shipping.full_name,
-                    add2: "",
-                    add4: @order.shipping.street[0...38],
-                    zipcode: @order.shipping.postal_code,
-                    town: @order.shipping.city,
-                    countryCode: "250"
-                  },
-                  email: @user.email,
-                  phone: @user.phone
-                },
-                sender: {
-                  address: {
-                    name1: @store.name,
-                    add4: @store.address,
-                    zipcode: @store.postal_code,
-                    town: @store.city,
-                    countryCode: "250"
-                  },
-                  email: @store.admin.email,
-                  phone: @store.admin.phone
-                }
-              }
-            ]
-          }
-        }
-      }
-    end
-    # rubocop:enable Metrics/AbcSize
-
-    def postale_label
-      url = Rails.application.credentials.postale.send(Rails.env.to_s).postage_url
-
-      response = HTTParty.post(url, body: postale_body.to_json, headers: postale_headers)
-
+    def attach_postale_label_to_order(response)
       base_64_label = response["order"]["offer"]["visualOutput"]
-
-      attach_to_order(base_64_label)
-    end
-
-    def attach_to_order(base_64_label)
       tempfile = Tempfile.new(["label", ".png"])
 
       File.binwrite(tempfile.path, Base64.decode64(base_64_label))
-
       @order.label.attach(io: tempfile, filename: "label.png", content_type: "image/png")
-    end
-
-    def postale_token
-      url = Rails.application.credentials.postale.send(Rails.env.to_s).token_url
-
-      headers = {
-        "Content-Type" => "application/x-www-form-urlencoded"
-      }
-      body = {
-        grant_type: "client_credentials",
-        client_id: Rails.application.credentials.postale.send(Rails.env.to_s).client_id,
-        client_secret: Rails.application.credentials.postale.send(Rails.env.to_s).client_secret
-      }
-      response = HTTParty.post(url, body:, headers:)
-      response["access_token"]
     end
   end
 end

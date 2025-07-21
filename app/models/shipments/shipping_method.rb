@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 module Shipments
-  class ShippingMethod < Shipment
+  class ShippingMethod < BaseShipment
+    attr_accessor :country, :postal_code, :weight, :height
+
     def initialize(store, param)
       super(store)
       @country = param[:country]
@@ -9,6 +11,7 @@ module Shipments
       @weight = param[:weight] # in gramme
       @height = param[:height] # in mm
       @url_params = "?from_postal_code=#{@from}&to_postal_code=#{@postal_code}&to_country=#{@country}"
+      @postale_service = PostaleService.new(store:, order: nil, user: nil)
     end
 
     def all
@@ -29,23 +32,11 @@ module Shipments
     private
 
     def add_poste_to_carriers
-      @carriers << postale_carrier
-    end
-
-    def postale_carrier
-      file_path = Rails.root.join("lib/poste.json")
-      postage_data = JSON.parse(File.read(file_path), symbolize_names: true)
-
-      postage_data.find do |postage|
-        postage[:min_weight] <= @weight && @weight <= postage[:max_weight]
-      end
+      @carriers << @postale_service.find_shipping_method(@weight)
     end
 
     def postale_service(id)
-      file_path = Rails.root.join("lib/poste.json")
-      postage_data = JSON.parse(File.read(file_path), symbolize_names: true)
-      postage = postage_data.find { |method| method[:id] == id }
-      { "shipping_method" => postage } if postage
+      @postale_service.find_service_by_id(id)
     end
 
     def filter_params
@@ -68,14 +59,16 @@ module Shipments
 
     def fetch_shipping_methods
       url = "#{BASE_URL}/shipping_methods" + @url_params
-      HTTParty.get(url, headers:)
+      response = HTTParty.get(url, headers: sendcloud_headers)
+      handle_api_response(response, context: "Sendcloud shipping methods")
     end
 
     def fetch_shipping_method(id)
       return postale_service(id) if id[0] == "P"
 
       url = "#{BASE_URL}/shipping_methods/#{id}" + @url_params
-      HTTParty.get(url, headers:)
+      response = HTTParty.get(url, headers: sendcloud_headers)
+      handle_api_response(response, context: "Sendcloud shipping method")
     end
 
     def filter_and_group_shipping_methods(methods)

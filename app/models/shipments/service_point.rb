@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 module Shipments
-  class ServicePoint < Shipment
-    include ActiveModel::Model
-
+  class ServicePoint < BaseShipment
     attr_accessor :country, :postal_code, :radius, :carrier
 
     def initialize(store, param)
@@ -25,8 +23,8 @@ module Shipments
 
     def fetch_service_points
       url = "#{SERVICE_POINT_BASE_URL}/service-points" + @url_params
-      response = HTTParty.get(url, headers:)
-      response.parsed_response
+      response = HTTParty.get(url, headers: points_headers)
+      handle_api_response(response, context: "Service points fetch")
     end
 
     def format_service_point(service_point, index)
